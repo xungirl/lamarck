@@ -278,3 +278,26 @@ SIM 更新幂等；调度器重跑同一命令就从断点继续。
 **Q32. 测试策略？**
 离线 CI 全用 fake 模型（确定性响应器）+ 子进程后端，覆盖网关、SIM、引擎、调度器、报告；Docker/gVisor 测试单独标记；
 `make flaky` 跑 10 遍查不稳定；mypy strict + ruff。
+
+### H. 结果（数字全部出自 `results/summary.json`，括号里是 key）
+
+**Q33. 主问题（RQ1）的结论是什么？**
+3 对配对：Full SIM − Harness Transfer 在 BIRD held-out（40 题）上分别是 0.0、−10.0、+5.0 分，均值 −1.67，
+95% CI [−20.6, +17.3]，t(2) = −0.38，p = 0.74，精确符号秩 p = 1.0（`paired`）。
+正确的说法是「这个规模下没有检测到效果，也没有能力检测到」——不是「SIM 没用」。
+
+**Q34. 实验里最有意思的发现？**
+（1）3 个 Spider 源 run 独立地找到了同一个修改：先执行 SQL，结果为空就让模型修；evolve 83.3 → 90/93.3/90，
+但 held-out 三个都从 80.0 掉到 77.5——过拟合了 30 道 evolve 题（`source`）。
+（2）把 Spider 上进化出的 harness 拿到 BIRD，起点全部低于原始种子 harness（55.0/62.5/65.0 vs 67.5）：负迁移。
+（3）同一个 harness 在同样 40 道题上评测两次，分数差到 5 分（`paired_raced`）——噪声和效果一样大。
+（4）support-ops 的目标 held-out 一开始就是 100 分，四个条件都区分不出来（`conditions.supportops`）。
+
+**Q35. 一共花了多少钱？怎么保证没超？**
+修订后的全部实验 ¥5.384（上限 ¥9.50），5,184 次调用；policy ¥4.557、proposer ¥0.614、selector ¥0.213；
+58% 的 policy prompt token 命中了供应商缓存（`results/budget/spend_ledger.json`）。
+保证不超：网关的预留-结算机制（Q17）+ 调度器的 money gate（Q18）。
+
+**Q36. 如果有更多预算，你会怎么改实验？**
+按 PREREG 原计划跑 10 对、N=4、k=3、全量 split；每道题多次 rollout 降低噪声带；换更强的 proposer；
+做一个更难的 support-ops 目标 split；把跨模型族（xm-*，已在计划里、离线用模拟模型测过）真跑起来。

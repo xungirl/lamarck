@@ -38,3 +38,15 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
 - 03:23 first launch failed (relative --root -> git add of ignored path); fixed, RMB 0.035 lost.
 - 03:25 relaunched: `uv run python -m lamarck.cli --root runs/rev3 schedule --parallel 4`
   (log runs/rev3/schedule.out, per-run logs runs/rev3/logs/). Resume = run the same command again.
+- 03:38 evaluation race found (paired arms in separate processes evaluated their shared start at
+  once; held-out start 60.0 vs 55.0). Cross-process flock per cache key + regression test;
+  PREREG deviation 4; the six paired arms moved to runs/rev3/aborted/race/ (spend/calls snapshots
+  there, subtracted in the report) and re-run by the same scheduler.
+- 03:49 schedule done: all 18 funded runs `done`, none left unrun. Spend ledger: RMB 5.384 of 9.50,
+  5,184 calls, 0 failed. xm-* (cross-model) unfunded by design.
+- `make report` -> results/ (RESULTS.md, summary.json, cost.json, runs/), dashboard rebuilt.
+  `make test-docker` (fake models) passed after the run; gateway container removed; colima stopped.
+- Docs: README.md, REPORT.md, docs/linkedin/ (3 draft series, not posted), INTERVIEW.md Q&A (36).
+- Key-leak check: the DashScope key string occurs in no tracked/untracked file and nowhere in git history.
+- Next (needs money): the pre-registered full plan (10 pairs, N=4, k=3, full splits) and the xm-* runs.
+  Resume/reproduce: scripts/reproduce.sh. Nothing was pushed; no remote exists.
