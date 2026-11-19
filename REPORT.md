@@ -14,6 +14,9 @@ runs) on an RRSI-style engine (Xia et al., arXiv 2609.24972), with gVisor-sandbo
 gateway that enforces an RMB budget per call. After the provider account ran out of credit during the
 first, full-size attempt, the study was re-planned to fit RMB 9.50 (PREREG deviation 3) and run with one
 model, `qwen3.8-flash`, as policy, proposer and selector; 3 rounds × 2 candidates; 15-40-task splits.
+With the money left, four more pairs were added afterwards (deviation 5); because that decision was made
+after the 3-pair result was known, the 7-pair analysis is reported separately as secondary and the 3-pair
+analysis remains the primary one.
 
 Findings at this scale:
 
@@ -21,10 +24,14 @@ Findings at this scale:
    0.0, −10.0, +5.0 points; mean −1.67, 95% CI [−20.6, +17.3], paired t(2) = −0.38, p = 0.74; exact
    signed-rank p = 1.0 [`paired.stats`]. With three pairs the exact test cannot go below p = 0.25 and one
    task is 2.5 points, so this is a pilot measurement, not a test of the paper's claim.
-2. **Spider-evolved harnesses transferred negatively to BIRD.** Every source-evolved harness started
-   below the untouched seed harness on BIRD held-out: 55.0, 62.5, 65.0 vs 67.5 [`paired.pairs[].start`,
-   `conditions.sql`]. On Spider itself the three source runs raised evolve accuracy (83.3 → 90.0 / 93.3 /
-   90.0) while held-out fell 80.0 → 77.5 in all three [`source`]: the edits fit the 30 evolve tasks.
+   **Extended, secondary (n = 7):** Δ = 0.0, −10.0, +5.0, 0.0, −2.5, 0.0, 0.0; mean −1.07, 95% CI
+   [−5.26, +3.12], t(6) = −0.63, p = 0.555; exact signed-rank p = 0.750 [`paired_extended.stats`].
+   Still no detectable effect; the interval contains both zero and the paper's mean gain (+2.36).
+2. **Spider-evolved harnesses mostly transferred negatively to BIRD.** Six of seven source-evolved
+   harnesses started below the untouched seed harness on BIRD held-out (55.0-65.0 vs 67.5; source 7:
+   72.5) [`paired_extended.pairs[].start`, `conditions.sql`]. On Spider itself every source run raised
+   evolve accuracy (83.3 → 86.7-93.3) while held-out went 80.0 → 77.5, 77.5, 77.5, 82.5, 80.0, 80.0, 85.0
+   (mean 80.0) [`source`]: on average the edits fit the 30 evolve tasks without generalizing.
 3. **Four conditions, Spider → BIRD (single runs):** Cold Start 67.5 → 65.0, Harness Transfer 55.0 →
    60.0, Problem-Only 55.0 → 65.0, Full SIM 55.0 → 60.0 [`conditions.sql`]. No condition ended above the
    seed harness's starting 67.5.
@@ -35,7 +42,8 @@ Findings at this scale:
    temperature 0 scored 60.0 and 55.0 (also 67.5 / 62.5 and 65.0 / 70.0) in two evaluations
    [`paired_raced.start_by_arm`]; three evaluations of one harness on 30 BIRD tasks gave 46.7, 36.7,
    46.7 (sd 5.8) [`eval_variance`].
-6. **Engineering:** RMB 5.384 for the whole revised study (5,184 calls) [spend ledger]. A provider outage
+6. **Engineering:** RMB 8.181 in total (7,563 calls): RMB 5.384 for the revised plan, RMB 2.797 for the
+   four extra pairs [spend ledger]. A provider outage
    and a cross-process evaluation race were both caught, fixed with regression tests and documented,
    rather than absorbed into the results.
 
@@ -91,7 +99,7 @@ statistics from its per-run data (tests).
 ## 3. Pre-registration, deviations and the outage
 
 `PREREG.md` fixed research questions, splits (with hashes), settings and analysis rules before any
-experiment. Four deviations were appended:
+experiment. Five deviations were appended:
 
 1. Search roles with thinking off and a manifest + verbatim-file proposal format (the first proposer call
    spent its whole output budget on reasoning).
@@ -105,6 +113,10 @@ experiment. Four deviations were appended:
    cross-process file lock; the six paired arms were re-run; the first execution is reported in §5.6 and
    never pooled. Decided after the per-arm logs of pairs 1-2 had been seen, before any paired difference
    was computed.
+5. **Extension to 7 pairs** (requested with the remaining money). Decided after the 3-pair result and
+   before any new-pair data: four pairs (sources 4-7), the number fixed from the most expensive observed
+   pair (RMB 0.852) and RMB 0.50 of headroom; same protocol, configuration, splits and code; analysed
+   separately as secondary. The four pairs cost RMB 0.701, 0.886, 0.554 and 0.654.
 
 **The outage.** At 08:34:14 UTC on 2026-11-19 the provider began returning HTTP 403
 `AccessDenied.Unpurchased` (account out of credit). 2,138 calls got a 403; the evaluator of that time
@@ -117,8 +129,8 @@ files are set aside.
 
 | block | runs | evolve / held-out split (tasks) |
 |---|---|---|
-| Source RSI, text-to-SQL | sql-src-1..3 (seeds 1-3), building SIM | spider_evolve_s30 (30) / spider_heldout_s40 (40) |
-| Paired study (RQ1) | sql-full-i vs sql-transfer-i from sql-src-i, i = 1..3 | bird_evolve_s30 (30) / bird_heldout_s40 (40) |
+| Source RSI, text-to-SQL | sql-src-1..7 (seeds 1-7), building SIM; 4-7 added by deviation 5 | spider_evolve_s30 (30) / spider_heldout_s40 (40) |
+| Paired study (RQ1) | sql-full-i vs sql-transfer-i from sql-src-i: i = 1..3 primary, i = 1..7 extended | bird_evolve_s30 (30) / bird_heldout_s40 (40) |
 | Four conditions, text-to-SQL | sql-cold, sql-transfer-1, sql-problems-1, sql-full-1 | same |
 | Source RSI, support-ops | so-src-1 | so_evolve_s20 (20) / so_heldout_s20 (20) |
 | Four conditions, support-ops | so-cold, so-transfer, so-problems, so-full | ood_evolve (15) / ood_heldout (15) |
@@ -126,7 +138,7 @@ files are set aside.
 
 Sub-splits are seeded uniform samples of the frozen splits; an evaluation on a sub-split is taken from a
 cached evaluation of its parent split when one exists (tasks are solved independently at temperature 0
-with a fixed seed). All 18 runs finished; the money gate delayed some launches but left none unrun, and the cap was never reached.
+with a fixed seed). All 30 runs finished; the money gate delayed some launches but left none unrun, and the cap was never reached.
 
 ## 5. Results
 
@@ -137,12 +149,18 @@ with a fixed seed). All 18 runs finished; the money gate delayed some launches b
 | sql-src-1 | 83.33 → 90.00 | 80.00 → 77.50 | 1 | 0.144 |
 | sql-src-2 | 83.33 → 93.33 | 80.00 → 77.50 | 2 | 0.134 |
 | sql-src-3 | 83.33 → 90.00 | 80.00 → 77.50 | 1 | 0.103 |
+| sql-src-4 | 83.33 → 90.00 | 80.00 → 82.50 | 1 | 0.136 |
+| sql-src-5 | 83.33 → 90.00 | 80.00 → 80.00 | 1 | 0.128 |
+| sql-src-6 | 83.33 → 93.33 | 80.00 → 80.00 | 1 | 0.108 |
+| sql-src-7 | 83.33 → 86.67 | 80.00 → 85.00 | 1 | 0.123 |
 | so-src-1 | 75.00 → 95.00 | 80.00 → 95.00 | 1 | 0.177 |
 
-All three Spider sources independently found the same first edit: execute the drafted SQL and, if it
-returns no rows, ask the model to repair it (sql-src-2 later added sample rows to the repair prompt)
-[`results/runs/sql-src-*/history.jsonl`]. It gained 2-3 evolve tasks and lost one held-out task in every
-run. The support-ops edit (write tools only when the request unambiguously asks for them) generalized:
+Five of seven Spider sources (1, 2, 3, 5, 6) independently added the same kind of edit: execute the
+drafted SQL and, if it returns no rows or fails, ask the model to repair it (sql-src-2 later added sample
+rows to the repair prompt) [`results/runs/sql-src-*/history.jsonl`]; held-out went 77.5-80.0 in those
+runs. Sources 4 and 7 made prompt-only edits (case-insensitive text matching, selecting full entity
+records, NULL handling) and ended at 82.5 and 85.0 held-out; with one run each this is a description,
+not a comparison. The support-ops edit (write tools only when the request unambiguously asks for them) generalized:
 +3 of 20 held-out tasks. The pre-revision run with `qwen4-max` as proposer on the full splits (60 / 120
 tasks) went 78.33 → 88.33 evolve and 81.67 → 86.67 held-out [`results/pre_revision/summary.json`]; a
 stronger proposer or a larger evolve set may matter, but one run cannot show it.
@@ -161,6 +179,24 @@ d_z = −0.22; SIM wins 1, loses 1, ties 1. On the evolve split, which the searc
 that moved held-out 62.5 → 72.5 while its evolve score stayed at 46.7; the Full SIM arm accepted
 nothing. A held-out change of this size with no evolve change is what evaluation noise looks like
 (§5.5), not a memory effect.
+
+**Extended analysis, pairs 1-7 (deviation 5; secondary)** [`paired_extended`]:
+
+| source run | start | No SIM | Full SIM | Δ |
+|---|---|---|---|---|
+| 1 | 55.00 | 60.00 | 60.00 | +0.00 |
+| 2 | 62.50 | 72.50 | 62.50 | −10.00 |
+| 3 | 65.00 | 62.50 | 67.50 | +5.00 |
+| 4 | 62.50 | 65.00 | 65.00 | +0.00 |
+| 5 | 65.00 | 67.50 | 65.00 | −2.50 |
+| 6 | 60.00 | 60.00 | 60.00 | +0.00 |
+| 7 | 72.50 | 60.00 | 60.00 | +0.00 |
+
+Mean Δ −1.07 points, 95% CI [−5.26, +3.12], t(6) = −0.63, p = 0.555, exact signed-rank p = 0.750,
+d_z = −0.24; SIM wins 1, loses 2, ties 4. Evolve-split mean Δ −0.48 (p = 0.788). Four of the seven pairs
+end tied: in three or fewer rounds the two arms often accept no edit, or edits that do not move the 40
+held-out tasks. Because pairs 4-7 were added after the primary result was seen, this analysis carries an
+optional-stopping caveat; it is consistent with the primary one and does not replace it.
 
 ### 5.3 Four conditions [`conditions`]
 
@@ -208,19 +244,20 @@ held-out noise for an unchanged harness.
 
 ### 5.7 Search with a flash model [`search`, `runs.*`]
 
-The 18 runs had 108 candidate slots: 89 usable proposals (unusable: 13 manifests without file blocks, 2
-unterminated JSON objects, 2 without edits, 2 without a root cause), 35 dropped by the critic or the LLM
-screen, 54 evaluated, 22 accepted. For the attempts each run recorded itself, proposers predicted 96 task
-fixes and 29 were realized (30%); 36 proposals cited an existing SIM problem. Using one flash model for
+The 30 runs had 180 candidate slots: 155 usable proposals (unusable: 16 manifests without file blocks, 4
+unterminated JSON objects, 3 without a root cause, 2 without edits), 62 dropped by the critic or the LLM
+screen, 93 evaluated, 37 accepted. For the attempts each run recorded itself, proposers predicted 170 task
+fixes and 49 were realized (29%); 67 proposals cited an existing SIM problem. Using one flash model for
 proposing and selecting is the main design difference from the paper and plausibly limits what a memory
 can add.
 
 ### 5.8 Cost [spend ledger, `results/cost.json`]
 
-RMB 5.384 of the RMB 9.50 cap for 5,184 calls: policy RMB 4.557 (4,928 calls), proposer RMB 0.614 (154),
-selector RMB 0.213 (102). 4.29M of 7.45M policy prompt tokens (58%) were billed at the cached rate. The
-revised schedule ran from 03:25 to 03:49 local time (first and last lines of
-`results/runs/*/events.log`), four runs in parallel, including the re-run of the paired arms.
+RMB 8.181 of the RMB 9.50 cap for 7,563 calls: policy RMB 6.846 (7,185 calls), proposer RMB 1.003 (226),
+selector RMB 0.332 (152); RMB 5.384 of it for the revised plan and RMB 2.797 for the four extra pairs.
+6.16M of 11.11M policy prompt tokens (55%) were billed at the cached rate. The revised schedule ran from
+03:25 to 03:49 local time, including the re-run of the paired arms, and the extension from 04:37 to
+04:51 (first and last lines of `results/runs/*/events.log`), four runs in parallel.
 Pre-revision usage (the full plan, outage included) is summarized in
 `results/pre_revision/summary.json`; it cannot be priced exactly because no price is known for
 `qwen4-max` or `deepseek-v4.1-flash`.
@@ -228,23 +265,28 @@ Pre-revision usage (the full plan, outage included) is summarized in
 ## 6. Discussion
 
 The paper reports a consistent gain of Full SIM over Harness Transfer across ten paired source runs.
-This pilot neither supports nor contradicts it: its confidence interval spans about ±20 points. What it
+This pilot neither supports nor contradicts it: the primary interval spans about ±20 points, and the
+secondary 7-pair interval [−5.3, +3.1] still contains both zero and the paper's mean gain of +2.36. What it
 does show is where a small study breaks. (a) With 30 evolve tasks an accepted edit moves 1-3 tasks, the
 same size as evaluation noise at temperature 0. (b) With three rounds and two candidates a run accepts
 0-3 edits, so a SIM holds one to three problems and the transferred history is short. (c) The
 transferred harness itself was a liability on BIRD (a Spider-tuned repair loop), so every non-cold
 condition started 2.5-12.5 points behind Cold Start and spent its few rounds recovering. (d) The
 support-ops target split was too easy. A credible test needs larger evolve splits (or repeated rollouts
-per task), more rounds, a stronger proposer and at least ten pairs, as in the paper's design.
+per task), more rounds, a stronger proposer and at least ten pairs, as in the paper's design. Seven
+pairs did not change the picture: most pairs tie because each arm accepts at most a few small edits.
 
 ## 7. Threats to validity
 
-- **Scale and power:** n = 3 pairs; single runs per condition; 15-40-task splits.
+- **Scale and power:** n = 3 pairs (primary), 7 (secondary); single runs per condition; 15-40-task splits.
+- **Optional stopping:** pairs 4-7 were added after the primary result was known (deviation 5); hence the
+  separate, secondary analysis.
 - **One model, one family:** `qwen3.8-flash` played every role; results may not transfer to stronger
   proposers or other families. The cross-model transition (RQ2c) was not run.
 - **Noise at temperature 0:** the provider is not deterministic; one rollout per task.
-- **Deviations after data:** deviations 2-4 were decided after some data had been seen (stated in
-  PREREG.md for each); none used a paired difference or a held-out comparison between conditions.
+- **Deviations after data:** deviations 2-5 were decided after some data had been seen (stated in
+  PREREG.md for each); deviation 5 followed the 3-pair paired result, none of the others used a paired difference or a
+  held-out comparison between conditions.
 - **Raced first execution:** set aside and reported (§5.6), not pooled. Cached evaluations made during it
   were kept as the shared measurement for the re-run (each is a complete evaluation of its harness).
 - **Support-ops ceiling:** that transition is uninformative at this size.
@@ -253,7 +295,7 @@ per task), more rounds, a stronger proposer and at least ten pairs, as in the pa
 
 ## 8. Future work
 
-- Fund the pre-registered full plan (10 pairs, N = 4, k = 3, full splits) and the cross-model transition
+- Fund the pre-registered full plan (10 pairs, N = 4, k = 3, full splits, with pairs fixed in advance) and the cross-model transition
   (`xm-*` runs: in the plan, exercised offline with simulated model families in
   `tests/test_engine_toy.py`).
 - Repeated rollouts per task to shrink δ, or larger evolve sets.
