@@ -127,8 +127,12 @@ def rank(sim: SIM, query: str) -> list[tuple[str, float]]:
     vecs = _embedder([query, *texts])
     dense = (vecs[1:] @ vecs[0]).tolist()
     fused: dict[str, float] = {p.id: 0.0 for p in sim.problems}
-    for scores in (lex, dense):
-        order = sorted(range(len(scores)), key=lambda i: (-scores[i], i))
+    for scores, need_positive in ((lex, True), (dense, False)):
+        # a lexical ranker only votes for documents that share at least one query term
+        order = sorted(
+            (i for i in range(len(scores)) if scores[i] > 0 or not need_positive),
+            key=lambda i: (-scores[i], i),
+        )
         for r, i in enumerate(order):
             fused[sim.problems[i].id] += 1.0 / (60 + r + 1)
     return sorted(fused.items(), key=lambda kv: (-kv[1], kv[0]))
