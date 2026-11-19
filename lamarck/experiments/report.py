@@ -150,9 +150,15 @@ def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any
                 shutil.rmtree(d)
     race_spend_file = root / "aborted" / "race" / "spend_at_move.json"
     race_spend = json.loads(race_spend_file.read_text())["by"] if race_spend_file.exists() else {}
+    race_calls_file = root / "aborted" / "race" / "calls_at_move.json"
+    race_calls = {"runs": json.loads(race_calls_file.read_text())["runs"]} if race_calls_file.exists() else {}
     for n in runs:
         export_run(root, out, n)
         runs[n]["cost"] = run_cost(ledger, n, spend)
+        if n in race_calls.get("runs", {}):
+            first_calls = run_cost(race_calls, n)
+            for k in ("policy_calls", "policy_tokens", "search_calls", "search_tokens"):
+                runs[n]["cost"][k] -= first_calls[k]
         first = race_spend.get(f"run:{n}")
         if first is not None and runs[n]["cost"]["rmb"] is not None:
             # the spend ledger keys by run name: subtract what the set-aside first execution spent
