@@ -24,6 +24,10 @@ from .stack import Stack
 REPO = Path(__file__).resolve().parents[1]
 DEFAULT_ROOT = REPO / "runs" / "main"
 KEYFILE = Path("/Users/xunxun/flowbeat/backend/.env")
+# The RMB spend ledger covers every real call this project makes after the 2026-11-19 budget
+# revision (PREREG deviation 3); committed so the spend is auditable.
+SPEND_FILE = REPO / "results" / "budget" / "spend_ledger.json"
+SPEND_CAP_RMB = 9.50
 
 
 def attach(root: Path) -> Stack:
@@ -41,9 +45,14 @@ def cmd_gateway_up(a: argparse.Namespace) -> None:
 
     tag = image.build(a.root / "build" / "ctx")
     url = docker_backend.start_gateway(
-        tag, a.root / "gateway-state", KEYFILE if not a.offline else None, fake=True
+        tag,
+        a.root / "gateway-state",
+        KEYFILE if not a.offline else None,
+        fake=True,
+        spend_file=SPEND_FILE if not a.offline else None,
+        spend_cap=SPEND_CAP_RMB,
     )
-    print(f"gateway {url} image {tag}")
+    print(f"gateway {url} image {tag} spend ledger {SPEND_FILE if not a.offline else 'off'}")
 
 
 def run_spec(name: str, root: Path) -> dict[str, Any]:

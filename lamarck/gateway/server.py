@@ -38,6 +38,7 @@ from typing import Any
 from .ledger import BudgetExceeded, Ledger, Usage, pool_of
 from .providers import DashScopeProvider, FakeProvider, Router, UpstreamError, read_dotenv_key
 from .ratelimit import TokenBucket
+from .spend import SpendLedger
 
 
 @dataclass
@@ -69,9 +70,11 @@ class Gateway:
         state_dir: Path | None = None,
         config: GatewayConfig | None = None,
         sleep: Any = time.sleep,
+        spend: SpendLedger | None = None,
     ) -> None:
         self.router = router
         self.ledger = ledger
+        self.spend = spend  # RMB ledger with a hard cap (None = no money accounting, e.g. unit tests)
         self.state_dir = state_dir
         self.cfg = config or GatewayConfig()
         self._sleep = sleep
@@ -128,6 +131,7 @@ class Gateway:
         attempts, status = 0, 500
         out: dict[str, Any] = {"error": "no attempt made"}
         usage = Usage()
+        rmb = 0.0
         for attempt in range(1, self.cfg.max_attempts + 1):
             attempts = attempt
             if not self._bucket(f"grant:{token}", grant.rate).acquire(timeout=300):
@@ -139,14 +143,26 @@ class Gateway:
                 status, out = 429, {"error": "rate limit wait exceeded (model)"}
                 break
             try:
+                money = self.spend.reserve(model, body) if self.spend is not None else None
+            except BudgetExceeded as exc:
+                status, out = 429, {"error": f"budget: {exc}", "budget_exceeded": True, "spend_cap": True}
+                break
+            try:
                 self.ledger.reserve(grant.run_id, role, model, grant.budget)
             except BudgetExceeded as exc:
+                if self.spend is not None and money is not None:
+                    self.spend.release(money)
                 status, out = 429, {"error": f"budget: {exc}", "budget_exceeded": True}
                 break
             try:
                 resp = self.router.complete(body)
             except UpstreamError as exc:
                 self.ledger.record(grant.run_id, role, model, None, failed=True)
+                if self.spend is not None and money is not None:
+                    # 502/504 here mean no answer came back: usage unknown, charge the worst case
+                    self.spend.settle(
+                        money, grant.run_id, role, None, failed=True, unknown=exc.status in (502, 504)
+                    )
                 status, out = exc.status, {"error": str(exc)[:500]}
                 if not exc.transient:
                     break
@@ -155,6 +171,8 @@ class Gateway:
             u = resp.get("usage") or {}
             usage = Usage(int(u.get("prompt_tokens") or 0), int(u.get("completion_tokens") or 0))
             self.ledger.record(grant.run_id, role, model, usage)
+            if self.spend is not None and money is not None:
+                rmb = self.spend.settle(money, grant.run_id, role, u)
             status, out = 200, resp
             break
         self._audit(
@@ -168,6 +186,7 @@ class Gateway:
                 "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
                 "prompt_tokens": usage.prompt_tokens,
                 "completion_tokens": usage.completion_tokens,
+                "rmb": round(rmb, 6),
                 "request_sha256_16": req_hash,
             }
         )
@@ -211,7 +230,10 @@ def make_handler(gw: Gateway) -> type[BaseHTTPRequestHandler]:
             if self.path == "/healthz":
                 self._send(200, {"ok": True})
             elif self.path == "/admin/ledger" and self._is_admin():
-                self._send(200, gw.ledger.snapshot())
+                snap = gw.ledger.snapshot()
+                if gw.spend is not None:
+                    snap["spend"] = gw.spend.snapshot()
+                self._send(200, snap)
             else:
                 self._send(404 if self.path != "/admin/ledger" else 403, {"error": "not found"})
 
@@ -266,16 +288,24 @@ def start_in_thread(gw: Gateway, host: str = "127.0.0.1", port: int = 0) -> tupl
 
 
 def build_gateway(
-    state_dir: Path, keyfile: Path | None, fake: bool, caps: dict[str, int] | None = None
+    state_dir: Path,
+    keyfile: Path | None,
+    fake: bool,
+    caps: dict[str, int] | None = None,
+    spend_file: Path | None = None,
+    spend_cap: float = 9.50,
 ) -> Gateway:
     from .fakes import RESPONDERS
 
+    if keyfile is not None and spend_file is None:
+        raise SystemExit("refusing to start an upstream gateway without a spend ledger (--spend-file)")
     upstream = DashScopeProvider(read_dotenv_key(keyfile, "DASHSCOPE_API_KEY")) if keyfile else None
     router = Router(upstream=upstream, fake=FakeProvider(RESPONDERS) if fake else None)
     cfg = GatewayConfig(
         model_rates={"qwen3.8-flash": 25.0, "deepseek-v4.1-flash": 10.0, "qwen4-max": 3.0}, default_rate=5.0
     )
-    return Gateway(router, Ledger(state_dir / "ledger.json", caps), state_dir, cfg)
+    spend = SpendLedger(spend_file, spend_cap) if spend_file is not None else None
+    return Gateway(router, Ledger(state_dir / "ledger.json", caps), state_dir, cfg, spend=spend)
 
 
 def main() -> None:
@@ -291,8 +321,17 @@ def main() -> None:
     p.add_argument("--port", type=int, default=8080)
     p.add_argument("--policy-cap", type=int, default=80_000)
     p.add_argument("--search-cap", type=int, default=3_000)
+    p.add_argument("--spend-file", type=Path, default=None, help="RMB spend ledger (required with --keyfile)")
+    p.add_argument("--spend-cap", type=float, default=9.50, help="hard cumulative RMB cap")
     a = p.parse_args()
-    gw = build_gateway(a.state, a.keyfile, a.fake, {"policy": a.policy_cap, "search": a.search_cap})
+    gw = build_gateway(
+        a.state,
+        a.keyfile,
+        a.fake,
+        {"policy": a.policy_cap, "search": a.search_cap},
+        spend_file=a.spend_file,
+        spend_cap=a.spend_cap,
+    )
     print(
         f"lamarck gateway on {a.host}:{a.port} (upstream={'on' if a.keyfile else 'off'}, fake={a.fake})",
         flush=True,

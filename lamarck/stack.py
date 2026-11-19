@@ -21,6 +21,7 @@ from .gateway.client import GatewayClient, create_grant
 from .gateway.ledger import Ledger
 from .gateway.providers import DashScopeProvider, FakeProvider, Router, read_dotenv_key
 from .gateway.server import Gateway, GatewayConfig, start_in_thread
+from .gateway.spend import SpendLedger
 from .sandbox.backends import Backend, LocalBackend
 
 
@@ -65,15 +66,24 @@ class Stack:
         )
 
 
-def local_stack(root: Path, keyfile: Path | None = None, caps: dict[str, int] | None = None) -> Stack:
+def local_stack(
+    root: Path,
+    keyfile: Path | None = None,
+    caps: dict[str, int] | None = None,
+    spend_file: Path | None = None,
+    spend_cap: float = 9.50,
+) -> Stack:
     from .gateway.fakes import RESPONDERS
 
+    if keyfile is not None and spend_file is None:
+        raise ValueError("an upstream gateway needs a spend ledger file")
     upstream = DashScopeProvider(read_dotenv_key(keyfile, "DASHSCOPE_API_KEY")) if keyfile else None
     gw = Gateway(
         Router(upstream=upstream, fake=FakeProvider(RESPONDERS)),
         Ledger(root / "gateway" / "ledger.json", caps),
         root / "gateway",
         GatewayConfig(default_rate=1000.0, backoff_base_s=0.01),
+        spend=SpendLedger(spend_file, spend_cap) if spend_file is not None else None,
     )
     _server, url = start_in_thread(gw)
     return Stack(url, gw.admin_secret, LocalBackend(url), root)
@@ -86,13 +96,16 @@ def docker_stack(
     warm: int = 2,
     memory_mb: int = 1024,
     use_runsc: bool = True,
+    spend_file: Path | None = None,
 ) -> Stack:
     """Gateway container + Docker sandbox backend (gVisor when available)."""
     from .sandbox import docker_backend, image
 
     tag = image.build(root / "build" / "ctx")
     state = root / "gateway-state"
-    url = docker_backend.start_gateway(tag, state, keyfile, fake=fake)
+    url = docker_backend.start_gateway(
+        tag, state, keyfile, fake=fake, spend_file=spend_file if keyfile is not None else None
+    )
     secret = (state / "admin_secret").read_text().strip()
     backend = docker_backend.DockerBackend(
         tag, root / "slots", warm=warm, memory_mb=memory_mb, use_runsc=use_runsc

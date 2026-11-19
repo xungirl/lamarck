@@ -57,9 +57,19 @@ def gateway_ip() -> str:
     return docker("inspect", "-f", fmt, GATEWAY_NAME).stdout.strip()
 
 
-def start_gateway(image: str, state_dir: Path, keyfile: Path | None, fake: bool = True) -> str:
+def start_gateway(
+    image: str,
+    state_dir: Path,
+    keyfile: Path | None,
+    fake: bool = True,
+    spend_file: Path | None = None,
+    spend_cap: float = 9.50,
+) -> str:
     """(Re)start the gateway container; returns the host URL. The key file is mounted read-only
-    into the gateway only; sandboxes never see it."""
+    into the gateway only; sandboxes never see it. With a key, the RMB spend ledger's directory is
+    mounted read-write at /budget (the gateway refuses to start upstream without one)."""
+    if keyfile is not None and spend_file is None:
+        raise ValueError("an upstream gateway needs a spend ledger file")
     ensure_network()
     docker("rm", "-f", GATEWAY_NAME, check=False)
     state_dir.mkdir(parents=True, exist_ok=True)
@@ -73,6 +83,10 @@ def start_gateway(image: str, state_dir: Path, keyfile: Path | None, fake: bool 
     if keyfile is not None:
         args += ["-v", f"{keyfile.resolve()}:/secrets/provider.env:ro"]
         cmd += ["--keyfile", "/secrets/provider.env"]
+    if spend_file is not None:
+        spend_file.parent.mkdir(parents=True, exist_ok=True)
+        args += ["-v", f"{spend_file.parent.resolve()}:/budget"]
+        cmd += ["--spend-file", f"/budget/{spend_file.name}", "--spend-cap", str(spend_cap)]
     if fake:
         cmd.append("--fake")
     docker(*args, image, *cmd)
