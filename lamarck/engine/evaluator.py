@@ -11,11 +11,14 @@ expectations stay in host memory and are used by Domain.score after the sandbox 
 
 from __future__ import annotations
 
+import contextlib
+import fcntl
 import json
 import re
 import shutil
 import threading
 import time
+from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -73,9 +76,22 @@ class Evaluator:
         with self._guard:
             return self._locks.setdefault(key, threading.Lock())
 
+    @contextlib.contextmanager
+    def _file_lock(self, path: Path) -> Iterator[None]:
+        """Exclusive lock across processes: arms that run in parallel processes and share a harness must
+        share one evaluation of it. (Before this lock, two processes could evaluate the same key at once
+        and the later write replaced the earlier result; see PREREG deviation 4.)"""
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path.with_name(path.name + ".lock"), "w") as fh:
+            fcntl.flock(fh, fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(fh, fcntl.LOCK_UN)
+
     def evaluate(self, harness_dir: Path, tree: str, split: str, model: str, rollout: int = 0) -> EvalResult:
         path = self.cache_path(split, model, tree, rollout)
-        with self._lock(str(path)):
+        with self._lock(str(path)), self._file_lock(path):
             if path.exists():
                 cached = EvalResult.load(path)
                 if not infra_tainted(cached):

@@ -107,3 +107,34 @@ def test_spend_cap_stops_run_cleanly(tmp_path: Path) -> None:
     with pytest.raises(BudgetStop):
         run.run()
     assert run.state()["status"] == "budget_stop"
+
+
+def test_parallel_processes_share_one_evaluation(tmp_path: Path) -> None:
+    """Regression (PREREG deviation 4): two processes evaluating the same (split, model, tree, rollout)
+    at the same time must produce one evaluation, not two with the later overwriting the earlier."""
+    import subprocess
+    import sys
+    import textwrap
+
+    script = textwrap.dedent(
+        f"""
+        import sys, time
+        from pathlib import Path
+        from lamarck.domains.registry import get_domain
+        from lamarck.engine.evaluator import Evaluator
+        from lamarck.types import EvalResult
+
+        calls = Path({str(tmp_path / "calls")!r})
+        class Ev(Evaluator):
+            def _run(self, harness_dir, tree, split, model, rollout):
+                with open(calls, "a") as f:
+                    f.write(sys.argv[1] + "\\n")
+                time.sleep(1.0)
+                return EvalResult(tree, split, model, rollout, {{}}, wall_s=0.0)
+        ev = Ev(get_domain("toy"), None, Path({str(tmp_path / "cache")!r}), Path({str(tmp_path / "work")!r}), "t")
+        ev.evaluate(Path("."), "tree1", "evolve", "fake-policy", 0)
+        """
+    )
+    procs = [subprocess.Popen([sys.executable, "-c", script, str(i)]) for i in range(2)]
+    assert all(p.wait(timeout=60) == 0 for p in procs)
+    assert len((tmp_path / "calls").read_text().splitlines()) == 1
