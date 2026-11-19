@@ -122,6 +122,23 @@ def spend_summary(spend: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def paired_block(runs: dict[str, Any]) -> dict[str, Any]:
+    pairs = []
+    for i in range(1, N_SQL_SOURCES + 1):
+        f, t = runs.get(f"sql-full-{i}"), runs.get(f"sql-transfer-{i}")
+        if f and t and f["state"]["status"] == "done" and t["state"]["status"] == "done":
+            pairs.append({"source": i, "start": t["heldout_start"], "no_sim": t["heldout_end"], "sim": f["heldout_end"],
+                          "delta": f["heldout_end"] - t["heldout_end"],
+                          "evolve_no_sim": t["evolve_end"], "evolve_sim": f["evolve_end"]})  # fmt: skip
+    out: dict[str, Any] = {"pairs": pairs}
+    if len(pairs) >= 2:
+        out["stats"] = paired_summary([p["sim"] * 100 for p in pairs], [p["no_sim"] * 100 for p in pairs])
+        out["evolve_stats"] = paired_summary(
+            [p["evolve_sim"] * 100 for p in pairs], [p["evolve_no_sim"] * 100 for p in pairs]
+        )
+    return out
+
+
 def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any]:
     plan = build_plan()
     ledger = ledger_by_run(root)
@@ -131,9 +148,16 @@ def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any
         for d in (out / "runs").iterdir():
             if d.name not in runs:
                 shutil.rmtree(d)
+    race_spend_file = root / "aborted" / "race" / "spend_at_move.json"
+    race_spend = json.loads(race_spend_file.read_text())["by"] if race_spend_file.exists() else {}
     for n in runs:
         export_run(root, out, n)
         runs[n]["cost"] = run_cost(ledger, n, spend)
+        first = race_spend.get(f"run:{n}")
+        if first is not None and runs[n]["cost"]["rmb"] is not None:
+            # the spend ledger keys by run name: subtract what the set-aside first execution spent
+            runs[n]["cost"]["rmb"] -= float(first["rmb"])
+            runs[n]["cost"]["rmb_first_execution"] = float(first["rmb"])
     agg: dict[str, Any] = {
         "runs": {n: {k: v for k, v in s.items() if k != "history"} for n, s in runs.items()}
     }
@@ -148,21 +172,16 @@ def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any
     ]  # fmt: skip
 
     # ---- paired study
-    pairs = []
-    for i in range(1, N_SQL_SOURCES + 1):
-        f, t = runs.get(f"sql-full-{i}"), runs.get(f"sql-transfer-{i}")
-        if f and t and f["state"]["status"] == "done" and t["state"]["status"] == "done":
-            pairs.append({"source": i, "start": f["heldout_start"], "no_sim": t["heldout_end"], "sim": f["heldout_end"],
-                          "delta": f["heldout_end"] - t["heldout_end"],
-                          "evolve_no_sim": t["evolve_end"], "evolve_sim": f["evolve_end"]})  # fmt: skip
-    agg["paired"] = {"pairs": pairs}
-    if len(pairs) >= 2:
-        st = paired_summary([p["sim"] * 100 for p in pairs], [p["no_sim"] * 100 for p in pairs])
-        agg["paired"]["stats"] = st
-        evo = paired_summary(
-            [p["evolve_sim"] * 100 for p in pairs], [p["evolve_no_sim"] * 100 for p in pairs]
-        )
-        agg["paired"]["evolve_stats"] = evo
+    agg["paired"] = paired_block(runs)
+    race = root / "aborted" / "race"
+    if (race / "runs").exists():  # PREREG deviation 4: the first, raced execution of the paired arms
+        raced = {n: s for n in plan if (s := load_run(race, n)) is not None}
+        agg["paired_raced"] = paired_block(raced)
+        agg["paired_raced"]["start_by_arm"] = [
+            {"source": i, "sim_arm": raced[f"sql-full-{i}"]["heldout_start"],
+             "no_sim_arm": raced[f"sql-transfer-{i}"]["heldout_start"]}
+            for i in range(1, N_SQL_SOURCES + 1) if f"sql-full-{i}" in raced and f"sql-transfer-{i}" in raced
+        ]  # fmt: skip
 
     # ---- four conditions
     def cond_table(prefix: str, names: dict[str, str]) -> list[dict[str, Any]]:
@@ -287,6 +306,22 @@ def render_markdown(agg: dict[str, Any]) -> str:
             L.append(
                 f"- unfunded under deviation 3 (offline fake-model test only): {', '.join(f'`{n}`' for n in agg['unfunded'])}"
             )
+        L.append("")
+    pr = agg.get("paired_raced")
+    if pr and pr["pairs"]:
+        L += ["## Set aside: first execution of the paired arms (evaluation race, PREREG deviation 4)", "",
+              "Both arms of a pair evaluated their common starting harness at the same time in separate processes, so",
+              "they did not share one measurement of it. Reported for completeness; not pooled with the table above.", "",
+              "| source run | start (SIM arm / No-SIM arm) | No SIM | SIM | Δ (SIM − No SIM) |", "|---|---|---|---|---|"]  # fmt: skip
+        starts = {r["source"]: r for r in pr.get("start_by_arm", [])}
+        for r in pr["pairs"]:
+            st_ = starts.get(r["source"], {})
+            L.append(f"| {r['source']} | {pts(st_.get('sim_arm'))} / {pts(st_.get('no_sim_arm'))} | {pts(r['no_sim'])} | "
+                     f"{pts(r['sim'])} | {r['delta'] * 100:+.2f} |")  # fmt: skip
+        if "stats" in pr:
+            s_ = pr["stats"]
+            L += ["", f"Mean Δ = {s_['mean_diff']:+.2f} points (95% CI [{s_['ci95'][0]:+.2f}, {s_['ci95'][1]:+.2f}]); "
+                  f"SIM wins {s_['wins']}, loses {s_['losses']}, ties {s_['ties']}."]  # fmt: skip
         L.append("")
     if agg["eval_variance"]:
         L += ["## Repeat-evaluation variance (same harness, same split, different seeds)", "",
