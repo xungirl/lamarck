@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+  "parents": "8e4fa6e4c77e380747f213e9868d9627977c41c9",
+  "subject": "r2 s1: Model lacks visibility into actual data values causing filte",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "7aff88ac4799716521013e2a9add90a259351c92",
+  "parents": "8e4fa6e4c77e380747f213e9868d9627977c41c9",
+  "subject": "r2 s2: Incomplete retry logic for empty results and missing schema",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "52c6b6c0f42b1e175925925dbaf0dfb876b8b684",
+  "parents": "8e4fa6e4c77e380747f213e9868d9627977c41c9",
+  "subject": "r1 s1: Logic errors in complex filters and projections not caught b",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "2c0466951d1405a3b71e297dd21e521b66fc4a0f",
+  "parents": "8e4fa6e4c77e380747f213e9868d9627977c41c9",
+  "subject": "r1 s2: Incorrect Projection and Join Logic",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "8e4fa6e4c77e380747f213e9868d9627977c41c9",
+  "parents": "24d8a34802f839f260272ba5935fbc68eda0bc06",
+  "subject": "r0 s2: Schema and value mismatch leading to empty results",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "c3ac0542b6e8775657590f07f5a9f514b7d34350",
+  "parents": "24d8a34802f839f260272ba5935fbc68eda0bc06",
+  "subject": "r0 s1: Zero-row results from over-constrained filters (exact string",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "24d8a34802f839f260272ba5935fbc68eda0bc06",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

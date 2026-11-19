@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate claims to 'Modify solve.py to use a single robust generation call... saving the second call only for error/empty cases', but the provided diff for `solve.py` only adds a newline at the end of the file. It does not implement the described logic change (removing or conditionalizing the second call). This is a DEGENERATE edit where the claimed mechanism is absent from the code changes."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate addresses the root cause of empty results due to incorrect join/filter logic by enhancing the revision prompt in `solve.py` with specific common failure modes (wrong columns, missing GROUP BY, NULL handling) and updating `system_prompt.md` with corresponding rules. These are generalizable improvements for Text-to-SQL tasks that do not leak task-specific information or hard-code const"
+ }
+}

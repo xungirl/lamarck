@@ -1,0 +1,74 @@
+[
+ {
+  "commit": "0d57516e69c77492f48c6d64e7cb6d1ee4f13ff7",
+  "parents": "ea4379dae9af226dbcbb32bcf44a930bfffcad69",
+  "subject": "r2 s2: Failure to adhere to explicit calculation formulas in hints",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "fc06889abd63aeacf65d8095ffc33d939b2838ba",
+  "parents": "ea4379dae9af226dbcbb32bcf44a930bfffcad69",
+  "subject": "r2 s1: Model generates verbose natural language explanations or rea",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "ea4379dae9af226dbcbb32bcf44a930bfffcad69",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s1: Misinterpretation of 'Rank'/'Top N per Group' and Aggregatio",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "40989d2fe993705d7ae2e211080ba5271bbf7d3f",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s2: Model misinterprets 'Rank' as ordering/counting instead of g",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "f38a18fa3ed577922fa6bc88535b7d2c300ece6f",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r0 s2: P1",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "40e3b81bc493409bc5fdb88f8d6d35c1dd937197",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r0 s1: Model ignores 'Hint' instructions for specific column select",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "ec605bc6eb230889e4f3f869e2ba8be5a942e596",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r2 s2: Verification step only triggers on 0 rows, missing semantic",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "d4e83ff985c9d4e0db7a1c708d0eb83c000905b6",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s1: verification_step_too_narrow",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "ee7ae0cdc62ba9aec5e1dc5ff6ca6e5c82a26796",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s2: Result Mismatch: Over-restriction in NOT EXISTS (OR vs AND)",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "parents": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "subject": "r0 s1: queries returning 0 rows due to incorrect join/filter logic;",
+  "refs": "origin/evolve, origin/cand/r0s1, origin/HEAD, source/cand/r0s1"
+ },
+ {
+  "commit": "c4c47f21985c6d8fd57d208b8c5a8bdb34ca63ee",
+  "parents": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "subject": "r0 s2: Schema Linking Errors (Wrong Table/Columns)",
+  "refs": "origin/cand/r0s2, source/cand/r0s2"
+ },
+ {
+  "commit": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

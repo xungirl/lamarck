@@ -1,0 +1,38 @@
+[
+ {
+  "commit": "2c1b36f6c9e1ad33bb48e850abd218b8673dceb8",
+  "parents": "0719b809e1987e2ef82b6919331453da21c4eec4",
+  "subject": "r2 s1: Model fails on complex logic (aggregations, window functions",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "00a5f235f6f7dc8232dcd9f9ff90d9bb44edeb28",
+  "parents": "0719b809e1987e2ef82b6919331453da21c4eec4",
+  "subject": "r2 s2: Model produces verbose reasoning text or incorrect SQL synta",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "0719b809e1987e2ef82b6919331453da21c4eec4",
+  "parents": "00b8483ab6e918b7b0e445dd3326c1ec4dc729aa",
+  "subject": "r1 s1: Model output is verbose (reasoning text), causing SQL extrac",
+  "refs": "HEAD -> evolve, cand/r1s1"
+ },
+ {
+  "commit": "1d178c1db73f67770003c7137b21e107f257af35",
+  "parents": "00b8483ab6e918b7b0e445dd3326c1ec4dc729aa",
+  "subject": "r1 s2: Model output parsing and formatting errors (e.g. reasoning t",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "b33563e6b4cd03bea70ef87eb5d4a02a8d0be5c1",
+  "parents": "00b8483ab6e918b7b0e445dd3326c1ec4dc729aa",
+  "subject": "r0 s1: Model ignores 'hint' evidence for value formatting (e.g. str",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "00b8483ab6e918b7b0e445dd3326c1ec4dc729aa",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

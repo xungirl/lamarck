@@ -1,0 +1,28 @@
+{
+ "sealed_at": 1795087593.125126,
+ "round": 1,
+ "sample": "s1",
+ "branch": "cand/r1s1",
+ "commit": "f2da9d523ef18b966f2674aa291cf62186be56e0",
+ "tree": "2119d2dac9d6",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..954a3ef 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,13 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+Key Guidelines:\n+1. **Projections**: \n+   - If the question asks for \"details\", \"information\", or \"which countries/students...\" without specifying particular columns, select ALL columns from the relevant main table (`SELECT *` or `SELECT T1.*`).\n+   - If specific columns are requested, select exactly those. Do not add extra columns.\n+2. **Duplicates**: \n+   - Use `DISTINCT` if the question implies unique entities but joins might produce duplicate rows (e.g., finding names of students enrolled in multiple programs, or content of series appearing multiple times).\n+3. **Filters**: \n+   - Use exact matches for values unless the hint suggests otherwise.\n+   - Ensure join keys are correct based on foreign key relationships in the schema.\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s1",
+  "cite": "P1",
+  "root_cause": "Model fails to handle DISTINCT for join-induced duplicates and misinterprets 'Which [Entity]' questions as selecting only the ID/Name instead of all columns (SELECT *)",
+  "what": "Update system prompt to explicitly instruct using DISTINCT when joining one-to-many tables or selecting single attributes to avoid duplicate rows, and to use SELECT * when the question asks for details/information about an entity rather than a specific column. This addresses sp0600 (missing DISTINCT) and sp0755 (wrong projection).",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nKey Guidelines:\n1. **Projections**: \n   - If the question asks for \"details\", \"information\", or \"which countries/students...\" without specifying particular columns, select ALL columns from the relevant main table (`SELECT *` or `SELECT T1.*`).\n   - If specific columns are requested, select exactly those. Do not add extra columns.\n2. **Duplicates**: \n   - Use `DISTINCT` if the question implies unique entities but joins might produce duplicate rows (e.g., finding names of students enrolled in multiple programs, or content of series appearing multiple times).\n3. **Filters**: \n   - Use exact matches for values unless the hint suggests otherwise.\n   - Ensure join keys are correct based on foreign key relationships in the schema.\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "sp0600",
+   "sp0755"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": \"P1\", \"name\": \"Model fails to handle DISTINCT for join-induced duplicates and misinterprets 'Which [Entity]' questions as selecting only the ID/Name instead of all columns (SELECT *)\"},\n \"what\": \"Update system prompt to explicitly instruct using DISTINCT when joining one-to-many tables or selecting single attributes to avoid duplicate rows, and to use SELECT * when the question asks for details/information about an entity rather than a specific column. This addresses sp0600 (missing DISTINCT) and sp0755 (wrong projection).\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"sp0600\", \"sp0755\"]\n}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nKey Guidelines:\n1. **Projections**: \n   - If the question asks for \"details\", \"information\", or \"which countries/students...\" without specifying particular columns, select ALL columns from the relevant main table (`SELECT *` or `SELECT T1.*`).\n   - If specific columns are requested, select exactly those. Do not add extra columns.\n2. **Duplicates**: \n   - Use `DISTINCT` if the question implies unique entities but joins might produce duplicate rows (e.g., finding names of students enrolled in multiple programs, or content of series appearing multiple times).\n3. **Filters**: \n   - Use exact matches for values unless the hint suggests otherwise.\n   - Ensure join keys are correct based on foreign key relationships in the schema.\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

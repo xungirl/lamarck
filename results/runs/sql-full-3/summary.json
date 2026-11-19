@@ -1,0 +1,40 @@
+{
+ "run_id": "sql-full-3",
+ "domain": "text2sql",
+ "memory": "full",
+ "policy_model": "qwen3.8-flash",
+ "evolve_split": "bird_evolve_s30",
+ "heldout_split": "bird_heldout_s40",
+ "rounds": 3,
+ "k": 2,
+ "delta": 0.033333,
+ "evolve_start": 0.43333333333333335,
+ "evolve_end": 0.43333333333333335,
+ "heldout_start": 0.65,
+ "heldout_end": 0.675,
+ "heldout_curve": [
+  {
+   "after_round": -1,
+   "tree": "40e00367a7c5",
+   "commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+   "score": 0.65,
+   "cost": 1218.65,
+   "n": 40
+  },
+  {
+   "after_round": 2,
+   "tree": "aa9b80410cc2",
+   "commit": "d5e64c15683980d789890438d12dc1aa77da86ae",
+   "score": 0.675,
+   "cost": 1187.5,
+   "n": 40
+  }
+ ],
+ "accepted": 2,
+ "proposed": 5,
+ "evaluated": 3,
+ "screened_out": 2,
+ "final_commit": "d5e64c15683980d789890438d12dc1aa77da86ae",
+ "sim_entries": 2,
+ "sim_attempts": 3
+}

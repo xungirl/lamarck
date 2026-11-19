@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general prompt engineering improvements for Text-to-SQL tasks. They address common failure modes (column selection, hint adherence, NULL handling) without hardcoding specific database schemas, table names, or task IDs. The instructions apply universally to any SQLite question with hints."
+ }
+}

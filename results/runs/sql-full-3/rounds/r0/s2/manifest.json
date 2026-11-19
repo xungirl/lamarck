@@ -1,0 +1,28 @@
+{
+ "sealed_at": 1795088678.447576,
+ "round": 0,
+ "sample": "s2",
+ "branch": "cand/r0s2",
+ "commit": "8bac4d3babf0308eb94b08d13859597c9df2d3b0",
+ "tree": "de8b1081f662",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..3f0a6d1 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,9 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+CRITICAL INSTRUCTION:\n+Return ONLY the SQL query inside a single ```sql code block. Do NOT include any explanation, reasoning, comments outside the SQL, or conversational text. If you provide text outside the code block, it will be treated as invalid.\n+\n+Example Output:\n+```sql\n+SELECT column_name FROM table_name WHERE condition;\n+```\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": null,
+  "root_cause": "Model outputs reasoning text instead of SQL when hint contains complex logic or multiple sub-questions, causing syntax errors.",
+  "what": "Update system_prompt.md to strictly enforce returning only the SQL code block and no other text. This addresses failures where the model explains its thought process (e.g., 'To answer...') which breaks execution.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nCRITICAL INSTRUCTION:\nReturn ONLY the SQL query inside a single ```sql code block. Do NOT include any explanation, reasoning, comments outside the SQL, or conversational text. If you provide text outside the code block, it will be treated as invalid.\n\nExample Output:\n```sql\nSELECT column_name FROM table_name WHERE condition;\n```"
+  },
+  "predicted": [
+   "bd0173",
+   "bd0565"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Model outputs reasoning text instead of SQL when hint contains complex logic or multiple sub-questions, causing syntax errors.\"},\n \"what\": \"Update system_prompt.md to strictly enforce returning only the SQL code block and no other text. This addresses failures where the model explains its thought process (e.g., 'To answer...') which breaks execution.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0173\", \"bd0565\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nCRITICAL INSTRUCTION:\nReturn ONLY the SQL query inside a single ```sql code block. Do NOT include any explanation, reasoning, comments outside the SQL, or conversational text. If you provide text outside the code block, it will be treated as invalid.\n\nExample Output:\n```sql\nSELECT column_name FROM table_name WHERE condition;\n```\n</file>"
+ }
+}

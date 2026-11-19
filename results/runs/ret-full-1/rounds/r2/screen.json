@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate addresses a specific, common failure mode in Text-to-SQL (Top N per Group) by instructing the use of window functions instead of global LIMIT. This is a general SQL best practice and does not leak task-specific information or hardcode values. The addition of Rule 7 regarding multi-part questions is also a generic instruction for query completeness. The changes are safe, relevant to t"
+ }
+}

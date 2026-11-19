@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change implements a standard self-correction loop for empty results, which is a valid general strategy for Text-to-SQL tasks to handle strict matching or join errors. It does not hardcode task-specific data, maintains bounded execution (one retry), and addresses a common failure mode without gaming the grader."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The instruction to 'prefer LIKE over =' for text comparisons is technically flawed for SQLite execution accuracy grading. In Spider/BIRD benchmarks, gold queries typically use exact equality (`=`). Using `LIKE '%value%'` can return extra rows if the value appears as a substring in other records, causing an execution mismatch. While it handles case sensitivity, it introduces false positives that ar"
+ }
+}

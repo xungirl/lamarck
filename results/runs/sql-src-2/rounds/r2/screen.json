@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate implements a standard 'data sampling' mechanism for retries. When the initial query fails or returns empty results, it extracts table names from the SQL, fetches sample rows (LIMIT 3), and injects them into the retry prompt. This helps the model correct value mismatches (e.g., case sensitivity, exact string formats) without hardcoding specific values or task IDs. It respects executio"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "This candidate modifies the system prompt with general advice ('Critical Guidelines'). While not strictly leakage, it is a weak intervention compared to s1's active data injection. More importantly, the SIM indicates that previous attempts at fixing schema/value mismatches via validation/retry logic (P1) had mixed success. Simply adding text instructions about 'Exact Matching' or 'NULL Handling' d"
+ }
+}

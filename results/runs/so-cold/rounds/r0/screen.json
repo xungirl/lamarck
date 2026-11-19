@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change adds a general policy rule to `tool_policy.md` regarding refusal semantics for impossible requests (specifically refunds exceeding limits). It does not hard-code specific task IDs, entity names, or magic constants. It addresses the root cause of unauthorized partial writes by instructing the agent to refuse rather than substitute amounts. The logic is applicable to any similar scenario "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change updates the system prompt with explicit instructions on how to handle refund calculations and refusals when limits are exceeded. It provides a clear algorithmic step-by-step guide (retrieve order, check existing refunds, calculate remaining, compare) that prevents the agent from attempting unauthorized partial refunds. This is a general behavioral improvement without task-specific leaka"
+ }
+}

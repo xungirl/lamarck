@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change strengthens the system prompt with explicit instructions to consult KB for policy limits before refunds and strictly forbids workarounds (tickets, partial refunds) when a write is blocked. This directly addresses root cause P1 without hardcoding task-specific data or removing safety mechanisms."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The diff contains a syntax error/artifact (`</parameter>`) at the end of the file, which corrupts the markdown structure. Additionally, the declared 'before_tool_call hook' is not present in the provided diff, making the description inconsistent with the actual changes (or implying an undeclared/missing edit)."
+ }
+}

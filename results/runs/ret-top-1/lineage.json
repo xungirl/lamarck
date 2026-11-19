@@ -1,0 +1,62 @@
+[
+ {
+  "commit": "2fc98520182f1cc70af0d5207575cbace9f10c4f",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s1: Weak verification allows logically correct-looking but seman",
+  "refs": "HEAD -> evolve, cand/r1s1"
+ },
+ {
+  "commit": "21b39e449378cd62ae144cefe6875e43b450f47c",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s2: Model misinterprets hints (e.g., 'Rank' as order vs column,",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "ddfcc1c74edd5c5ea31bcb82bf43afb65514a114",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r0 s2: Model misinterprets output requirements: missing rank/identi",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "bb82ca9b3d27d56d4a8287d68eb30bc9f3fa26e9",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r0 s1: Model misinterprets hints (e.g., 'Rank' as order vs column,",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "ec605bc6eb230889e4f3f869e2ba8be5a942e596",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r2 s2: Verification step only triggers on 0 rows, missing semantic",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "d4e83ff985c9d4e0db7a1c708d0eb83c000905b6",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s1: verification_step_too_narrow",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "ee7ae0cdc62ba9aec5e1dc5ff6ca6e5c82a26796",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s2: Result Mismatch: Over-restriction in NOT EXISTS (OR vs AND)",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "parents": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "subject": "r0 s1: queries returning 0 rows due to incorrect join/filter logic;",
+  "refs": "origin/evolve, origin/cand/r0s1, origin/HEAD, source/cand/r0s1"
+ },
+ {
+  "commit": "c4c47f21985c6d8fd57d208b8c5a8bdb34ca63ee",
+  "parents": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "subject": "r0 s2: Schema Linking Errors (Wrong Table/Columns)",
+  "refs": "origin/cand/r0s2, source/cand/r0s2"
+ },
+ {
+  "commit": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

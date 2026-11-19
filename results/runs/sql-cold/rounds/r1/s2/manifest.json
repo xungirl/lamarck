@@ -1,0 +1,29 @@
+{
+ "sealed_at": 1795087591.606335,
+ "round": 1,
+ "sample": "s2",
+ "branch": "cand/r1s2",
+ "commit": "1d178c1db73f67770003c7137b21e107f257af35",
+ "tree": "e1bac6914cc6",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..e33bc72 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,12 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+CRITICAL RULES:\n+1. Return ONLY the SQL query inside a single ```sql code block. Do NOT include any explanation, reasoning, or text outside the code block.\n+2. If the question asks for specific attributes (e.g., names, values), select exactly those columns. If it asks for counts or aggregates, ensure the GROUP BY and SELECT clauses match.\n+3. When joining tables, verify foreign key relationships in the schema.\n+4. Handle NULLs appropriately if the question implies filtering or counting non-null values.\n+5. Use the Hint field as authoritative guidance for business logic, value formats, and calculation methods.\n+6. For ranking questions, use appropriate window functions (RANK(), DENSE_RANK()) or ORDER BY/LIMIT as implied by the hint.\n+7. Ensure date/time comparisons match the storage format in the schema.\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": null,
+  "root_cause": "Model output parsing and formatting errors (e.g. reasoning text instead of SQL, wrong column selection)",
+  "what": "Improve system prompt to enforce strict SQL-only output format with no explanations, reducing parse failures like bd0173. Also add explicit instructions on handling multiple columns when questions ask for 'which' or list attributes.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nCRITICAL RULES:\n1. Return ONLY the SQL query inside a single ```sql code block. Do NOT include any explanation, reasoning, or text outside the code block.\n2. If the question asks for specific attributes (e.g., names, values), select exactly those columns. If it asks for counts or aggregates, ensure the GROUP BY and SELECT clauses match.\n3. When joining tables, verify foreign key relationships in the schema.\n4. Handle NULLs appropriately if the question implies filtering or counting non-null values.\n5. Use the Hint field as authoritative guidance for business logic, value formats, and calculation methods.\n6. For ranking questions, use appropriate window functions (RANK(), DENSE_RANK()) or ORDER BY/LIMIT as implied by the hint.\n7. Ensure date/time comparisons match the storage format in the schema.\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "bd0173",
+   "bd0728",
+   "bd0928"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Model output parsing and formatting errors (e.g. reasoning text instead of SQL, wrong column selection)\"},\n \"what\": \"Improve system prompt to enforce strict SQL-only output format with no explanations, reducing parse failures like bd0173. Also add explicit instructions on handling multiple columns when questions ask for 'which' or list attributes.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0173\", \"bd0928\", \"bd0728\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nCRITICAL RULES:\n1. Return ONLY the SQL query inside a single ```sql code block. Do NOT include any explanation, reasoning, or text outside the code block.\n2. If the question asks for specific attributes (e.g., names, values), select exactly those columns. If it asks for counts or aggregates, ensure the GROUP BY and SELECT clauses match.\n3. When joining tables, verify foreign key relationships in the schema.\n4. Handle NULLs appropriately if the question implies filtering or counting non-null values.\n5. Use the Hint field as authoritative guidance for business logic, value formats, and calculation methods.\n6. For ranking questions, use appropriate window functions (RANK(), DENSE_RANK()) or ORDER BY/LIMIT as implied by the hint.\n7. Ensure date/time comparisons match the storage format in the schema.\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

@@ -1,0 +1,12 @@
+03:44:51 [sql-transfer-3] noise band delta = 0.0333 from scores [0.433333, 0.433333, 0.433333]
+03:44:51 [sql-transfer-3] held-out after round -1: 65.00 (26/40)
+03:44:51 [sql-transfer-3] round 0: incumbent 40e00367a7c5 evolve=43.3 b_t=3 best=43.3
+03:45:30 [sql-transfer-3] round 0: 2 proposed, 2 evaluated, 2 admissible -> s1 (Both candidates have identical evolve scores, but s1 is preferred due to lower complexity (prompt-only change vs. code m)
+03:45:30 [sql-transfer-3] round 0: SIM <- P1 (0/4 predicted fixes realized)
+03:45:30 [sql-transfer-3] round 1: incumbent 0bb259705719 evolve=43.3 b_t=2 best=43.3
+03:46:01 [sql-transfer-3] round 1: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 provides a significant score improvement (+3.34) by addressing specific failure modes related to hint inter)
+03:46:01 [sql-transfer-3] round 1: SIM <- P2 (0/5 predicted fixes realized)
+03:46:01 [sql-transfer-3] round 2: incumbent 83761aed8c29 evolve=46.7 b_t=1 best=46.7
+03:46:31 [sql-transfer-3] round 2: 2 proposed, 2 evaluated, 1 admissible -> s1 (The candidate expands self-correction to handle execution errors (not just empty results), which addresses a key failure)
+03:46:31 [sql-transfer-3] round 2: SIM <- P3 (0/4 predicted fixes realized)
+03:46:49 [sql-transfer-3] held-out after round 2: 62.50 (25/40)

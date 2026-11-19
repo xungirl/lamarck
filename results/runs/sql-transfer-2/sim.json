@@ -1,0 +1,59 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Semantic misinterpretation of hints and question constraints leading to wrong SQL logic (e.g., ignoring specific value filters, wrong aggregation types, missing columns)",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Enhance the system prompt with explicit instructions on how to interpret BIRD-style hints (especially calculation formulas and value mappings) and common failure modes like extra columns or incorrect aggregations. This targets the ~50% failure rate caused by logic errors rathe...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0040",
+      "bd0041",
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd0928",
+      "bd1014",
+      "bd1068",
+      "bd1241",
+      "bd1242",
+      "bd1404",
+      "bd1427",
+      "bd1457"
+     ],
+     "fixed": [
+      "bd1014"
+     ],
+     "missed": [
+      "bd0040",
+      "bd0041",
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd0928",
+      "bd1068",
+      "bd1241",
+      "bd1242",
+      "bd1404",
+      "bd1427",
+      "bd1457"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

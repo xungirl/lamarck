@@ -1,0 +1,11 @@
+03:45:41 [ret-full-1] noise band delta = 0.0546 from scores [0.433333, 0.433333, 0.4]
+03:45:41 [ret-full-1] held-out after round -1: 55.00 (22/40)
+03:45:42 [ret-full-1] round 0: incumbent 7e87d5b22f0a evolve=43.3 b_t=3 best=43.3
+03:46:06 [ret-full-1] round 0 s1: proposal failed: missing root cause
+03:46:06 [ret-full-1] round 0: 1 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:46:06 [ret-full-1] round 1: incumbent 7e87d5b22f0a evolve=43.3 b_t=2 best=43.3
+03:47:04 [ret-full-1] round 1: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 improves the evolve score from 43.33 to 46.67 by addressing column selection and hint adherence, which are )
+03:47:04 [ret-full-1] round 1: SIM <- P4 (0/5 predicted fixes realized)
+03:47:04 [ret-full-1] round 2: incumbent 5488b6d524a4 evolve=46.7 b_t=1 best=46.7
+03:48:48 [ret-full-1] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:49:05 [ret-full-1] held-out after round 2: 65.00 (26/40)

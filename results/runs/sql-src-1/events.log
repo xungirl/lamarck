@@ -1,0 +1,11 @@
+03:25:10 [sql-src-1] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+03:25:10 [sql-src-1] held-out after round -1: 80.00 (32/40)
+03:25:10 [sql-src-1] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+03:26:03 [sql-src-1] round 0: 2 proposed, 2 evaluated, 1 admissible -> s1 (Candidate s1 significantly improves the evolve score (90.0 vs 83.33) by adding execution-based verification to catch emp)
+03:26:03 [sql-src-1] round 0: SIM <- P1 (3/4 predicted fixes realized)
+03:26:03 [sql-src-1] round 1: incumbent 7e87d5b22f0a evolve=90.0 b_t=2 best=90.0
+03:27:08 [sql-src-1] round 1: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:27:08 [sql-src-1] round 2: incumbent 7e87d5b22f0a evolve=90.0 b_t=1 best=90.0
+03:27:23 [sql-src-1] round 2 s1: proposal failed: manifest without <file> blocks
+03:27:36 [sql-src-1] round 2: 1 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:28:16 [sql-src-1] held-out after round 2: 77.50 (31/40)

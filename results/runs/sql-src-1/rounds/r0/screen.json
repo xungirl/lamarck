@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate implements a standard self-correction loop (generate -> execute -> verify -> revise) which is a valid general-purpose strategy for Text-to-SQL tasks. It does not hard-code task IDs or specific database schemas. The logic handles errors and empty results generically. The system prompt additions are also generic best practices (NULL handling, join verification). No leakage or degenerat"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate modifies the system prompt to emphasize schema verification and correct table/column usage. This addresses a common failure mode (hallucination of non-existent columns/tables) with a general instruction applicable to any SQLite task. It does not contain task-specific constants or leakage."
+ }
+}

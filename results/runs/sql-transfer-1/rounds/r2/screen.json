@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general best practices for Text-to-SQL (strict column selection, hint adherence, join correctness, null safety, aggregation rules). They do not hard-code specific task IDs, database names, or magic constants. The reference to 'bd1242' etc. is in the metadata description, not the prompt itself. The logic applies universally to SQLite tasks."
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "run_id": "sql-transfer-2",
+ "domain": "text2sql",
+ "memory": "none",
+ "policy_model": "qwen3.8-flash",
+ "evolve_split": "bird_evolve_s30",
+ "heldout_split": "bird_heldout_s40",
+ "rounds": 3,
+ "k": 2,
+ "delta": 0.096337,
+ "evolve_start": 0.4666666666666667,
+ "evolve_end": 0.4666666666666667,
+ "heldout_start": 0.625,
+ "heldout_end": 0.725,
+ "heldout_curve": [
+  {
+   "after_round": -1,
+   "tree": "e6a9184549ae",
+   "commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+   "score": 0.625,
+   "cost": 1335.025,
+   "n": 40
+  },
+  {
+   "after_round": 2,
+   "tree": "623f2f025f4a",
+   "commit": "6ef2ff4c31b1fe2446ae79f6ea8657f9fe9507ad",
+   "score": 0.725,
+   "cost": 1511.175,
+   "n": 40
+  }
+ ],
+ "accepted": 1,
+ "proposed": 4,
+ "evaluated": 2,
+ "screened_out": 2,
+ "final_commit": "6ef2ff4c31b1fe2446ae79f6ea8657f9fe9507ad",
+ "sim_entries": 1,
+ "sim_attempts": 1
+}

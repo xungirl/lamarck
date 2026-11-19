@@ -1,0 +1,37 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Insufficient instruction on handling multi-part questions and explicit output format constraints (e.g., rank columns) in system prompt",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to explicitly require separate queries for multi-part questions and to include rank/position columns when requested. This addresses failures where the model combined sub-questions into one complex query (bd0173), missed required ranking columns (bd0728)...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0173",
+      "bd0728",
+      "bd0928"
+     ],
+     "fixed": [
+      "bd0728"
+     ],
+     "missed": [
+      "bd0173",
+      "bd0928"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

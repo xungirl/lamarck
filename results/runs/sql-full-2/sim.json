@@ -1,0 +1,66 @@
+{
+ "next_id": 2,
+ "carried_from": {
+  "arm": "sql-src-2",
+  "domain": "spider_evolve_s30/qwen3.8-flash",
+  "into": "sql-full-2"
+ },
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Schema and value mismatch leading to empty results",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "The model often fails because it hallucinates table names, column names, or filter values that do not exist in the actual database schema. This edit introduces a validation step using `env.execute` to check if the generated SQL returns results. If the query is valid but return...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Enhance the retry mechanism to fetch and inject sample rows from relevant tables into the second prompt. This allows the model to correct value mismatches (e.g., 'Bachelors' vs 'Bachelor') and understand data structures (e.g., NULLs in Friend tables) when the initial query ret...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0536",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0894"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0755"
+     ],
+     "passed": 28,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

@@ -1,88 +1,1798 @@
 {
  "runs": {
-  "sql-src-4": {
-   "run_id": "sql-src-4",
+  "sql-src-1": {
+   "run_id": "sql-src-1",
    "domain": "text2sql",
    "memory": "full",
    "policy_model": "qwen3.8-flash",
-   "evolve_split": "spider_evolve",
-   "heldout_split": "spider_heldout",
-   "rounds": 4,
-   "k": 3,
-   "delta": 0.062723,
-   "evolve_start": 0.7833333333333333,
-   "evolve_end": 0.8833333333333333,
-   "heldout_start": 0.8166666666666667,
-   "heldout_end": 0.8666666666666667,
+   "evolve_split": "spider_evolve_s30",
+   "heldout_split": "spider_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.059647,
+   "evolve_start": 0.8333333333333334,
+   "evolve_end": 0.9,
+   "heldout_start": 0.8,
+   "heldout_end": 0.775,
    "heldout_curve": [
     {
      "after_round": -1,
      "tree": "685dca477777",
-     "commit": "25b4860bb109fc52e21f374138a33152d9a4cbea",
-     "score": 0.8166666666666667,
-     "cost": 477.10833333333335,
-     "n": 120
+     "commit": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+     "score": 0.8,
+     "cost": 455.575,
+     "n": 40
     },
     {
-     "after_round": 3,
-     "tree": "9cf0c5fc7688",
-     "commit": "fe9adc78723089c964163b179304fe4e76338c58",
-     "score": 0.8666666666666667,
-     "cost": 936.4333333333333,
-     "n": 120
+     "after_round": 2,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.775,
+     "cost": 652.125,
+     "n": 40
     }
    ],
    "accepted": 1,
-   "proposed": 12,
-   "evaluated": 6,
-   "screened_out": 6,
-   "final_commit": "fe9adc78723089c964163b179304fe4e76338c58",
+   "proposed": 5,
+   "evaluated": 3,
+   "screened_out": 2,
+   "final_commit": "c83620985389adf5e4f910eed9f6a995256095bb",
    "sim_entries": 1,
    "sim_attempts": 1,
    "state": {
-    "next_round": 4,
-    "best_score": 0.8833333333333333,
-    "delta": 0.062723,
+    "next_round": 3,
+    "best_score": 0.9,
+    "delta": 0.059647,
     "status": "done",
-    "updated": "2026-11-19 00:32:33"
+    "updated": "2026-11-19 03:28:16"
    },
    "own_attempts": 1,
-   "own_predicted": 8,
-   "own_fixed": 6,
-   "cited_existing": 8,
+   "own_predicted": 4,
+   "own_fixed": 3,
+   "cited_existing": 1,
    "cost": {
-    "policy_calls": 828,
-    "policy_tokens": 895328,
-    "search_calls": 25,
-    "search_tokens": 208641
+    "policy_calls": 167,
+    "policy_tokens": 120994,
+    "search_calls": 12,
+    "search_tokens": 41754,
+    "rmb": 0.1442034
+   }
+  },
+  "sql-full-1": {
+   "run_id": "sql-full-1",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.054615,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.5,
+   "heldout_start": 0.55,
+   "heldout_end": 0.6,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 0,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 1,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "d03553f85bb3",
+     "commit": "eb705fa70dee08ed68172476b143fffea1cc8a78",
+     "score": 0.6,
+     "cost": 3080.7,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 6,
+   "evaluated": 4,
+   "screened_out": 2,
+   "final_commit": "eb705fa70dee08ed68172476b143fffea1cc8a78",
+   "sim_entries": 1,
+   "sim_attempts": 2,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.5,
+    "delta": 0.054615,
+    "status": "done",
+    "updated": "2026-11-19 03:46:12"
+   },
+   "own_attempts": 1,
+   "own_predicted": 13,
+   "own_fixed": 3,
+   "cited_existing": 3,
+   "cost": {
+    "policy_calls": 239,
+    "policy_tokens": 416304,
+    "search_calls": 10,
+    "search_tokens": 52479,
+    "rmb": 0.3234793999999999,
+    "rmb_first_execution": 0.3001941000000001
+   }
+  },
+  "sql-transfer-1": {
+   "run_id": "sql-transfer-1",
+   "domain": "text2sql",
+   "memory": "none",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.054615,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.4666666666666667,
+   "heldout_start": 0.55,
+   "heldout_end": 0.6,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 0,
+     "tree": "f0a67a175579",
+     "commit": "e0d3a6db736aba5e606aa8fcf74266db5f5c7e2d",
+     "score": 0.6,
+     "cost": 1527.1,
+     "n": 40
+    },
+    {
+     "after_round": 1,
+     "tree": "f0a67a175579",
+     "commit": "e0d3a6db736aba5e606aa8fcf74266db5f5c7e2d",
+     "score": 0.6,
+     "cost": 1527.1,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "f0a67a175579",
+     "commit": "e0d3a6db736aba5e606aa8fcf74266db5f5c7e2d",
+     "score": 0.6,
+     "cost": 1527.1,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 5,
+   "evaluated": 3,
+   "screened_out": 2,
+   "final_commit": "e0d3a6db736aba5e606aa8fcf74266db5f5c7e2d",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.4666666666666667,
+    "delta": 0.054615,
+    "status": "done",
+    "updated": "2026-11-19 03:44:44"
+   },
+   "own_attempts": 1,
+   "own_predicted": 3,
+   "own_fixed": 1,
+   "cited_existing": 1,
+   "cost": {
+    "policy_calls": 142,
+    "policy_tokens": 224547,
+    "search_calls": 10,
+    "search_tokens": 46013,
+    "rmb": 0.17676370000000036,
+    "rmb_first_execution": 0.40749549999999995
+   }
+  },
+  "sql-src-2": {
+   "run_id": "sql-src-2",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "spider_evolve_s30",
+   "heldout_split": "spider_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.059647,
+   "evolve_start": 0.8333333333333334,
+   "evolve_end": 0.9333333333333333,
+   "heldout_start": 0.8,
+   "heldout_end": 0.775,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "685dca477777",
+     "commit": "24d8a34802f839f260272ba5935fbc68eda0bc06",
+     "score": 0.8,
+     "cost": 455.575,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "e6a9184549ae",
+     "commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+     "score": 0.775,
+     "cost": 629.825,
+     "n": 40
+    }
+   ],
+   "accepted": 2,
+   "proposed": 6,
+   "evaluated": 3,
+   "screened_out": 3,
+   "final_commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+   "sim_entries": 1,
+   "sim_attempts": 2,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.9333333333333333,
+    "delta": 0.059647,
+    "status": "done",
+    "updated": "2026-11-19 03:28:09"
+   },
+   "own_attempts": 2,
+   "own_predicted": 7,
+   "own_fixed": 3,
+   "cited_existing": 4,
+   "cost": {
+    "policy_calls": 149,
+    "policy_tokens": 89548,
+    "search_calls": 13,
+    "search_tokens": 47773,
+    "rmb": 0.13358580000000003
+   }
+  },
+  "sql-full-2": {
+   "run_id": "sql-full-2",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.096337,
+   "evolve_start": 0.4666666666666667,
+   "evolve_end": 0.4666666666666667,
+   "heldout_start": 0.625,
+   "heldout_end": 0.625,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "e6a9184549ae",
+     "commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+     "score": 0.625,
+     "cost": 1335.025,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "e6a9184549ae",
+     "commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+     "score": 0.625,
+     "cost": 1335.025,
+     "n": 40
+    }
+   ],
+   "accepted": 0,
+   "proposed": 6,
+   "evaluated": 5,
+   "screened_out": 1,
+   "final_commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+   "sim_entries": 1,
+   "sim_attempts": 2,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.4666666666666667,
+    "delta": 0.096337,
+    "status": "done",
+    "updated": "2026-11-19 03:45:34"
+   },
+   "own_attempts": 0,
+   "own_predicted": 0,
+   "own_fixed": 0,
+   "cited_existing": 3,
+   "cost": {
+    "policy_calls": 175,
+    "policy_tokens": 280413,
+    "search_calls": 9,
+    "search_tokens": 49905,
+    "rmb": 0.28198329999999994,
+    "rmb_first_execution": 0.3466608000000001
+   }
+  },
+  "sql-transfer-2": {
+   "run_id": "sql-transfer-2",
+   "domain": "text2sql",
+   "memory": "none",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.096337,
+   "evolve_start": 0.4666666666666667,
+   "evolve_end": 0.4666666666666667,
+   "heldout_start": 0.625,
+   "heldout_end": 0.725,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "e6a9184549ae",
+     "commit": "4221937356a14b75d01e5e0c94bf1d581bf0c5c9",
+     "score": 0.625,
+     "cost": 1335.025,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "623f2f025f4a",
+     "commit": "6ef2ff4c31b1fe2446ae79f6ea8657f9fe9507ad",
+     "score": 0.725,
+     "cost": 1511.175,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 4,
+   "evaluated": 2,
+   "screened_out": 2,
+   "final_commit": "6ef2ff4c31b1fe2446ae79f6ea8657f9fe9507ad",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.4666666666666667,
+    "delta": 0.096337,
+    "status": "done",
+    "updated": "2026-11-19 03:44:22"
+   },
+   "own_attempts": 1,
+   "own_predicted": 14,
+   "own_fixed": 1,
+   "cited_existing": 0,
+   "cost": {
+    "policy_calls": 108,
+    "policy_tokens": 159639,
+    "search_calls": 9,
+    "search_tokens": 38886,
+    "rmb": 0.13355750000000027,
+    "rmb_first_execution": 0.31370090000000017
+   }
+  },
+  "sql-src-3": {
+   "run_id": "sql-src-3",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "spider_evolve_s30",
+   "heldout_split": "spider_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.059647,
+   "evolve_start": 0.8333333333333334,
+   "evolve_end": 0.9,
+   "heldout_start": 0.8,
+   "heldout_end": 0.775,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "685dca477777",
+     "commit": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+     "score": 0.8,
+     "cost": 455.575,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "40e00367a7c5",
+     "commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+     "score": 0.775,
+     "cost": 543.375,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 6,
+   "evaluated": 2,
+   "screened_out": 4,
+   "final_commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.9,
+    "delta": 0.059647,
+    "status": "done",
+    "updated": "2026-11-19 03:28:06"
+   },
+   "own_attempts": 1,
+   "own_predicted": 4,
+   "own_fixed": 3,
+   "cited_existing": 4,
+   "cost": {
+    "policy_calls": 110,
+    "policy_tokens": 68087,
+    "search_calls": 12,
+    "search_tokens": 38358,
+    "rmb": 0.10343350000000001
+   }
+  },
+  "sql-full-3": {
+   "run_id": "sql-full-3",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.033333,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.43333333333333335,
+   "heldout_start": 0.65,
+   "heldout_end": 0.675,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "40e00367a7c5",
+     "commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+     "score": 0.65,
+     "cost": 1218.65,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "aa9b80410cc2",
+     "commit": "d5e64c15683980d789890438d12dc1aa77da86ae",
+     "score": 0.675,
+     "cost": 1187.5,
+     "n": 40
+    }
+   ],
+   "accepted": 2,
+   "proposed": 5,
+   "evaluated": 3,
+   "screened_out": 2,
+   "final_commit": "d5e64c15683980d789890438d12dc1aa77da86ae",
+   "sim_entries": 2,
+   "sim_attempts": 3,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.43333333333333335,
+    "delta": 0.033333,
+    "status": "done",
+    "updated": "2026-11-19 03:47:16"
+   },
+   "own_attempts": 2,
+   "own_predicted": 4,
+   "own_fixed": 0,
+   "cited_existing": 4,
+   "cost": {
+    "policy_calls": 138,
+    "policy_tokens": 170250,
+    "search_calls": 11,
+    "search_tokens": 48875,
+    "rmb": 0.14556970000000008,
+    "rmb_first_execution": 0.3509975999999997
+   }
+  },
+  "sql-transfer-3": {
+   "run_id": "sql-transfer-3",
+   "domain": "text2sql",
+   "memory": "none",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.033333,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.4666666666666667,
+   "heldout_start": 0.65,
+   "heldout_end": 0.625,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "40e00367a7c5",
+     "commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+     "score": 0.65,
+     "cost": 1218.65,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "b34419388074",
+     "commit": "a2efd097e551d6f8e2f9222e53ea9ccc4a49cea5",
+     "score": 0.625,
+     "cost": 1407.0,
+     "n": 40
+    }
+   ],
+   "accepted": 3,
+   "proposed": 6,
+   "evaluated": 5,
+   "screened_out": 1,
+   "final_commit": "a2efd097e551d6f8e2f9222e53ea9ccc4a49cea5",
+   "sim_entries": 3,
+   "sim_attempts": 3,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.4666666666666667,
+    "delta": 0.033333,
+    "status": "done",
+    "updated": "2026-11-19 03:46:49"
+   },
+   "own_attempts": 3,
+   "own_predicted": 13,
+   "own_fixed": 0,
+   "cited_existing": 0,
+   "cost": {
+    "policy_calls": 199,
+    "policy_tokens": 268656,
+    "search_calls": 12,
+    "search_tokens": 43237,
+    "rmb": 0.19573650000000015,
+    "rmb_first_execution": 0.3151369000000001
+   }
+  },
+  "sql-cold": {
+   "run_id": "sql-cold",
+   "domain": "text2sql",
+   "memory": "none",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.037268,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.43333333333333335,
+   "heldout_start": 0.675,
+   "heldout_end": 0.65,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "685dca477777",
+     "commit": "00b8483ab6e918b7b0e445dd3326c1ec4dc729aa",
+     "score": 0.675,
+     "cost": 1183.225,
+     "n": 40
+    },
+    {
+     "after_round": 0,
+     "tree": "685dca477777",
+     "commit": "00b8483ab6e918b7b0e445dd3326c1ec4dc729aa",
+     "score": 0.675,
+     "cost": 1183.225,
+     "n": 40
+    },
+    {
+     "after_round": 1,
+     "tree": "1026f7fd14a9",
+     "commit": "0719b809e1987e2ef82b6919331453da21c4eec4",
+     "score": 0.65,
+     "cost": 1184.25,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "1026f7fd14a9",
+     "commit": "0719b809e1987e2ef82b6919331453da21c4eec4",
+     "score": 0.65,
+     "cost": 1184.25,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 5,
+   "evaluated": 4,
+   "screened_out": 1,
+   "final_commit": "0719b809e1987e2ef82b6919331453da21c4eec4",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.43333333333333335,
+    "delta": 0.037268,
+    "status": "done",
+    "updated": "2026-11-19 03:28:38"
+   },
+   "own_attempts": 1,
+   "own_predicted": 4,
+   "own_fixed": 0,
+   "cited_existing": 0,
+   "cost": {
+    "policy_calls": 160,
+    "policy_tokens": 203999,
+    "search_calls": 14,
+    "search_tokens": 53824,
+    "rmb": 0.1834764
+   }
+  },
+  "sql-problems-1": {
+   "run_id": "sql-problems-1",
+   "domain": "text2sql",
+   "memory": "problems",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.054615,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.5,
+   "heldout_start": 0.55,
+   "heldout_end": 0.65,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 0,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 1,
+     "tree": "c58983ba05b4",
+     "commit": "ea4379dae9af226dbcbb32bcf44a930bfffcad69",
+     "score": 0.65,
+     "cost": 1497.55,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "2c4eb2906bdc",
+     "commit": "fc06889abd63aeacf65d8095ffc33d939b2838ba",
+     "score": 0.65,
+     "cost": 1687.8,
+     "n": 40
+    }
+   ],
+   "accepted": 2,
+   "proposed": 6,
+   "evaluated": 4,
+   "screened_out": 2,
+   "final_commit": "fc06889abd63aeacf65d8095ffc33d939b2838ba",
+   "sim_entries": 3,
+   "sim_attempts": 2,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.5,
+    "delta": 0.054615,
+    "status": "done",
+    "updated": "2026-11-19 03:37:40"
+   },
+   "own_attempts": 2,
+   "own_predicted": 7,
+   "own_fixed": 2,
+   "cited_existing": 0,
+   "cost": {
+    "policy_calls": 217,
+    "policy_tokens": 340219,
+    "search_calls": 11,
+    "search_tokens": 42369,
+    "rmb": 0.2383061999999999
+   }
+  },
+  "so-src-1": {
+   "run_id": "so-src-1",
+   "domain": "supportops",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "so_evolve_s20",
+   "heldout_split": "so_heldout_s20",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.111301,
+   "evolve_start": 0.75,
+   "evolve_end": 0.95,
+   "heldout_start": 0.8,
+   "heldout_end": 0.95,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "83c2c16446f4",
+     "commit": "d80a0f6d7dcc794643897e894048c79e81381a23",
+     "score": 0.8,
+     "cost": 9370.85,
+     "n": 20
+    },
+    {
+     "after_round": 2,
+     "tree": "9348ea6fe59b",
+     "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+     "score": 0.95,
+     "cost": 7982.35,
+     "n": 20
+    }
+   ],
+   "accepted": 1,
+   "proposed": 4,
+   "evaluated": 2,
+   "screened_out": 2,
+   "final_commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.95,
+    "delta": 0.111301,
+    "status": "done",
+    "updated": "2026-11-19 03:37:38"
+   },
+   "own_attempts": 1,
+   "own_predicted": 5,
+   "own_fixed": 4,
+   "cited_existing": 2,
+   "cost": {
+    "policy_calls": 187,
+    "policy_tokens": 464952,
+    "search_calls": 12,
+    "search_tokens": 39478,
+    "rmb": 0.17712820000000007
+   }
+  },
+  "so-full": {
+   "run_id": "so-full",
+   "domain": "supportops",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "ood_evolve",
+   "heldout_split": "ood_heldout",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.134857,
+   "evolve_start": 0.8666666666666667,
+   "evolve_end": 0.9333333333333333,
+   "heldout_start": 1.0,
+   "heldout_end": 1.0,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "9348ea6fe59b",
+     "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+     "score": 1.0,
+     "cost": 6481.2,
+     "n": 15
+    },
+    {
+     "after_round": 0,
+     "tree": "be5e74832ad9",
+     "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+     "score": 1.0,
+     "cost": 7450.266666666666,
+     "n": 15
+    },
+    {
+     "after_round": 1,
+     "tree": "be5e74832ad9",
+     "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+     "score": 1.0,
+     "cost": 7450.266666666666,
+     "n": 15
+    },
+    {
+     "after_round": 2,
+     "tree": "be5e74832ad9",
+     "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+     "score": 1.0,
+     "cost": 7450.266666666666,
+     "n": 15
+    }
+   ],
+   "accepted": 1,
+   "proposed": 5,
+   "evaluated": 3,
+   "screened_out": 2,
+   "final_commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+   "sim_entries": 1,
+   "sim_attempts": 2,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.9333333333333333,
+    "delta": 0.134857,
+    "status": "done",
+    "updated": "2026-11-19 03:42:27"
+   },
+   "own_attempts": 1,
+   "own_predicted": 2,
+   "own_fixed": 1,
+   "cited_existing": 5,
+   "cost": {
+    "policy_calls": 370,
+    "policy_tokens": 934662,
+    "search_calls": 10,
+    "search_tokens": 32707,
+    "rmb": 0.30740509999999993
+   }
+  },
+  "so-transfer": {
+   "run_id": "so-transfer",
+   "domain": "supportops",
+   "memory": "none",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "ood_evolve",
+   "heldout_split": "ood_heldout",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.134857,
+   "evolve_start": 0.8666666666666667,
+   "evolve_end": 1.0,
+   "heldout_start": 1.0,
+   "heldout_end": 1.0,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "9348ea6fe59b",
+     "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+     "score": 1.0,
+     "cost": 6481.2,
+     "n": 15
+    },
+    {
+     "after_round": 0,
+     "tree": "c09eb50764b9",
+     "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+     "score": 1.0,
+     "cost": 7461.133333333333,
+     "n": 15
+    },
+    {
+     "after_round": 1,
+     "tree": "c09eb50764b9",
+     "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+     "score": 1.0,
+     "cost": 7461.133333333333,
+     "n": 15
+    },
+    {
+     "after_round": 2,
+     "tree": "c09eb50764b9",
+     "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+     "score": 1.0,
+     "cost": 7461.133333333333,
+     "n": 15
+    }
+   ],
+   "accepted": 1,
+   "proposed": 2,
+   "evaluated": 2,
+   "screened_out": 0,
+   "final_commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 1.0,
+    "delta": 0.134857,
+    "status": "done",
+    "updated": "2026-11-19 03:41:58"
+   },
+   "own_attempts": 1,
+   "own_predicted": 2,
+   "own_fixed": 2,
+   "cited_existing": 0,
+   "cost": {
+    "policy_calls": 136,
+    "policy_tokens": 351657,
+    "search_calls": 9,
+    "search_tokens": 18147,
+    "rmb": 0.12415799999999995
+   }
+  },
+  "so-cold": {
+   "run_id": "so-cold",
+   "domain": "supportops",
+   "memory": "none",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "ood_evolve",
+   "heldout_split": "ood_heldout",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.166188,
+   "evolve_start": 0.9333333333333333,
+   "evolve_end": 1.0,
+   "heldout_start": 1.0,
+   "heldout_end": 1.0,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "83c2c16446f4",
+     "commit": "a1c5a91df4fab58860610bce82951818cc1f695c",
+     "score": 1.0,
+     "cost": 6909.866666666667,
+     "n": 15
+    },
+    {
+     "after_round": 0,
+     "tree": "4f6149a58474",
+     "commit": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+     "score": 1.0,
+     "cost": 7318.466666666666,
+     "n": 15
+    },
+    {
+     "after_round": 1,
+     "tree": "4f6149a58474",
+     "commit": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+     "score": 1.0,
+     "cost": 7318.466666666666,
+     "n": 15
+    },
+    {
+     "after_round": 2,
+     "tree": "4f6149a58474",
+     "commit": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+     "score": 1.0,
+     "cost": 7318.466666666666,
+     "n": 15
+    }
+   ],
+   "accepted": 1,
+   "proposed": 5,
+   "evaluated": 4,
+   "screened_out": 1,
+   "final_commit": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 1.0,
+    "delta": 0.166188,
+    "status": "done",
+    "updated": "2026-11-19 03:41:52"
+   },
+   "own_attempts": 1,
+   "own_predicted": 1,
+   "own_fixed": 1,
+   "cited_existing": 0,
+   "cost": {
+    "policy_calls": 230,
+    "policy_tokens": 585649,
+    "search_calls": 10,
+    "search_tokens": 19801,
+    "rmb": 0.19735079999999994
+   }
+  },
+  "so-problems": {
+   "run_id": "so-problems",
+   "domain": "supportops",
+   "memory": "problems",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "ood_evolve",
+   "heldout_split": "ood_heldout",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.134857,
+   "evolve_start": 0.8666666666666667,
+   "evolve_end": 1.0,
+   "heldout_start": 1.0,
+   "heldout_end": 1.0,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "9348ea6fe59b",
+     "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+     "score": 1.0,
+     "cost": 6481.2,
+     "n": 15
+    },
+    {
+     "after_round": 0,
+     "tree": "72d7d829a5e1",
+     "commit": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+     "score": 1.0,
+     "cost": 7743.733333333334,
+     "n": 15
+    },
+    {
+     "after_round": 1,
+     "tree": "72d7d829a5e1",
+     "commit": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+     "score": 1.0,
+     "cost": 7743.733333333334,
+     "n": 15
+    },
+    {
+     "after_round": 2,
+     "tree": "72d7d829a5e1",
+     "commit": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+     "score": 1.0,
+     "cost": 7743.733333333334,
+     "n": 15
+    }
+   ],
+   "accepted": 1,
+   "proposed": 4,
+   "evaluated": 1,
+   "screened_out": 3,
+   "final_commit": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 3,
+    "best_score": 1.0,
+    "delta": 0.134857,
+    "status": "done",
+    "updated": "2026-11-19 03:41:45"
+   },
+   "own_attempts": 1,
+   "own_predicted": 2,
+   "own_fixed": 2,
+   "cited_existing": 2,
+   "cost": {
+    "policy_calls": 92,
+    "policy_tokens": 241373,
+    "search_calls": 8,
+    "search_tokens": 19329,
+    "rmb": 0.09255350000000002
+   }
+  },
+  "ret-full-1": {
+   "run_id": "ret-full-1",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.054615,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.4666666666666667,
+   "heldout_start": 0.55,
+   "heldout_end": 0.65,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "5488b6d524a4",
+     "commit": "768ceb063d713d688b8edcc34d856a2229b334a0",
+     "score": 0.65,
+     "cost": 1433.55,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 5,
+   "evaluated": 2,
+   "screened_out": 3,
+   "final_commit": "768ceb063d713d688b8edcc34d856a2229b334a0",
+   "sim_entries": 4,
+   "sim_attempts": 5,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.4666666666666667,
+    "delta": 0.054615,
+    "status": "done",
+    "updated": "2026-11-19 03:49:05"
+   },
+   "own_attempts": 1,
+   "own_predicted": 5,
+   "own_fixed": 0,
+   "cited_existing": 4,
+   "cost": {
+    "policy_calls": 107,
+    "policy_tokens": 162642,
+    "search_calls": 9,
+    "search_tokens": 57417,
+    "rmb": 0.14870389999999997
+   }
+  },
+  "ret-top-1": {
+   "run_id": "ret-top-1",
+   "domain": "text2sql",
+   "memory": "retrieved",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "bird_evolve_s30",
+   "heldout_split": "bird_heldout_s40",
+   "rounds": 3,
+   "k": 2,
+   "delta": 0.054615,
+   "evolve_start": 0.43333333333333335,
+   "evolve_end": 0.5333333333333333,
+   "heldout_start": 0.55,
+   "heldout_end": 0.625,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "7e87d5b22f0a",
+     "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+     "score": 0.55,
+     "cost": 1375.925,
+     "n": 40
+    },
+    {
+     "after_round": 2,
+     "tree": "fbfabe958c83",
+     "commit": "2fc98520182f1cc70af0d5207575cbace9f10c4f",
+     "score": 0.625,
+     "cost": 3528.875,
+     "n": 40
+    }
+   ],
+   "accepted": 1,
+   "proposed": 4,
+   "evaluated": 2,
+   "screened_out": 2,
+   "final_commit": "2fc98520182f1cc70af0d5207575cbace9f10c4f",
+   "sim_entries": 3,
+   "sim_attempts": 5,
+   "state": {
+    "next_round": 3,
+    "best_score": 0.5333333333333333,
+    "delta": 0.054615,
+    "status": "done",
+    "updated": "2026-11-19 03:49:08"
+   },
+   "own_attempts": 1,
+   "own_predicted": 6,
+   "own_fixed": 3,
+   "cited_existing": 3,
+   "cost": {
+    "policy_calls": 175,
+    "policy_tokens": 304147,
+    "search_calls": 9,
+    "search_tokens": 57585,
+    "rmb": 0.2423961
    }
   }
  },
  "source": [
   {
-   "run": "sql-src-4",
+   "run": "sql-src-1",
    "domain": "text2sql",
-   "evolve_start": 0.7833333333333333,
-   "evolve_end": 0.8833333333333333,
-   "heldout_start": 0.8166666666666667,
-   "heldout_end": 0.8666666666666667,
+   "evolve_start": 0.8333333333333334,
+   "evolve_end": 0.9,
+   "heldout_start": 0.8,
+   "heldout_end": 0.775,
    "accepted": 1,
+   "evolve_split": "spider_evolve_s30",
+   "heldout_split": "spider_heldout_s40",
+   "status": "done",
    "sim_entries": 1,
-   "policy_calls": 828,
-   "policy_tokens": 895328,
-   "search_calls": 25,
-   "search_tokens": 208641
+   "policy_calls": 167,
+   "policy_tokens": 120994,
+   "search_calls": 12,
+   "search_tokens": 41754,
+   "rmb": 0.1442034
+  },
+  {
+   "run": "sql-src-2",
+   "domain": "text2sql",
+   "evolve_start": 0.8333333333333334,
+   "evolve_end": 0.9333333333333333,
+   "heldout_start": 0.8,
+   "heldout_end": 0.775,
+   "accepted": 2,
+   "evolve_split": "spider_evolve_s30",
+   "heldout_split": "spider_heldout_s40",
+   "status": "done",
+   "sim_entries": 1,
+   "policy_calls": 149,
+   "policy_tokens": 89548,
+   "search_calls": 13,
+   "search_tokens": 47773,
+   "rmb": 0.13358580000000003
+  },
+  {
+   "run": "sql-src-3",
+   "domain": "text2sql",
+   "evolve_start": 0.8333333333333334,
+   "evolve_end": 0.9,
+   "heldout_start": 0.8,
+   "heldout_end": 0.775,
+   "accepted": 1,
+   "evolve_split": "spider_evolve_s30",
+   "heldout_split": "spider_heldout_s40",
+   "status": "done",
+   "sim_entries": 1,
+   "policy_calls": 110,
+   "policy_tokens": 68087,
+   "search_calls": 12,
+   "search_tokens": 38358,
+   "rmb": 0.10343350000000001
+  },
+  {
+   "run": "so-src-1",
+   "domain": "supportops",
+   "evolve_start": 0.75,
+   "evolve_end": 0.95,
+   "heldout_start": 0.8,
+   "heldout_end": 0.95,
+   "accepted": 1,
+   "evolve_split": "so_evolve_s20",
+   "heldout_split": "so_heldout_s20",
+   "status": "done",
+   "sim_entries": 1,
+   "policy_calls": 187,
+   "policy_tokens": 464952,
+   "search_calls": 12,
+   "search_tokens": 39478,
+   "rmb": 0.17712820000000007
   }
  ],
  "paired": {
-  "pairs": []
+  "pairs": [
+   {
+    "source": 1,
+    "start": 0.55,
+    "no_sim": 0.6,
+    "sim": 0.6,
+    "delta": 0.0,
+    "evolve_no_sim": 0.4666666666666667,
+    "evolve_sim": 0.5
+   },
+   {
+    "source": 2,
+    "start": 0.625,
+    "no_sim": 0.725,
+    "sim": 0.625,
+    "delta": -0.09999999999999998,
+    "evolve_no_sim": 0.4666666666666667,
+    "evolve_sim": 0.4666666666666667
+   },
+   {
+    "source": 3,
+    "start": 0.65,
+    "no_sim": 0.625,
+    "sim": 0.675,
+    "delta": 0.050000000000000044,
+    "evolve_no_sim": 0.4666666666666667,
+    "evolve_sim": 0.43333333333333335
+   }
+  ],
+  "stats": {
+   "n": 3,
+   "mean_a": 63.333333333333336,
+   "mean_b": 65.0,
+   "mean_diff": -1.6666666666666667,
+   "sd_diff": 7.637626158259733,
+   "ci95": [
+    -20.639581834650464,
+    17.30624850131713
+   ],
+   "t": -0.37796447300922725,
+   "df": 2,
+   "p_t_two_sided": 0.7418011102528389,
+   "wilcoxon": {
+    "n_nonzero": 2,
+    "w_plus": 1.0,
+    "p_two_sided": 1.0,
+    "assignments": 4
+   },
+   "d_z": -0.2182178902359924,
+   "wins": 1,
+   "losses": 1,
+   "ties": 1,
+   "diffs": [
+    0.0,
+    -10.0,
+    5.0
+   ]
+  },
+  "evolve_stats": {
+   "n": 3,
+   "mean_a": 46.666666666666664,
+   "mean_b": 46.666666666666664,
+   "mean_diff": 2.3684757858670005e-15,
+   "sd_diff": 3.333333333333332,
+   "ci95": [
+    -8.280459039167763,
+    8.280459039167766
+   ],
+   "t": 1.2306961192854811e-15,
+   "df": 2,
+   "p_t_two_sided": 0.9999999999999991,
+   "wilcoxon": {
+    "n_nonzero": 2,
+    "w_plus": 2.0,
+    "p_two_sided": 1.0,
+    "assignments": 4
+   },
+   "d_z": 7.105427357601004e-16,
+   "wins": 1,
+   "losses": 1,
+   "ties": 1,
+   "diffs": [
+    3.3333333333333357,
+    0.0,
+    -3.3333333333333286
+   ]
+  }
+ },
+ "paired_raced": {
+  "pairs": [
+   {
+    "source": 1,
+    "start": 0.55,
+    "no_sim": 0.625,
+    "sim": 0.625,
+    "delta": 0.0,
+    "evolve_no_sim": 0.5,
+    "evolve_sim": 0.4666666666666667
+   },
+   {
+    "source": 2,
+    "start": 0.625,
+    "no_sim": 0.6,
+    "sim": 0.625,
+    "delta": 0.025000000000000022,
+    "evolve_no_sim": 0.5,
+    "evolve_sim": 0.4666666666666667
+   },
+   {
+    "source": 3,
+    "start": 0.7,
+    "no_sim": 0.7,
+    "sim": 0.65,
+    "delta": -0.04999999999999993,
+    "evolve_no_sim": 0.5666666666666667,
+    "evolve_sim": 0.4666666666666667
+   }
+  ],
+  "stats": {
+   "n": 3,
+   "mean_a": 63.333333333333336,
+   "mean_b": 64.16666666666667,
+   "mean_diff": -0.8333333333333334,
+   "sd_diff": 3.8188130791298667,
+   "ci95": [
+    -10.319790917325232,
+    8.653124250658564
+   ],
+   "t": -0.37796447300922725,
+   "df": 2,
+   "p_t_two_sided": 0.7418011102528389,
+   "wilcoxon": {
+    "n_nonzero": 2,
+    "w_plus": 1.0,
+    "p_two_sided": 1.0,
+    "assignments": 4
+   },
+   "d_z": -0.2182178902359924,
+   "wins": 1,
+   "losses": 1,
+   "ties": 1,
+   "diffs": [
+    0.0,
+    2.5,
+    -5.0
+   ]
+  },
+  "evolve_stats": {
+   "n": 3,
+   "mean_a": 46.666666666666664,
+   "mean_b": 52.22222222222222,
+   "mean_diff": -5.555555555555557,
+   "sd_diff": 3.8490017945975037,
+   "ci95": [
+    -15.117006066109914,
+    4.0058949549988
+   ],
+   "t": -2.5000000000000018,
+   "df": 2,
+   "p_t_two_sided": 0.12961172022151066,
+   "wilcoxon": {
+    "n_nonzero": 3,
+    "w_plus": 0,
+    "p_two_sided": 0.25,
+    "assignments": 8
+   },
+   "d_z": -1.4433756729740654,
+   "wins": 0,
+   "losses": 3,
+   "ties": 0,
+   "diffs": [
+    -3.3333333333333357,
+    -3.3333333333333357,
+    -10.0
+   ]
+  },
+  "start_by_arm": [
+   {
+    "source": 1,
+    "sim_arm": 0.6,
+    "no_sim_arm": 0.55
+   },
+   {
+    "source": 2,
+    "sim_arm": 0.675,
+    "no_sim_arm": 0.625
+   },
+   {
+    "source": 3,
+    "sim_arm": 0.65,
+    "no_sim_arm": 0.7
+   }
+  ]
  },
  "conditions": {
-  "sql": [],
-  "supportops": [],
+  "sql": [
+   {
+    "condition": "Cold Start",
+    "run": "sql-cold",
+    "status": "done",
+    "before": 0.675,
+    "after": 0.65,
+    "curve": [
+     [
+      -1,
+      0.675
+     ],
+     [
+      0,
+      0.675
+     ],
+     [
+      1,
+      0.65
+     ],
+     [
+      2,
+      0.65
+     ]
+    ],
+    "evolve_before": 0.43333333333333335,
+    "evolve_after": 0.43333333333333335,
+    "accepted": 1,
+    "policy_calls": 160,
+    "policy_tokens": 203999,
+    "search_calls": 14,
+    "search_tokens": 53824,
+    "rmb": 0.1834764
+   },
+   {
+    "condition": "Harness Transfer",
+    "run": "sql-transfer-1",
+    "status": "done",
+    "before": 0.55,
+    "after": 0.6,
+    "curve": [
+     [
+      -1,
+      0.55
+     ],
+     [
+      0,
+      0.6
+     ],
+     [
+      1,
+      0.6
+     ],
+     [
+      2,
+      0.6
+     ]
+    ],
+    "evolve_before": 0.43333333333333335,
+    "evolve_after": 0.4666666666666667,
+    "accepted": 1,
+    "policy_calls": 142,
+    "policy_tokens": 224547,
+    "search_calls": 10,
+    "search_tokens": 46013,
+    "rmb": 0.17676370000000036,
+    "rmb_first_execution": 0.40749549999999995
+   },
+   {
+    "condition": "Problem-Only Memory",
+    "run": "sql-problems-1",
+    "status": "done",
+    "before": 0.55,
+    "after": 0.65,
+    "curve": [
+     [
+      -1,
+      0.55
+     ],
+     [
+      0,
+      0.55
+     ],
+     [
+      1,
+      0.65
+     ],
+     [
+      2,
+      0.65
+     ]
+    ],
+    "evolve_before": 0.43333333333333335,
+    "evolve_after": 0.5,
+    "accepted": 2,
+    "policy_calls": 217,
+    "policy_tokens": 340219,
+    "search_calls": 11,
+    "search_tokens": 42369,
+    "rmb": 0.2383061999999999
+   },
+   {
+    "condition": "Full SIM",
+    "run": "sql-full-1",
+    "status": "done",
+    "before": 0.55,
+    "after": 0.6,
+    "curve": [
+     [
+      -1,
+      0.55
+     ],
+     [
+      0,
+      0.55
+     ],
+     [
+      1,
+      0.55
+     ],
+     [
+      2,
+      0.6
+     ]
+    ],
+    "evolve_before": 0.43333333333333335,
+    "evolve_after": 0.5,
+    "accepted": 1,
+    "policy_calls": 239,
+    "policy_tokens": 416304,
+    "search_calls": 10,
+    "search_tokens": 52479,
+    "rmb": 0.3234793999999999,
+    "rmb_first_execution": 0.3001941000000001
+   }
+  ],
+  "supportops": [
+   {
+    "condition": "Cold Start",
+    "run": "so-cold",
+    "status": "done",
+    "before": 1.0,
+    "after": 1.0,
+    "curve": [
+     [
+      -1,
+      1.0
+     ],
+     [
+      0,
+      1.0
+     ],
+     [
+      1,
+      1.0
+     ],
+     [
+      2,
+      1.0
+     ]
+    ],
+    "evolve_before": 0.9333333333333333,
+    "evolve_after": 1.0,
+    "accepted": 1,
+    "policy_calls": 230,
+    "policy_tokens": 585649,
+    "search_calls": 10,
+    "search_tokens": 19801,
+    "rmb": 0.19735079999999994
+   },
+   {
+    "condition": "Harness Transfer",
+    "run": "so-transfer",
+    "status": "done",
+    "before": 1.0,
+    "after": 1.0,
+    "curve": [
+     [
+      -1,
+      1.0
+     ],
+     [
+      0,
+      1.0
+     ],
+     [
+      1,
+      1.0
+     ],
+     [
+      2,
+      1.0
+     ]
+    ],
+    "evolve_before": 0.8666666666666667,
+    "evolve_after": 1.0,
+    "accepted": 1,
+    "policy_calls": 136,
+    "policy_tokens": 351657,
+    "search_calls": 9,
+    "search_tokens": 18147,
+    "rmb": 0.12415799999999995
+   },
+   {
+    "condition": "Problem-Only Memory",
+    "run": "so-problems",
+    "status": "done",
+    "before": 1.0,
+    "after": 1.0,
+    "curve": [
+     [
+      -1,
+      1.0
+     ],
+     [
+      0,
+      1.0
+     ],
+     [
+      1,
+      1.0
+     ],
+     [
+      2,
+      1.0
+     ]
+    ],
+    "evolve_before": 0.8666666666666667,
+    "evolve_after": 1.0,
+    "accepted": 1,
+    "policy_calls": 92,
+    "policy_tokens": 241373,
+    "search_calls": 8,
+    "search_tokens": 19329,
+    "rmb": 0.09255350000000002
+   },
+   {
+    "condition": "Full SIM",
+    "run": "so-full",
+    "status": "done",
+    "before": 1.0,
+    "after": 1.0,
+    "curve": [
+     [
+      -1,
+      1.0
+     ],
+     [
+      0,
+      1.0
+     ],
+     [
+      1,
+      1.0
+     ],
+     [
+      2,
+      1.0
+     ]
+    ],
+    "evolve_before": 0.8666666666666667,
+    "evolve_after": 0.9333333333333333,
+    "accepted": 1,
+    "policy_calls": 370,
+    "policy_tokens": 934662,
+    "search_calls": 10,
+    "search_tokens": 32707,
+    "rmb": 0.30740509999999993
+   }
+  ],
   "crossmodel": []
  },
- "retrieval": [],
+ "retrieval": [
+  {
+   "condition": "full seed 1",
+   "run": "ret-full-1",
+   "status": "done",
+   "before": 0.55,
+   "after": 0.65,
+   "curve": [
+    [
+     -1,
+     0.55
+    ],
+    [
+     2,
+     0.65
+    ]
+   ],
+   "evolve_before": 0.43333333333333335,
+   "evolve_after": 0.4666666666666667,
+   "accepted": 1,
+   "policy_calls": 107,
+   "policy_tokens": 162642,
+   "search_calls": 9,
+   "search_tokens": 57417,
+   "rmb": 0.14870389999999997
+  },
+  {
+   "condition": "top seed 1",
+   "run": "ret-top-1",
+   "status": "done",
+   "before": 0.55,
+   "after": 0.625,
+   "curve": [
+    [
+     -1,
+     0.55
+    ],
+    [
+     2,
+     0.625
+    ]
+   ],
+   "evolve_before": 0.43333333333333335,
+   "evolve_after": 0.5333333333333333,
+   "accepted": 1,
+   "policy_calls": 175,
+   "policy_tokens": 304147,
+   "search_calls": 9,
+   "search_tokens": 57585,
+   "rmb": 0.2423961
+  }
+ ],
+ "not_run": [],
+ "unfunded": [
+  "xm-cold",
+  "xm-transfer",
+  "xm-problems",
+  "xm-full"
+ ],
+ "search": {
+  "slots": 108,
+  "proposed": 89,
+  "screened_out": 35,
+  "evaluated": 54,
+  "accepted": 22,
+  "proposal_failures": {
+   "manifest without <file> blocks": 13,
+   "unterminated JSON object": 2,
+   "no edits": 2,
+   "missing root cause": 2
+  }
+ },
  "eval_variance": [
   {
    "domain": "supportops",
@@ -95,7 +1805,22 @@
     80.0
    ],
    "mean": 82.22222222222221,
-   "sd": 10.18350154434631
+   "sd": 10.18350154434631,
+   "projected_from": ""
+  },
+  {
+   "domain": "supportops",
+   "split": "ood_evolve",
+   "model": "qwen3.8-flash",
+   "tree": "9348ea6fe59b",
+   "scores": [
+    86.66666666666667,
+    100.0,
+    100.0
+   ],
+   "mean": 95.55555555555556,
+   "sd": 7.698003589195007,
+   "projected_from": ""
   },
   {
    "domain": "supportops",
@@ -108,7 +1833,22 @@
     85.0
    ],
    "mean": 86.66666666666667,
-   "sd": 2.8867513459481287
+   "sd": 2.8867513459481287,
+   "projected_from": ""
+  },
+  {
+   "domain": "supportops",
+   "split": "so_evolve_s20",
+   "model": "qwen3.8-flash",
+   "tree": "83c2c16446f4",
+   "scores": [
+    75.0,
+    85.0,
+    85.0
+   ],
+   "mean": 81.66666666666667,
+   "sd": 5.773502691896257,
+   "projected_from": "so_evolve"
   },
   {
    "domain": "text2sql",
@@ -121,7 +1861,8 @@
     41.66666666666667
    ],
    "mean": 42.22222222222223,
-   "sd": 0.9622504486493749
+   "sd": 0.9622504486493749,
+   "projected_from": ""
   },
   {
    "domain": "text2sql",
@@ -134,7 +1875,64 @@
     50.0
    ],
    "mean": 48.333333333333336,
-   "sd": 1.6666666666666679
+   "sd": 1.6666666666666679,
+   "projected_from": ""
+  },
+  {
+   "domain": "text2sql",
+   "split": "bird_evolve_s30",
+   "model": "qwen3.8-flash",
+   "tree": "40e00367a7c5",
+   "scores": [
+    43.333333333333336,
+    43.333333333333336,
+    43.333333333333336
+   ],
+   "mean": 43.333333333333336,
+   "sd": 0.0,
+   "projected_from": ""
+  },
+  {
+   "domain": "text2sql",
+   "split": "bird_evolve_s30",
+   "model": "qwen3.8-flash",
+   "tree": "685dca477777",
+   "scores": [
+    43.333333333333336,
+    46.666666666666664,
+    43.333333333333336
+   ],
+   "mean": 44.44444444444445,
+   "sd": 1.9245008972987498,
+   "projected_from": "bird_evolve"
+  },
+  {
+   "domain": "text2sql",
+   "split": "bird_evolve_s30",
+   "model": "qwen3.8-flash",
+   "tree": "7e87d5b22f0a",
+   "scores": [
+    43.333333333333336,
+    43.333333333333336,
+    40.0
+   ],
+   "mean": 42.22222222222222,
+   "sd": 1.9245008972987538,
+   "projected_from": ""
+  },
+  {
+   "domain": "text2sql",
+   "split": "bird_evolve_s30",
+   "model": "qwen3.8-flash",
+   "tree": "e6a9184549ae",
+   "scores": [
+    46.666666666666664,
+    36.666666666666664,
+    46.666666666666664
+   ],
+   "mean": 43.333333333333336,
+   "sd": 5.773502691896257,
+   "projected_from": ""
   },
   {
    "domain": "text2sql",
@@ -147,48 +1945,463 @@
     78.33333333333333
    ],
    "mean": 80.55555555555556,
-   "sd": 3.8490017945975077
+   "sd": 3.8490017945975077,
+   "projected_from": ""
+  },
+  {
+   "domain": "text2sql",
+   "split": "spider_evolve_s30",
+   "model": "qwen3.8-flash",
+   "tree": "685dca477777",
+   "scores": [
+    83.33333333333334,
+    86.66666666666667,
+    80.0
+   ],
+   "mean": 83.33333333333333,
+   "sd": 3.3333333333333357,
+   "projected_from": "spider_evolve"
   }
  ],
  "ledger": {
   "pools": {
    "policy": {
-    "calls": 7182,
-    "completion_tokens": 656974,
+    "calls": 4927,
+    "completion_tokens": 592958,
     "failed": 0,
-    "prompt_tokens": 9013137
+    "prompt_tokens": 7449702
    },
    "search": {
-    "calls": 180,
-    "completion_tokens": 488076,
+    "calls": 256,
+    "completion_tokens": 150650,
     "failed": 0,
-    "prompt_tokens": 1007161
+    "prompt_tokens": 885472
    }
   },
   "models": {
-   "policy|deepseek-v4.1-flash": {
-    "calls": 303,
-    "completion_tokens": 144468,
-    "failed": 0,
-    "prompt_tokens": 293419
-   },
    "policy|qwen3.8-flash": {
-    "calls": 6879,
-    "completion_tokens": 512506,
+    "calls": 4927,
+    "completion_tokens": 592958,
     "failed": 0,
-    "prompt_tokens": 8719718
+    "prompt_tokens": 7449702
    },
-   "proposer|qwen4-max": {
-    "calls": 141,
-    "completion_tokens": 470480,
+   "proposer|qwen3.8-flash": {
+    "calls": 154,
+    "completion_tokens": 134004,
     "failed": 0,
-    "prompt_tokens": 612269
+    "prompt_tokens": 673407
    },
-   "selector|qwen4-max": {
-    "calls": 39,
-    "completion_tokens": 17596,
+   "selector|qwen3.8-flash": {
+    "calls": 102,
+    "completion_tokens": 16646,
     "failed": 0,
-    "prompt_tokens": 394892
+    "prompt_tokens": 212065
+   }
+  }
+ },
+ "spend": {
+  "cap_rmb": 9.5,
+  "spent_rmb": 5.384005100000024,
+  "calls": 5184,
+  "failed": 0,
+  "prices_rmb_per_million": {
+   "qwen3.7-flash": [
+    0.8,
+    2.7,
+    0.1
+   ],
+   "qwen3.8-flash": [
+    0.8,
+    2.7,
+    0.1
+   ]
+  },
+  "by_role": {
+   "policy": {
+    "cached_tokens": 4290816,
+    "calls": 4928,
+    "completion_tokens": 592959,
+    "failed": 0,
+    "prompt_tokens": 7449734,
+    "reasoning_tokens": 0,
+    "rmb": 4.557205300000018
+   },
+   "proposer": {
+    "cached_tokens": 409856,
+    "calls": 154,
+    "completion_tokens": 134004,
+    "failed": 0,
+    "prompt_tokens": 673407,
+    "reasoning_tokens": 0,
+    "rmb": 0.6136372
+   },
+   "selector": {
+    "cached_tokens": 2048,
+    "calls": 102,
+    "completion_tokens": 16646,
+    "failed": 0,
+    "prompt_tokens": 212065,
+    "reasoning_tokens": 0,
+    "rmb": 0.2131625999999999
+   }
+  },
+  "by_model": {
+   "qwen3.8-flash": {
+    "cached_tokens": 4702720,
+    "calls": 5184,
+    "completion_tokens": 743609,
+    "failed": 0,
+    "prompt_tokens": 8335206,
+    "reasoning_tokens": 0,
+    "rmb": 5.384005100000024
+   }
+  },
+  "by_run": {
+   "api-check": {
+    "cached_tokens": 0,
+    "calls": 1,
+    "completion_tokens": 1,
+    "failed": 0,
+    "prompt_tokens": 32,
+    "reasoning_tokens": 0,
+    "rmb": 2.83e-05
+   },
+   "ret-full-1": {
+    "cached_tokens": 94208,
+    "calls": 116,
+    "completion_tokens": 20317,
+    "failed": 0,
+    "prompt_tokens": 199742,
+    "reasoning_tokens": 0,
+    "rmb": 0.14870389999999997
+   },
+   "ret-top-1": {
+    "cached_tokens": 160768,
+    "calls": 184,
+    "completion_tokens": 34499,
+    "failed": 0,
+    "prompt_tokens": 327233,
+    "reasoning_tokens": 0,
+    "rmb": 0.2423961
+   },
+   "so-cold": {
+    "cached_tokens": 479488,
+    "calls": 240,
+    "completion_tokens": 25596,
+    "failed": 0,
+    "prompt_tokens": 579854,
+    "reasoning_tokens": 0,
+    "rmb": 0.19735079999999994
+   },
+   "so-full": {
+    "cached_tokens": 771840,
+    "calls": 380,
+    "completion_tokens": 38841,
+    "failed": 0,
+    "prompt_tokens": 928528,
+    "reasoning_tokens": 0,
+    "rmb": 0.30740509999999993
+   },
+   "so-problems": {
+    "cached_tokens": 200960,
+    "calls": 100,
+    "completion_tokens": 12981,
+    "failed": 0,
+    "prompt_tokens": 247721,
+    "reasoning_tokens": 0,
+    "rmb": 0.09255350000000002
+   },
+   "so-src-1": {
+    "cached_tokens": 395776,
+    "calls": 199,
+    "completion_tokens": 26646,
+    "failed": 0,
+    "prompt_tokens": 477784,
+    "reasoning_tokens": 0,
+    "rmb": 0.17712820000000007
+   },
+   "so-transfer": {
+    "cached_tokens": 287488,
+    "calls": 145,
+    "completion_tokens": 15556,
+    "failed": 0,
+    "prompt_tokens": 354248,
+    "reasoning_tokens": 0,
+    "rmb": 0.12415799999999995
+   },
+   "sql-cold": {
+    "cached_tokens": 99328,
+    "calls": 174,
+    "completion_tokens": 24604,
+    "failed": 0,
+    "prompt_tokens": 233219,
+    "reasoning_tokens": 0,
+    "rmb": 0.1834764
+   },
+   "sql-full-1": {
+    "cached_tokens": 384512,
+    "calls": 513,
+    "completion_tokens": 88133,
+    "failed": 0,
+    "prompt_tokens": 818591,
+    "reasoning_tokens": 0,
+    "rmb": 0.6236735
+   },
+   "sql-full-2": {
+    "cached_tokens": 298240,
+    "calls": 457,
+    "completion_tokens": 102459,
+    "failed": 0,
+    "prompt_tokens": 700966,
+    "reasoning_tokens": 0,
+    "rmb": 0.6286441
+   },
+   "sql-full-3": {
+    "cached_tokens": 305920,
+    "calls": 508,
+    "completion_tokens": 68195,
+    "failed": 0,
+    "prompt_tokens": 658231,
+    "reasoning_tokens": 0,
+    "rmb": 0.49656729999999977
+   },
+   "sql-problems-1": {
+    "cached_tokens": 164864,
+    "calls": 228,
+    "completion_tokens": 25074,
+    "failed": 0,
+    "prompt_tokens": 357514,
+    "reasoning_tokens": 0,
+    "rmb": 0.2383061999999999
+   },
+   "sql-src-1": {
+    "cached_tokens": 34816,
+    "calls": 179,
+    "completion_tokens": 20198,
+    "failed": 0,
+    "prompt_tokens": 142550,
+    "reasoning_tokens": 0,
+    "rmb": 0.1442034
+   },
+   "sql-src-2": {
+    "cached_tokens": 23552,
+    "calls": 162,
+    "completion_tokens": 21166,
+    "failed": 0,
+    "prompt_tokens": 116155,
+    "reasoning_tokens": 0,
+    "rmb": 0.13358580000000003
+   },
+   "sql-src-3": {
+    "cached_tokens": 20480,
+    "calls": 122,
+    "completion_tokens": 17165,
+    "failed": 0,
+    "prompt_tokens": 89280,
+    "reasoning_tokens": 0,
+    "rmb": 0.10343350000000001
+   },
+   "sql-transfer-1": {
+    "cached_tokens": 399872,
+    "calls": 561,
+    "completion_tokens": 68512,
+    "failed": 0,
+    "prompt_tokens": 848984,
+    "reasoning_tokens": 0,
+    "rmb": 0.5842592000000003
+   },
+   "sql-transfer-2": {
+    "cached_tokens": 261120,
+    "calls": 390,
+    "completion_tokens": 69360,
+    "failed": 0,
+    "prompt_tokens": 553463,
+    "reasoning_tokens": 0,
+    "rmb": 0.44725840000000044
+   },
+   "sql-transfer-3": {
+    "cached_tokens": 319488,
+    "calls": 525,
+    "completion_tokens": 64306,
+    "failed": 0,
+    "prompt_tokens": 701111,
+    "reasoning_tokens": 0,
+    "rmb": 0.5108734000000003
+   }
+  }
+ },
+ "pre_revision": {
+  "note": "Pre-revision runs (PREREG as written: qwen4-max search, full splits, N=4, k=3). Only sql-src-4 finished before the outage (results/validity.json). The call/token ledger is the gateway's final count for runs/main, including pilot/calibration evaluations, discarded attempts and the 403s. rmb_estimate prices qwen3.8-flash tokens at RMB 0.80 / 2.70 per 1M (no cached-token discount); no price is known for qwen4-max or deepseek-v4.1-flash, so the pre-revision spend is not known exactly.",
+  "runs": {
+   "sql-src-4": {
+    "run_id": "sql-src-4",
+    "domain": "text2sql",
+    "memory": "full",
+    "policy_model": "qwen3.8-flash",
+    "evolve_split": "spider_evolve",
+    "heldout_split": "spider_heldout",
+    "rounds": 4,
+    "k": 3,
+    "delta": 0.062723,
+    "evolve_start": 0.7833333333333333,
+    "evolve_end": 0.8833333333333333,
+    "heldout_start": 0.8166666666666667,
+    "heldout_end": 0.8666666666666667,
+    "heldout_curve": [
+     {
+      "after_round": -1,
+      "tree": "685dca477777",
+      "commit": "25b4860bb109fc52e21f374138a33152d9a4cbea",
+      "score": 0.8166666666666667,
+      "cost": 477.10833333333335,
+      "n": 120
+     },
+     {
+      "after_round": 3,
+      "tree": "9cf0c5fc7688",
+      "commit": "fe9adc78723089c964163b179304fe4e76338c58",
+      "score": 0.8666666666666667,
+      "cost": 936.4333333333333,
+      "n": 120
+     }
+    ],
+    "accepted": 1,
+    "proposed": 12,
+    "evaluated": 6,
+    "screened_out": 6,
+    "final_commit": "fe9adc78723089c964163b179304fe4e76338c58",
+    "sim_entries": 1,
+    "sim_attempts": 1,
+    "state": {
+     "next_round": 4,
+     "best_score": 0.8833333333333333,
+     "delta": 0.062723,
+     "status": "done",
+     "updated": "2026-11-19 00:32:33"
+    },
+    "own_attempts": 1,
+    "own_predicted": 8,
+    "own_fixed": 6,
+    "cited_existing": 8,
+    "cost": {
+     "policy_calls": 828,
+     "policy_tokens": 895328,
+     "search_calls": 25,
+     "search_tokens": 208641
+    }
+   }
+  },
+  "eval_variance": [
+   {
+    "domain": "supportops",
+    "split": "ood_evolve",
+    "model": "qwen3.8-flash",
+    "tree": "83c2c16446f4",
+    "scores": [
+     93.33333333333333,
+     73.33333333333333,
+     80.0
+    ],
+    "mean": 82.22222222222221,
+    "sd": 10.18350154434631
+   },
+   {
+    "domain": "supportops",
+    "split": "so_evolve",
+    "model": "qwen3.8-flash",
+    "tree": "83c2c16446f4",
+    "scores": [
+     85.0,
+     90.0,
+     85.0
+    ],
+    "mean": 86.66666666666667,
+    "sd": 2.8867513459481287
+   },
+   {
+    "domain": "text2sql",
+    "split": "bird_evolve",
+    "model": "deepseek-v4.1-flash",
+    "tree": "685dca477777",
+    "scores": [
+     41.66666666666667,
+     43.333333333333336,
+     41.66666666666667
+    ],
+    "mean": 42.22222222222223,
+    "sd": 0.9622504486493749
+   },
+   {
+    "domain": "text2sql",
+    "split": "bird_evolve",
+    "model": "qwen3.8-flash",
+    "tree": "685dca477777",
+    "scores": [
+     46.666666666666664,
+     48.333333333333336,
+     50.0
+    ],
+    "mean": 48.333333333333336,
+    "sd": 1.6666666666666679
+   },
+   {
+    "domain": "text2sql",
+    "split": "spider_evolve",
+    "model": "qwen3.8-flash",
+    "tree": "685dca477777",
+    "scores": [
+     78.33333333333333,
+     85.0,
+     78.33333333333333
+    ],
+    "mean": 80.55555555555556,
+    "sd": 3.8490017945975077
+   }
+  ],
+  "ledger": {
+   "pools": {
+    "policy": {
+     "calls": 9836,
+     "completion_tokens": 697307,
+     "failed": 2088,
+     "prompt_tokens": 9799607
+    },
+    "search": {
+     "calls": 238,
+     "completion_tokens": 552122,
+     "failed": 50,
+     "prompt_tokens": 1149051
+    }
+   },
+   "models": {
+    "policy|deepseek-v4.1-flash": {
+     "calls": 303,
+     "completion_tokens": 144468,
+     "failed": 0,
+     "prompt_tokens": 293419,
+     "rmb_estimate": null
+    },
+    "policy|qwen3.8-flash": {
+     "calls": 9533,
+     "completion_tokens": 552839,
+     "failed": 2088,
+     "prompt_tokens": 9506188,
+     "rmb_estimate": 9.0976157
+    },
+    "proposer|qwen4-max": {
+     "calls": 192,
+     "completion_tokens": 532568,
+     "failed": 48,
+     "prompt_tokens": 710266,
+     "rmb_estimate": null
+    },
+    "selector|qwen4-max": {
+     "calls": 46,
+     "completion_tokens": 19554,
+     "failed": 2,
+     "prompt_tokens": 438785,
+     "rmb_estimate": null
+    }
    }
   }
  }

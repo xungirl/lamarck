@@ -1,0 +1,28 @@
+{
+ "sealed_at": 1795087593.2847092,
+ "round": 1,
+ "sample": "s2",
+ "branch": "cand/r1s2",
+ "commit": "b04711235bf4ca2aaaa86a1e74a34fff9c11976b",
+ "tree": "0057d88d493e",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..b6be426 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,9 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+Guidelines:\n+1. **Projections**: Select ONLY the columns explicitly requested by the question. Do not use `SELECT *` unless every column in the table is required. Match the number of output columns exactly to the user's request.\n+2. **Duplicates**: If your query involves joins where one record in the main table matches multiple records in another table (or vice versa), use `SELECT DISTINCT` to avoid returning duplicate rows, unless the question explicitly asks for counts or aggregates per match.\n+3. **Filtering**: Ensure `WHERE` clauses correctly filter based on values found in the schema samples or described in hints. Be careful with case sensitivity; if unsure, check distinct values or use `LIKE` cautiously, but prefer exact matches (`=`) if the value format is clear.\n+4. **Joins**: Verify join keys correspond to foreign key relationships defined in the schema.\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": "P1",
+  "root_cause": "Model generates queries with incorrect column projections (SELECT * instead of specific columns) or missing DISTINCT for join-induced duplicates, causing execution accuracy failures despite correct filtering logic.",
+  "what": "Update the system prompt to explicitly instruct the model to use SELECT DISTINCT when joining tables that may produce duplicate rows (e.g., one-to-many relationships) and to strictly select only the columns requested in the question, avoiding SELECT * unless all columns are explicitly needed. This addresses sp0600 (duplicates) and sp0755 (wrong projection).",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nGuidelines:\n1. **Projections**: Select ONLY the columns explicitly requested by the question. Do not use `SELECT *` unless every column in the table is required. Match the number of output columns exactly to the user's request.\n2. **Duplicates**: If your query involves joins where one record in the main table matches multiple records in another table (or vice versa), use `SELECT DISTINCT` to avoid returning duplicate rows, unless the question explicitly asks for counts or aggregates per match.\n3. **Filtering**: Ensure `WHERE` clauses correctly filter based on values found in the schema samples or described in hints. Be careful with case sensitivity; if unsure, check distinct values or use `LIKE` cautiously, but prefer exact matches (`=`) if the value format is clear.\n4. **Joins**: Verify join keys correspond to foreign key relationships defined in the schema.\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "sp0600",
+   "sp0755"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": \"P1\", \"name\": \"Model generates queries with incorrect column projections (SELECT * instead of specific columns) or missing DISTINCT for join-induced duplicates, causing execution accuracy failures despite correct filtering logic.\"},\n \"what\": \"Update the system prompt to explicitly instruct the model to use SELECT DISTINCT when joining tables that may produce duplicate rows (e.g., one-to-many relationships) and to strictly select only the columns requested in the question, avoiding SELECT * unless all columns are explicitly needed. This addresses sp0600 (duplicates) and sp0755 (wrong projection).\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"sp0600\", \"sp0755\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nGuidelines:\n1. **Projections**: Select ONLY the columns explicitly requested by the question. Do not use `SELECT *` unless every column in the table is required. Match the number of output columns exactly to the user's request.\n2. **Duplicates**: If your query involves joins where one record in the main table matches multiple records in another table (or vice versa), use `SELECT DISTINCT` to avoid returning duplicate rows, unless the question explicitly asks for counts or aggregates per match.\n3. **Filtering**: Ensure `WHERE` clauses correctly filter based on values found in the schema samples or described in hints. Be careful with case sensitivity; if unsure, check distinct values or use `LIKE` cautiously, but prefer exact matches (`=`) if the value format is clear.\n4. **Joins**: Verify join keys correspond to foreign key relationships defined in the schema.\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

@@ -1,0 +1,15 @@
+{
+ "delta": 0.033333,
+ "z": 1.0,
+ "sd_direct": 0.0,
+ "sd_bootstrap": 0.0,
+ "floor_one_task": 0.033333,
+ "n_evals": 3,
+ "n_tasks": 30,
+ "scores": [
+  0.433333,
+  0.433333,
+  0.433333
+ ],
+ "harness_tree": "40e00367a7c5"
+}

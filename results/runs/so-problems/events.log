@@ -1,0 +1,14 @@
+03:39:44 [so-problems] noise band delta = 0.1349 from scores [0.866667, 1.0, 1.0]
+03:40:02 [so-problems] held-out after round -1: 100.00 (15/15)
+03:40:02 [so-problems] round 0: incumbent 9348ea6fe59b evolve=86.7 b_t=3 best=86.7
+03:40:46 [so-problems] round 0: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 directly addresses the known root cause P1 by enforcing strict refusal rules for policy-blocked refunds, re)
+03:40:46 [so-problems] round 0: SIM <- P1 (2/2 predicted fixes realized)
+03:41:11 [so-problems] held-out after round 0: 100.00 (15/15)
+03:41:12 [so-problems] round 1: incumbent 72d7d829a5e1 evolve=100.0 b_t=2 best=100.0
+03:41:15 [so-problems] round 1 s1: proposal failed: manifest without <file> blocks
+03:41:25 [so-problems] round 1: 1 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:41:25 [so-problems] held-out after round 1: 100.00 (15/15)
+03:41:25 [so-problems] round 2: incumbent 72d7d829a5e1 evolve=100.0 b_t=1 best=100.0
+03:41:45 [so-problems] round 2 s1: proposal failed: manifest without <file> blocks
+03:41:45 [so-problems] round 2: 1 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:41:45 [so-problems] held-out after round 2: 100.00 (15/15)

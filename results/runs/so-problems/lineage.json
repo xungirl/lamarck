@@ -1,0 +1,56 @@
+[
+ {
+  "commit": "e832d4337fcd7d280f4a3f768c6f1fa7c0e6d48f",
+  "parents": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+  "subject": "r2 s2: Verbose tool results (KB articles, order lists) inflate toke",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "d4d43fe02ea879daf613a999b4417da246223a63",
+  "parents": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+  "subject": "r1 s2: Excessive token consumption from untruncated tool results (K",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "f4d183760674f492f522a3b55b8c783dcf156f8b",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r0 s1: agent treats policy-blocked refunds as recoverable and escal",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "32eba5803567c59fd82c30ff5e9b466dc7f18836",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r0 s2: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "a42684ed1dfc3a2ee5c498848d1a82eab8cb41d6",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r2 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "ad53170d4b06e54f80f202c67cbd9ecaa13dcbca",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r1 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "parents": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "subject": "r0 s2: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "1bd1f61cc234567e78cd124fe748cbbaac294445",
+  "parents": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "subject": "r0 s1: Agent performs unauthorized writes (refunds/tickets/status c",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

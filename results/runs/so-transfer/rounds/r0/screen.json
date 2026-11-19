@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change adds explicit safety instructions to the system prompt regarding policy-blocked actions (specifically refund failures). It reinforces existing rules against workarounds and unauthorized writes, which is a valid anti-overfitting measure for refusal tasks. It does not hardcode task IDs, entity names, or specific expected outputs, nor does it remove existing safety mechanisms."
+ }
+}

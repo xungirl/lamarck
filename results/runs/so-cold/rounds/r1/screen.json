@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change clarifies the refund policy logic to explicitly forbid partial refunds when the requested amount exceeds the remaining balance, enforcing a strict refusal. This addresses a specific ambiguity in the previous prompt without hardcoding task-specific details or removing safety mechanisms."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING: The candidate claims 'declared_independent_edits: 1' but performs two distinct changes: adding a new 'Data Safety' section (prompt injection defense) and rewriting/simplifying the 'Refund Policy Enforcement' section. These are independent modifications that should be declared separately or combined into one logical intent if they were truly coupled, but here they address diffe"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The prompt explicitly hard-codes specific column names (`driverRef`, `forename`, `surname`) and references a specific database domain (F1 racing) in the guidance for 'Column Selection'. This is not generalizable to other Spider/BIRD tasks and constitutes overfitting to the evolve set."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The prompt includes specific examples tied to known benchmark tasks, such as mapping 'well-finished' to `ClosedDate IS NOT NULL` and referencing `driverRef`. These are task-specific hints that do not generalize to unseen databases or questions."
+ }
+}

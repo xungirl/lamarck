@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The `analyze_mismatch` function in `solve.py` contains hardcoded keyword lists (e.g., 'how many', 'average', 'sum') and specific logic branches that are task-specialized heuristics. This violates the anti-overfitting rule against hardcoding task-identifying features or magic constants that only fit specific question types, rather than using a general mechanism."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change updates the system prompt to enforce a structured reasoning process for hints and output requirements. It does not hardcode specific database names, table structures, or task IDs. The instructions are general guidelines applicable to any Text-to-SQL task with hints."
+ }
+}

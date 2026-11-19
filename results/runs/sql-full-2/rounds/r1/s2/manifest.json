@@ -1,0 +1,33 @@
+{
+ "sealed_at": 1795088635.135517,
+ "round": 1,
+ "sample": "s2",
+ "branch": "cand/r1s2",
+ "commit": "792d0ffb1e8d643058c6757d0133ab745651f09c",
+ "tree": "003d48952105",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..4a5f245 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,13 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+**Guidelines:**\n+1. **Strict Hint Adherence**: If a hint provides a formula (e.g., `calculation = SUM(...)`), implement it exactly. Do not substitute `AVG()` unless explicitly told.\n+2. **Ranking & Partitioning**: For questions asking for \"top N in their respective groups\" or \"ranking by...\", use Window Functions (`ROW_NUMBER()`, `RANK()`) partitioned by the group column, rather than simple `GROUP BY` or global `ORDER BY`.\n+3. **Output Format**: Match the expected output structure carefully.\n+   - If asked for \"Rank\", return the rank number (integer).\n+   - If asked for \"Is X?\", return the boolean or descriptive string implied by the context (check hints for label mappings like 'well-finished').\n+   - If asked for specific columns, return ONLY those columns.\n+4. **Value Matching**: Use exact values from the schema/hint for filters. If unsure about case/formatting, prefer `LIKE` or check sample data if available.\n+5. **Aggregation**: Ensure `GROUP BY` includes all non-aggregated columns selected.\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": null,
+  "root_cause": "Misinterpretation of complex constraints (Window Functions) and output format requirements (Ranks/Text)",
+  "what": "The current system prompt is too generic for complex BIRD-style questions. It fails to guide the model on using Window Functions for 'respective'/'rank within group' queries, interpreting hint formulas strictly (e.g., AVG vs SUM/COUNT), and formatting output as requested (e.g., returning ranks instead of counts, or text labels like 'well-finished'). This edit enhances the system prompt with specific instructions on these patterns.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n**Guidelines:**\n1. **Strict Hint Adherence**: If a hint provides a formula (e.g., `calculation = SUM(...)`), implement it exactly. Do not substitute `AVG()` unless explicitly told.\n2. **Ranking & Partitioning**: For questions asking for \"top N in their respective groups\" or \"ranking by...\", use Window Functions (`ROW_NUMBER()`, `RANK()`) partitioned by the group column, rather than simple `GROUP BY` or global `ORDER BY`.\n3. **Output Format**: Match the expected output structure carefully.\n   - If asked for \"Rank\", return the rank number (integer).\n   - If asked for \"Is X?\", return the boolean or descriptive string implied by the context (check hints for label mappings like 'well-finished').\n   - If asked for specific columns, return ONLY those columns.\n4. **Value Matching**: Use exact values from the schema/hint for filters. If unsure about case/formatting, prefer `LIKE` or check sample data if available.\n5. **Aggregation**: Ensure `GROUP BY` includes all non-aggregated columns selected.\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "bd0041",
+   "bd0565",
+   "bd0728",
+   "bd1014",
+   "bd1068",
+   "bd1404",
+   "bd1427"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Misinterpretation of complex constraints (Window Functions) and output format requirements (Ranks/Text)\"},\n \"what\": \"The current system prompt is too generic for complex BIRD-style questions. It fails to guide the model on using Window Functions for 'respective'/'rank within group' queries, interpreting hint formulas strictly (e.g., AVG vs SUM/COUNT), and formatting output as requested (e.g., returning ranks instead of counts, or text labels like 'well-finished'). This edit enhances the system prompt with specific instructions on these patterns.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0041\", \"bd0728\", \"bd0565\", \"bd1014\", \"bd1068\", \"bd1404\", \"bd1427\"]\n}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n**Guidelines:**\n1. **Strict Hint Adherence**: If a hint provides a formula (e.g., `calculation = SUM(...)`), implement it exactly. Do not substitute `AVG()` unless explicitly told.\n2. **Ranking & Partitioning**: For questions asking for \"top N in their respective groups\" or \"ranking by...\", use Window Functions (`ROW_NUMBER()`, `RANK()`) partitioned by the group column, rather than simple `GROUP BY` or global `ORDER BY`.\n3. **Output Format**: Match the expected output structure carefully.\n   - If asked for \"Rank\", return the rank number (integer).\n   - If asked for \"Is X?\", return the boolean or descriptive string implied by the context (check hints for label mappings like 'well-finished').\n   - If asked for specific columns, return ONLY those columns.\n4. **Value Matching**: Use exact values from the schema/hint for filters. If unsure about case/formatting, prefer `LIKE` or check sample data if available.\n5. **Aggregation**: Ensure `GROUP BY` includes all non-aggregated columns selected.\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

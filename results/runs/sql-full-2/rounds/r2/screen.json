@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general SQL best practices (window functions, distinctness, output formatting) applicable to any text-to-SQL task. No leakage or task-specific hardcoding detected."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The change removes the retry mechanism for empty results (`n_rows == 0`). The self-improvement memory explicitly states that this mechanism was accepted in previous rounds because it fixed tasks where value mismatches caused empty results (e.g., sp0362, sp0610). Removing it is a regression against established evidence and constitutes deleting a working safety mechanism without replacement."
+ }
+}

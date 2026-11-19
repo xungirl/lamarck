@@ -1,0 +1,4 @@
+{
+ "choice": "s1",
+ "reason": "selector unavailable (no JSON object in response); argmax fallback"
+}

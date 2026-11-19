@@ -1,0 +1,79 @@
+{
+ "next_id": 4,
+ "carried_from": {
+  "arm": "sql-src-1",
+  "domain": "spider_evolve_s30/qwen3.8-flash",
+  "into": "sql-problems-1"
+ },
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "queries returning 0 rows due to incorrect join/filter logic; no verification step to catch and fix empty results",
+   "opened_round": 0,
+   "attempts": []
+  },
+  {
+   "id": "P2",
+   "name": "Misinterpretation of 'Rank'/'Top N per Group' and Aggregation Semantics (Missing RANK column, Wrong Partitioning)",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to explicitly instruct the model on handling 'Rank' queries (include a rank number in SELECT) and 'Top N per group' queries (use window functions or correlated subqueries for partitioning, not global sorting). This targets failures like bd0041 (missing...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0041",
+      "bd0728",
+      "bd0928"
+     ],
+     "fixed": [
+      "bd0728"
+     ],
+     "missed": [
+      "bd0041",
+      "bd0928"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "name": "Model generates verbose natural language explanations or reasoning chains instead of pure SQL code blocks, causing extraction failures and syntax errors (e.g., bd1404).",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to explicitly forbid conversational text, reasoning steps, or markdown outside the ```sql block. Add a strict 'Output Format' section requiring the response to contain ONLY the SQL query inside the code fence.",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0928",
+      "bd0955",
+      "bd1068",
+      "bd1404"
+     ],
+     "fixed": [
+      "bd1068"
+     ],
+     "missed": [
+      "bd0928",
+      "bd0955",
+      "bd1404"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

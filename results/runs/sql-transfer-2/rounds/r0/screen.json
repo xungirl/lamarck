@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The prompt includes specific examples derived from the evolution set tasks (e.g., 'k_symbol', 'driverRef', 'respective counties' with a specific school ranking example). Hard-coding these specific column names and domain logic into the system prompt overfits to the training/evolution data and will not generalize to unfamiliar databases or questions."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes provide general, high-level instructions on column selection, hint usage, and SQL best practices (LIMIT, JOINs, NULLs) without referencing specific table names, column names, or task IDs. This is a valid generic improvement to the harness."
+ }
+}

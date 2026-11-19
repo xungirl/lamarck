@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "queries returning 0 rows due to incorrect join/filter logic; no verification step to catch and fix empty results",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a second policy call that verifies the first draft by executing it; if it returns 0 rows unexpectedly, ask the model to diagnose and revise. Also enhance system prompt with explicit warnings about NULL-safe NOT IN patterns and checking join key consistency.",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0536",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

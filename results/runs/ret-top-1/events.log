@@ -1,0 +1,12 @@
+03:46:26 [ret-top-1] noise band delta = 0.0546 from scores [0.433333, 0.433333, 0.4]
+03:46:26 [ret-top-1] held-out after round -1: 55.00 (22/40)
+03:46:27 [ret-top-1] round 0: incumbent 7e87d5b22f0a evolve=43.3 b_t=3 best=43.3
+03:46:47 [ret-top-1] round 0: 2 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:46:47 [ret-top-1] round 1: incumbent 7e87d5b22f0a evolve=43.3 b_t=2 best=43.3
+03:48:03 [ret-top-1] round 1: 2 proposed, 2 evaluated, 2 admissible -> s1 (Candidate s1 significantly improves the evolve score (53.33 vs 43.33) by implementing a robust semantic verification pas)
+03:48:03 [ret-top-1] round 1: SIM <- P3 (3/6 predicted fixes realized)
+03:48:03 [ret-top-1] round 2: incumbent fbfabe958c83 evolve=53.3 b_t=1 best=53.3
+03:48:19 [ret-top-1] round 2 s1: proposal failed: manifest without <file> blocks
+03:48:20 [ret-top-1] round 2 s2: proposal failed: unterminated JSON object
+03:48:20 [ret-top-1] round 2: 0 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:49:08 [ret-top-1] held-out after round 2: 62.50 (25/40)

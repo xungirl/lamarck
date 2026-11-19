@@ -1,0 +1,13 @@
+03:25:42 [sql-cold] noise band delta = 0.0373 from scores [0.433333, 0.466667, 0.433333]
+03:25:42 [sql-cold] held-out after round -1: 67.50 (27/40)
+03:25:42 [sql-cold] round 0: incumbent 685dca477777 evolve=43.3 b_t=3 best=43.3
+03:25:47 [sql-cold] round 0 s2: proposal failed: no edits
+03:26:23 [sql-cold] round 0: 1 proposed, 1 evaluated, 1 admissible -> keep incumbent (The candidate s1 has an identical evolve_score (43.33) to the incumbent but significantly higher token usage (1353 vs 12)
+03:26:23 [sql-cold] held-out after round 0: 67.50 (27/40)
+03:26:23 [sql-cold] round 1: incumbent 685dca477777 evolve=43.3 b_t=2 best=43.3
+03:27:06 [sql-cold] round 1: 2 proposed, 2 evaluated, 2 admissible -> s1 (Candidate s1 maintains the incumbent score while reducing token usage (1213 vs 1215) and adds robust SQL extraction logi)
+03:27:06 [sql-cold] round 1: SIM <- P1 (0/4 predicted fixes realized)
+03:27:50 [sql-cold] held-out after round 1: 65.00 (26/40)
+03:27:51 [sql-cold] round 2: incumbent 1026f7fd14a9 evolve=43.3 b_t=1 best=43.3
+03:28:38 [sql-cold] round 2: 2 proposed, 1 evaluated, 1 admissible -> keep incumbent (The candidate s2 has the same evolve score as the incumbent (43.33) but increases token usage by ~10% and introduces reg)
+03:28:38 [sql-cold] held-out after round 2: 65.00 (26/40)

@@ -1,0 +1,12 @@
+03:44:31 [sql-full-3] noise band delta = 0.0333 from scores [0.433333, 0.433333, 0.433333]
+03:44:31 [sql-full-3] held-out after round -1: 65.00 (26/40)
+03:44:31 [sql-full-3] round 0: incumbent 40e00367a7c5 evolve=43.3 b_t=3 best=43.3
+03:45:21 [sql-full-3] round 0: 2 proposed, 1 evaluated, 1 admissible -> s2 (The candidate reduces mean tokens per task (1320 vs 1383) while maintaining the same evolve score, indicating improved e)
+03:45:21 [sql-full-3] round 0: SIM <- P2 (0/2 predicted fixes realized)
+03:45:21 [sql-full-3] round 1: incumbent de8b1081f662 evolve=43.3 b_t=2 best=43.3
+03:45:26 [sql-full-3] round 1 s2: proposal failed: manifest without <file> blocks
+03:46:01 [sql-full-3] round 1: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:46:01 [sql-full-3] round 2: incumbent de8b1081f662 evolve=43.3 b_t=1 best=43.3
+03:46:59 [sql-full-3] round 2: 2 proposed, 1 evaluated, 1 admissible -> s2 (The candidate addresses a distinct failure mode (execution errors) not covered by the current incumbent's empty-result c)
+03:46:59 [sql-full-3] round 2: SIM <- P2 (0/2 predicted fixes realized)
+03:47:16 [sql-full-3] held-out after round 2: 67.50 (27/40)

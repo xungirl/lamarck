@@ -1,0 +1,29 @@
+{
+ "sealed_at": 1795087629.499506,
+ "round": 2,
+ "sample": "s2",
+ "branch": "cand/r2s2",
+ "commit": "13259ff84457bfa2fe0548b1a7c88bcf53cb0017",
+ "tree": "104d280f66fb",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..84d2793 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,11 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+Guidelines:\n+1. **Duplicates**: Use `SELECT DISTINCT` whenever you are joining tables (especially one-to-many relationships) or when the question asks for unique entities/values to prevent duplicate rows in the result.\n+2. **Column Selection**: \n+   - If the question asks for specific fields (e.g., \"first, middle, last names\"), select exactly those fields.\n+   - If the question asks for \"details\", \"information\", \"all data\", or simply \"Which [Entity]...\" without specifying fields, prefer `SELECT *` from the main entity table to include all relevant columns, unless the context clearly implies a subset.\n+3. **Value Matching**: Use exact equality (`=`) for known values found in the schema or evidence. Avoid `LIKE` unless partial matching is explicitly required by the question.\n+4. **NULLs**: Be careful with `NOT IN` clauses if subqueries might return NULLs; consider `NOT EXISTS` if unsure, but stick to standard patterns unless errors occur.\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": "P1",
+  "root_cause": "Model fails to apply DISTINCT for join-induced duplicates and misinterprets 'Which [Entity]' questions as selecting only ID/Name instead of full details",
+  "what": "Update system prompt to explicitly instruct using DISTINCT when joining one-to-many tables or selecting single attributes to avoid duplicate rows, and to use SELECT * when the question asks for detail/information about an entity. Also clarify that 'Which countries' implies returning all country columns.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nGuidelines:\n1. **Duplicates**: Use `SELECT DISTINCT` whenever you are joining tables (especially one-to-many relationships) or when the question asks for unique entities/values to prevent duplicate rows in the result.\n2. **Column Selection**: \n   - If the question asks for specific fields (e.g., \"first, middle, last names\"), select exactly those fields.\n   - If the question asks for \"details\", \"information\", \"all data\", or simply \"Which [Entity]...\" without specifying fields, prefer `SELECT *` from the main entity table to include all relevant columns, unless the context clearly implies a subset.\n3. **Value Matching**: Use exact equality (`=`) for known values found in the schema or evidence. Avoid `LIKE` unless partial matching is explicitly required by the question.\n4. **NULLs**: Be careful with `NOT IN` clauses if subqueries might return NULLs; consider `NOT EXISTS` if unsure, but stick to standard patterns unless errors occur.\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "sp0536",
+   "sp0600",
+   "sp0755"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": \"P1\", \"name\": \"Model fails to apply DISTINCT for join-induced duplicates and misinterprets 'Which [Entity]' questions as selecting only ID/Name instead of full details\"},\n \"what\": \"Update system prompt to explicitly instruct using DISTINCT when joining one-to-many tables or selecting single attributes to avoid duplicate rows, and to use SELECT * when the question asks for detail/information about an entity. Also clarify that 'Which countries' implies returning all country columns.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"sp0536\", \"sp0600\", \"sp0755\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nGuidelines:\n1. **Duplicates**: Use `SELECT DISTINCT` whenever you are joining tables (especially one-to-many relationships) or when the question asks for unique entities/values to prevent duplicate rows in the result.\n2. **Column Selection**: \n   - If the question asks for specific fields (e.g., \"first, middle, last names\"), select exactly those fields.\n   - If the question asks for \"details\", \"information\", \"all data\", or simply \"Which [Entity]...\" without specifying fields, prefer `SELECT *` from the main entity table to include all relevant columns, unless the context clearly implies a subset.\n3. **Value Matching**: Use exact equality (`=`) for known values found in the schema or evidence. Avoid `LIKE` unless partial matching is explicitly required by the question.\n4. **NULLs**: Be careful with `NOT IN` clauses if subqueries might return NULLs; consider `NOT EXISTS` if unsure, but stick to standard patterns unless errors occur.\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

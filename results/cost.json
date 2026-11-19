@@ -1,49 +1,97 @@
 {
- "note": "Token counts are exact (gateway ledger). USD is an ESTIMATE for qwen3.8-flash only, from a reported list price of CNY 0.80 / 2.70 per 1M input / output tokens (assumed unit) at 7.1 CNY/USD, retrieved 2026-11-19; no public price was found for qwen4-max or deepseek-v4.1-flash. Ledger totals include pilot/calibration evaluations and the discarded first attempts.",
- "prices_cny_per_million": {
+ "note": "RMB is exact for the revised plan: each call priced from the usage the API returned, cached input at the cached rate, failed calls not billed. Total RMB 5.3840 of the RMB 9.50 cap; calls outside the exported runs (API check, aborted first launch, held-out of unfinished runs): api-check 0.0000. Pre-revision usage is in results/pre_revision/summary.json (estimated).",
+ "cap_rmb": 9.5,
+ "spent_rmb": 5.384005100000024,
+ "calls": 5184,
+ "prices_rmb_per_million": {
+  "qwen3.7-flash": [
+   0.8,
+   2.7,
+   0.1
+  ],
   "qwen3.8-flash": [
    0.8,
-   2.7
+   2.7,
+   0.1
   ]
  },
- "cny_per_usd": 7.1,
  "models": [
   {
-   "key": "policy|deepseek-v4.1-flash",
-   "calls": 303,
-   "prompt_tokens": 293419,
-   "completion_tokens": 144468,
-   "usd": null
+   "key": "policy",
+   "calls": 4928,
+   "prompt_tokens": 7449734,
+   "cached_tokens": 4290816,
+   "completion_tokens": 592959,
+   "rmb": 4.557205300000018
   },
   {
-   "key": "policy|qwen3.8-flash",
-   "calls": 6879,
-   "prompt_tokens": 8719718,
-   "completion_tokens": 512506,
-   "usd": 1.1774000845070425
+   "key": "proposer",
+   "calls": 154,
+   "prompt_tokens": 673407,
+   "cached_tokens": 409856,
+   "completion_tokens": 134004,
+   "rmb": 0.6136372
   },
   {
-   "key": "proposer|qwen4-max",
-   "calls": 141,
-   "prompt_tokens": 612269,
-   "completion_tokens": 470480,
-   "usd": null
-  },
-  {
-   "key": "selector|qwen4-max",
-   "calls": 39,
-   "prompt_tokens": 394892,
-   "completion_tokens": 17596,
-   "usd": null
+   "key": "selector",
+   "calls": 102,
+   "prompt_tokens": 212065,
+   "cached_tokens": 2048,
+   "completion_tokens": 16646,
+   "rmb": 0.2131625999999999
   }
  ],
  "groups": [
   {
-   "group": "sql-source",
-   "runs": 1,
+   "group": "retrieval",
+   "runs": 2,
+   "policy_calls": 282,
+   "search_calls": 18,
+   "policy_tokens": 466789,
+   "rmb": 0.3911
+  },
+  {
+   "group": "so-conditions",
+   "runs": 4,
    "policy_calls": 828,
+   "search_calls": 37,
+   "policy_tokens": 2113341,
+   "rmb": 0.7214673999999999
+  },
+  {
+   "group": "so-source",
+   "runs": 1,
+   "policy_calls": 187,
+   "search_calls": 12,
+   "policy_tokens": 464952,
+   "rmb": 0.17712820000000007
+  },
+  {
+   "group": "sql-conditions",
+   "runs": 2,
+   "policy_calls": 377,
    "search_calls": 25,
-   "policy_tokens": 895328
+   "policy_tokens": 544218,
+   "rmb": 0.4217825999999999
+  },
+  {
+   "group": "sql-paired",
+   "runs": 6,
+   "policy_calls": 1001,
+   "search_calls": 61,
+   "policy_tokens": 1519809,
+   "rmb": 1.2570901000000008
+  },
+  {
+   "group": "sql-source",
+   "runs": 3,
+   "policy_calls": 426,
+   "search_calls": 37,
+   "policy_tokens": 278629,
+   "rmb": 0.3812227000000001
   }
- ]
+ ],
+ "outside_runs": {
+  "api-check": 2.83e-05
+ }
 }

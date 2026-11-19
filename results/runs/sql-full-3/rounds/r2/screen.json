@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate addresses a distinct failure mode (execution errors/syntax issues) not covered by the existing self-correction for empty results. It implements a bounded retry loop (max 1 correction attempt) with proper error handling and validation, which is a standard and safe harness improvement. The changes are generic (not task-specific) and do not introduce leakage or degenerate behavior."
+ }
+}

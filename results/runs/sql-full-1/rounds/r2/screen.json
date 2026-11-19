@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change addresses a distinct failure mode (silent format/column errors) not covered by the existing memory entry (which only handles empty/error results). It introduces a generic verification step that feeds actual output rows back to the model for semantic validation. This is a standard 'self-correction' or 'reflection' pattern in Text-to-SQL harnesses and does not leak task-specific data or h"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change implements a common technique: providing few-shot examples via sample data from the database schema. By fetching a few rows from each table, it helps the model ground its SQL generation in actual data values (e.g., correct string casing, valid enum values), which directly targets the root cause of 'wrong literal formats'. The implementation is generic (regex-based table extraction, safe"
+ }
+}

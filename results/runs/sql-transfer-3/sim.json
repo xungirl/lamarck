@@ -1,0 +1,102 @@
+{
+ "next_id": 4,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "The model fails to return valid SQL when the question is complex or multi-part, often outputting reasoning text instead of code (e.g., bd0173, bd0565), leading to syntax errors. Additionally, it struggles with column selection precision (bd0728, bd0928) and aggregation logic (bd0955).",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Strengthen the system prompt to explicitly forbid natural language explanations outside the SQL block and mandate a single ```sql block containing only executable SQLite syntax. Add specific guidance on handling multi-part questions by returning a single query that covers all...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0928"
+     ],
+     "fixed": [],
+     "missed": [
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0928"
+     ],
+     "passed": 13,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "name": "Model fails to interpret hints correctly (e.g., calculation formulas vs raw values) and misses required columns in multi-part questions.",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to explicitly instruct the model to treat 'Hint' fields as ground-truth definitions for calculations and filters. Add specific guidance on returning all requested columns and using exact hint-specified logic (e.g., `SUBTRACT(...)`) rather than inferring...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0173",
+      "bd0928",
+      "bd1068",
+      "bd1241",
+      "bd1404"
+     ],
+     "fixed": [],
+     "missed": [
+      "bd0173",
+      "bd0928",
+      "bd1068",
+      "bd1241",
+      "bd1404"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "name": "The model frequently misinterprets the schema structure (e.g., inventing tables like 'users' in bd1242) or fails to handle complex aggregations/joins correctly, leading to execution errors or wrong results. The current self-correction only triggers on empty results, not on execution failures.",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Modify solve.py to trigger self-correction when env.execute returns an error (res['ok'] is False), not just when it returns 0 rows. This allows the model to fix syntax errors, invalid table/column references, and logic mistakes that cause crashes.",
+     "files": "solve.py",
+     "predicted": [
+      "bd0173",
+      "bd0955",
+      "bd1068",
+      "bd1242"
+     ],
+     "fixed": [],
+     "missed": [
+      "bd0173",
+      "bd0955",
+      "bd1068",
+      "bd1242"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

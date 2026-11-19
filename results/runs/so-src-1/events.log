@@ -1,0 +1,12 @@
+03:34:31 [so-src-1] noise band delta = 0.1113 from scores [0.75, 0.85, 0.85]
+03:34:31 [so-src-1] held-out after round -1: 80.00 (16/20)
+03:34:31 [so-src-1] round 0: incumbent 83c2c16446f4 evolve=75.0 b_t=3 best=75.0
+03:35:17 [so-src-1] round 0: 2 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 significantly improves the evolve score (95.0 vs 75.0) and reduces token usage while fixing all predicted a)
+03:35:17 [so-src-1] round 0: SIM <- P1 (4/5 predicted fixes realized)
+03:35:17 [so-src-1] round 1: incumbent 9348ea6fe59b evolve=95.0 b_t=2 best=95.0
+03:35:41 [so-src-1] round 1 s2: proposal failed: manifest without <file> blocks
+03:36:13 [so-src-1] round 1: 1 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:36:13 [so-src-1] round 2: incumbent 9348ea6fe59b evolve=95.0 b_t=1 best=95.0
+03:36:27 [so-src-1] round 2 s2: proposal failed: manifest without <file> blocks
+03:37:02 [so-src-1] round 2: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:37:37 [so-src-1] held-out after round 2: 95.00 (19/20)

@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The `analyze_mismatch` function hard-codes specific keyword checks (e.g., 'rank', 'average', 'details') and heuristic rules (e.g., `n_cols < 3` for ranking, `all(v == 0)` for averages) that are brittle and likely overfit to the evolution set. These heuristics do not generalize well to unseen tasks where column counts or value distributions differ naturally, potential"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes add general best-practice instructions to the system prompt regarding multi-part questions, ranking columns, and output format. These are standard Text-to-SQL guidelines that apply broadly across Spider/BIRD datasets without referencing specific task IDs, database names, or magic constants. They address common failure modes (missing rank columns, combined queries) in a declarative way "
+ }
+}

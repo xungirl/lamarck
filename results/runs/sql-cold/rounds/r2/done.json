@@ -1,0 +1,4 @@
+{
+ "chosen": null,
+ "reason": "The candidate s2 has the same evolve score as the incumbent (43.33) but increases token usage by ~10% and introduces regressions on two tasks, offering no net benefit over the current stable harness."
+}

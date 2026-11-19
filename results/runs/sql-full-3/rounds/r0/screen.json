@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change addresses a specific failure mode (model outputting reasoning text instead of SQL) by tightening the system prompt instructions. It is generic, does not hard-code task-specific details, and does not remove safety mechanisms. The memory indicates previous issues with query correctness (0 rows), but this candidate targets a different root cause (output format/syntax errors due to extra te"
+ }
+}

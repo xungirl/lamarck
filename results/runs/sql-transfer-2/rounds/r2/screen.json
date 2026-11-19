@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change enhances the system prompt with general guidelines for interpreting hints, selecting columns, and handling aggregations. It does not hard-code specific task IDs, entity names, or magic constants. The instructions are applicable to any text-to-SQL task of this type."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "This candidate removes a working safety mechanism (the retry logic that handles execution errors and empty results) without providing an equivalent replacement. While it adds data sampling to the initial prompt, relying on a single attempt increases the risk of failure due to syntax errors or hallucinated values that would have been caught by the previous validation/retry loop. This constitutes 'D"
+ }
+}

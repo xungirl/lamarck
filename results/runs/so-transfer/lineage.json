@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "7cb9fd8f289beb861ab59ce2dc0afc6b7fb83ae7",
+  "parents": "24531af0cdc32fb6a782244672862963db8f2a8c",
+  "subject": "r2 s1: Model may fail to identify specific store policies from KB o",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r0 s2: Model performs unauthorized writes (refunds/tickets) as work",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "a42684ed1dfc3a2ee5c498848d1a82eab8cb41d6",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r2 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "ad53170d4b06e54f80f202c67cbd9ecaa13dcbca",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r1 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "parents": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "subject": "r0 s2: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "1bd1f61cc234567e78cd124fe748cbbaac294445",
+  "parents": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "subject": "r0 s1: Agent performs unauthorized writes (refunds/tickets/status c",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

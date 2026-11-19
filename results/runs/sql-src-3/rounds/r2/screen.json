@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate introduces a heuristic rule ('Which [Entity]... implies returning full record') that is factually incorrect for the Spider/BIRD benchmarks. In these datasets, questions like 'Which countries...' or 'What are the names of...' typically expect only specific columns (e.g., Name) rather than `SELECT *`. Hardcoding this interpretation as a general guideline will likely cause regressions o"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Similar to s1, this candidate enforces a flawed heuristic: 'If the question asks ... simply \"Which [Entity]...\" without specifying fields, prefer SELECT *'. This is a dangerous over-generalization for Text-to-SQL tasks. Most benchmark questions asking 'Which X' expect a list of identifiers or names, not all table columns. Applying `SELECT *` when the gold query expects `SELECT name` will result in"
+ }
+}

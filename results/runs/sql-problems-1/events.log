@@ -1,0 +1,13 @@
+03:34:20 [sql-problems-1] noise band delta = 0.0546 from scores [0.433333, 0.433333, 0.4]
+03:34:20 [sql-problems-1] held-out after round -1: 55.00 (22/40)
+03:34:21 [sql-problems-1] round 0: incumbent 7e87d5b22f0a evolve=43.3 b_t=3 best=43.3
+03:35:04 [sql-problems-1] round 0: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:35:04 [sql-problems-1] held-out after round 0: 55.00 (22/40)
+03:35:04 [sql-problems-1] round 1: incumbent 7e87d5b22f0a evolve=43.3 b_t=2 best=43.3
+03:35:55 [sql-problems-1] round 1: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 shows a significant performance improvement (+3.34 points) by addressing specific ranking and partitioning )
+03:35:55 [sql-problems-1] round 1: SIM <- P2 (1/3 predicted fixes realized)
+03:36:12 [sql-problems-1] held-out after round 1: 65.00 (26/40)
+03:36:12 [sql-problems-1] round 2: incumbent c58983ba05b4 evolve=46.7 b_t=1 best=46.7
+03:37:04 [sql-problems-1] round 2: 2 proposed, 2 evaluated, 1 admissible -> s1 (The candidate improves the evolve score (46.67 to 50.0) and reduces token usage, addressing a known issue where verbose )
+03:37:04 [sql-problems-1] round 2: SIM <- P3 (1/4 predicted fixes realized)
+03:37:39 [sql-problems-1] held-out after round 2: 65.00 (26/40)

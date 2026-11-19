@@ -1,0 +1,74 @@
+[
+ {
+  "commit": "a4d52858c35175d554cbdc60313b97690179a6ec",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r2 s2: queries return wrong values or columns due to lack of data v",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "eb705fa70dee08ed68172476b143fffea1cc8a78",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r2 s1: queries return correct shape but wrong values/columns due to",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "2a327aca900c9705f5f977fe432e5dfa307f9d34",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s2: queries return wrong columns or wrong values because the mod",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "c1b837f83b28f6269b8d6625bbb38913667cf33f",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s1: Semantic mismatch: wrong output format (missing rank column)",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "eb044a44ac8b7f1dcd151bbc2ea9e7d2807fcc2a",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r0 s2: queries returning 0 rows due to incorrect join/filter logic;",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "892267ded78aad5966e8a5b1b802c09d21ecda93",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r0 s1: Mismatch in SELECT columns and output format (e.g., missing",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "ec605bc6eb230889e4f3f869e2ba8be5a942e596",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r2 s2: Verification step only triggers on 0 rows, missing semantic",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "d4e83ff985c9d4e0db7a1c708d0eb83c000905b6",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s1: verification_step_too_narrow",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "ee7ae0cdc62ba9aec5e1dc5ff6ca6e5c82a26796",
+  "parents": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "subject": "r1 s2: Result Mismatch: Over-restriction in NOT EXISTS (OR vs AND)",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+  "parents": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "subject": "r0 s1: queries returning 0 rows due to incorrect join/filter logic;",
+  "refs": "origin/evolve, origin/cand/r0s1, origin/HEAD, source/cand/r0s1"
+ },
+ {
+  "commit": "c4c47f21985c6d8fd57d208b8c5a8bdb34ca63ee",
+  "parents": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "subject": "r0 s2: Schema Linking Errors (Wrong Table/Columns)",
+  "refs": "origin/cand/r0s2, source/cand/r0s2"
+ },
+ {
+  "commit": "b84f8ae98da0d96a2ade521def696c7f1444395b",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

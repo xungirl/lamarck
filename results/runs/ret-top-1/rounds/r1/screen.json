@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate introduces a semantic refinement pass for valid queries (non-empty, no error) using the second call budget. This addresses failure modes like wrong columns or misinterpreted hints which are not covered by the existing 'empty result' retry logic in memory. The changes to system_prompt.md provide general guidelines on output shape and hint interpretation without hardcoding task-specifi"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate updates the system prompt with specific instructions on interpreting hints (formulas, value mappings) and output structures (ranking columns vs ordering). These are general Text-to-SQL best practices that help mitigate common errors like ignoring evidence or misinterpreting 'rank' requests. It does not leak task-specific information or introduce degenerate behavior."
+ }
+}

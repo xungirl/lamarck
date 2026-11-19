@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Model writes queries that return 0 rows due to strict matching (exact value mismatches, wrong join keys) or ignores implicit column selection requirements (e.g., SELECT * vs specific columns), and fails to verify results against schema constraints.",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a self-correction step: after generating the initial SQL, execute it. If it returns 0 rows (and the question doesn't imply an empty result is valid), prompt the model again with the schema, original question, failed query, and instruction to debug common issues like case s...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610",
+      "sp0894"
+     ],
+     "missed": [
+      "sp0536"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

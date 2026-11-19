@@ -1,0 +1,16 @@
+03:39:44 [so-transfer] noise band delta = 0.1349 from scores [0.866667, 1.0, 1.0]
+03:40:02 [so-transfer] held-out after round -1: 100.00 (15/15)
+03:40:02 [so-transfer] round 0: incumbent 9348ea6fe59b evolve=86.7 b_t=3 best=86.7
+03:40:07 [so-transfer] round 0 s1: proposal failed: manifest without <file> blocks
+03:40:44 [so-transfer] round 0: 1 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 achieves a perfect evolve score of 100.0, significantly outperforming the incumbent's 86.67, while also red)
+03:40:44 [so-transfer] round 0: SIM <- P1 (2/2 predicted fixes realized)
+03:41:08 [so-transfer] held-out after round 0: 100.00 (15/15)
+03:41:08 [so-transfer] round 1: incumbent c09eb50764b9 evolve=100.0 b_t=2 best=100.0
+03:41:10 [so-transfer] round 1 s1: proposal failed: manifest without <file> blocks
+03:41:23 [so-transfer] round 1 s2: proposal failed: missing root cause
+03:41:23 [so-transfer] round 1: 0 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:41:23 [so-transfer] held-out after round 1: 100.00 (15/15)
+03:41:23 [so-transfer] round 2: incumbent c09eb50764b9 evolve=100.0 b_t=1 best=100.0
+03:41:35 [so-transfer] round 2 s2: proposal failed: manifest without <file> blocks
+03:41:58 [so-transfer] round 2: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:41:58 [so-transfer] held-out after round 2: 100.00 (15/15)

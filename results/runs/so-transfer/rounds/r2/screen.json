@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general policy guidelines applicable to any task in the domain. They enforce checking the KB for store-specific rules, clarifying ambiguous targets, and defending against prompt injections, without hardcoding specific entity names, IDs, or task-specific logic. The safety mechanisms (no workarounds on failure) are preserved."
+ }
+}

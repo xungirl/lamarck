@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes address a general failure mode (verbose output causing extraction errors) by reducing token limits and improving the robustness of SQL extraction logic. The fallback mechanisms are generic heuristics for parsing text-to-SQL outputs, not task-specific hacks. No leakage or degenerate behavior detected."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The system prompt updates provide general best practices for Text-to-SQL tasks (strict formatting, handling NULLs, joins, hints). These instructions apply to any SQLite question and do not hard-code specific table names, values, or task IDs. It is a valid attempt to reduce parsing errors and improve query correctness through better instruction following."
+ }
+}

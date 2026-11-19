@@ -1,0 +1,38 @@
+[
+ {
+  "commit": "fbfd5ce7a20357ae418a09efa25a6ce499e5a69b",
+  "parents": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+  "subject": "r2 s1: System prompt lacks explicit defense against prompt injectio",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "0aaeedf9a9c7c6310c999aabc4222814a160cfc8",
+  "parents": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+  "subject": "r1 s2: System prompt lacks explicit defense against prompt injectio",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "09cfba5b38fc28699c6f7c7ee644573627402d9b",
+  "parents": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+  "subject": "r1 s1: Ambiguity between refusing a request vs. issuing a partial r",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "486e791c5bad1c86534b4c324918c4f679b1dc32",
+  "parents": "a1c5a91df4fab58860610bce82951818cc1f695c",
+  "subject": "r0 s2: Agent fails to enforce refund limits by attempting unauthori",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "e2a684cab0c871f5aad2675bd729500de7f2674d",
+  "parents": "a1c5a91df4fab58860610bce82951818cc1f695c",
+  "subject": "r0 s1: Agent substitutes a smaller authorized amount instead of ref",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "a1c5a91df4fab58860610bce82951818cc1f695c",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

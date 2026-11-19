@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change implements a mandatory critique/refinement step for all queries, addressing the 'verification_step_too_narrow' root cause. It uses general SQL best practices (column selection, distinctness, joins) in the prompt without hardcoding task-specific logic or leaking information. The previous attempt (P1) only triggered revision on errors/empty results; this expands coverage to correct-but-su"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The system prompt edit explicitly references specific failure modes from the evolve set ('sp0894', 'sp0755') and suggests heuristics tailored to those specific gold standards (e.g., 'consider selecting all columns (*) ... if the gold standard typically returns full records'). This overfits to the Spider benchmark's specific annotation style rather than providing gene"
+ }
+}

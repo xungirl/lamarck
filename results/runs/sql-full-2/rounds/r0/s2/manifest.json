@@ -1,0 +1,30 @@
+{
+ "sealed_at": 1795088541.484422,
+ "round": 0,
+ "sample": "s2",
+ "branch": "cand/r0s2",
+ "commit": "68a6ba756e96c1d9ceb57951557e34d339ab8938",
+ "tree": "f83aaf95e437",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..ee8e64d 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,11 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+**Critical Instructions:**\n+1. **Strictly follow Hints:** If a hint provides a formula (e.g., `SUM(...)`, `COUNT(...)`) or a specific condition (e.g., `Virtual = 'F'`), you MUST use it exactly as described. Do not infer alternative definitions if a hint is present.\n+2. **Output Structure:** \n+   - If the question asks for a list/ranking with a count, ensure you return the requested columns in the correct order. For \"rank by popularity\", consider if `GROUP BY` + `ORDER BY COUNT DESC` is sufficient, or if a window function (`ROW_NUMBER() OVER ...`) is needed to assign explicit rank numbers as part of the result set.\n+   - If the question implies distinct entities (e.g., \"list names\"), ensure `DISTINCT` is used if duplicates might arise from joins.\n+3. **Column Selection:** Return ONLY the columns explicitly asked for in the question. Do not add extra metadata columns unless implied by \"details\" or similar broad terms.\n+4. **Value Matching:** Use exact string matches for filters provided in hints or questions. Be careful with case sensitivity and formatting (e.g., dates, phone numbers).\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": null,
+  "root_cause": "Misinterpretation of 'Hint' formulas and specific output structures (e.g., ranking vs grouping, distinct values) leading to incorrect SQL logic despite valid syntax.",
+  "what": "Enhance the system prompt to explicitly instruct the model to strictly adhere to formulas in hints and handle special cases like ranking (ROW_NUMBER vs GROUP BY) or multi-part questions. This targets failures where the query executes but returns logically incorrect results due to misreading complex hints.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n**Critical Instructions:**\n1. **Strictly follow Hints:** If a hint provides a formula (e.g., `SUM(...)`, `COUNT(...)`) or a specific condition (e.g., `Virtual = 'F'`), you MUST use it exactly as described. Do not infer alternative definitions if a hint is present.\n2. **Output Structure:** \n   - If the question asks for a list/ranking with a count, ensure you return the requested columns in the correct order. For \"rank by popularity\", consider if `GROUP BY` + `ORDER BY COUNT DESC` is sufficient, or if a window function (`ROW_NUMBER() OVER ...`) is needed to assign explicit rank numbers as part of the result set.\n   - If the question implies distinct entities (e.g., \"list names\"), ensure `DISTINCT` is used if duplicates might arise from joins.\n3. **Column Selection:** Return ONLY the columns explicitly asked for in the question. Do not add extra metadata columns unless implied by \"details\" or similar broad terms.\n4. **Value Matching:** Use exact string matches for filters provided in hints or questions. Be careful with case sensitivity and formatting (e.g., dates, phone numbers).\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "bd0728",
+   "bd0928",
+   "bd1404",
+   "bd1427"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Misinterpretation of 'Hint' formulas and specific output structures (e.g., ranking vs grouping, distinct values) leading to incorrect SQL logic despite valid syntax.\"},\n \"what\": \"Enhance the system prompt to explicitly instruct the model to strictly adhere to formulas in hints and handle special cases like ranking (ROW_NUMBER vs GROUP BY) or multi-part questions. This targets failures where the query executes but returns logically incorrect results due to misreading complex hints.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0728\", \"bd0928\", \"bd1404\", \"bd1427\"]\n}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n**Critical Instructions:**\n1. **Strictly follow Hints:** If a hint provides a formula (e.g., `SUM(...)`, `COUNT(...)`) or a specific condition (e.g., `Virtual = 'F'`), you MUST use it exactly as described. Do not infer alternative definitions if a hint is present.\n2. **Output Structure:** \n   - If the question asks for a list/ranking with a count, ensure you return the requested columns in the correct order. For \"rank by popularity\", consider if `GROUP BY` + `ORDER BY COUNT DESC` is sufficient, or if a window function (`ROW_NUMBER() OVER ...`) is needed to assign explicit rank numbers as part of the result set.\n   - If the question implies distinct entities (e.g., \"list names\"), ensure `DISTINCT` is used if duplicates might arise from joins.\n3. **Column Selection:** Return ONLY the columns explicitly asked for in the question. Do not add extra metadata columns unless implied by \"details\" or similar broad terms.\n4. **Value Matching:** Use exact string matches for filters provided in hints or questions. Be careful with case sensitivity and formatting (e.g., dates, phone numbers).\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

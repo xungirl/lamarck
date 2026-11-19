@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate introduces a 'Draft and Refine' strategy that relies on `env.execute` to validate SQL. However, the implementation contains significant logic flaws and potential leakage/overfitting risks: 1) The refinement trigger for empty results (`n_rows == 0`) is heuristic and likely incorrect for many valid queries (e.g., questions asking for non-existent entities or specific filters yielding n"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate updates the system prompt to enforce stricter output formatting (no markdown blocks, no explanations) and provides clear guidelines for common SQL pitfalls (NULLs, aggregations, window functions). This addresses the root cause of verbose reasoning causing extraction errors. The changes are generic best practices for Text-to-SQL tasks and do not contain task-specific hardcoding or lea"
+ }
+}

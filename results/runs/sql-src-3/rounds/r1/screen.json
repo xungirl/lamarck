@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate introduces a guideline to use `SELECT *` when questions ask for 'details' or 'which entities', which is a high-risk heuristic that often leads to extra columns and execution mismatches in Spider/BIRD (where gold queries typically select specific columns). This contradicts standard Text-to-SQL best practices and likely causes regressions on tasks where only specific attributes are req"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "This candidate provides balanced, generalizable guidelines: strictly selecting requested columns (avoiding unnecessary `SELECT *`) and using `DISTINCT` for join-induced duplicates. These are standard, safe heuristics for Text-to-SQL tasks that address common failure modes (wrong projection, duplicate rows) without hard-coding task-specific logic or introducing risky defaults like `SELECT *`. It al"
+ }
+}

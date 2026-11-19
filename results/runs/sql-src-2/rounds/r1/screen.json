@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The candidate explicitly references specific task IDs ('sp0755', 'sp0894') in the `what` description and hard-codes logic tailored to those specific tasks (e.g., 'For sp0894, it reinforces using NOT EXISTS...'). While the diff itself contains general instructions, the intent is clearly overfitting to known failure cases from the evolve set. Additionally, instruction "
+ }
+}

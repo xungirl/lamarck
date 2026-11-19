@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate implements a standard self-correction loop (generate -> execute -> repair if empty/error) which is a valid general-purpose improvement for Text-to-SQL tasks. It does not hardcode task IDs or specific database schemas in the logic, only referencing them in the root cause description as examples of failure modes. The prompt enhancements are generic best practices (LIKE vs =, SELECT * c"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Similar to s1, this candidate adds a validation step that executes the SQL and retries with feedback if the result is empty or an error occurs. This is a legitimate mechanism to improve robustness against hallucinated schema elements or overly strict filters. It avoids leakage by keeping the logic generic and relying on the model's ability to interpret the feedback rather than hardcoded rules for "
+ }
+}

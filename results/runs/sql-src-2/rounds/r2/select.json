@@ -1,0 +1,4 @@
+{
+ "choice": "s1",
+ "reason": "Candidate s1 directly addresses the remaining failure mode (sp0894) identified in the SIM history by injecting actual data samples into the retry prompt, which resolves value mismatches that simple schema validation missed. The performance gain (+3.3 pts) justifies the token cost increase, and the approach is generalizable to other text-to-SQL tasks with similar filtering errors."
+}

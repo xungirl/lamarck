@@ -1,0 +1,86 @@
+{
+ "next_id": 2,
+ "carried_from": {
+  "arm": "sql-src-1",
+  "domain": "spider_evolve_s30/qwen3.8-flash",
+  "into": "sql-full-1"
+ },
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "queries returning 0 rows due to incorrect join/filter logic; no verification step to catch and fix empty results",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a second policy call that verifies the first draft by executing it; if it returns 0 rows unexpectedly, ask the model to diagnose and revise. Also enhance system prompt with explicit warnings about NULL-safe NOT IN patterns and checking join key consistency.",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0536",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Broaden the verification step in solve.py: instead of only revising on empty/error results, always run a second policy call when the draft returns >0 rows. Feed the model its draft SQL plus actual sample output rows and ask it to validate column count/order, literal value form...",
+     "files": "solve.py",
+     "predicted": [
+      "bd0040",
+      "bd0041",
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd0928",
+      "bd0955",
+      "bd1014",
+      "bd1068",
+      "bd1136",
+      "bd1241",
+      "bd1242"
+     ],
+     "fixed": [
+      "bd0040",
+      "bd0915",
+      "bd1136"
+     ],
+     "missed": [
+      "bd0041",
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0928",
+      "bd0955",
+      "bd1014",
+      "bd1068",
+      "bd1241",
+      "bd1242"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

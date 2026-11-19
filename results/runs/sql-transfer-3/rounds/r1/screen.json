@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes provide general, task-agnostic instructions on how to interpret 'Hints' (treating them as ground truth for definitions/formulas) and how to handle multi-part questions (selecting all requested columns). These are standard best practices for Text-to-SQL tasks with evidence/hints and do not hard-code specific database schemas, table names, or task IDs. The logic is sound and addresses co"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The instruction regarding Ranking is potentially harmful and likely an overfitting attempt. In Spider/BIRD benchmarks, questions asking for the 'top N' or 'ranked list' typically expect the result set to be ordered by the relevant metric, but **not** to include an explicit rank number column in the SELECT clause unless specifically asked (e.g., 'return the rank'). Adding a `ROW_NUMBER()` column wh"
+ }
+}

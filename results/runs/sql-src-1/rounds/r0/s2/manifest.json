@@ -1,0 +1,28 @@
+{
+ "sealed_at": 1795087516.9843378,
+ "round": 0,
+ "sample": "s2",
+ "branch": "cand/r0s2",
+ "commit": "c4c47f21985c6d8fd57d208b8c5a8bdb34ca63ee",
+ "tree": "e455231ccefb",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..3b0ec00 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,7 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+**CRITICAL INSTRUCTIONS:**\n+1. **Verify Schema**: Before writing the query, carefully check the `CREATE TABLE` statements in the schema. Ensure every table name and column name you use exists exactly as written (case-sensitive if necessary, but usually lowercase in SQLite). Do not invent columns or tables.\n+2. **Join Logic**: If multiple tables are needed, ensure the foreign key relationships are correctly identified from the schema constraints.\n+3. **Data Types**: Be aware of data types when filtering (e.g., text vs integer).\n+4. **Output Format**: Return the query in a single ```sql code block. Do not include any explanation outside the code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": null,
+  "root_cause": "Schema Linking Errors (Wrong Table/Columns)",
+  "what": "Adds a system prompt instruction to carefully verify table and column names against the provided schema before writing SQL, specifically addressing failures where queries reference non-existent tables or columns due to hallucination or misinterpretation of the schema structure.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n**CRITICAL INSTRUCTIONS:**\n1. **Verify Schema**: Before writing the query, carefully check the `CREATE TABLE` statements in the schema. Ensure every table name and column name you use exists exactly as written (case-sensitive if necessary, but usually lowercase in SQLite). Do not invent columns or tables.\n2. **Join Logic**: If multiple tables are needed, ensure the foreign key relationships are correctly identified from the schema constraints.\n3. **Data Types**: Be aware of data types when filtering (e.g., text vs integer).\n4. **Output Format**: Return the query in a single ```sql code block. Do not include any explanation outside the code block."
+  },
+  "predicted": [
+   "sp0536",
+   "sp0894"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Schema Linking Errors (Wrong Table/Columns)\"},\n \"what\": \"Adds a system prompt instruction to carefully verify table and column names against the provided schema before writing SQL, specifically addressing failures where queries reference non-existent tables or columns due to hallucination or misinterpretation of the schema structure.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"sp0536\", \"sp0894\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n**CRITICAL INSTRUCTIONS:**\n1. **Verify Schema**: Before writing the query, carefully check the `CREATE TABLE` statements in the schema. Ensure every table name and column name you use exists exactly as written (case-sensitive if necessary, but usually lowercase in SQLite). Do not invent columns or tables.\n2. **Join Logic**: If multiple tables are needed, ensure the foreign key relationships are correctly identified from the schema constraints.\n3. **Data Types**: Be aware of data types when filtering (e.g., text vs integer).\n4. **Output Format**: Return the query in a single ```sql code block. Do not include any explanation outside the code block.\n</file>"
+ }
+}

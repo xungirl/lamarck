@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate improves the harness by adding step-by-step reasoning instructions, increasing token limits to accommodate this, and enhancing the retry logic with distinct value sampling for common filter columns. It also refines the 0-row retry condition to check if data exists in the relevant tables before triggering a retry, which is a logical improvement over blind retries. No leakage or task-s"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate updates the system prompt to provide clearer guidelines on handling hints (strict formula adherence), output structure (ranking vs grouping, distinct values), and column selection. These are general best practices for Text-to-SQL tasks that help mitigate common failure modes like misinterpreting complex questions or returning extra columns. The changes are declarative and do not cont"
+ }
+}

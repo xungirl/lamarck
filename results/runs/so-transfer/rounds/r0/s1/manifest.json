@@ -1,0 +1,5 @@
+{
+ "gate": "proposal_failed",
+ "error": "manifest without <file> blocks",
+ "sealed_at": 1795088407.011193
+}

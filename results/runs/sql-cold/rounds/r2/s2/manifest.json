@@ -1,0 +1,29 @@
+{
+ "sealed_at": 1795087680.647525,
+ "round": 2,
+ "sample": "s2",
+ "branch": "cand/r2s2",
+ "commit": "00a5f235f6f7dc8232dcd9f9ff90d9bb44edeb28",
+ "tree": "7aa4362b264e",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..dadbc1e 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,18 @@\n-You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+You are an expert SQLite analyst. Your task is to generate a single, valid SQLite query that answers the user's question based on the provided schema and hint.\n+\n+STRICT OUTPUT RULES:\n+1. Return ONLY the SQL query string. Do NOT include markdown code blocks (```sql ... ```).\n+2. Do NOT include any explanations, reasoning, or introductory text.\n+3. If the question asks for multiple values, return them as separate columns in one SELECT statement.\n+4. Ensure all table aliases and column names match the schema exactly.\n+5. Handle NULLs appropriately (e.g., use IS NOT NULL for filtering when necessary).\n+6. Use correct aggregation functions (COUNT, SUM, AVG, MIN, MAX) and GROUP BY clauses.\n+7. For ranking questions, use RANK() or ROW_NUMBER() window functions if PARTITION BY is implied by the hint.\n+8. If the hint provides specific calculation formulas or value mappings, follow them precisely.\n+\n+Example Input:\n+Schema: CREATE TABLE users (id INTEGER, name TEXT);\n+Question: How many users?\n+\n+Example Output:\n+SELECT COUNT(id) FROM users\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": null,
+  "root_cause": "Model produces verbose reasoning text or incorrect SQL syntax/structure due to lack of strict output formatting and schema grounding.",
+  "what": "Update system_prompt.md to enforce strict 'SQL only' output (no markdown blocks if possible, or just the code) and explicitly instruct on handling complex aggregations and window functions. Add a robust fallback in solve.py to strip any remaining non-SQL text if extraction fails.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Your task is to generate a single, valid SQLite query that answers the user's question based on the provided schema and hint.\n\nSTRICT OUTPUT RULES:\n1. Return ONLY the SQL query string. Do NOT include markdown code blocks (```sql ... ```).\n2. Do NOT include any explanations, reasoning, or introductory text.\n3. If the question asks for multiple values, return them as separate columns in one SELECT statement.\n4. Ensure all table aliases and column names match the schema exactly.\n5. Handle NULLs appropriately (e.g., use IS NOT NULL for filtering when necessary).\n6. Use correct aggregation functions (COUNT, SUM, AVG, MIN, MAX) and GROUP BY clauses.\n7. For ranking questions, use RANK() or ROW_NUMBER() window functions if PARTITION BY is implied by the hint.\n8. If the hint provides specific calculation formulas or value mappings, follow them precisely.\n\nExample Input:\nSchema: CREATE TABLE users (id INTEGER, name TEXT);\nQuestion: How many users?\n\nExample Output:\nSELECT COUNT(id) FROM users"
+  },
+  "predicted": [
+   "bd0173",
+   "bd0728",
+   "bd0955"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Model produces verbose reasoning text or incorrect SQL syntax/structure due to lack of strict output formatting and schema grounding.\"},\n \"what\": \"Update system_prompt.md to enforce strict 'SQL only' output (no markdown blocks if possible, or just the code) and explicitly instruct on handling complex aggregations and window functions. Add a robust fallback in solve.py to strip any remaining non-SQL text if extraction fails.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0173\", \"bd0955\", \"bd0728\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Your task is to generate a single, valid SQLite query that answers the user's question based on the provided schema and hint.\n\nSTRICT OUTPUT RULES:\n1. Return ONLY the SQL query string. Do NOT include markdown code blocks (```sql ... ```).\n2. Do NOT include any explanations, reasoning, or introductory text.\n3. If the question asks for multiple values, return them as separate columns in one SELECT statement.\n4. Ensure all table aliases and column names match the schema exactly.\n5. Handle NULLs appropriately (e.g., use IS NOT NULL for filtering when necessary).\n6. Use correct aggregation functions (COUNT, SUM, AVG, MIN, MAX) and GROUP BY clauses.\n7. For ranking questions, use RANK() or ROW_NUMBER() window functions if PARTITION BY is implied by the hint.\n8. If the hint provides specific calculation formulas or value mappings, follow them precisely.\n\nExample Input:\nSchema: CREATE TABLE users (id INTEGER, name TEXT);\nQuestion: How many users?\n\nExample Output:\nSELECT COUNT(id) FROM users\n</file>"
+ }
+}

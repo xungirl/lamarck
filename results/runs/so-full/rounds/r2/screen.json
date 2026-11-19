@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change adds explicit safety instructions to the system prompt regarding partial refunds and over-requests. It aligns with the root cause (unauthorized writes in ambiguous/refused scenarios) and does not hard-code task-specific details or bypass existing safety mechanisms. It is a logical refinement of policy enforcement."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "This candidate implements a complex `before_tool_call` hook that attempts to validate refund amounts by parsing previous tool call results (`get_order`) from the context. This approach is highly fragile due to reliance on specific JSON key names (`total_amount`, `amount_cents`, etc.) which may vary across different store databases or API versions, constituting potential task-specialization/leakage"
+ }
+}

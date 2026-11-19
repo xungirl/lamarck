@@ -1,0 +1,4 @@
+{
+ "chosen": "s1",
+ "reason": "Candidate s1 maintains the incumbent score while reducing token usage (1213 vs 1215) and adds robust SQL extraction logic that handles raw output fallbacks, improving reliability without increasing complexity or risk. Candidate s2 increases token usage significantly (1321) for no measured gain."
+}

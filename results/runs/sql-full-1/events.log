@@ -1,0 +1,12 @@
+03:41:51 [sql-full-1] noise band delta = 0.0546 from scores [0.433333, 0.433333, 0.4]
+03:41:51 [sql-full-1] held-out after round -1: 55.00 (22/40)
+03:41:51 [sql-full-1] round 0: incumbent 7e87d5b22f0a evolve=43.3 b_t=3 best=43.3
+03:42:37 [sql-full-1] round 0: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:42:37 [sql-full-1] held-out after round 0: 55.00 (22/40)
+03:42:37 [sql-full-1] round 1: incumbent 7e87d5b22f0a evolve=43.3 b_t=2 best=43.3
+03:43:35 [sql-full-1] round 1: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:43:35 [sql-full-1] held-out after round 1: 55.00 (22/40)
+03:43:36 [sql-full-1] round 2: incumbent 7e87d5b22f0a evolve=43.3 b_t=1 best=43.3
+03:45:18 [sql-full-1] round 2: 2 proposed, 2 evaluated, 1 admissible -> s1 (Candidate s1 significantly improves the evolve score (50.0 vs 43.33) by addressing the dominant failure mode of silent f)
+03:45:18 [sql-full-1] round 2: SIM <- P1 (3/13 predicted fixes realized)
+03:46:12 [sql-full-1] held-out after round 2: 60.00 (24/40)

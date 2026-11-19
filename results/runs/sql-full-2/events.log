@@ -1,0 +1,9 @@
+03:42:11 [sql-full-2] noise band delta = 0.0963 from scores [0.466667, 0.366667, 0.466667]
+03:42:11 [sql-full-2] held-out after round -1: 62.50 (25/40)
+03:42:11 [sql-full-2] round 0: incumbent e6a9184549ae evolve=46.7 b_t=3 best=46.7
+03:43:45 [sql-full-2] round 0: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:43:45 [sql-full-2] round 1: incumbent e6a9184549ae evolve=46.7 b_t=2 best=46.7
+03:44:24 [sql-full-2] round 1: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:44:24 [sql-full-2] round 2: incumbent e6a9184549ae evolve=46.7 b_t=1 best=46.7
+03:45:34 [sql-full-2] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:45:34 [sql-full-2] held-out after round 2: 62.50 (25/40)

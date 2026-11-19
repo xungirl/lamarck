@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "aaa11c5043b5e33bd9c064ddbf21251650c0f629",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r2 s1: Model fails to deduplicate join-induced rows (missing DISTIN",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "13259ff84457bfa2fe0548b1a7c88bcf53cb0017",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r2 s2: Model fails to apply DISTINCT for join-induced duplicates an",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "f2da9d523ef18b966f2674aa291cf62186be56e0",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r1 s1: Model fails to handle DISTINCT for join-induced duplicates a",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "b04711235bf4ca2aaaa86a1e74a34fff9c11976b",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r1 s2: Model generates queries with incorrect column projections (S",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "parents": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+  "subject": "r0 s1: Model writes queries that return 0 rows due to strict matchi",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "d57164decfdbb2bd8876d8c36786f6a7145a6815",
+  "parents": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+  "subject": "r0 s2: Strict value comparison failures (case/space) and NOT IN nul",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

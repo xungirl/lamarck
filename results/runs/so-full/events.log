@@ -1,0 +1,13 @@
+03:39:44 [so-full] noise band delta = 0.1349 from scores [0.866667, 1.0, 1.0]
+03:40:02 [so-full] held-out after round -1: 100.00 (15/15)
+03:40:02 [so-full] round 0: incumbent 9348ea6fe59b evolve=86.7 b_t=3 best=86.7
+03:40:53 [so-full] round 0: 2 proposed, 2 evaluated, 2 admissible -> s2 (Candidate s2 achieves a higher evolve score (93.33 vs 86.67) and lower token usage, fixing the predicted failure without)
+03:40:53 [so-full] round 0: SIM <- P1 (1/2 predicted fixes realized)
+03:41:12 [so-full] held-out after round 0: 100.00 (15/15)
+03:41:12 [so-full] round 1: incumbent be5e74832ad9 evolve=93.3 b_t=2 best=93.3
+03:41:23 [so-full] round 1 s1: proposal failed: manifest without <file> blocks
+03:41:28 [so-full] round 1: 1 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:41:28 [so-full] held-out after round 1: 100.00 (15/15)
+03:41:28 [so-full] round 2: incumbent be5e74832ad9 evolve=93.3 b_t=1 best=93.3
+03:42:27 [so-full] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:42:27 [so-full] held-out after round 2: 100.00 (15/15)

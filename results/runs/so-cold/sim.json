@@ -1,0 +1,32 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Agent fails to enforce refund limits by attempting unauthorized partial refunds instead of refusing when total exceeds order value",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system prompt to explicitly instruct the agent to calculate remaining refundable amount and refuse any refund that would cause the total refunded amount to exceed the order's original value, rather than attempting a partial refund.",
+     "files": "system_prompt.md",
+     "predicted": [
+      "ood-refuse-over-remaining"
+     ],
+     "fixed": [
+      "ood-refuse-over-remaining"
+     ],
+     "missed": [],
+     "passed": 15,
+     "total": 15,
+     "domain": "ood_evolve/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

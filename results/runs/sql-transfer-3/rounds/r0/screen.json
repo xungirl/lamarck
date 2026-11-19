@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change strengthens the system prompt to enforce strict output formatting (SQL only) and provides general guidance on handling multi-part questions and schema adherence. It does not hard-code task-specific details, entity names, or magic constants. The logic is generic and applicable to any text-to-SQL task."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes include a robust post-processing fallback in `solve.py` to extract SQL from mixed responses (handling cases where the model fails to use code blocks) and updated prompts to enforce stricter output formats. These are general improvements for reliability and parsing, not task-specific hacks. The retry mechanism remains bounded (single correction attempt)."
+ }
+}

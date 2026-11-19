@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change improves the system prompt by adding general, task-agnostic guidelines for column selection and hint adherence. It does not hard-code specific database names, table structures, or expected outputs, nor does it branch on task identifiers. The instructions are applicable to any Text-to-SQL task in this domain."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The diff includes a specific example in Rule 7: 'For example, \"Which driver... give his reference name\" implies selecting the reference name column specifically...'. This references a specific schema structure (likely from the F1 database in Spider/BIRD) and a specific question phrasing found in the evolve set. Hard-coding examples with specific entity relationships "
+ }
+}

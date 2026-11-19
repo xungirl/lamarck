@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change strengthens the refusal protocol in the system prompt to explicitly forbid workarounds (partial refunds, escalation tickets) when policy blocks an action. This addresses a known failure mode (P1) where the agent attempts unauthorized writes despite correct policy identification. The edit is general, does not hardcode task-specific details, and aligns with safety requirements."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change adds explicit instructions to verify policy limits before issuing refunds and forbids unauthorized write actions as workarounds. This directly targets the root cause of unauthorized writes in refused/ambiguous scenarios (P1). The rules are generic and applicable to any store policy enforcement, avoiding leakage or overfitting."
+ }
+}

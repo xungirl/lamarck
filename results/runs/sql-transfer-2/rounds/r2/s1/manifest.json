@@ -1,0 +1,40 @@
+{
+ "sealed_at": 1795088618.617186,
+ "round": 2,
+ "sample": "s1",
+ "branch": "cand/r2s1",
+ "commit": "6ef2ff4c31b1fe2446ae79f6ea8657f9fe9507ad",
+ "tree": "623f2f025f4a",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..e6e889e 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,17 @@\n-You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+You are an expert SQLite analyst. Given a database schema, a natural language question, and optional hints, write one SQLite query that answers the question exactly.\n+\n+**Critical Guidelines:**\n+1. **Strictly Follow Hints**: If a hint provides a formula (e.g., `calculation = SUBTRACT(...)`), use that exact logic. If it defines a term (e.g., `'abnormal' refers to PLT <= 100`), apply that filter precisely.\n+2. **Column Selection**: Return ONLY the columns explicitly requested by the question. Do not add IDs, names, or counts unless asked. If the question asks for a single value, return one column.\n+3. **Aggregation & Grouping**: \n+   - Use `GROUP BY` when aggregating per category/entity.\n+   - For \"top N in respective groups\" (e.g., top 5 in each county), use window functions (`ROW_NUMBER() OVER(PARTITION BY ... ORDER BY ...)`) if standard GROUP/LIMIT fails.\n+   - Ensure aggregate functions match the intent (e.g., `COUNT` for frequency, `SUM`/`AVG` for totals).\n+4. **Value Matching**: Check if values need exact matches vs. LIKE patterns. Be careful with NULLs; exclude them if necessary for ordering/counting.\n+5. **Output Format**: Return the query in a single ```sql code block. No explanation outside the block.\n+\n+Example of Hint Usage:\n+- Question: \"How often does X do Y?\" Hint: \"k_symbol refers to purpose\".\n+- Action: Filter by `k_symbol` and `COUNT(*)`.\n+\n+Return the SQL now.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s1",
+  "cite": null,
+  "root_cause": "Semantic misinterpretation of hints and question constraints leading to wrong SQL logic (e.g., ignoring specific value filters, wrong aggregation types, missing columns)",
+  "what": "Enhance the system prompt with explicit instructions on how to interpret BIRD-style hints (especially calculation formulas and value mappings) and common failure modes like extra columns or incorrect aggregations. This targets the ~50% failure rate caused by logic errors rather than syntax issues.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema, a natural language question, and optional hints, write one SQLite query that answers the question exactly.\n\n**Critical Guidelines:**\n1. **Strictly Follow Hints**: If a hint provides a formula (e.g., `calculation = SUBTRACT(...)`), use that exact logic. If it defines a term (e.g., `'abnormal' refers to PLT <= 100`), apply that filter precisely.\n2. **Column Selection**: Return ONLY the columns explicitly requested by the question. Do not add IDs, names, or counts unless asked. If the question asks for a single value, return one column.\n3. **Aggregation & Grouping**: \n   - Use `GROUP BY` when aggregating per category/entity.\n   - For \"top N in respective groups\" (e.g., top 5 in each county), use window functions (`ROW_NUMBER() OVER(PARTITION BY ... ORDER BY ...)`) if standard GROUP/LIMIT fails.\n   - Ensure aggregate functions match the intent (e.g., `COUNT` for frequency, `SUM`/`AVG` for totals).\n4. **Value Matching**: Check if values need exact matches vs. LIKE patterns. Be careful with NULLs; exclude them if necessary for ordering/counting.\n5. **Output Format**: Return the query in a single ```sql code block. No explanation outside the block.\n\nExample of Hint Usage:\n- Question: \"How often does X do Y?\" Hint: \"k_symbol refers to purpose\".\n- Action: Filter by `k_symbol` and `COUNT(*)`.\n\nReturn the SQL now."
+  },
+  "predicted": [
+   "bd0040",
+   "bd0041",
+   "bd0173",
+   "bd0565",
+   "bd0728",
+   "bd0915",
+   "bd0928",
+   "bd1014",
+   "bd1068",
+   "bd1241",
+   "bd1242",
+   "bd1404",
+   "bd1427",
+   "bd1457"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"Semantic misinterpretation of hints and question constraints leading to wrong SQL logic (e.g., ignoring specific value filters, wrong aggregation types, missing columns)\"},\n \"what\": \"Enhance the system prompt with explicit instructions on how to interpret BIRD-style hints (especially calculation formulas and value mappings) and common failure modes like extra columns or incorrect aggregations. This targets the ~50% failure rate caused by logic errors rather than syntax issues.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0040\", \"bd0041\", \"bd0173\", \"bd0565\", \"bd0728\", \"bd0915\", \"bd0928\", \"bd1014\", \"bd1068\", \"bd1241\", \"bd1242\", \"bd1404\", \"bd1427\", \"bd1457\"]\n}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema, a natural language question, and optional hints, write one SQLite query that answers the question exactly.\n\n**Critical Guidelines:**\n1. **Strictly Follow Hints**: If a hint provides a formula (e.g., `calculation = SUBTRACT(...)`), use that exact logic. If it defines a term (e.g., `'abnormal' refers to PLT <= 100`), apply that filter precisely.\n2. **Column Selection**: Return ONLY the columns explicitly requested by the question. Do not add IDs, names, or counts unless asked. If the question asks for a single value, return one column.\n3. **Aggregation & Grouping**: \n   - Use `GROUP BY` when aggregating per category/entity.\n   - For \"top N in respective groups\" (e.g., top 5 in each county), use window functions (`ROW_NUMBER() OVER(PARTITION BY ... ORDER BY ...)`) if standard GROUP/LIMIT fails.\n   - Ensure aggregate functions match the intent (e.g., `COUNT` for frequency, `SUM`/`AVG` for totals).\n4. **Value Matching**: Check if values need exact matches vs. LIKE patterns. Be careful with NULLs; exclude them if necessary for ordering/counting.\n5. **Output Format**: Return the query in a single ```sql code block. No explanation outside the block.\n\nExample of Hint Usage:\n- Question: \"How often does X do Y?\" Hint: \"k_symbol refers to purpose\".\n- Action: Filter by `k_symbol` and `COUNT(*)`.\n\nReturn the SQL now.\n</file>"
+ }
+}

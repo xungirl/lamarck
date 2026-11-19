@@ -1,0 +1,163 @@
+{
+ "next_id": 4,
+ "carried_from": {
+  "arm": "pooled:sql-src-1,sql-src-2,sql-src-3",
+  "domain": "spider_evolve/qwen3.8-flash",
+  "into": "ret-top-1"
+ },
+ "aliases": {
+  "sql-src-1:P1": "P1",
+  "sql-src-2:P1": "P2",
+  "sql-src-3:P1": "P3"
+ },
+ "problems": [
+  {
+   "id": "P1",
+   "name": "queries returning 0 rows due to incorrect join/filter logic; no verification step to catch and fix empty results",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a second policy call that verifies the first draft by executing it; if it returns 0 rows unexpectedly, ask the model to diagnose and revise. Also enhance system prompt with explicit warnings about NULL-safe NOT IN patterns and checking join key consistency.",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0536",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "name": "Schema and value mismatch leading to empty results",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "The model often fails because it hallucinates table names, column names, or filter values that do not exist in the actual database schema. This edit introduces a validation step using `env.execute` to check if the generated SQL returns results. If the query is valid but return...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Enhance the retry mechanism to fetch and inject sample rows from relevant tables into the second prompt. This allows the model to correct value mismatches (e.g., 'Bachelors' vs 'Bachelor') and understand data structures (e.g., NULLs in Friend tables) when the initial query ret...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0536",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0894"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0755"
+     ],
+     "passed": 28,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "name": "Model writes queries that return 0 rows due to strict matching (exact value mismatches, wrong join keys) or ignores implicit column selection requirements (e.g., SELECT * vs specific columns), and fails to verify results against schema constraints.",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a self-correction step: after generating the initial SQL, execute it. If it returns 0 rows (and the question doesn't imply an empty result is valid), prompt the model again with the schema, original question, failed query, and instruction to debug common issues like case s...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610",
+      "sp0894"
+     ],
+     "missed": [
+      "sp0536"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 1,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Modified solve.py to always attempt a refinement pass using the second call budget, instructing the model to check for semantic correctness rather than just non-emptiness. Updated system_prompt.md with specific guidelines on handling 'Rank' requests (as columns), exact string...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "bd0565",
+      "bd0728",
+      "bd0928",
+      "bd1068",
+      "bd1136",
+      "bd1242"
+     ],
+     "fixed": [
+      "bd0565",
+      "bd1068",
+      "bd1136"
+     ],
+     "missed": [
+      "bd0728",
+      "bd0928",
+      "bd1242"
+     ],
+     "passed": 16,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

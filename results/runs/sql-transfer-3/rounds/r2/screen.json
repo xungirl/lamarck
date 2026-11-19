@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change extends the self-correction trigger to include execution errors, which is a general improvement for robustness in text-to-SQL tasks. It does not hard-code specific task IDs or leak information. The logic remains bounded (one correction attempt)."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The update to the system prompt provides general guidance on handling 'Top N' and ranking queries, as well as type casting. These are standard best practices for SQL generation and do not specialize the harness to specific database schemas or task instances."
+ }
+}

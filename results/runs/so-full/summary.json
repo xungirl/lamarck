@@ -1,0 +1,56 @@
+{
+ "run_id": "so-full",
+ "domain": "supportops",
+ "memory": "full",
+ "policy_model": "qwen3.8-flash",
+ "evolve_split": "ood_evolve",
+ "heldout_split": "ood_heldout",
+ "rounds": 3,
+ "k": 2,
+ "delta": 0.134857,
+ "evolve_start": 0.8666666666666667,
+ "evolve_end": 0.9333333333333333,
+ "heldout_start": 1.0,
+ "heldout_end": 1.0,
+ "heldout_curve": [
+  {
+   "after_round": -1,
+   "tree": "9348ea6fe59b",
+   "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+   "score": 1.0,
+   "cost": 6481.2,
+   "n": 15
+  },
+  {
+   "after_round": 0,
+   "tree": "be5e74832ad9",
+   "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+   "score": 1.0,
+   "cost": 7450.266666666666,
+   "n": 15
+  },
+  {
+   "after_round": 1,
+   "tree": "be5e74832ad9",
+   "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+   "score": 1.0,
+   "cost": 7450.266666666666,
+   "n": 15
+  },
+  {
+   "after_round": 2,
+   "tree": "be5e74832ad9",
+   "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+   "score": 1.0,
+   "cost": 7450.266666666666,
+   "n": 15
+  }
+ ],
+ "accepted": 1,
+ "proposed": 5,
+ "evaluated": 3,
+ "screened_out": 2,
+ "final_commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+ "sim_entries": 1,
+ "sim_attempts": 2
+}

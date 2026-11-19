@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate updates the system prompt with general SQL best practices (window functions, distinctness, hint adherence) to address semantic errors. It does not hardcode task-specific IDs or entities, nor does it remove safety mechanisms. The changes are applicable to any Text-to-SQL task and do not conflict with previous memory entries which focused on schema validation."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Similar to s1, this candidate enhances the system prompt with general guidelines for handling complex constraints like ranking and output formatting. It avoids task specialization and leakage. The instructions are generic enough to apply to unseen tasks while addressing common failure modes in BIRD/Spider benchmarks."
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes address common Text-to-SQL failure modes (Ranking semantics, Top-N per group partitioning, NULL handling) with generalizable instructions. No task-specific hardcoding or leakage detected."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The instruction 'check if `forename`, `surname`, or `driverRef`/`playerName` are distinct fields' explicitly names columns from specific databases (likely Formula 1 and Spider's 'car_1' or similar). This is not a general rule for all SQLite tasks and constitutes overfitting to the evolve set."
+ }
+}

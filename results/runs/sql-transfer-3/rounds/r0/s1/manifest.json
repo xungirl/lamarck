@@ -1,0 +1,30 @@
+{
+ "sealed_at": 1795088699.466541,
+ "round": 0,
+ "sample": "s1",
+ "branch": "cand/r0s1",
+ "commit": "b18982331a7631439717596573286a68326483e9",
+ "tree": "0bb259705719",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..3bb48e7 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,9 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+CRITICAL RULES:\n+1. Return ONLY the SQL query inside a single ```sql code block.\n+2. Do NOT include any natural language explanation, reasoning, or markdown outside the code block.\n+3. Ensure the SQL is syntactically correct for SQLite.\n+4. If the question asks for multiple pieces of information, select all required columns in one query if they share the same granularity, otherwise focus on the primary metric asked.\n+5. Pay close attention to column names in the schema; do not invent columns.\n+6. Use `JOIN` correctly based on foreign keys in the schema.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s1",
+  "cite": null,
+  "root_cause": "The model fails to return valid SQL when the question is complex or multi-part, often outputting reasoning text instead of code (e.g., bd0173, bd0565), leading to syntax errors. Additionally, it struggles with column selection precision (bd0728, bd0928) and aggregation logic (bd0955).",
+  "what": "Strengthen the system prompt to explicitly forbid natural language explanations outside the SQL block and mandate a single ```sql block containing only executable SQLite syntax. Add specific guidance on handling multi-part questions by returning a single query that covers all requested columns/aggregations if possible, or prioritizing the primary answer.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nCRITICAL RULES:\n1. Return ONLY the SQL query inside a single ```sql code block.\n2. Do NOT include any natural language explanation, reasoning, or markdown outside the code block.\n3. Ensure the SQL is syntactically correct for SQLite.\n4. If the question asks for multiple pieces of information, select all required columns in one query if they share the same granularity, otherwise focus on the primary metric asked.\n5. Pay close attention to column names in the schema; do not invent columns.\n6. Use `JOIN` correctly based on foreign keys in the schema."
+  },
+  "predicted": [
+   "bd0173",
+   "bd0565",
+   "bd0728",
+   "bd0928"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": null, \"name\": \"The model fails to return valid SQL when the question is complex or multi-part, often outputting reasoning text instead of code (e.g., bd0173, bd0565), leading to syntax errors. Additionally, it struggles with column selection precision (bd0728, bd0928) and aggregation logic (bd0955).\"},\n \"what\": \"Strengthen the system prompt to explicitly forbid natural language explanations outside the SQL block and mandate a single ```sql block containing only executable SQLite syntax. Add specific guidance on handling multi-part questions by returning a single query that covers all requested columns/aggregations if possible, or prioritizing the primary answer.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0173\", \"bd0565\", \"bd0728\", \"bd0928\"]\n}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nCRITICAL RULES:\n1. Return ONLY the SQL query inside a single ```sql code block.\n2. Do NOT include any natural language explanation, reasoning, or markdown outside the code block.\n3. Ensure the SQL is syntactically correct for SQLite.\n4. If the question asks for multiple pieces of information, select all required columns in one query if they share the same granularity, otherwise focus on the primary metric asked.\n5. Pay close attention to column names in the schema; do not invent columns.\n6. Use `JOIN` correctly based on foreign keys in the schema.\n</file>"
+ }
+}

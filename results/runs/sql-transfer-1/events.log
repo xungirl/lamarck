@@ -1,0 +1,13 @@
+03:42:01 [sql-transfer-1] noise band delta = 0.0546 from scores [0.433333, 0.433333, 0.4]
+03:42:01 [sql-transfer-1] held-out after round -1: 55.00 (22/40)
+03:42:01 [sql-transfer-1] round 0: incumbent 7e87d5b22f0a evolve=43.3 b_t=3 best=43.3
+03:42:59 [sql-transfer-1] round 0: 2 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 improves the evolve score from 43.33 to 46.67, successfully fixing two tasks (bd0728, bd1136) while only br)
+03:42:59 [sql-transfer-1] round 0: SIM <- P1 (1/3 predicted fixes realized)
+03:43:20 [sql-transfer-1] held-out after round 0: 60.00 (24/40)
+03:43:20 [sql-transfer-1] round 1: incumbent f0a67a175579 evolve=46.7 b_t=2 best=46.7
+03:44:05 [sql-transfer-1] round 1: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:44:05 [sql-transfer-1] held-out after round 1: 60.00 (24/40)
+03:44:05 [sql-transfer-1] round 2: incumbent f0a67a175579 evolve=46.7 b_t=1 best=46.7
+03:44:20 [sql-transfer-1] round 2 s2: proposal failed: unterminated JSON object
+03:44:44 [sql-transfer-1] round 2: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:44:44 [sql-transfer-1] held-out after round 2: 60.00 (24/40)

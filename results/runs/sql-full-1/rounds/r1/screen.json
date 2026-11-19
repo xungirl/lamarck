@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The candidate hard-codes specific phrasing and expected outputs from the evolve set (e.g., 'well-finished', 'Rank' column requirements) into the system prompt. This is a form of overfitting to specific task instances rather than providing generalizable instructions for text-to-SQL generation."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change introduces a general mechanism to fetch sample data rows from the database schema before generating SQL. This helps ground the model in actual column names and value formats, addressing common failure modes like case-sensitivity or format mismatches without leaking specific task answers. It includes proper bounds (max_tables, budget) to prevent unbounded work."
+ }
+}

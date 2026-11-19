@@ -1,0 +1,56 @@
+{
+ "run_id": "sql-problems-1",
+ "domain": "text2sql",
+ "memory": "problems",
+ "policy_model": "qwen3.8-flash",
+ "evolve_split": "bird_evolve_s30",
+ "heldout_split": "bird_heldout_s40",
+ "rounds": 3,
+ "k": 2,
+ "delta": 0.054615,
+ "evolve_start": 0.43333333333333335,
+ "evolve_end": 0.5,
+ "heldout_start": 0.55,
+ "heldout_end": 0.65,
+ "heldout_curve": [
+  {
+   "after_round": -1,
+   "tree": "7e87d5b22f0a",
+   "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+   "score": 0.55,
+   "cost": 1375.925,
+   "n": 40
+  },
+  {
+   "after_round": 0,
+   "tree": "7e87d5b22f0a",
+   "commit": "c83620985389adf5e4f910eed9f6a995256095bb",
+   "score": 0.55,
+   "cost": 1375.925,
+   "n": 40
+  },
+  {
+   "after_round": 1,
+   "tree": "c58983ba05b4",
+   "commit": "ea4379dae9af226dbcbb32bcf44a930bfffcad69",
+   "score": 0.65,
+   "cost": 1497.55,
+   "n": 40
+  },
+  {
+   "after_round": 2,
+   "tree": "2c4eb2906bdc",
+   "commit": "fc06889abd63aeacf65d8095ffc33d939b2838ba",
+   "score": 0.65,
+   "cost": 1687.8,
+   "n": 40
+  }
+ ],
+ "accepted": 2,
+ "proposed": 6,
+ "evaluated": 4,
+ "screened_out": 2,
+ "final_commit": "fc06889abd63aeacf65d8095ffc33d939b2838ba",
+ "sim_entries": 3,
+ "sim_attempts": 2
+}

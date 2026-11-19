@@ -1,0 +1,5 @@
+{
+  "max_steps": 8,
+  "max_final_checks": 0,
+  "max_tool_result_chars": 4000
+}

@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general improvements to the harness. The system prompt update provides generic instructions on how to interpret hints (formatting, business rules) without hardcoding specific task values or database names. The code changes add a robust fallback for SQL extraction and a single retry mechanism for invalid outputs, which are standard safety/robustness features and do not constitute le"
+ }
+}

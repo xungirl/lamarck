@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change addresses a common failure mode (verbose output breaking extraction) by enforcing strict formatting rules in the system prompt. It is generic, does not leak task-specific data, and improves robustness without removing safety mechanisms."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change clarifies instructions regarding hint adherence (specifically arithmetic formulas vs AVG) and 'Top N per group' semantics (returning all rows vs distinct names). This directly targets known root causes (P2) with generalizable guidance for Text-to-SQL tasks, avoiding overfitting to specific database schemas or questions."
+ }
+}

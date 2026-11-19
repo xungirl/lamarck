@@ -1,0 +1,80 @@
+[
+ {
+  "commit": "a2efd097e551d6f8e2f9222e53ea9ccc4a49cea5",
+  "parents": "b4c7e2d1e3ff0f8fb0ad72f2182d08d97d148acc",
+  "subject": "r2 s1: The model frequently misinterprets the schema structure (e.g",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "d59979b8bcfb08330f5af6b8f53e5efeaf7182c8",
+  "parents": "b4c7e2d1e3ff0f8fb0ad72f2182d08d97d148acc",
+  "subject": "r2 s2: Model incorrectly interprets 'Rank'/'Order' instructions as",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "b4c7e2d1e3ff0f8fb0ad72f2182d08d97d148acc",
+  "parents": "b18982331a7631439717596573286a68326483e9",
+  "subject": "r1 s1: Model fails to interpret hints correctly (e.g., calculation",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "245b3adfe165bc3a5439450b4212b93294f3f710",
+  "parents": "b18982331a7631439717596573286a68326483e9",
+  "subject": "r1 s2: Model misinterprets 'Rank'/'Order' as sorting instructions r",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "b18982331a7631439717596573286a68326483e9",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r0 s1: The model fails to return valid SQL when the question is com",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "9b61f5d9a3c25ef89903997d00463801cf0706aa",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r0 s2: Model returns natural language instead of SQL or fails to fo",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "aaa11c5043b5e33bd9c064ddbf21251650c0f629",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r2 s1: Model fails to deduplicate join-induced rows (missing DISTIN",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "13259ff84457bfa2fe0548b1a7c88bcf53cb0017",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r2 s2: Model fails to apply DISTINCT for join-induced duplicates an",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "f2da9d523ef18b966f2674aa291cf62186be56e0",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r1 s1: Model fails to handle DISTINCT for join-induced duplicates a",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "b04711235bf4ca2aaaa86a1e74a34fff9c11976b",
+  "parents": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "subject": "r1 s2: Model generates queries with incorrect column projections (S",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "6ecf5eff49a88f5768fd704956e02e34bfe732ff",
+  "parents": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+  "subject": "r0 s1: Model writes queries that return 0 rows due to strict matchi",
+  "refs": "origin/evolve, origin/cand/r0s1, origin/HEAD, source/cand/r0s1"
+ },
+ {
+  "commit": "d57164decfdbb2bd8876d8c36786f6a7145a6815",
+  "parents": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+  "subject": "r0 s2: Strict value comparison failures (case/space) and NOT IN nul",
+  "refs": "origin/cand/r0s2, source/cand/r0s2"
+ },
+ {
+  "commit": "f624eacd8d46c8c6fd40fba1921970be45dd220b",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

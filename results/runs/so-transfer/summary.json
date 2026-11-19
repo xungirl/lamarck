@@ -1,0 +1,56 @@
+{
+ "run_id": "so-transfer",
+ "domain": "supportops",
+ "memory": "none",
+ "policy_model": "qwen3.8-flash",
+ "evolve_split": "ood_evolve",
+ "heldout_split": "ood_heldout",
+ "rounds": 3,
+ "k": 2,
+ "delta": 0.134857,
+ "evolve_start": 0.8666666666666667,
+ "evolve_end": 1.0,
+ "heldout_start": 1.0,
+ "heldout_end": 1.0,
+ "heldout_curve": [
+  {
+   "after_round": -1,
+   "tree": "9348ea6fe59b",
+   "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+   "score": 1.0,
+   "cost": 6481.2,
+   "n": 15
+  },
+  {
+   "after_round": 0,
+   "tree": "c09eb50764b9",
+   "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+   "score": 1.0,
+   "cost": 7461.133333333333,
+   "n": 15
+  },
+  {
+   "after_round": 1,
+   "tree": "c09eb50764b9",
+   "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+   "score": 1.0,
+   "cost": 7461.133333333333,
+   "n": 15
+  },
+  {
+   "after_round": 2,
+   "tree": "c09eb50764b9",
+   "commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+   "score": 1.0,
+   "cost": 7461.133333333333,
+   "n": 15
+  }
+ ],
+ "accepted": 1,
+ "proposed": 2,
+ "evaluated": 2,
+ "screened_out": 0,
+ "final_commit": "24531af0cdc32fb6a782244672862963db8f2a8c",
+ "sim_entries": 1,
+ "sim_attempts": 1
+}

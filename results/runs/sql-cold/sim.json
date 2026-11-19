@@ -1,0 +1,38 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Model output is verbose (reasoning text), causing SQL extraction to fail or pick wrong blocks",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Reduce max_tokens to 500 to force concise output and improve extraction reliability; add robust SQL block detection and fallback logic in extract_sql.",
+     "files": "config.json, solve.py",
+     "predicted": [
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0955"
+     ],
+     "fixed": [],
+     "missed": [
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0955"
+     ],
+     "passed": 13,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

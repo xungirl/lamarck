@@ -1,0 +1,62 @@
+[
+ {
+  "commit": "2d8bf08f103ed410124356dcf9835de81923d675",
+  "parents": "4d52868671832322a261a0bec230723c9c1bb2d3",
+  "subject": "r2 s2: agent performs unauthorized partial refunds when policy limi",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "cd6087fe19af5ed409359c9b507825b2b30b3f71",
+  "parents": "4d52868671832322a261a0bec230723c9c1bb2d3",
+  "subject": "r2 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "2187604e92ce620fc8c6b9c947b4506ed43ec62c",
+  "parents": "4d52868671832322a261a0bec230723c9c1bb2d3",
+  "subject": "r1 s2: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "4d52868671832322a261a0bec230723c9c1bb2d3",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r0 s2: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "4b0d53ac27721a83d7f8f96c858557e28fa42a07",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r0 s1: agent performs unauthorized write actions (partial refunds,",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "a42684ed1dfc3a2ee5c498848d1a82eab8cb41d6",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r2 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "ad53170d4b06e54f80f202c67cbd9ecaa13dcbca",
+  "parents": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "subject": "r1 s1: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "83218b25359fbafe2f915708bcae6a422b5f811c",
+  "parents": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "subject": "r0 s2: agent performs unauthorized write actions in ambiguous or re",
+  "refs": "origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "1bd1f61cc234567e78cd124fe748cbbaac294445",
+  "parents": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "subject": "r0 s1: Agent performs unauthorized writes (refunds/tickets/status c",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "d80a0f6d7dcc794643897e894048c79e81381a23",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

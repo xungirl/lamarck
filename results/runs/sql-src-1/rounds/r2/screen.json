@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The candidate introduces a heuristic `needs_revision` that triggers based on the number of columns returned (`num_cols > 3`) combined with keyword matching in the question (e.g., 'id', 'name'). This is a hard-coded assumption about task structure that does not generalize. Many valid SQL queries return more than 3 columns even for simple lookups (e.g., joining multipl"
+ }
+}
