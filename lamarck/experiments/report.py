@@ -66,8 +66,8 @@ def export_run(root: Path, out: Path, name: str) -> None:
     for done in sorted(src.glob("rounds/r*/done.json")):
         rd = dst / "rounds" / done.parent.name
         rd.mkdir(parents=True, exist_ok=True)
-        for f in done.parent.glob("*.json"):
-            shutil.copy2(f, rd / f.name)
+        for jf in done.parent.glob("*.json"):
+            shutil.copy2(jf, rd / jf.name)
         for m in done.parent.glob("s*/manifest.json"):
             (rd / m.parent.name).mkdir(exist_ok=True)
             shutil.copy2(m, rd / m.parent.name / "manifest.json")
@@ -161,11 +161,11 @@ def build(root: Path, out: Path) -> dict[str, Any]:
 
     # ---- evaluation variance (cached repeated evaluations of the same harness)
     var = []
-    for f in sorted((root / "cache" / "evals").glob("*/*/*/*__r0.json")):
-        reps = sorted(f.parent.glob(f.name.replace("__r0.json", "__r*.json")))
+    for r0 in sorted((root / "cache" / "evals").glob("*/*/*/*__r0.json")):
+        reps = sorted(r0.parent.glob(r0.name.replace("__r0.json", "__r*.json")))
         if len(reps) >= 2:
-            scores = [EvalResult.load(r).score * 100 for r in reps]
-            var.append({"domain": f.parts[-4], "split": f.parts[-3], "model": f.parts[-2], "tree": f.name.split("__")[0],
+            scores = [EvalResult.load(rp).score * 100 for rp in reps]
+            var.append({"domain": r0.parts[-4], "split": r0.parts[-3], "model": r0.parts[-2], "tree": r0.name.split("__")[0],
                         "scores": scores, "mean": statistics.fmean(scores), "sd": statistics.stdev(scores)})  # fmt: skip
     agg["eval_variance"] = var
     agg["ledger"] = {"pools": ledger.get("pools", {}), "models": ledger.get("models", {})}

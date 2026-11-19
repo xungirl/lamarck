@@ -8,6 +8,7 @@ no results. tests/test_sandbox_image.py checks the allowlist.
 from __future__ import annotations
 
 import hashlib
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -81,9 +82,14 @@ def assemble(ctx: Path) -> str:
 
 
 def build(ctx: Path) -> str:
-    """Build (or reuse) the image; returns 'lamarck-runtime:<hash>'."""
-    tag = f"{IMAGE}:{assemble(ctx)}"
-    exists = subprocess.run(["docker", "image", "inspect", tag], capture_output=True).returncode == 0
-    if not exists:
-        subprocess.run(["docker", "build", "-q", "-t", tag, str(ctx)], check=True, capture_output=True)
+    """Build (or reuse) the image; returns 'lamarck-runtime:<hash>'. Safe to call from several
+    processes at once: each assembles its own context directory."""
+    own = ctx.with_name(f"{ctx.name}-{os.getpid()}")
+    try:
+        tag = f"{IMAGE}:{assemble(own)}"
+        exists = subprocess.run(["docker", "image", "inspect", tag], capture_output=True).returncode == 0
+        if not exists:
+            subprocess.run(["docker", "build", "-q", "-t", tag, str(own)], check=True, capture_output=True)
+    finally:
+        shutil.rmtree(own, ignore_errors=True)
     return tag
