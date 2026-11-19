@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "String value mismatches in WHERE clauses causing zero-row results; also column projection errors",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Enhance system prompt to instruct the model to use case-insensitive comparisons (LIKE with LOWER() or COLLATE NOCASE) for text filters, verify join/filter values against schema examples if available, and return full row projections when questions ask for 'details' or 'which en...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0536",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0755",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

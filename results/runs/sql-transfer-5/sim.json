@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Model ignores specific hint semantics (e.g. 'Rank' implies column, 'Yes/No' vs specific string, complex date logic) and fails to ground values correctly.",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to explicitly instruct the model to treat hints as strict constraints for output format (columns, values) and calculation logic, rather than just background info. This addresses failures where the model returned boolean-like answers instead of requested...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0565",
+      "bd0728",
+      "bd0955",
+      "bd1068",
+      "bd1427"
+     ],
+     "fixed": [
+      "bd0565"
+     ],
+     "missed": [
+      "bd0728",
+      "bd0955",
+      "bd1068",
+      "bd1427"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

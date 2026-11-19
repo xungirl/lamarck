@@ -1,0 +1,110 @@
+{
+ "next_id": 3,
+ "carried_from": {
+  "arm": "sql-src-4",
+  "domain": "spider_evolve_s30/qwen3.8-flash",
+  "into": "sql-full-4"
+ },
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "String value mismatches in WHERE clauses causing zero-row results; also column projection errors",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Enhance system prompt to instruct the model to use case-insensitive comparisons (LIKE with LOWER() or COLLATE NOCASE) for text filters, verify join/filter values against schema examples if available, and return full row projections when questions ask for 'details' or 'which en...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0536",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0755",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "name": "Malformed SQL Output and Semantic Misinterpretation",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Improve the system prompt to strictly enforce raw SQL output (no markdown/explanations) and add specific guidelines for common failure modes like window functions in WHERE clauses, string-to-number conversions, and precise column projections. Also update `extract_sql` to be mo...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "bd0173",
+      "bd0377",
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd0928",
+      "bd0955",
+      "bd1014",
+      "bd1068"
+     ],
+     "fixed": [
+      "bd0377"
+     ],
+     "missed": [
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd0928",
+      "bd0955",
+      "bd1014",
+      "bd1068"
+     ],
+     "passed": 12,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 2,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to enforce SELECT DISTINCT for entity lists joined to detail tables to prevent duplicates, mandate CAST/REAL multiplication for averages to ensure float precision, and explicitly warn against using 3-argument INSTR which causes runtime errors in SQLite.",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0955",
+      "bd1068",
+      "bd1220"
+     ],
+     "fixed": [
+      "bd1068",
+      "bd1220"
+     ],
+     "missed": [
+      "bd0955"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

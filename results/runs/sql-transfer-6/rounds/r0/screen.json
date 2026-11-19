@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes address common failure modes (extra columns, non-SQL output) by updating the system prompt with general rules applicable to any Text-to-SQL task. There is no leakage of specific task IDs or database names. The modifications are declarative and do not introduce unbounded loops or remove safety mechanisms."
+ }
+}

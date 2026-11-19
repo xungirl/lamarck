@@ -1,0 +1,74 @@
+[
+ {
+  "commit": "9101a5fded51d0d3ef43abef29afafd7333a0a06",
+  "parents": "0500e83fd192f90b24b9798fcb63dc2c2717601c",
+  "subject": "r2 s2: Model frequently ignores Hint-specified output formats (e.g.",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "46f4c4a369e52876f05b72773fe5ef5ffe953fd4",
+  "parents": "0500e83fd192f90b24b9798fcb63dc2c2717601c",
+  "subject": "r2 s1: Misinterpretation of Hint Semantics (Output Format & Logic)",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "0500e83fd192f90b24b9798fcb63dc2c2717601c",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r1 s1: Model ignores specific hint semantics (e.g. 'Rank' implies c",
+  "refs": "HEAD -> evolve, cand/r1s1"
+ },
+ {
+  "commit": "411a073e177e1ae2c9c85604b666600ef5d3252f",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r1 s2: Policy generates invalid SQL functions (e.g., REVERSE) or in",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "7713117667b93055a9601466ef891054a4dbe18b",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r0 s2: Policy frequently selects wrong tables/columns and misinterp",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "a511b2c1039b59833d3baa04553767bc74dd5868",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r0 s1: Schema linking errors (wrong tables/columns) and failure to",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "5d4cd39cb994f858fb1aa3e7baeeb0a8221e08da",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r2 s2: Semantic errors in value matching (LIKE vs Exact) and projec",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "08e0c9242dee1eb291b41e61566d65d1b894cf6a",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r2 s1: Semantic mismatch in filters (LIKE vs Exact) and projection",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "92ae68ae963b0cd9a9af7e2eabc8d24850c3fda2",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r1 s2: Semantic mismatch in filters (LIKE vs Exact) and projection",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "5106c2686f5232a70a27c896b46d1bd45900baec",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r1 s1: Incorrect SQL generation due to schema ambiguity, missing JO",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "parents": "d6ebcf940bc99583db88d47f8cb98b3be9387b43",
+  "subject": "r0 s1: Schema mismatch and literal formatting errors leading to 0-r",
+  "refs": "origin/evolve, origin/cand/r0s1, origin/HEAD, source/cand/r0s1"
+ },
+ {
+  "commit": "d6ebcf940bc99583db88d47f8cb98b3be9387b43",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

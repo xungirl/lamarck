@@ -1,0 +1,80 @@
+[
+ {
+  "commit": "85bdf286d5947fd2f83b3d14f8ad3c2a4d2d96c1",
+  "parents": "c91516c55fc1762dfdf1a68c62acd13d2ff43399",
+  "subject": "r2 s2: Incorrect handling of aggregate functions (Integer Division)",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "17d8d8c9b849b3a4844655a181d73a6669cd48d2",
+  "parents": "c91516c55fc1762dfdf1a68c62acd13d2ff43399",
+  "subject": "r2 s1: The model frequently selects incorrect columns (missing requ",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "c91516c55fc1762dfdf1a68c62acd13d2ff43399",
+  "parents": "3dfbe71a7f1e6365e0eeb29f9f97c249523cfc2f",
+  "subject": "r1 s2: Model frequently misinterprets aggregation semantics (listin",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "dcf94c0a0d1aa8d31fa1b413b76cfc1eb4a7fc84",
+  "parents": "3dfbe71a7f1e6365e0eeb29f9f97c249523cfc2f",
+  "subject": "r1 s1: Ambiguous aggregation logic and strict value matching",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "3dfbe71a7f1e6365e0eeb29f9f97c249523cfc2f",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r0 s1: Model frequently includes extra columns not requested (break",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "f31eef0ba420fb2937e3347abce3af87bd6ca52b",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r0 s2: Insufficient schema context and lack of validation feedback",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "b6c63b9633692c9bcf279d7a08e1f2a82db75fcc",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r2 s2: Refinement loop fails to correct queries that execute succes",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "4f7e93386d5a97a35bf7f28e87bbc3909d2311d0",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r2 s1: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "398a752f0db20dfa955f5c28ce8d34b033eeee7f",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r1 s2: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "f86c445110ffdb16b6c65bcce98c17e6accf9e34",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r1 s1: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "02f9f294dde285b906572158f3a2df7158851698",
+  "parents": "bfcaed8d7f5c55217151d273a3e3fc4b195005c0",
+  "subject": "r0 s2: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "fd80413d8b049bbef99f750564e92a9e70637f1c",
+  "parents": "bfcaed8d7f5c55217151d273a3e3fc4b195005c0",
+  "subject": "r0 s1: Schema-Value-Mismatch: Generated SQL filters on values not p",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "bfcaed8d7f5c55217151d273a3e3fc4b195005c0",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

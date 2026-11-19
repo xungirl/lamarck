@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The implementation of `get_schema_info` uses a naive regex (`\\((.*?)\\);`) to parse SQL CREATE TABLE statements. This regex is non-greedy and will fail on any schema containing parentheses within column definitions (e.g., `DECIMAL(10,2)`, `VARCHAR(50)`), which are extremely common in SQLite schemas. Consequently, the function will likely return an empty dictionary or incorrect data for most real-wo"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "This candidate implements a standard self-correction loop: generate SQL, execute it, and if it fails or returns empty results, prompt the model again with the error/feedback. This directly addresses the root cause of logical errors (wrong joins/filters) identified in the memory-less context. The logic includes guards against infinite loops (checking `env.max_calls`) and handles both execution erro"
+ }
+}

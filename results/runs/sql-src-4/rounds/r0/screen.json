@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general best practices for Text-to-SQL (case-insensitive matching, full projections for 'details' questions, NULL-safe logic). They do not hard-code specific task IDs, table names, or expected outputs. The instructions apply to any SQLite query generation task and address common failure modes without overfitting."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "This candidate introduces a self-correction loop that triggers specifically when the first query returns 0 rows. In Spider/BIRD benchmarks, many valid gold queries legitimately return 0 rows (e.g., 'Which students have no friends?' where all students have friends, or filters on rare values). Forcing the model to 'adjust the query to ensure it returns non-empty results' biases the model against cor"
+ }
+}

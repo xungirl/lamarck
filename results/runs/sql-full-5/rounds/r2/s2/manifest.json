@@ -1,0 +1,29 @@
+{
+ "sealed_at": 1795092190.935883,
+ "round": 2,
+ "sample": "s2",
+ "branch": "cand/r2s2",
+ "commit": "f2add2f2e252e725d1330c204b69cdb7245c27eb",
+ "tree": "fa7c178a036e",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..2313fe7 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,11 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+### Critical Rules:\n+1. **Column Selection**: Return ONLY the columns explicitly requested or implied by the question. Do not add extra identifier columns unless necessary for grouping/joining logic that doesn't appear in final output.\n+2. **Ranking**: If the question asks to \"rank\" items or asks for \"popularity ranking\", include a rank number (e.g., `RANK() OVER (...)`) as a column in the result if the context implies a list of ranked items.\n+3. **Comparisons**: If the question asks \"How does X compare to Y\" or similar, return the specific values requested (e.g., count of X, count of Y) or their difference if a single metric is implied. Check hints carefully for calculation formulas.\n+4. **Aggregation**: Use `AVG()` for averages. If hint says `SUM(...)/COUNT(...)`, use that exact formula. Be careful with integer division; cast to REAL if needed.\n+5. **Filters**: Apply all conditions from the hint strictly. If a hint defines a term (e.g., \"abnormal\"), use that definition in WHERE clauses.\n+6. **Output Format**: Return the query in a single ```sql code block.\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s2",
+  "cite": "P1",
+  "root_cause": "Schema mismatch and literal formatting errors leading to 0-row results or wrong column sets",
+  "what": "Update system_prompt.md with explicit instructions on handling 'Ranking' (include rank column), 'Comparison' (return difference or separate counts, not just subtraction), and strict adherence to requested columns. The model often omits the rank column when asked to 'rank' or returns a single scalar for comparison questions instead of the expected format.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n### Critical Rules:\n1. **Column Selection**: Return ONLY the columns explicitly requested or implied by the question. Do not add extra identifier columns unless necessary for grouping/joining logic that doesn't appear in final output.\n2. **Ranking**: If the question asks to \"rank\" items or asks for \"popularity ranking\", include a rank number (e.g., `RANK() OVER (...)`) as a column in the result if the context implies a list of ranked items.\n3. **Comparisons**: If the question asks \"How does X compare to Y\" or similar, return the specific values requested (e.g., count of X, count of Y) or their difference if a single metric is implied. Check hints carefully for calculation formulas.\n4. **Aggregation**: Use `AVG()` for averages. If hint says `SUM(...)/COUNT(...)`, use that exact formula. Be careful with integer division; cast to REAL if needed.\n5. **Filters**: Apply all conditions from the hint strictly. If a hint defines a term (e.g., \"abnormal\"), use that definition in WHERE clauses.\n6. **Output Format**: Return the query in a single ```sql code block.\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "bd0728",
+   "bd1241",
+   "bd1427"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": \"P1\", \"name\": \"Schema mismatch and literal formatting errors leading to 0-row results or wrong column sets\"},\n \"what\": \"Update system_prompt.md with explicit instructions on handling 'Ranking' (include rank column), 'Comparison' (return difference or separate counts, not just subtraction), and strict adherence to requested columns. The model often omits the rank column when asked to 'rank' or returns a single scalar for comparison questions instead of the expected format.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"bd0728\", \"bd1241\", \"bd1427\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\n### Critical Rules:\n1. **Column Selection**: Return ONLY the columns explicitly requested or implied by the question. Do not add extra identifier columns unless necessary for grouping/joining logic that doesn't appear in final output.\n2. **Ranking**: If the question asks to \"rank\" items or asks for \"popularity ranking\", include a rank number (e.g., `RANK() OVER (...)`) as a column in the result if the context implies a list of ranked items.\n3. **Comparisons**: If the question asks \"How does X compare to Y\" or similar, return the specific values requested (e.g., count of X, count of Y) or their difference if a single metric is implied. Check hints carefully for calculation formulas.\n4. **Aggregation**: Use `AVG()` for averages. If hint says `SUM(...)/COUNT(...)`, use that exact formula. Be careful with integer division; cast to REAL if needed.\n5. **Filters**: Apply all conditions from the hint strictly. If a hint defines a term (e.g., \"abnormal\"), use that definition in WHERE clauses.\n6. **Output Format**: Return the query in a single ```sql code block.\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

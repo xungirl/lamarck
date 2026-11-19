@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes to the system prompt provide general, task-agnostic guidance on common SQL pitfalls (aggregation vs global stats, join fan-out, ranking semantics). The modification to solve.py (passing schema descriptions) is a standard improvement for context richness. No leakage or hard-coding detected."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The system prompt updates clarify the distinction between listing entities and aggregating statistics, which is a fundamental Text-to-SQL challenge. The solve.py change ensures that when refining a query due to an empty result or error, the model retains full context (schema + hint), preventing information loss during correction. These are robust, general improvements."
+ }
+}

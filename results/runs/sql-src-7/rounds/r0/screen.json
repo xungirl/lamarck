@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The change introduces a verification loop that triggers on '0 rows' results. In Text-to-SQL benchmarks (Spider/BIRD), a correct query often legitimately returns 0 rows (e.g., 'Which students have no friends?' or empty result sets for specific filters). Forcing a second LLM call to 'fix' this will likely cause the model to hallucinate data or alter the logic incorrectly, leading to false positives/"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes are general best practices for SQLite text-to-SQL tasks: handling NULLs in NOT IN subqueries, using LIKE/case-insensitive matching for string filters, and clarifying column selection rules. These address common failure modes without hardcoding task-specific details or introducing risky execution loops."
+ }
+}

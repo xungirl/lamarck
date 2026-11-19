@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate addresses column projection and NULL handling in exclusion queries, which are common failure modes in Text-to-SQL. The changes to the system prompt (forbidding `SELECT *` unless necessary, mandating `NOT EXISTS` or `IS NOT NULL` checks) are general best practices for SQLite generation and do not leak task-specific information. They align with the root cause identified without overfit"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "This candidate contains a direct contradiction of the previous accepted change (P1/s1) regarding column projection. While s1 correctly instructed to avoid `SELECT *` and list specific columns, s2 instructs to use `SELECT t.*` for 'details' or 'which entity' questions. In Spider/BIRD benchmarks, gold queries typically project specific columns even when asking for 'details', and returning all column"
+ }
+}

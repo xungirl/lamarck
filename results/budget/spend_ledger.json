@@ -1,49 +1,49 @@
 {
  "by": {
   "model:qwen3.8-flash": {
-   "cached_tokens": 4702720,
-   "calls": 5184,
-   "completion_tokens": 743609,
+   "cached_tokens": 6762496,
+   "calls": 7563,
+   "completion_tokens": 1092717,
    "failed": 0,
-   "prompt_tokens": 8335206,
+   "prompt_tokens": 12455428,
    "reasoning_tokens": 0,
-   "rmb": 5.384005100000024
+   "rmb": 8.18093110000005
   },
   "role:policy": {
-   "cached_tokens": 4290816,
-   "calls": 4928,
-   "completion_tokens": 592959,
+   "cached_tokens": 6159360,
+   "calls": 7185,
+   "completion_tokens": 839514,
    "failed": 0,
-   "prompt_tokens": 7449734,
+   "prompt_tokens": 11113854,
    "reasoning_tokens": 0,
-   "rmb": 4.557205300000018
+   "rmb": 6.846219000000027
   },
   "role:proposer": {
-   "cached_tokens": 409856,
-   "calls": 154,
-   "completion_tokens": 134004,
+   "cached_tokens": 598016,
+   "calls": 226,
+   "completion_tokens": 227403,
    "failed": 0,
-   "prompt_tokens": 673407,
+   "prompt_tokens": 1009125,
    "reasoning_tokens": 0,
-   "rmb": 0.6136372
+   "rmb": 1.0026769
   },
   "role:selector": {
-   "cached_tokens": 2048,
-   "calls": 102,
-   "completion_tokens": 16646,
+   "cached_tokens": 5120,
+   "calls": 152,
+   "completion_tokens": 25800,
    "failed": 0,
-   "prompt_tokens": 212065,
+   "prompt_tokens": 332449,
    "reasoning_tokens": 0,
-   "rmb": 0.2131625999999999
+   "rmb": 0.33203519999999986
   },
   "run:api-check": {
    "cached_tokens": 0,
-   "calls": 1,
-   "completion_tokens": 1,
+   "calls": 2,
+   "completion_tokens": 2,
    "failed": 0,
-   "prompt_tokens": 32,
+   "prompt_tokens": 64,
    "reasoning_tokens": 0,
-   "rmb": 2.83e-05
+   "rmb": 5.66e-05
   },
   "run:ret-full-1": {
    "cached_tokens": 94208,
@@ -144,6 +144,42 @@
    "reasoning_tokens": 0,
    "rmb": 0.49656729999999977
   },
+  "run:sql-full-4": {
+   "cached_tokens": 168704,
+   "calls": 231,
+   "completion_tokens": 48563,
+   "failed": 0,
+   "prompt_tokens": 374654,
+   "reasoning_tokens": 0,
+   "rmb": 0.3127505
+  },
+  "run:sql-full-5": {
+   "cached_tokens": 507904,
+   "calls": 283,
+   "completion_tokens": 49597,
+   "failed": 0,
+   "prompt_tokens": 818760,
+   "reasoning_tokens": 0,
+   "rmb": 0.4333870999999998
+  },
+  "run:sql-full-6": {
+   "cached_tokens": 104448,
+   "calls": 175,
+   "completion_tokens": 35211,
+   "failed": 0,
+   "prompt_tokens": 235226,
+   "reasoning_tokens": 0,
+   "rmb": 0.21013689999999996
+  },
+  "run:sql-full-7": {
+   "cached_tokens": 297984,
+   "calls": 260,
+   "completion_tokens": 29279,
+   "failed": 0,
+   "prompt_tokens": 548066,
+   "reasoning_tokens": 0,
+   "rmb": 0.3089173000000001
+  },
   "run:sql-problems-1": {
    "cached_tokens": 164864,
    "calls": 228,
@@ -180,6 +216,42 @@
    "reasoning_tokens": 0,
    "rmb": 0.10343350000000001
   },
+  "run:sql-src-4": {
+   "cached_tokens": 22528,
+   "calls": 140,
+   "completion_tokens": 21804,
+   "failed": 0,
+   "prompt_tokens": 116430,
+   "reasoning_tokens": 0,
+   "rmb": 0.13624519999999996
+  },
+  "run:sql-src-5": {
+   "cached_tokens": 21504,
+   "calls": 154,
+   "completion_tokens": 20748,
+   "failed": 0,
+   "prompt_tokens": 109194,
+   "reasoning_tokens": 0,
+   "rmb": 0.12832200000000005
+  },
+  "run:sql-src-6": {
+   "cached_tokens": 11264,
+   "calls": 125,
+   "completion_tokens": 17157,
+   "failed": 0,
+   "prompt_tokens": 86976,
+   "reasoning_tokens": 0,
+   "rmb": 0.10801989999999997
+  },
+  "run:sql-src-7": {
+   "cached_tokens": 30464,
+   "calls": 140,
+   "completion_tokens": 10641,
+   "failed": 0,
+   "prompt_tokens": 144321,
+   "reasoning_tokens": 0,
+   "rmb": 0.12286269999999999
+  },
   "run:sql-transfer-1": {
    "cached_tokens": 399872,
    "calls": 561,
@@ -207,14 +279,50 @@
    "reasoning_tokens": 0,
    "rmb": 0.5108734000000003
   },
+  "run:sql-transfer-4": {
+   "cached_tokens": 157696,
+   "calls": 211,
+   "completion_tokens": 29603,
+   "failed": 0,
+   "prompt_tokens": 353669,
+   "reasoning_tokens": 0,
+   "rmb": 0.2524761
+  },
+  "run:sql-transfer-5": {
+   "cached_tokens": 406528,
+   "calls": 220,
+   "completion_tokens": 33107,
+   "failed": 0,
+   "prompt_tokens": 650820,
+   "reasoning_tokens": 0,
+   "rmb": 0.3254752999999998
+  },
+  "run:sql-transfer-6": {
+   "cached_tokens": 156672,
+   "calls": 225,
+   "completion_tokens": 30411,
+   "failed": 0,
+   "prompt_tokens": 329618,
+   "reasoning_tokens": 0,
+   "rmb": 0.2361337
+  },
+  "run:sql-transfer-7": {
+   "cached_tokens": 174080,
+   "calls": 214,
+   "completion_tokens": 22986,
+   "failed": 0,
+   "prompt_tokens": 352456,
+   "reasoning_tokens": 0,
+   "rmb": 0.22217100000000004
+  },
   "run_role:api-check|policy": {
    "cached_tokens": 0,
-   "calls": 1,
-   "completion_tokens": 1,
+   "calls": 2,
+   "completion_tokens": 2,
    "failed": 0,
-   "prompt_tokens": 32,
+   "prompt_tokens": 64,
    "reasoning_tokens": 0,
-   "rmb": 2.83e-05
+   "rmb": 5.66e-05
   },
   "run_role:ret-full-1|policy": {
    "cached_tokens": 67584,
@@ -513,6 +621,114 @@
    "reasoning_tokens": 0,
    "rmb": 0.021736400000000003
   },
+  "run_role:sql-full-4|policy": {
+   "cached_tokens": 152320,
+   "calls": 220,
+   "completion_tokens": 38650,
+   "failed": 0,
+   "prompt_tokens": 326284,
+   "reasoning_tokens": 0,
+   "rmb": 0.2587582
+  },
+  "run_role:sql-full-4|proposer": {
+   "cached_tokens": 16384,
+   "calls": 6,
+   "completion_tokens": 9135,
+   "failed": 0,
+   "prompt_tokens": 34751,
+   "reasoning_tokens": 0,
+   "rmb": 0.040996500000000005
+  },
+  "run_role:sql-full-4|selector": {
+   "cached_tokens": 0,
+   "calls": 5,
+   "completion_tokens": 778,
+   "failed": 0,
+   "prompt_tokens": 13619,
+   "reasoning_tokens": 0,
+   "rmb": 0.012995800000000002
+  },
+  "run_role:sql-full-5|policy": {
+   "cached_tokens": 482304,
+   "calls": 273,
+   "completion_tokens": 41857,
+   "failed": 0,
+   "prompt_tokens": 770950,
+   "reasoning_tokens": 0,
+   "rmb": 0.3921610999999998
+  },
+  "run_role:sql-full-5|proposer": {
+   "cached_tokens": 25600,
+   "calls": 6,
+   "completion_tokens": 7125,
+   "failed": 0,
+   "prompt_tokens": 35523,
+   "reasoning_tokens": 0,
+   "rmb": 0.029735900000000003
+  },
+  "run_role:sql-full-5|selector": {
+   "cached_tokens": 0,
+   "calls": 4,
+   "completion_tokens": 615,
+   "failed": 0,
+   "prompt_tokens": 12287,
+   "reasoning_tokens": 0,
+   "rmb": 0.0114901
+  },
+  "run_role:sql-full-6|policy": {
+   "cached_tokens": 89088,
+   "calls": 167,
+   "completion_tokens": 24220,
+   "failed": 0,
+   "prompt_tokens": 196102,
+   "reasoning_tokens": 0,
+   "rmb": 0.15991399999999997
+  },
+  "run_role:sql-full-6|proposer": {
+   "cached_tokens": 15360,
+   "calls": 6,
+   "completion_tokens": 10698,
+   "failed": 0,
+   "prompt_tokens": 33625,
+   "reasoning_tokens": 0,
+   "rmb": 0.0450326
+  },
+  "run_role:sql-full-6|selector": {
+   "cached_tokens": 0,
+   "calls": 2,
+   "completion_tokens": 293,
+   "failed": 0,
+   "prompt_tokens": 5499,
+   "reasoning_tokens": 0,
+   "rmb": 0.0051903
+  },
+  "run_role:sql-full-7|policy": {
+   "cached_tokens": 272384,
+   "calls": 250,
+   "completion_tokens": 19704,
+   "failed": 0,
+   "prompt_tokens": 501480,
+   "reasoning_tokens": 0,
+   "rmb": 0.2637160000000001
+  },
+  "run_role:sql-full-7|proposer": {
+   "cached_tokens": 25600,
+   "calls": 6,
+   "completion_tokens": 8480,
+   "failed": 0,
+   "prompt_tokens": 33853,
+   "reasoning_tokens": 0,
+   "rmb": 0.0320584
+  },
+  "run_role:sql-full-7|selector": {
+   "cached_tokens": 0,
+   "calls": 4,
+   "completion_tokens": 1095,
+   "failed": 0,
+   "prompt_tokens": 12733,
+   "reasoning_tokens": 0,
+   "rmb": 0.0131429
+  },
   "run_role:sql-problems-1|policy": {
    "cached_tokens": 145408,
    "calls": 217,
@@ -621,6 +837,114 @@
    "reasoning_tokens": 0,
    "rmb": 0.008956
   },
+  "run_role:sql-src-4|policy": {
+   "cached_tokens": 15360,
+   "calls": 130,
+   "completion_tokens": 14272,
+   "failed": 0,
+   "prompt_tokens": 90501,
+   "reasoning_tokens": 0,
+   "rmb": 0.10018319999999999
+  },
+  "run_role:sql-src-4|proposer": {
+   "cached_tokens": 7168,
+   "calls": 6,
+   "completion_tokens": 6682,
+   "failed": 0,
+   "prompt_tokens": 17739,
+   "reasoning_tokens": 0,
+   "rmb": 0.027215000000000003
+  },
+  "run_role:sql-src-4|selector": {
+   "cached_tokens": 0,
+   "calls": 4,
+   "completion_tokens": 850,
+   "failed": 0,
+   "prompt_tokens": 8190,
+   "reasoning_tokens": 0,
+   "rmb": 0.008846999999999999
+  },
+  "run_role:sql-src-5|policy": {
+   "cached_tokens": 11264,
+   "calls": 145,
+   "completion_tokens": 9960,
+   "failed": 0,
+   "prompt_tokens": 80860,
+   "reasoning_tokens": 0,
+   "rmb": 0.0836952
+  },
+  "run_role:sql-src-5|proposer": {
+   "cached_tokens": 10240,
+   "calls": 6,
+   "completion_tokens": 10368,
+   "failed": 0,
+   "prompt_tokens": 20151,
+   "reasoning_tokens": 0,
+   "rmb": 0.036946400000000004
+  },
+  "run_role:sql-src-5|selector": {
+   "cached_tokens": 0,
+   "calls": 3,
+   "completion_tokens": 420,
+   "failed": 0,
+   "prompt_tokens": 8183,
+   "reasoning_tokens": 0,
+   "rmb": 0.0076804
+  },
+  "run_role:sql-src-6|policy": {
+   "cached_tokens": 1024,
+   "calls": 115,
+   "completion_tokens": 8774,
+   "failed": 0,
+   "prompt_tokens": 57028,
+   "reasoning_tokens": 0,
+   "rmb": 0.0685954
+  },
+  "run_role:sql-src-6|proposer": {
+   "cached_tokens": 10240,
+   "calls": 6,
+   "completion_tokens": 7545,
+   "failed": 0,
+   "prompt_tokens": 19703,
+   "reasoning_tokens": 0,
+   "rmb": 0.028965900000000003
+  },
+  "run_role:sql-src-6|selector": {
+   "cached_tokens": 0,
+   "calls": 4,
+   "completion_tokens": 838,
+   "failed": 0,
+   "prompt_tokens": 10245,
+   "reasoning_tokens": 0,
+   "rmb": 0.0104586
+  },
+  "run_role:sql-src-7|policy": {
+   "cached_tokens": 20480,
+   "calls": 130,
+   "completion_tokens": 4582,
+   "failed": 0,
+   "prompt_tokens": 115061,
+   "reasoning_tokens": 0,
+   "rmb": 0.09008419999999996
+  },
+  "run_role:sql-src-7|proposer": {
+   "cached_tokens": 9984,
+   "calls": 6,
+   "completion_tokens": 5188,
+   "failed": 0,
+   "prompt_tokens": 19409,
+   "reasoning_tokens": 0,
+   "rmb": 0.022546
+  },
+  "run_role:sql-src-7|selector": {
+   "cached_tokens": 0,
+   "calls": 4,
+   "completion_tokens": 871,
+   "failed": 0,
+   "prompt_tokens": 9851,
+   "reasoning_tokens": 0,
+   "rmb": 0.0102325
+  },
   "run_role:sql-transfer-1|policy": {
    "cached_tokens": 361984,
    "calls": 540,
@@ -701,9 +1025,117 @@
    "prompt_tokens": 19767,
    "reasoning_tokens": 0,
    "rmb": 0.021691500000000002
+  },
+  "run_role:sql-transfer-4|policy": {
+   "cached_tokens": 141312,
+   "calls": 200,
+   "completion_tokens": 20974,
+   "failed": 0,
+   "prompt_tokens": 312586,
+   "reasoning_tokens": 0,
+   "rmb": 0.2077802
+  },
+  "run_role:sql-transfer-4|proposer": {
+   "cached_tokens": 16384,
+   "calls": 6,
+   "completion_tokens": 7766,
+   "failed": 0,
+   "prompt_tokens": 29471,
+   "reasoning_tokens": 0,
+   "rmb": 0.0330762
+  },
+  "run_role:sql-transfer-4|selector": {
+   "cached_tokens": 0,
+   "calls": 5,
+   "completion_tokens": 863,
+   "failed": 0,
+   "prompt_tokens": 11612,
+   "reasoning_tokens": 0,
+   "rmb": 0.0116197
+  },
+  "run_role:sql-transfer-5|policy": {
+   "cached_tokens": 387072,
+   "calls": 210,
+   "completion_tokens": 26445,
+   "failed": 0,
+   "prompt_tokens": 609772,
+   "reasoning_tokens": 0,
+   "rmb": 0.28826869999999993
+  },
+  "run_role:sql-transfer-5|proposer": {
+   "cached_tokens": 16384,
+   "calls": 6,
+   "completion_tokens": 5858,
+   "failed": 0,
+   "prompt_tokens": 32535,
+   "reasoning_tokens": 0,
+   "rmb": 0.03037580000000001
+  },
+  "run_role:sql-transfer-5|selector": {
+   "cached_tokens": 3072,
+   "calls": 4,
+   "completion_tokens": 804,
+   "failed": 0,
+   "prompt_tokens": 8513,
+   "reasoning_tokens": 0,
+   "rmb": 0.0068308
+  },
+  "run_role:sql-transfer-6|policy": {
+   "cached_tokens": 137216,
+   "calls": 213,
+   "completion_tokens": 21000,
+   "failed": 0,
+   "prompt_tokens": 289957,
+   "reasoning_tokens": 0,
+   "rmb": 0.1926144000000001
+  },
+  "run_role:sql-transfer-6|proposer": {
+   "cached_tokens": 19456,
+   "calls": 6,
+   "completion_tokens": 8408,
+   "failed": 0,
+   "prompt_tokens": 30483,
+   "reasoning_tokens": 0,
+   "rmb": 0.0334688
+  },
+  "run_role:sql-transfer-6|selector": {
+   "cached_tokens": 0,
+   "calls": 6,
+   "completion_tokens": 1003,
+   "failed": 0,
+   "prompt_tokens": 9178,
+   "reasoning_tokens": 0,
+   "rmb": 0.0100505
+  },
+  "run_role:sql-transfer-7|policy": {
+   "cached_tokens": 158720,
+   "calls": 203,
+   "completion_tokens": 16116,
+   "failed": 0,
+   "prompt_tokens": 313507,
+   "reasoning_tokens": 0,
+   "rmb": 0.18321479999999998
+  },
+  "run_role:sql-transfer-7|proposer": {
+   "cached_tokens": 15360,
+   "calls": 6,
+   "completion_tokens": 6146,
+   "failed": 0,
+   "prompt_tokens": 28475,
+   "reasoning_tokens": 0,
+   "rmb": 0.028622200000000004
+  },
+  "run_role:sql-transfer-7|selector": {
+   "cached_tokens": 0,
+   "calls": 5,
+   "completion_tokens": 724,
+   "failed": 0,
+   "prompt_tokens": 10474,
+   "reasoning_tokens": 0,
+   "rmb": 0.010334000000000001
   }
  },
- "calls": 5184,
+ "calls": 7563,
  "cap_rmb": 9.5,
  "failed": 0,
  "prices_rmb_per_million": {
@@ -718,6 +1150,6 @@
    0.1
   ]
  },
- "spent_rmb": 5.384005100000024,
- "updated": "2026-11-19 11:49:06"
+ "spent_rmb": 8.18093110000005,
+ "updated": "2026-11-19 12:51:28"
 }

@@ -1,0 +1,68 @@
+[
+ {
+  "commit": "cff7c7e144e2f2a49d0ba1702cf00b0af4b82c66",
+  "parents": "e6b1cb384a1e90f4a040c19e9a0aab70e0f2e1c7",
+  "subject": "r2 s2: Semantic Misinterpretation of Projections, Data Types, and S",
+  "refs": "HEAD -> evolve, cand/r2s2"
+ },
+ {
+  "commit": "c38435b75e88469007de373cfcc35f0ba3325c91",
+  "parents": "e6b1cb384a1e90f4a040c19e9a0aab70e0f2e1c7",
+  "subject": "r1 s2: Semantic Misinterpretation of Aggregation and Filtering Logi",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "a57a5616fa2d47c6c21c43ceb11c4230216dae13",
+  "parents": "e6b1cb384a1e90f4a040c19e9a0aab70e0f2e1c7",
+  "subject": "r1 s1: Semantic Misinterpretation of Hints and Column Projections",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "e6b1cb384a1e90f4a040c19e9a0aab70e0f2e1c7",
+  "parents": "6728be75824f2ac7ce5e26f5bb8308f921c93e41",
+  "subject": "r0 s2: Malformed SQL Output and Semantic Misinterpretation",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "964e6690a7be99ab022aedaeecaf5b09b6cc5372",
+  "parents": "6728be75824f2ac7ce5e26f5bb8308f921c93e41",
+  "subject": "r2 s2: Model ignores vague projection and NULL-safety guidelines, d",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "e678f7de7da962b3d33eb4306118d19538c26934",
+  "parents": "6728be75824f2ac7ce5e26f5bb8308f921c93e41",
+  "subject": "r2 s1: Column projection errors (SELECT Name vs SELECT *) and NULL-",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "b1771a038db02c687f789595fc90ef8647918e8d",
+  "parents": "6728be75824f2ac7ce5e26f5bb8308f921c93e41",
+  "subject": "r1 s2: Model ignores negative constraint guidelines (NOT IN vs NOT",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "0e5d87a986ed9bdc4467e1bd4d29338e2056c665",
+  "parents": "6728be75824f2ac7ce5e26f5bb8308f921c93e41",
+  "subject": "r1 s1: Column projection errors (SELECT * vs specific cols) and NUL",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "6728be75824f2ac7ce5e26f5bb8308f921c93e41",
+  "parents": "d5ce4aae31ddb594b0f8f05807a237dabee4c772",
+  "subject": "r0 s1: String value mismatches in WHERE clauses causing zero-row re",
+  "refs": "origin/evolve, origin/cand/r0s1, origin/HEAD, source/cand/r0s1"
+ },
+ {
+  "commit": "8fd3ea83a44520379bf3d2da380202f351225bf7",
+  "parents": "d5ce4aae31ddb594b0f8f05807a237dabee4c772",
+  "subject": "r0 s2: Model frequently produces queries that return 0 rows due to",
+  "refs": "origin/cand/r0s2, source/cand/r0s2"
+ },
+ {
+  "commit": "d5ce4aae31ddb594b0f8f05807a237dabee4c772",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

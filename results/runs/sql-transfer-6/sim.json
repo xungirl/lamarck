@@ -1,0 +1,106 @@
+{
+ "next_id": 4,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Model frequently includes extra columns not requested (breaking execution accuracy checks) and sometimes outputs natural language instead of pure SQL in the final block, causing syntax errors.",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system prompt to strictly forbid extra columns and require pure SQL output. Enhance extract_sql to handle cases where the model forgets code fences by attempting to identify SQL keywords at the start of lines.",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0728",
+      "bd0928",
+      "bd1014",
+      "bd1241",
+      "bd1404"
+     ],
+     "fixed": [],
+     "missed": [
+      "bd0728",
+      "bd0928",
+      "bd1014",
+      "bd1241",
+      "bd1404"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "name": "Model frequently misinterprets aggregation semantics (listing items instead of grouped stats) and ignores specific column definitions in hints.",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Updated system_prompt.md to include explicit instructions on distinguishing between 'list entities' vs 'aggregate statistics' questions and strict adherence to hint-specified columns. Modified solve.py to include the full schema and hint in the refinement prompt to provide nec...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "bd0728",
+      "bd0928",
+      "bd1014",
+      "bd1404",
+      "bd1457"
+     ],
+     "fixed": [
+      "bd1014"
+     ],
+     "missed": [
+      "bd0728",
+      "bd0928",
+      "bd1404",
+      "bd1457"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "name": "The model frequently selects incorrect columns (missing required ones like counts/ranks or including extra details) and fails to cast integer divisions to floats for averages.",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system_prompt.md to explicitly instruct on: 1) Casting division results to REAL/float when calculating averages to avoid integer truncation. 2) Strictly adhering to the 'columns requested' rule, ensuring that if a question asks for 'names' AND 'counts', both are selecte...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0728",
+      "bd0928",
+      "bd1068",
+      "bd1427"
+     ],
+     "fixed": [
+      "bd0728",
+      "bd1068"
+     ],
+     "missed": [
+      "bd0928",
+      "bd1427"
+     ],
+     "passed": 16,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

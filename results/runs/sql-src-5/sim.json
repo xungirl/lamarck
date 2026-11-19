@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Schema mismatch and literal formatting errors leading to 0-row results or wrong column sets",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Added a robust SQL extraction function that strips comments from single-line outputs. Implemented a two-step verification loop: Step 1 generates a draft query. If the draft returns 0 rows (when no aggregate is present) or fails execution, Step 2 prompts the model to debug base...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

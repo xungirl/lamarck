@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes address common Text-to-SQL failure modes (integer division in SQLite, column selection precision) with general rules applicable to any task. No specific database names, table names, or task IDs are hardcoded. The logic regarding 'rank' columns is framed as a heuristic based on question phrasing ('top 5' vs 'show rank'), which is a valid general strategy for execution accuracy matching."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The `what` field explicitly cites specific evolve-set task IDs (`bd1068`, `bd0728`, etc.) and the diff includes a rule about returning exact string literals like \"well-finished\" if suggested by hints. While the prompt text itself doesn't hardcode the ID, the instruction to return specific string labels based on hint suggestions can be overly specific if it implies me"
+ }
+}

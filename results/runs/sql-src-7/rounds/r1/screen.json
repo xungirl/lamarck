@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate introduces a specific example query `SELECT id FROM Students EXCEPT SELECT student_id FROM Friend UNION SELECT friend_id FROM Friend` in the system prompt. This hard-codes table names (`Students`, `Friend`) and column names (`student_id`, `friend_id`) from a specific Spider database (likely `college_2` or similar). This constitutes leakage/task-specialization, as these identifiers wi"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes address known failure modes (NULL handling in NOT IN, case sensitivity) with generic SQL best practices. It does not hard-code specific table/column names. The advice to use `NOT EXISTS` or filter NULLs is standard and safe. The emphasis on `LOWER()` for string matching is also generic. This aligns with the memory's diagnosis of 'schema_blindness_and_format_mismatch' but avoids the pit"
+ }
+}

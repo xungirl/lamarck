@@ -1,0 +1,10 @@
+04:40:56 [sql-transfer-5] noise band delta = 0.0390 from scores [0.466667, 0.433333, 0.433333]
+04:41:15 [sql-transfer-5] held-out after round -1: 65.00 (26/40)
+04:41:15 [sql-transfer-5] round 0: incumbent 9d1c59e952b0 evolve=46.7 b_t=3 best=46.7
+04:42:09 [sql-transfer-5] round 0: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:42:09 [sql-transfer-5] round 1: incumbent 9d1c59e952b0 evolve=46.7 b_t=2 best=46.7
+04:43:09 [sql-transfer-5] round 1: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 shows a significant performance improvement (+3.33 points) over the incumbent, exceeding the noise floor an)
+04:43:09 [sql-transfer-5] round 1: SIM <- P1 (1/5 predicted fixes realized)
+04:43:09 [sql-transfer-5] round 2: incumbent bf98176d8073 evolve=50.0 b_t=1 best=50.0
+04:43:54 [sql-transfer-5] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:44:22 [sql-transfer-5] held-out after round 2: 67.50 (27/40)

@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes address general Text-to-SQL failure modes (output formatting, window function usage in WHERE clauses, type casting) without hardcoding task-specific IDs or entities. The `extract_sql` improvements are robust fallbacks for malformed outputs rather than grader gaming. The system prompt updates align with standard SQL best practices and do not leak specific database schemas."
+ }
+}

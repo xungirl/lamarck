@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The change introduces a specific SQL recipe for parsing 'HH:MM:SS' time strings using fixed substring indices (e.g., `SUBSTR(time_str, 1, 2)`). This is highly task-specific and brittle; it assumes a strict two-digit hour format which fails for single-digit hours or other formats common in Spider/BIRD datasets. Hard-coding such fragile logic based on specific failure cases (bd0955) constitutes over"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes provide general heuristic advice for handling ranking queries (adding rank columns), qualitative answers (using CASE statements for text labels instead of booleans), and entity identification. These are standard best practices for Text-to-SQL tasks that address common schema/semantic mismatches without hard-coding specific table names, values, or overly rigid syntax patterns."
+ }
+}

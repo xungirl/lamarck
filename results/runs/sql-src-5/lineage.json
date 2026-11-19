@@ -1,0 +1,38 @@
+[
+ {
+  "commit": "5d4cd39cb994f858fb1aa3e7baeeb0a8221e08da",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r2 s2: Semantic errors in value matching (LIKE vs Exact) and projec",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "08e0c9242dee1eb291b41e61566d65d1b894cf6a",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r2 s1: Semantic mismatch in filters (LIKE vs Exact) and projection",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "92ae68ae963b0cd9a9af7e2eabc8d24850c3fda2",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r1 s2: Semantic mismatch in filters (LIKE vs Exact) and projection",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "5106c2686f5232a70a27c896b46d1bd45900baec",
+  "parents": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "subject": "r1 s1: Incorrect SQL generation due to schema ambiguity, missing JO",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "62fb67979d34163edf54dc84470a7ad900116db4",
+  "parents": "d6ebcf940bc99583db88d47f8cb98b3be9387b43",
+  "subject": "r0 s1: Schema mismatch and literal formatting errors leading to 0-r",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "d6ebcf940bc99583db88d47f8cb98b3be9387b43",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

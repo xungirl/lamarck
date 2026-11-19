@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate implements general-purpose improvements to the Text-to-SQL harness. 1) The system prompt updates provide generic guidance on column selection, aggregation, and joins without hardcoding specific table names or task IDs. 2) The `solve.py` changes improve SQL extraction robustness (handling plain text fallback) and refine the error feedback loop in the second step of the agent's executi"
+ }
+}

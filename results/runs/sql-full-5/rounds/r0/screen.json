@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate refines the self-correction logic (adding an aggregate heuristic to avoid false retries on empty results, improving feedback specificity) and enhances the system prompt with general SQL best practices. These changes are generic improvements to the harness mechanism and do not hard-code task-specific data or leak information. The declared edits match the diff content."
+ }
+}

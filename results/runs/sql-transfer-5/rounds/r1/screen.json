@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change updates the system prompt to enforce stricter adherence to hints (formulas, output formats) and schema grounding. This is a general improvement for Text-to-SQL tasks on Spider/BIRD datasets, addressing common failure modes like ignoring specific calculation instructions or value formatting requirements. It does not hard-code task-specific data."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The candidate claims in the 'what' field that it will update `solve.py` to trigger retries based on suspicious result sizes or missing hint keywords in output columns. However, the provided diff for `solve.py` only adds a static string check for 'no such function' errors and improves feedback text; it does NOT implement the claimed logic for checking result set sizes against aggregates or verifyin"
+ }
+}

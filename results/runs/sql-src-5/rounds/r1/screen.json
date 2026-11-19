@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes improve the retry mechanism by providing more specific diagnostic feedback for empty results and refining the system prompt with general SQL best practices (exact matches, join checks). These are generic improvements applicable to any Text-to-SQL task and do not hard-code task-specific details. The logic handles edge cases (like both queries failing) reasonably."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Similar to s1, this candidate adds specific hints to the feedback message when 0 rows are returned (checking LIKE vs =, casing, joins) and updates the system prompt with guidelines on exact matching and column selection. These are standard anti-overfitting measures that help the model self-correct common errors without leaking task-specific information."
+ }
+}

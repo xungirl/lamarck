@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate implements a complex, heuristic-based SQL repair loop that attempts to fix WHERE clause literals by scanning the database schema and executing probe queries. This approach is highly prone to overfitting (LEAKAGE/TASK-SPECIALIZATION) because it relies on specific string matching patterns ('October Meeting' mentioned in comments) and fragile regex parsing of CREATE TABLE statements whi"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate updates the system prompt to explicitly address common failure modes related to data type handling (integer division vs float precision) and string parsing (time formats). These are general best practices for Text-to-SQL generation that do not hard-code task-specific details. The changes are declarative instructions to the LLM rather than procedural code hacks, making them less likel"
+ }
+}

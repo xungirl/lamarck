@@ -1,0 +1,12 @@
+04:46:32 [sql-transfer-6] noise band delta = 0.0367 from scores [0.466667, 0.433333, 0.433333]
+04:46:55 [sql-transfer-6] held-out after round -1: 60.00 (24/40)
+04:46:55 [sql-transfer-6] round 0: incumbent b54234961162 evolve=46.7 b_t=3 best=46.7
+04:47:54 [sql-transfer-6] round 0: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 improves the evolve score from 46.67 to 50.0, indicating better task performance despite a slight increase )
+04:47:54 [sql-transfer-6] round 0: SIM <- P1 (0/5 predicted fixes realized)
+04:47:54 [sql-transfer-6] round 1: incumbent 36129a12caaf evolve=50.0 b_t=2 best=50.0
+04:48:49 [sql-transfer-6] round 1: 2 proposed, 2 evaluated, 1 admissible -> s2 (Candidate s2 maintains the same evolve score as the incumbent but reduces mean token usage by ~3%. It addresses specific)
+04:48:49 [sql-transfer-6] round 1: SIM <- P2 (1/5 predicted fixes realized)
+04:48:49 [sql-transfer-6] round 2: incumbent 0d4468d44f11 evolve=50.0 b_t=1 best=50.0
+04:49:41 [sql-transfer-6] round 2: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 provides a significant score improvement (+3.33) by addressing specific SQL generation errors (integer divi)
+04:49:41 [sql-transfer-6] round 2: SIM <- P3 (2/4 predicted fixes realized)
+04:49:55 [sql-transfer-6] held-out after round 2: 60.00 (24/40)

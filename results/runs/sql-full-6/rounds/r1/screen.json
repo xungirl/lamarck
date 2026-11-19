@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes address common failure modes in Text-to-SQL tasks: robust SQL extraction from noisy LLM outputs and stricter adherence to column selection/formatting instructions. The `extract_sql` improvement is a generic heuristic for parsing code blocks or raw text, not task-specific hardcoding. The system prompt updates provide general best practices (strict columns, data types) applicable to any "
+ }
+}

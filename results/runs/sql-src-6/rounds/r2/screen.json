@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The instruction to use `SELECT *` when the question asks 'Which [Entity]...' is a heuristic that contradicts standard Text-to-SQL best practices (where specific columns are usually required) and appears tailored to fix a specific failure mode (sp0755) without general validity. It risks causing column count mismatches on other tasks where specific attributes are impli"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The change improves the refinement loop by adding semantic checks (duplicate detection) and passing more context (schema, original query) to the second call. This addresses the root cause of queries executing successfully but returning incorrect results (e.g., missing DISTINCT), which was a known gap in the previous iteration (P1). The logic is generic and does not hard-code task-specific solution"
+ }
+}

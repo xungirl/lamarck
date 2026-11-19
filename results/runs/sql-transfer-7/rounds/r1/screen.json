@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes refine general SQL generation rules regarding aggregation, hint adherence, and column selection. They do not hard-code specific task IDs, database names, or expected outputs. The guidance on using native aggregates vs manual calculation and handling 'difference' queries via CASE statements is applicable to any Text-to-SQL task of this nature."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes modify the system prompt to prioritize selecting only explicitly requested attributes or identifiers over returning all columns for ambiguous questions. This addresses a common failure mode in Spider/BIRD datasets (schema mismatch due to extra columns) without leaking specific task information. The added rules on date functions and aggregate correctness are generic best practices."
+ }
+}

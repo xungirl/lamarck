@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes improve robustness by adding a fallback SQL extraction mechanism (handling prose/code fences) and refining system prompt guidelines for SQLite-specific issues (integer division, window functions). The `validate_and_fix_sql` function is defined but not called in the main flow, which is safe. No leakage or task specialization detected."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The candidate modifies the system prompt to explicitly forbid markdown code blocks (`Do NOT wrap the SQL in markdown code blocks`). However, the provided diff does not include any changes to `solve.py`'s `extract_sql` logic. The existing `extract_sql` relies on finding ```sql ... ``` blocks; if the model follows the new instruction and outputs raw SQL without fences, the regex will fail to find bl"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general prompt engineering guidelines for text-to-SQL tasks (schema linking, hint adherence, SQLite compatibility). They do not hard-code specific task IDs, database names, or expected outputs. The advice is applicable to any Spider/BIRD style task."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes involve refining the self-correction logic in `solve.py` and enhancing the system prompt with general best practices for SQL generation (hint usage, column selection, aggregation). The heuristics added (e.g., retrying on empty results for non-aggregates) are standard anti-overfitting safeguards for execution-based grading and do not leak specific task information."
+ }
+}

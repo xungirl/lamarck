@@ -1,0 +1,80 @@
+[
+ {
+  "commit": "002c64e3fbc6b93e97cada673ec5fe1c786aeb01",
+  "parents": "1127157e89528b2befca20cae0f704d68fced09c",
+  "subject": "r2 s1: schema_blindness_and_format_mismatch",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "cebdbd3e3b83ab3f297cb83430be7269979acb38",
+  "parents": "1127157e89528b2befca20cae0f704d68fced09c",
+  "subject": "r2 s2: value_format_and_aggregation_precision_errors",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "1127157e89528b2befca20cae0f704d68fced09c",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s1: answer_shape_mismatch_and_semantic_hints_ignored",
+  "refs": "HEAD -> evolve, cand/r1s1"
+ },
+ {
+  "commit": "7abb60766ff51f6bf5e8bd8ff7acf42b30c417d9",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s2: schema_blindness_and_format_mismatch",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "1745b6f0256a588c4ef2e3b15384f39875926c5d",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r0 s1: no_self_validation_and_answer_shape_mismatch",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "6ea8fa43f3def7bd3fca5d79d5d96a0ad6c5f718",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r0 s2: schema_blindness_and_format_mismatch",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "2621d5a45caa50ba24bc8a8dfb32f76dde310600",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r2 s2: schema_blindness_and_format_mismatch",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "fc679f8472244b5c7a60db65917e2a0f6ee4d246",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r2 s1: value_format_mismatch_and_entity_column_selection",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "eb23d0919d0055cb750cf6e6276751b81b5b2cfe",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s1: prompt_compliance_failure_on_entity_selection_and_null_safet",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "01aeebb52442c491ed48b655c16dba588f9af249",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s2: schema_blindness_and_format_mismatch",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "parents": "4aaaa48402082a3497a977b7aaed0d53e4bb6f26",
+  "subject": "r0 s2: schema_blindness_and_format_mismatch",
+  "refs": "origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "d457e7df4441ec5c1ebb28e8fabee5697150cb41",
+  "parents": "4aaaa48402082a3497a977b7aaed0d53e4bb6f26",
+  "subject": "r0 s1: Value matching failure (case/format) and column selection mi",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "4aaaa48402082a3497a977b7aaed0d53e4bb6f26",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes to system_prompt.md are generic guidelines for handling hints, column projections, and SQL syntax. They do not hard-code specific task IDs, database names, or expected outputs. The instructions (e.g., 'Strict Adherence to Hints', 'Column Projection Precision') are applicable to any Text-to-SQL task in the Spider/BIRD domain."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The `what` field explicitly cites specific task IDs from the evolve set ('bd0915', 'bd1404', 'bd0728'). While the diff itself contains generic advice, the candidate's justification relies on overfitting to these specific known failures. More critically, the prompt changes include specific examples like 'oldest driver -> MIN dob' which might be borderline, but the pri"
+ }
+}

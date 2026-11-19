@@ -12,6 +12,10 @@ RMB comes from the gateway's spend ledger (`results/budget/spend_ledger.json`).
 | sql-src-1 | spider_evolve_s30 | 83.33 → 90.00 | 80.00 → 77.50 | 1 | 1 | 167 | 12 | 0.144 |
 | sql-src-2 | spider_evolve_s30 | 83.33 → 93.33 | 80.00 → 77.50 | 2 | 1 | 149 | 13 | 0.134 |
 | sql-src-3 | spider_evolve_s30 | 83.33 → 90.00 | 80.00 → 77.50 | 1 | 1 | 110 | 12 | 0.103 |
+| sql-src-4 | spider_evolve_s30 | 83.33 → 90.00 | 80.00 → 82.50 | 1 | 1 | 130 | 10 | 0.136 |
+| sql-src-5 | spider_evolve_s30 | 83.33 → 90.00 | 80.00 → 80.00 | 1 | 1 | 145 | 9 | 0.128 |
+| sql-src-6 | spider_evolve_s30 | 83.33 → 93.33 | 80.00 → 80.00 | 1 | 1 | 115 | 10 | 0.108 |
+| sql-src-7 | spider_evolve_s30 | 83.33 → 86.67 | 80.00 → 85.00 | 1 | 1 | 130 | 10 | 0.123 |
 | so-src-1 | so_evolve_s20 | 75.00 → 95.00 | 80.00 → 95.00 | 1 | 1 | 187 | 12 | 0.177 |
 
 ## Paired study: Spider → BIRD, Full SIM vs Harness Transfer (RQ1)
@@ -25,6 +29,24 @@ RMB comes from the gateway's spend ledger (`results/budget/spend_ledger.json`).
 Mean Δ = -1.67 points (95% CI [-20.64, +17.31]), paired t(2) = -0.38, p = 0.742; exact signed-rank p = 1.000; d_z = -0.22; SIM wins 1, loses 1, ties 1.
 On the evolve split (the optimization target) the mean Δ is +0.00 (p = 1.000).
 With n = 3 pairs these statistics are descriptive: the smallest attainable exact signed-rank p is 0.250, and one held-out task is 2.5 points on the 40-task split.
+
+## Extended paired analysis, pairs 1-7 (PREREG deviation 5; secondary, not the primary analysis)
+
+Pairs 4-7 were added after the 3-pair result above had been seen (optional stopping);
+same protocol, configs, splits and code. This analysis does not replace the primary one.
+
+| source run | start (H_S on BIRD held-out) | No SIM | SIM | Δ (SIM − No SIM) |
+|---|---|---|---|---|
+| 1 | 55.00 | 60.00 | 60.00 | +0.00 |
+| 2 | 62.50 | 72.50 | 62.50 | -10.00 |
+| 3 | 65.00 | 62.50 | 67.50 | +5.00 |
+| 4 | 62.50 | 65.00 | 65.00 | +0.00 |
+| 5 | 65.00 | 67.50 | 65.00 | -2.50 |
+| 6 | 60.00 | 60.00 | 60.00 | +0.00 |
+| 7 | 72.50 | 60.00 | 60.00 | +0.00 |
+
+Mean Δ = -1.07 points (95% CI [-5.26, +3.12]), paired t(6) = -0.63, p = 0.555; exact signed-rank p = 0.750; d_z = -0.24; SIM wins 1, loses 2, ties 4.
+On the evolve split the mean Δ is -0.48 (p = 0.788).
 
 ## Four conditions: Spider → BIRD (qwen3.8-flash)
 
@@ -57,7 +79,7 @@ Held-out is evaluated only when the retained harness changes (round -1 is the st
 
 ## Search behaviour (qwen3.8-flash as proposer and selector)
 
-Across 18 runs: 108 candidate slots (rounds × k), 89 usable proposals, 35 dropped by the critic or the LLM screen before evaluation, 54 evaluated, 22 accepted. Unusable proposals by reason: manifest without <file> blocks (13), unterminated JSON object (2), no edits (2), missing root cause (2).
+Across 30 runs: 180 candidate slots (rounds × k), 155 usable proposals, 62 dropped by the critic or the LLM screen before evaluation, 93 evaluated, 37 accepted. Unusable proposals by reason: manifest without <file> blocks (16), unterminated JSON object (4), missing root cause (3), no edits (2).
 
 ## Planned but not run / not finished
 
@@ -87,28 +109,32 @@ Mean Δ = -0.83 points (95% CI [-10.32, +8.65]); SIM wins 1, loses 1, ties 1.
 | text2sql | bird_evolve | deepseek-v4.1-flash | 685dca477777 | 41.67, 43.33, 41.67 | 0.96 | direct |
 | text2sql | bird_evolve | qwen3.8-flash | 685dca477777 | 46.67, 48.33, 50.00 | 1.67 | direct |
 | text2sql | bird_evolve_s30 | qwen3.8-flash | 40e00367a7c5 | 43.33, 43.33, 43.33 | 0.00 | direct |
+| text2sql | bird_evolve_s30 | qwen3.8-flash | 62772afb606b | 43.33, 43.33, 43.33 | 0.00 | direct |
 | text2sql | bird_evolve_s30 | qwen3.8-flash | 685dca477777 | 43.33, 46.67, 43.33 | 1.92 | cached bird_evolve evaluation |
 | text2sql | bird_evolve_s30 | qwen3.8-flash | 7e87d5b22f0a | 43.33, 43.33, 40.00 | 1.92 | direct |
+| text2sql | bird_evolve_s30 | qwen3.8-flash | 9d1c59e952b0 | 46.67, 43.33, 43.33 | 1.92 | direct |
+| text2sql | bird_evolve_s30 | qwen3.8-flash | b54234961162 | 46.67, 43.33, 43.33 | 1.92 | direct |
+| text2sql | bird_evolve_s30 | qwen3.8-flash | bf1b7af3817f | 36.67, 40.00, 43.33 | 3.33 | direct |
 | text2sql | bird_evolve_s30 | qwen3.8-flash | e6a9184549ae | 46.67, 36.67, 46.67 | 5.77 | direct |
 | text2sql | spider_evolve | qwen3.8-flash | 685dca477777 | 78.33, 85.00, 78.33 | 3.85 | direct |
 | text2sql | spider_evolve_s30 | qwen3.8-flash | 685dca477777 | 83.33, 86.67, 80.00 | 3.33 | cached spider_evolve evaluation |
 
 ## Money (RMB spend ledger, every call of the revised plan)
 
-Spent **RMB 5.3840** of the RMB 9.50 hard cap in 5184 calls (0 failed upstream, not billed). Prices (RMB per 1M input / output / cached input): qwen3.7-flash 0.8 / 2.7 / 0.1; qwen3.8-flash 0.8 / 2.7 / 0.1.
+Spent **RMB 8.1809** of the RMB 9.50 hard cap in 7563 calls (0 failed upstream, not billed). Prices (RMB per 1M input / output / cached input): qwen3.7-flash 0.8 / 2.7 / 0.1; qwen3.8-flash 0.8 / 2.7 / 0.1.
 
 | role | calls | prompt tokens | cached | completion tokens | RMB |
 |---|---|---|---|---|---|
-| policy | 4928 | 7449734 | 4290816 | 592959 | 4.5572 |
-| proposer | 154 | 673407 | 409856 | 134004 | 0.6136 |
-| selector | 102 | 212065 | 2048 | 16646 | 0.2132 |
+| policy | 7185 | 11113854 | 6159360 | 839514 | 6.8462 |
+| proposer | 226 | 1009125 | 598016 | 227403 | 1.0027 |
+| selector | 152 | 332449 | 5120 | 25800 | 0.3320 |
 
 ## Calls (gateway call ledger of the revised plan's root)
 
 | pool | calls | failed | prompt tokens | completion tokens |
 |---|---|---|---|---|
-| policy | 4927 | 0 | 7449702 | 592958 |
-| search | 256 | 0 | 885472 | 150650 |
+| policy | 7183 | 0 | 11113790 | 839512 |
+| search | 378 | 0 | 1341574 | 253203 |
 
 ## Pre-revision (PREREG as written; reported separately, not pooled)
 

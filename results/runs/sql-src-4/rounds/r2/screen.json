@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate addresses known failure modes (column projection and NULL handling in exclusions) by refining the system prompt guidelines. It does not hard-code task-specific data or leak information. The changes are general SQL best practices applicable to any Text-to-SQL task. Although SIM indicates previous attempts at similar fixes had mixed results, this is a reasonable iterative refinement of"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The diff contains a syntax error/artifact: `</parameter>` at the end of the file. This will likely break the harness or cause parsing errors when loading the system prompt. Additionally, the instruction 'Never use NOT IN' is overly restrictive; while NOT EXISTS is safer for NULLs, NOT IN is valid and often preferred for performance or simplicity if NULLs are guaranteed absent or handled, but more "
+ }
+}

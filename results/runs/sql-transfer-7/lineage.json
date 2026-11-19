@@ -1,0 +1,74 @@
+[
+ {
+  "commit": "03c5ffb33fe55ae7b02d29e9b36be2fd63b11c34",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r2 s1: Model fails to precisely follow hint-defined calculation for",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "6c53e6234254ef4ae302248d9d6a1c59774fd761",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r2 s2: The model frequently ignores the 'Hint' (evidence) provided",
+  "refs": "HEAD -> evolve, cand/r2s2"
+ },
+ {
+  "commit": "60f7e4ee5795c031e5f12f2111e53dc4ac4c6cad",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s1: Model fails to correctly interpret complex hints and aggrega",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "ac4b5f86fbefb7c35f62b78d435776ac4c86c8d4",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s2: The system prompt's instruction to return ALL columns for 'w",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "b1d92e514e60d94316bc6147c10ba4d10e657465",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r0 s1: The harness lacks a verification step to check schema validi",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "2621d5a45caa50ba24bc8a8dfb32f76dde310600",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r2 s2: schema_blindness_and_format_mismatch",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "fc679f8472244b5c7a60db65917e2a0f6ee4d246",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r2 s1: value_format_mismatch_and_entity_column_selection",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "eb23d0919d0055cb750cf6e6276751b81b5b2cfe",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s1: prompt_compliance_failure_on_entity_selection_and_null_safet",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "01aeebb52442c491ed48b655c16dba588f9af249",
+  "parents": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "subject": "r1 s2: schema_blindness_and_format_mismatch",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "c542a1e383ee494fdb93714743518495a8c58d0c",
+  "parents": "4aaaa48402082a3497a977b7aaed0d53e4bb6f26",
+  "subject": "r0 s2: schema_blindness_and_format_mismatch",
+  "refs": "origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "d457e7df4441ec5c1ebb28e8fabee5697150cb41",
+  "parents": "4aaaa48402082a3497a977b7aaed0d53e4bb6f26",
+  "subject": "r0 s1: Value matching failure (case/format) and column selection mi",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "4aaaa48402082a3497a977b7aaed0d53e4bb6f26",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

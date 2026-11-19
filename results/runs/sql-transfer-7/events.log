@@ -1,0 +1,11 @@
+04:48:09 [sql-transfer-7] noise band delta = 0.0333 from scores [0.433333, 0.433333, 0.433333]
+04:48:21 [sql-transfer-7] held-out after round -1: 72.50 (29/40)
+04:48:21 [sql-transfer-7] round 0: incumbent 62772afb606b evolve=43.3 b_t=3 best=43.3
+04:48:30 [sql-transfer-7] round 0 s2: proposal failed: missing root cause
+04:49:02 [sql-transfer-7] round 0: 1 proposed, 1 evaluated, 1 admissible -> keep incumbent (The candidate s1 has the same evolve_score (43.33) as the incumbent but consumes significantly more tokens per task (168)
+04:49:02 [sql-transfer-7] round 1: incumbent 62772afb606b evolve=43.3 b_t=2 best=43.3
+04:49:48 [sql-transfer-7] round 1: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:49:48 [sql-transfer-7] round 2: incumbent 62772afb606b evolve=43.3 b_t=1 best=43.3
+04:50:26 [sql-transfer-7] round 2: 2 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 maintains the incumbent's evolve score (43.33) while introducing a targeted prompt refinement to enforce ad)
+04:50:26 [sql-transfer-7] round 2: SIM <- P1 (0/6 predicted fixes realized)
+04:50:46 [sql-transfer-7] held-out after round 2: 60.00 (24/40)

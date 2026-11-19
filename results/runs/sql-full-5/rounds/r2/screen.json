@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate addresses common failure modes in Text-to-SQL (schema mismatch, aggregation errors, NULL handling) by updating the system prompt with general guidelines. It does not hard-code specific task IDs or database names, nor does it introduce leakage. The changes are declarative and applicable to any SQLite query generation task."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Similar to s1, this candidate updates the system prompt with general rules for column selection, ranking, comparisons, and aggregation. These are standard best practices for SQL generation and do not constitute task-specific overfitting or leakage. The instructions are generic enough to apply to unseen tasks."
+ }
+}

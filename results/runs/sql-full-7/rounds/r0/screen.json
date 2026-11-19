@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The candidate implements a standard self-correction loop (execute draft, provide feedback on errors/empty results/shape issues, ask for correction). This is a generic mechanism applicable to any Text-to-SQL task and does not hard-code specific database names, table structures, or expected outputs. It respects the `max_calls` limit implicitly by only making one additional call if allowed (though it"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "This candidate repeats a direction that was already tested and largely failed according to the SELF-IMPROVEMENT MEMORY. Entry P1 (`schema_blindness_and_format_mismatch`) shows that adding prompt instructions about column names, string values (LIKE), and date formats, along with a basic error/0-row retry loop, resulted in fixing only 1 out of 5 predicted tasks and maintaining a low pass rate (26/30"
+ }
+}

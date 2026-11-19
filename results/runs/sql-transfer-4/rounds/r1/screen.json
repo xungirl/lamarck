@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes provide general SQL best practices for Text-to-SQL tasks (handling ranking columns, multi-part questions, and date/string parsing). They do not hard-code specific task IDs, database names, or expected outputs. The guidance is applicable to any similar SQLite query generation task."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes offer generalized guidelines on column selection arity, aggregation math (casting to REAL), value matching, joins, and edge cases like ties in Top-N queries. These are standard heuristics for improving SQL generation accuracy without leaking specific task information or overfitting to particular databases."
+ }
+}

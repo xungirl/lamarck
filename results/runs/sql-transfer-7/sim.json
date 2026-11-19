@@ -1,0 +1,42 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "The model frequently ignores the 'Hint' (evidence) provided in BIRD-style tasks, leading to incorrect logic (e.g., wrong filters, wrong aggregation types, or wrong output formatting).",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update `system_prompt.md` to explicitly instruct the model to treat the `Hint` field as authoritative ground truth for business logic and formulas. This addresses failures where the model used `SUM/COUNT` instead of `AVG`, or returned raw dates instead of boolean/text labels d...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd1014",
+      "bd1068",
+      "bd1241"
+     ],
+     "fixed": [],
+     "missed": [
+      "bd0565",
+      "bd0728",
+      "bd0915",
+      "bd1014",
+      "bd1068",
+      "bd1241"
+     ],
+     "passed": 13,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

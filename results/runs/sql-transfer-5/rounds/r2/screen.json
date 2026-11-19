@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes provide general, task-agnostic instructions on how to interpret hints regarding calculations, ranking, and output columns. It does not hardcode specific table names, values, or task IDs. The logic is sound for a Text-to-SQL agent."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Contains leakage/task-specialization: 'Remember: Larger birthday value = Younger person.' This is a specific domain heuristic often found in Spider/BIRD datasets (e.g., `birth_date` column semantics) but is not universally true for all date columns (e.g., `event_date`, `start_date`). Hardcoding this interpretation into the system prompt risks incorrect behavior on tasks where 'larger date' means '"
+ }
+}

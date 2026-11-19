@@ -1,0 +1,10 @@
+04:48:09 [sql-full-7] noise band delta = 0.0333 from scores [0.433333, 0.433333, 0.433333]
+04:48:21 [sql-full-7] held-out after round -1: 72.50 (29/40)
+04:48:21 [sql-full-7] round 0: incumbent 62772afb606b evolve=43.3 b_t=3 best=43.3
+04:49:37 [sql-full-7] round 0: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:49:37 [sql-full-7] round 1: incumbent 62772afb606b evolve=43.3 b_t=2 best=43.3
+04:50:16 [sql-full-7] round 1: 2 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 addresses the specific 'answer_shape_mismatch' root cause with a high evolve score (50.0 vs 43.33) and no b)
+04:50:16 [sql-full-7] round 1: SIM <- P1 (1/5 predicted fixes realized)
+04:50:16 [sql-full-7] round 2: incumbent e7be869c05a9 evolve=50.0 b_t=1 best=50.0
+04:51:13 [sql-full-7] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:51:30 [sql-full-7] held-out after round 2: 60.00 (24/40)

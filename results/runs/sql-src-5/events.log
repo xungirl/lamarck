@@ -1,0 +1,11 @@
+04:37:16 [sql-src-5] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+04:37:16 [sql-src-5] held-out after round -1: 80.00 (32/40)
+04:37:16 [sql-src-5] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+04:37:49 [sql-src-5] round 0 s2: proposal failed: manifest without <file> blocks
+04:38:03 [sql-src-5] round 0: 1 proposed, 1 evaluated, 1 admissible -> s1 (Candidate s1 significantly improves the evolve score (90.0 vs 83.33) with zero regressions, successfully fixing targeted)
+04:38:03 [sql-src-5] round 0: SIM <- P1 (2/4 predicted fixes realized)
+04:38:03 [sql-src-5] round 1: incumbent 9d1c59e952b0 evolve=90.0 b_t=2 best=90.0
+04:38:54 [sql-src-5] round 1: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:38:54 [sql-src-5] round 2: incumbent 9d1c59e952b0 evolve=90.0 b_t=1 best=90.0
+04:39:22 [sql-src-5] round 2: 2 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:39:34 [sql-src-5] held-out after round 2: 80.00 (32/40)

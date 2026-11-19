@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The prompt changes include specific examples that appear to be drawn directly from the evaluation set (e.g., 'abnormal refers to PLT <= 100 OR PLT >= 400', 'not well-finished refers to ClosedDate IS NULL'). Hard-coding these specific domain rules and column names into the system prompt is a form of overfitting/leakage, as it teaches the model to recognize specific ta"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The changes focus on general instructions for handling Hints (treating them as authoritative for formulas and definitions) without hard-coding specific task IDs, table names, or magic constants. The advice to use AVG() vs SUM/COUNT based on hint definition is a general best practice for Text-to-SQL with evidence/hints."
+ }
+}

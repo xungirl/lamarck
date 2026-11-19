@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The candidate introduces a guideline for 'Column Selection' that explicitly discusses returning full records (`SELECT *`) when the question asks 'Which [Entity]...', citing task sp0755 as evidence. This is a form of task-specialization/leakage: it encodes a specific, non-standard behavior (returning all columns for an entity list) based on a single failure case in the evolve set, rather than a gen"
+ }
+}

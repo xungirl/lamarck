@@ -1,0 +1,13 @@
+04:42:26 [sql-full-4] noise band delta = 0.0585 from scores [0.366667, 0.4, 0.433333]
+04:42:53 [sql-full-4] held-out after round -1: 62.50 (25/40)
+04:42:53 [sql-full-4] round 0: incumbent bf1b7af3817f evolve=36.7 b_t=3 best=36.7
+04:43:07 [sql-full-4] round 0 s1: proposal failed: manifest without <file> blocks
+04:43:29 [sql-full-4] round 0: 1 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 improves the evolve score from 36.67 to 40.0 with negligible token cost increase, successfully fixing two t)
+04:43:29 [sql-full-4] round 0: SIM <- P2 (1/9 predicted fixes realized)
+04:43:29 [sql-full-4] round 1: incumbent 58f9309928e6 evolve=40.0 b_t=2 best=40.0
+04:44:06 [sql-full-4] round 1: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:44:06 [sql-full-4] round 2: incumbent 58f9309928e6 evolve=40.0 b_t=1 best=40.0
+04:44:18 [sql-full-4] round 2 s1: proposal failed: manifest without <file> blocks
+04:45:26 [sql-full-4] round 2: 1 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 provides a significant score improvement (+6.67 points) by addressing specific SQLite constraints (INSTR ar)
+04:45:26 [sql-full-4] round 2: SIM <- P2 (2/3 predicted fixes realized)
+04:45:41 [sql-full-4] held-out after round 2: 65.00 (26/40)

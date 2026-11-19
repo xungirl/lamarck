@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The changes are general improvements to the system prompt (clarifying column selection rules) and error feedback in solve.py. They do not hard-code task-specific logic, leak information, or remove safety mechanisms. The retry logic remains bounded."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: The `what` field explicitly mentions specific task IDs ('bd0728', 'bd0955', 'bd1404') as examples for the change. While the diff itself is mostly generic, referencing specific evolve-set tasks in the rationale indicates the change was tailored to those specific failures rather than a general pattern, violating the anti-overfitting rule against task-specialization."
+ }
+}

@@ -1,0 +1,77 @@
+{
+ "next_id": 3,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Policy output format instability (prose/code fences) and missing SQL post-processing/validation steps",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "1. Strengthen system prompt to strictly forbid prose and enforce ```sql blocks for complex queries, while adding guidelines for integer division casting and window function limitations in SQLite. 2. Implement robust `extract_sql` logic in solve.py that handles mixed prose/SQL...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "bd0040",
+      "bd0041",
+      "bd0173",
+      "bd0377",
+      "bd0565",
+      "bd0728",
+      "bd0955",
+      "bd1068"
+     ],
+     "fixed": [
+      "bd0377",
+      "bd1068"
+     ],
+     "missed": [
+      "bd0040",
+      "bd0041",
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0955"
+     ],
+     "passed": 14,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "name": "Model frequently mismatches output arity and semantic formatting: omitting explicit rank columns when requested, returning raw booleans/numbers instead of descriptive status strings, and selecting incomplete entity identifiers.",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Updated system_prompt.md to mandate explicit rank columns for ranking queries, require CASE statements for qualitative yes/no/status answers, and advise including comprehensive name/ID combinations for entity identification questions.",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0565",
+      "bd0728",
+      "bd0928"
+     ],
+     "fixed": [
+      "bd0728"
+     ],
+     "missed": [
+      "bd0565",
+      "bd0928"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "sealed_at": 1795091946.1829498,
+ "round": 2,
+ "sample": "s1",
+ "branch": "cand/r2s1",
+ "commit": "4f7e93386d5a97a35bf7f28e87bbc3909d2311d0",
+ "tree": "b74242c03972",
+ "files": [
+  "system_prompt.md"
+ ],
+ "diff": "diff --git a/harness/system_prompt.md b/harness/system_prompt.md\nindex 3aa65d7..37d8e13 100644\n--- a/harness/system_prompt.md\n+++ b/harness/system_prompt.md\n@@ -1,2 +1,15 @@\n You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n-Return the query in a single ```sql code block.\n+\n+Key Guidelines:\n+1. **Column Selection**: \n+   - If the question asks \"Which [Entity]...\" or \"What [Entity]...\" without specifying particular attributes (e.g., \"Which countries have...\"), return all columns from the main entity table using `SELECT *`.\n+   - If specific attributes are requested (e.g., \"names\", \"populations\"), select only those columns.\n+2. **Filtering**:\n+   - Use exact matches (`=`) for values found in the schema examples or hints. Avoid `LIKE` unless the question implies partial matching or wildcards.\n+   - Ensure string values match the case and format in the database exactly.\n+3. **Joins**:\n+   - Verify foreign key relationships in the schema before joining. Do not create unnecessary joins.\n+4. **Aggregation**:\n+   - Use `GROUP BY` correctly when aggregating data. Include non-aggregated columns in `GROUP BY` if required by SQL standards (though SQLite is lenient, correct grouping ensures logical consistency).\n+\n+Return the query in a single ```sql code block.\n\\ No newline at end of file",
+ "proposal": {
+  "sample": "s1",
+  "cite": "P1",
+  "root_cause": "Model generates queries with incorrect column selection (sp0755) or overly strict join/filter conditions resulting in empty results (sp0362, sp0536, sp0610), indicating a need for schema introspection and validation.",
+  "what": "Update system_prompt.md to explicitly instruct the model to use `SELECT *` when the question asks 'Which [Entity]...' without specifying attributes, and to prefer exact matches over LIKE unless partial matching is implied. This addresses the column count mismatch in sp0755 and potential value mismatches in sp0536.",
+  "n_edits": 1,
+  "edits": {
+   "system_prompt.md": "You are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nKey Guidelines:\n1. **Column Selection**: \n   - If the question asks \"Which [Entity]...\" or \"What [Entity]...\" without specifying particular attributes (e.g., \"Which countries have...\"), return all columns from the main entity table using `SELECT *`.\n   - If specific attributes are requested (e.g., \"names\", \"populations\"), select only those columns.\n2. **Filtering**:\n   - Use exact matches (`=`) for values found in the schema examples or hints. Avoid `LIKE` unless the question implies partial matching or wildcards.\n   - Ensure string values match the case and format in the database exactly.\n3. **Joins**:\n   - Verify foreign key relationships in the schema before joining. Do not create unnecessary joins.\n4. **Aggregation**:\n   - Use `GROUP BY` correctly when aggregating data. Include non-aggregated columns in `GROUP BY` if required by SQL standards (though SQLite is lenient, correct grouping ensures logical consistency).\n\nReturn the query in a single ```sql code block."
+  },
+  "predicted": [
+   "sp0536",
+   "sp0755"
+  ],
+  "dropped_predictions": [],
+  "raw": "<manifest>\n{\"root_cause\": {\"cite\": \"P1\", \"name\": \"Model generates queries with incorrect column selection (sp0755) or overly strict join/filter conditions resulting in empty results (sp0362, sp0536, sp0610), indicating a need for schema introspection and validation.\"},\n \"what\": \"Update system_prompt.md to explicitly instruct the model to use `SELECT *` when the question asks 'Which [Entity]...' without specifying attributes, and to prefer exact matches over LIKE unless partial matching is implied. This addresses the column count mismatch in sp0755 and potential value mismatches in sp0536.\",\n \"n_independent_edits\": 1,\n \"predicted\": [\"sp0755\", \"sp0536\"]}\n</manifest>\n<file path=\"system_prompt.md\">\nYou are an expert SQLite analyst. Given a database schema and a question, write one SQLite query that answers the question.\n\nKey Guidelines:\n1. **Column Selection**: \n   - If the question asks \"Which [Entity]...\" or \"What [Entity]...\" without specifying particular attributes (e.g., \"Which countries have...\"), return all columns from the main entity table using `SELECT *`.\n   - If specific attributes are requested (e.g., \"names\", \"populations\"), select only those columns.\n2. **Filtering**:\n   - Use exact matches (`=`) for values found in the schema examples or hints. Avoid `LIKE` unless the question implies partial matching or wildcards.\n   - Ensure string values match the case and format in the database exactly.\n3. **Joins**:\n   - Verify foreign key relationships in the schema before joining. Do not create unnecessary joins.\n4. **Aggregation**:\n   - Use `GROUP BY` correctly when aggregating data. Include non-aggregated columns in `GROUP BY` if required by SQL standards (though SQLite is lenient, correct grouping ensures logical consistency).\n\nReturn the query in a single ```sql code block.\n</file>"
+ }
+}

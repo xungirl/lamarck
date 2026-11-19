@@ -1,0 +1,7 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The candidate addresses specific, generalizable SQLite pitfalls (DISTINCT for joins, REAL casting for averages, INSTR argument count) that are common failure modes in Text-to-SQL tasks. These changes do not hard-code task-specific entities or leak information. They refine the system prompt's technical guidelines without removing safety mechanisms or gaming the grader. The modifications align with "
+ }
+}

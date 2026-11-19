@@ -1,0 +1,68 @@
+[
+ {
+  "commit": "ff294bb5c6130e007f385c9c3a39ef0b466066b3",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r2 s1: Model fails to interpret complex hints (time parsing, partit",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "c540e68092eb4e0e3912c4b05c72e888e8f59ec3",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r2 s2: Semantic correctness of non-empty results",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "08d79d151d0cf4cd66864ec38f7f42b5376c70be",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r1 s2: SQL Extraction Failure and Result Formatting Mismatch",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "8be9ae494df2edbc8093cebc02ace23e4503c98c",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r0 s1: Model generates structurally incorrect queries (wrong column",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "b6c63b9633692c9bcf279d7a08e1f2a82db75fcc",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r2 s2: Refinement loop fails to correct queries that execute succes",
+  "refs": "origin/cand/r2s2, source/cand/r2s2"
+ },
+ {
+  "commit": "4f7e93386d5a97a35bf7f28e87bbc3909d2311d0",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r2 s1: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/cand/r2s1, source/cand/r2s1"
+ },
+ {
+  "commit": "398a752f0db20dfa955f5c28ce8d34b033eeee7f",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r1 s2: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/cand/r1s2, source/cand/r1s2"
+ },
+ {
+  "commit": "f86c445110ffdb16b6c65bcce98c17e6accf9e34",
+  "parents": "02f9f294dde285b906572158f3a2df7158851698",
+  "subject": "r1 s1: Model generates queries with incorrect column selection (sp0",
+  "refs": "origin/cand/r1s1, source/cand/r1s1"
+ },
+ {
+  "commit": "02f9f294dde285b906572158f3a2df7158851698",
+  "parents": "bfcaed8d7f5c55217151d273a3e3fc4b195005c0",
+  "subject": "r0 s2: Model generates queries with incorrect column selection (sp0",
+  "refs": "HEAD -> evolve, origin/evolve, origin/cand/r0s2, origin/HEAD, source/cand/r0s2"
+ },
+ {
+  "commit": "fd80413d8b049bbef99f750564e92a9e70637f1c",
+  "parents": "bfcaed8d7f5c55217151d273a3e3fc4b195005c0",
+  "subject": "r0 s1: Schema-Value-Mismatch: Generated SQL filters on values not p",
+  "refs": "origin/cand/r0s1, source/cand/r0s1"
+ },
+ {
+  "commit": "bfcaed8d7f5c55217151d273a3e3fc4b195005c0",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

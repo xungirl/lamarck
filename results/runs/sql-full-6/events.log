@@ -1,0 +1,11 @@
+04:46:32 [sql-full-6] noise band delta = 0.0367 from scores [0.466667, 0.433333, 0.433333]
+04:46:55 [sql-full-6] held-out after round -1: 60.00 (24/40)
+04:46:55 [sql-full-6] round 0: incumbent b54234961162 evolve=46.7 b_t=3 best=46.7
+04:47:19 [sql-full-6] round 0 s2: proposal failed: unterminated JSON object
+04:47:49 [sql-full-6] round 0: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:47:49 [sql-full-6] round 1: incumbent b54234961162 evolve=46.7 b_t=2 best=46.7
+04:48:12 [sql-full-6] round 1 s1: proposal failed: unterminated JSON object
+04:48:47 [sql-full-6] round 1: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:48:47 [sql-full-6] round 2: incumbent b54234961162 evolve=46.7 b_t=1 best=46.7
+04:49:17 [sql-full-6] round 2: 2 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:49:17 [sql-full-6] held-out after round 2: 60.00 (24/40)

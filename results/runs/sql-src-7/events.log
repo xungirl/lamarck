@@ -1,0 +1,10 @@
+04:45:46 [sql-src-7] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+04:45:46 [sql-src-7] held-out after round -1: 80.00 (32/40)
+04:45:46 [sql-src-7] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+04:46:16 [sql-src-7] round 0: 2 proposed, 1 evaluated, 1 admissible -> s2 (Candidate s2 improves the evolve score from 83.33 to 86.67 with no broken tasks, addressing schema blindness and NULL ha)
+04:46:16 [sql-src-7] round 0: SIM <- P1 (1/5 predicted fixes realized)
+04:46:17 [sql-src-7] round 1: incumbent 62772afb606b evolve=86.7 b_t=2 best=86.7
+04:46:58 [sql-src-7] round 1: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:46:58 [sql-src-7] round 2: incumbent 62772afb606b evolve=86.7 b_t=1 best=86.7
+04:47:23 [sql-src-7] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:47:33 [sql-src-7] held-out after round 2: 85.00 (34/40)

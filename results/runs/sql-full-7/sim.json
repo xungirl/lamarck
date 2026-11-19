@@ -1,0 +1,72 @@
+{
+ "next_id": 2,
+ "carried_from": {
+  "arm": "sql-src-7",
+  "domain": "spider_evolve_s30/qwen3.8-flash",
+  "into": "sql-full-7"
+ },
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "schema_blindness_and_format_mismatch",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Failures fall into two buckets: (1) queries return 0 rows because of exact-match / case / value-format mismatches on string filters and joins (sp0362, sp0536, sp0610); (2) query shape is wrong — returning only names instead of full country records for 'Which countries' (sp0755...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0610"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0536",
+      "sp0755",
+      "sp0894"
+     ],
+     "passed": 26,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 1,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Update system prompt to strictly enforce answer shapes (e.g. 'Rank' means returning grouping keys + aggregates, not entity names; 'List patients' means IDs) and to explicitly parse hints for calculation formulas and value mappings. Also instruct the model to use exact column n...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "bd0173",
+      "bd0565",
+      "bd0728",
+      "bd0928",
+      "bd1242"
+     ],
+     "fixed": [
+      "bd0565"
+     ],
+     "missed": [
+      "bd0173",
+      "bd0728",
+      "bd0928",
+      "bd1242"
+     ],
+     "passed": 15,
+     "total": 30,
+     "domain": "bird_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}
