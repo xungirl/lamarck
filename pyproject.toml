@@ -55,7 +55,11 @@ packages = ["lamarck"]
 exclude = ["runs/", "seed_harness/"]
 
 [[tool.mypy.overrides]]
-module = ["scipy.*", "mcp.*", "mcp_types.*", "sentence_transformers.*", "torch.*", "transformers.*"]
+module = ["scipy.*", "mcp.*", "mcp_types.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["sentence_transformers.*", "torch.*", "transformers.*"]
 ignore_missing_imports = true
 follow_imports = "skip"
 
