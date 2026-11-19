@@ -50,3 +50,9 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
 - Key-leak check: the DashScope key string occurs in no tracked/untracked file and nowhere in git history.
 - Next (needs money): the pre-registered full plan (10 pairs, N=4, k=3, full splits) and the xm-* runs.
   Resume/reproduce: scripts/reproduce.sh. Nothing was pushed; no remote exists.
+- ~04:10 extension requested ("继续跑"): PREREG deviation 5 committed before launch (4 extra pairs,
+  sources 4-7, from the most expensive observed pair RMB 0.852 and RMB 0.50 headroom; secondary
+  analysis, primary 3-pair analysis unchanged). Gate: `--reserve-rmb 0.5`, a source claims its arms.
+- 04:36 colima start, gVisor re-registered, API check HTTP 200; 04:37-04:51 pairs 4-7 all `done`.
+  Spend: RMB 8.181 total (RMB 2.797 this round), 7,563 calls, 0 failed. Extra source seed skipped
+  (RMB 1.32 left, below headroom + RMB 1). Gateway removed, colima stopped.

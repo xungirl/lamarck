@@ -47,7 +47,7 @@ STAGES = [
     ),
     (
         "Source RSI runs",
-        "Budget-revised plan: 3 text-to-SQL and 1 support-ops source runs build evolved harnesses and their SIM.",
+        "Budget-revised plan: 7 text-to-SQL (3 primary + 4 added) and 1 support-ops source runs build harnesses and SIM.",
     ),
     (
         "CRSI experiments",
@@ -55,7 +55,7 @@ STAGES = [
     ),
     (
         "Paired study",
-        "Full SIM vs Harness Transfer from the same evolved harness, over independent source runs.",
+        "Full SIM vs Harness Transfer from the same evolved harness: 3 pairs primary, 7 pairs secondary.",
     ),
     (
         "Retrieval ablation",
