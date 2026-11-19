@@ -79,6 +79,11 @@ def run_spec(name: str, root: Path) -> dict[str, Any]:
             "into": name,
         }
         pooled.save(run.sim_path)
+    if spec.cfg.memory == "retrieved":
+        from .sim import embed, retrieval
+
+        embed.enable_bge()
+        (run.dir / "embedder.txt").write_text(retrieval.embedder_name() + "\n")
     try:
         return run.run()
     finally:

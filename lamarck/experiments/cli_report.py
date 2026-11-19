@@ -39,7 +39,9 @@ def cost_table(summary: dict[str, Any]) -> dict[str, Any]:
     plan = build_plan()
     groups: dict[str, dict[str, int]] = {}
     for name, r in summary["runs"].items():
-        g = groups.setdefault(plan[name].group, {"runs": 0, "policy_calls": 0, "search_calls": 0, "policy_tokens": 0})
+        g = groups.setdefault(
+            plan[name].group, {"runs": 0, "policy_calls": 0, "search_calls": 0, "policy_tokens": 0}
+        )
         g["runs"] += 1
         for k in ("policy_calls", "search_calls", "policy_tokens"):
             g[k] += r["cost"][k]

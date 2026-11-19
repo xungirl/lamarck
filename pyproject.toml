@@ -18,6 +18,11 @@ dependencies = [
 [project.scripts]
 lamarck = "lamarck.cli:main"
 
+[project.optional-dependencies]
+retrieval = [
+    "sentence-transformers>=3.0",
+]
+
 [dependency-groups]
 dev = [
     "pytest>=8.3",
@@ -50,8 +55,9 @@ packages = ["lamarck"]
 exclude = ["runs/", "seed_harness/"]
 
 [[tool.mypy.overrides]]
-module = ["scipy.*", "mcp.*", "mcp_types.*"]
+module = ["scipy.*", "mcp.*", "mcp_types.*", "sentence_transformers.*", "torch.*", "transformers.*"]
 ignore_missing_imports = true
+follow_imports = "skip"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -15,17 +15,21 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from lamarck.gateway.client import GatewayClient  # noqa: E402
-from lamarck.gateway.ledger import Ledger  # noqa: E402
-from lamarck.gateway.providers import FakeProvider, Router  # noqa: E402
-from lamarck.gateway.server import Gateway, GatewayConfig, Grant, start_in_thread  # noqa: E402
+from lamarck.gateway.client import GatewayClient
+from lamarck.gateway.ledger import Ledger
+from lamarck.gateway.providers import FakeProvider, Router
+from lamarck.gateway.server import Gateway, GatewayConfig, Grant, start_in_thread
 
 
 def main() -> None:
     out = {}
     with tempfile.TemporaryDirectory() as tmp:
-        gw = Gateway(Router(None, FakeProvider({"fake-echo": lambda b: "ok"})), Ledger(Path(tmp) / "l.json"),
-                     Path(tmp), GatewayConfig(default_rate=1e6))
+        gw = Gateway(
+            Router(None, FakeProvider({"fake-echo": lambda b: "ok"})),
+            Ledger(Path(tmp) / "l.json"),
+            Path(tmp),
+            GatewayConfig(default_rate=1e6),
+        )
         server, url = start_in_thread(gw)
         tok = gw.create_grant(Grant("bench", ["policy"], ["*"], rate=1e6))
         client = GatewayClient(url, tok)
@@ -35,7 +39,7 @@ def main() -> None:
             n = 400
             lat: list[float] = []
 
-            def one(_: int) -> None:
+            def one(_: int, lat: list[float] = lat) -> None:
                 t0 = time.perf_counter()
                 client.chat("policy", "fake-echo", msgs)
                 lat.append((time.perf_counter() - t0) * 1000)
@@ -46,13 +50,20 @@ def main() -> None:
             wall = time.perf_counter() - t0
             total += n
             q = statistics.quantiles(lat, n=100)
-            out[f"concurrency_{conc}"] = {"requests": n, "rps": round(n / wall, 1), "p50_ms": round(q[49], 2),
-                                          "p95_ms": round(q[94], 2), "p99_ms": round(q[98], 2)}
+            out[f"concurrency_{conc}"] = {
+                "requests": n,
+                "rps": round(n / wall, 1),
+                "p50_ms": round(q[49], 2),
+                "p95_ms": round(q[94], 2),
+                "p99_ms": round(q[98], 2),
+            }
         counted = gw.ledger.used("policy")
         out["ledger_counted"] = counted
         out["ledger_exact"] = counted == total
         server.shutdown()
-    out["note"] = "in-process gateway, fake model, 2 kB prompt, ledger + audit log written on every request; Apple M2"
+    out["note"] = (
+        "in-process gateway, fake model, 2 kB prompt, ledger + audit log written on every request; Apple M2"
+    )
     Path("results").mkdir(exist_ok=True)
     Path("results/gateway_bench.json").write_text(json.dumps(out, indent=1))
     print(json.dumps(out, indent=1))
