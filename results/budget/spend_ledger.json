@@ -1,0 +1,57 @@
+{
+ "by": {
+  "model:qwen3.8-flash": {
+   "cached_tokens": 0,
+   "calls": 1,
+   "completion_tokens": 1,
+   "failed": 0,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 2.83e-05
+  },
+  "role:policy": {
+   "cached_tokens": 0,
+   "calls": 1,
+   "completion_tokens": 1,
+   "failed": 0,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 2.83e-05
+  },
+  "run:api-check": {
+   "cached_tokens": 0,
+   "calls": 1,
+   "completion_tokens": 1,
+   "failed": 0,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 2.83e-05
+  },
+  "run_role:api-check|policy": {
+   "cached_tokens": 0,
+   "calls": 1,
+   "completion_tokens": 1,
+   "failed": 0,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 2.83e-05
+  }
+ },
+ "calls": 1,
+ "cap_rmb": 9.5,
+ "failed": 0,
+ "prices_rmb_per_million": {
+  "qwen3.7-flash": [
+   0.8,
+   2.7,
+   0.1
+  ],
+  "qwen3.8-flash": [
+   0.8,
+   2.7,
+   0.1
+  ]
+ },
+ "spent_rmb": 2.83e-05,
+ "updated": "2026-11-19 03:18:06"
+}

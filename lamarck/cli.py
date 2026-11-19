@@ -22,7 +22,8 @@ from .sim.memory import SIM
 from .stack import Stack
 
 REPO = Path(__file__).resolve().parents[1]
-DEFAULT_ROOT = REPO / "runs" / "main"
+# Experiment root of the revised plan (PREREG deviation 3). runs/main holds the pre-revision runs.
+DEFAULT_ROOT = REPO / "runs" / "rev3"
 KEYFILE = Path("/Users/xunxun/flowbeat/backend/.env")
 # The RMB spend ledger covers every real call this project makes after the 2026-11-19 budget
 # revision (PREREG deviation 3); committed so the spend is auditable.
@@ -115,16 +116,53 @@ def cmd_status(a: argparse.Namespace) -> None:
         print(f"{name:18s} {spec.group:15s} {state_of(a.root, name)}")
 
 
+def money_gate(
+    order: list[str],
+    pending: list[str],
+    running: list[str],
+    est: dict[str, float],
+    spend: dict[str, Any],
+) -> set[str]:
+    """Runs that may be launched now without putting a higher-priority run at risk.
+
+    left = cap - spent - in-flight reservations - (est - spent so far) of every running run.
+    Walking the priority order, every pending run (launchable now or still waiting for its
+    dependencies) claims its estimate; a run is allowed only if its claim still fits.
+    So a cheap low-priority run never takes money that a higher-priority run will need.
+    """
+    by = spend.get("by", {})
+    left = float(spend.get("cap_rmb", 0.0)) - float(spend.get("spent_rmb", 0.0))
+    left -= float(spend.get("in_flight_rmb", 0.0))
+    for n in running:
+        left -= max(0.0, est[n] - float(by.get(f"run:{n}", {}).get("rmb", 0.0)))
+    allowed: set[str] = set()
+    for n in order:
+        if n not in pending:
+            continue
+        if est[n] <= left:
+            allowed.add(n)
+        left -= est[n]
+    return allowed
+
+
 def cmd_schedule(a: argparse.Namespace) -> None:
-    """Run planned runs in dependency order, P at a time, each in its own process."""
-    from .experiments.plan import build_plan, dependencies
+    """Run planned runs in dependency and priority order, P at a time, each in its own process.
+    With a real gateway, a run is launched only while the money gate allows it (see money_gate)."""
+    from .experiments.plan import EST_RMB, UNFUNDED_GROUPS, build_plan, dependencies
 
     plan = build_plan()
-    todo = [n for n, s in plan.items() if (not a.group or s.group in a.group) and (not a.only or n in a.only)]
+    todo = [
+        n
+        for n, s in plan.items()
+        if (s.group in a.group if a.group else s.group not in UNFUNDED_GROUPS) and (not a.only or n in a.only)
+    ]
+    est = {n: EST_RMB[plan[n].group] for n in plan}
+    secret = (a.root / "gateway-state" / "admin_secret").read_text().strip()
     running: dict[str, subprocess.Popen[bytes]] = {}
     failed: set[str] = set()
     logs = a.root / "logs"
     logs.mkdir(parents=True, exist_ok=True)
+    held: set[str] = set()
     while True:
         for n, p in list(running.items()):
             if p.poll() is not None:
@@ -140,6 +178,17 @@ def cmd_schedule(a: argparse.Namespace) -> None:
                     todo = []
         pending = [n for n in todo if state_of(a.root, n) != "done" and n not in running and n not in failed]
         ready = [n for n in pending if all(state_of(a.root, d) == "done" for d in dependencies(plan[n]))]
+        if ready and len(running) < a.parallel and not a.no_money_gate:
+            from .gateway.client import ledger_snapshot
+
+            spend = ledger_snapshot(f"http://127.0.0.1:{a.port}", secret).get("spend")
+            if spend is not None:
+                ok = money_gate(todo, pending, list(running), est, spend)
+                for n in ready:
+                    if n not in ok and n not in held:
+                        print(f"{time.strftime('%H:%M:%S')} holding {n}: money gate", flush=True)
+                        held.add(n)
+                ready = [n for n in ready if n in ok]
         while ready and len(running) < a.parallel:
             n = ready.pop(0)
             with open(logs / f"{n}.log", "a") as log:
@@ -150,9 +199,11 @@ def cmd_schedule(a: argparse.Namespace) -> None:
                     cwd=REPO,
                 )
             print(f"{time.strftime('%H:%M:%S')} started {n}", flush=True)
+            # the next launch decision must see this run as in flight
+            break
         if not running and not ready:
             blocked = [n for n in pending if n not in failed]
-            print(f"done. failed={sorted(failed)} blocked={blocked}", flush=True)
+            print(f"done. failed={sorted(failed)} not run={blocked}", flush=True)
             return
         time.sleep(10)
 
@@ -234,6 +285,8 @@ def main() -> None:
     s.add_argument("--group", nargs="*", default=[])
     s.add_argument("--only", nargs="*", default=[])
     s.add_argument("--parallel", type=int, default=4)
+    s.add_argument("--port", type=int, default=18080)
+    s.add_argument("--no-money-gate", action="store_true", help="offline/fake runs only")
     s.set_defaults(fn=cmd_schedule)
     sub.add_parser("status").set_defaults(fn=cmd_status)
     sub.add_parser("ledger").set_defaults(fn=cmd_ledger)
