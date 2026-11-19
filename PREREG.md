@@ -175,3 +175,17 @@ Budget caps (enforced in the gateway): ≤ 80,000 policy calls, ≤ 3,000 search
    of its harness, and with the lock every arm now reads the same one. sql-cold, sql-problems-1 and the
    source runs did not race (no concurrent process shared their keys) and are kept. All support-ops
    condition runs started after the fix.
+5. **2026-11-19 ~04:10, after the 3-pair result had been seen, before any data of new pairs existed:
+   extension of the paired study.** The user asked to keep running with the remaining money
+   (RMB 4.116 left under the unchanged RMB 9.50 cap). Adding pairs after seeing a result is optional
+   stopping, so the extension is a **separate, secondary analysis**: the 3-pair analysis of deviation 3
+   (mean Δ −1.67, p = 0.74) stays the primary result and is never replaced. Number of extra pairs, fixed
+   now: per-pair cost estimated from the spend ledger as the most expensive observed pair (source RMB
+   0.144 + both arms of its first execution RMB 0.708 = RMB 0.852; the first execution paid the arms'
+   shared calibration twice, so this over-estimates a new pair); (4.116 − 0.50 headroom) / 0.852 → **4
+   pairs, sources 4-7**, launched in order behind the scheduler's money gate with RMB 0.50 reserved and
+   each source claiming its two arms. The extended analysis is pairs 1-7 (or all pairs that complete;
+   a pair is used only if both arms finish). Protocol, configuration, splits, seeds (source i, arms
+   100 + i) and code are those of pairs 1-3; the only code changes are the gate's headroom/bundling and
+   the report's second table. The retrieval ablation keeps its pool of sources 1-3. No extra source
+   seed beyond the pairs (estimated money after the pairs, RMB 0.71, is under headroom + RMB 1).
