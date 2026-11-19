@@ -1,0 +1,17 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "Task-specialization in the prompt: rule 4 embeds a verbatim evolve-set question ('population less than any country in Asia' -> < (SELECT MAX(Population)...)) and even leaks the author's deliberation ('No: follow standard Spider convention...'), i.e. a hard-coded answer for one benchmark item rather than a general rule; rule 1 similarly encodes the world-language example ('which countries have Engl"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Generic, bounded mechanism: execute the draft, detect error/empty/truncation with schema-independent heuristics, spend exactly one repair call with execution evidence, and fall back to the draft if the repair is unusable — no unbounded loops, safety fallbacks preserved. Prompt rules (ANY->MAX/MIN quantifier semantics, inner-join counting, HAVING COUNT(DISTINCT)=2, literal probing) are stated as ge"
+ },
+ "s3": {
+  "sample": "s3",
+  "accept": true,
+  "reason": "Draft -> execute -> probe stored values -> single targeted repair is a generic verification loop with explicit termination (one extra policy call, bounded probes: <=4 notes, <=8 rows, tables taken from the draft SQL itself). Repair triggers (incomplete SQL, execution error, empty result on question literals) and acceptance logic are task-independent, with fallback to the draft. Prompt additions ar"
+ }
+}

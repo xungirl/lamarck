@@ -1,0 +1,175 @@
+{
+ "note": "Pre-revision runs (PREREG as written: qwen4-max search, full splits, N=4, k=3). Only sql-src-4 finished before the outage (results/validity.json). The call/token ledger is the gateway's final count for runs/main, including pilot/calibration evaluations, discarded attempts and the 403s. rmb_estimate prices qwen3.8-flash tokens at RMB 0.80 / 2.70 per 1M (no cached-token discount); no price is known for qwen4-max or deepseek-v4.1-flash, so the pre-revision spend is not known exactly.",
+ "runs": {
+  "sql-src-4": {
+   "run_id": "sql-src-4",
+   "domain": "text2sql",
+   "memory": "full",
+   "policy_model": "qwen3.8-flash",
+   "evolve_split": "spider_evolve",
+   "heldout_split": "spider_heldout",
+   "rounds": 4,
+   "k": 3,
+   "delta": 0.062723,
+   "evolve_start": 0.7833333333333333,
+   "evolve_end": 0.8833333333333333,
+   "heldout_start": 0.8166666666666667,
+   "heldout_end": 0.8666666666666667,
+   "heldout_curve": [
+    {
+     "after_round": -1,
+     "tree": "685dca477777",
+     "commit": "25b4860bb109fc52e21f374138a33152d9a4cbea",
+     "score": 0.8166666666666667,
+     "cost": 477.10833333333335,
+     "n": 120
+    },
+    {
+     "after_round": 3,
+     "tree": "9cf0c5fc7688",
+     "commit": "fe9adc78723089c964163b179304fe4e76338c58",
+     "score": 0.8666666666666667,
+     "cost": 936.4333333333333,
+     "n": 120
+    }
+   ],
+   "accepted": 1,
+   "proposed": 12,
+   "evaluated": 6,
+   "screened_out": 6,
+   "final_commit": "fe9adc78723089c964163b179304fe4e76338c58",
+   "sim_entries": 1,
+   "sim_attempts": 1,
+   "state": {
+    "next_round": 4,
+    "best_score": 0.8833333333333333,
+    "delta": 0.062723,
+    "status": "done",
+    "updated": "2026-11-19 00:32:33"
+   },
+   "own_attempts": 1,
+   "own_predicted": 8,
+   "own_fixed": 6,
+   "cited_existing": 8,
+   "cost": {
+    "policy_calls": 828,
+    "policy_tokens": 895328,
+    "search_calls": 25,
+    "search_tokens": 208641
+   }
+  }
+ },
+ "eval_variance": [
+  {
+   "domain": "supportops",
+   "split": "ood_evolve",
+   "model": "qwen3.8-flash",
+   "tree": "83c2c16446f4",
+   "scores": [
+    93.33333333333333,
+    73.33333333333333,
+    80.0
+   ],
+   "mean": 82.22222222222221,
+   "sd": 10.18350154434631
+  },
+  {
+   "domain": "supportops",
+   "split": "so_evolve",
+   "model": "qwen3.8-flash",
+   "tree": "83c2c16446f4",
+   "scores": [
+    85.0,
+    90.0,
+    85.0
+   ],
+   "mean": 86.66666666666667,
+   "sd": 2.8867513459481287
+  },
+  {
+   "domain": "text2sql",
+   "split": "bird_evolve",
+   "model": "deepseek-v4.1-flash",
+   "tree": "685dca477777",
+   "scores": [
+    41.66666666666667,
+    43.333333333333336,
+    41.66666666666667
+   ],
+   "mean": 42.22222222222223,
+   "sd": 0.9622504486493749
+  },
+  {
+   "domain": "text2sql",
+   "split": "bird_evolve",
+   "model": "qwen3.8-flash",
+   "tree": "685dca477777",
+   "scores": [
+    46.666666666666664,
+    48.333333333333336,
+    50.0
+   ],
+   "mean": 48.333333333333336,
+   "sd": 1.6666666666666679
+  },
+  {
+   "domain": "text2sql",
+   "split": "spider_evolve",
+   "model": "qwen3.8-flash",
+   "tree": "685dca477777",
+   "scores": [
+    78.33333333333333,
+    85.0,
+    78.33333333333333
+   ],
+   "mean": 80.55555555555556,
+   "sd": 3.8490017945975077
+  }
+ ],
+ "ledger": {
+  "pools": {
+   "policy": {
+    "calls": 9836,
+    "completion_tokens": 697307,
+    "failed": 2088,
+    "prompt_tokens": 9799607
+   },
+   "search": {
+    "calls": 238,
+    "completion_tokens": 552122,
+    "failed": 50,
+    "prompt_tokens": 1149051
+   }
+  },
+  "models": {
+   "policy|deepseek-v4.1-flash": {
+    "calls": 303,
+    "completion_tokens": 144468,
+    "failed": 0,
+    "prompt_tokens": 293419,
+    "rmb_estimate": null
+   },
+   "policy|qwen3.8-flash": {
+    "calls": 9533,
+    "completion_tokens": 552839,
+    "failed": 2088,
+    "prompt_tokens": 9506188,
+    "rmb_estimate": 9.0976157
+   },
+   "proposer|qwen4-max": {
+    "calls": 192,
+    "completion_tokens": 532568,
+    "failed": 48,
+    "prompt_tokens": 710266,
+    "rmb_estimate": null
+   },
+   "selector|qwen4-max": {
+    "calls": 46,
+    "completion_tokens": 19554,
+    "failed": 2,
+    "prompt_tokens": 438785,
+    "rmb_estimate": null
+   }
+  }
+ }
+}

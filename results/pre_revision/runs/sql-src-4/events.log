@@ -1,0 +1,13 @@
+00:19:21 [sql-src-4] noise band delta = 0.0627 from scores [0.783333, 0.85, 0.783333]
+00:19:22 [sql-src-4] held-out after round -1: 81.67 (98/120)
+00:19:23 [sql-src-4] round 0: incumbent 685dca477777 evolve=78.3 b_t=3 best=78.3
+00:24:22 [sql-src-4] round 0: incumbent 685dca477777 evolve=78.3 b_t=3 best=78.3
+00:25:59 [sql-src-4] round 0: 3 proposed, 2 evaluated, 2 admissible -> s2 (Both candidates tie at 88.33 with one regression each, but s2 achieves it with ~150 fewer tokens per task and a smaller,)
+00:25:59 [sql-src-4] round 0: SIM <- P1 (6/8 predicted fixes realized)
+00:26:00 [sql-src-4] round 1: incumbent 9cf0c5fc7688 evolve=88.3 b_t=3 best=88.3
+00:27:51 [sql-src-4] round 1: 3 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+00:27:51 [sql-src-4] round 2: incumbent 9cf0c5fc7688 evolve=88.3 b_t=2 best=88.3
+00:29:54 [sql-src-4] round 2: 3 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+00:29:55 [sql-src-4] round 3: incumbent 9cf0c5fc7688 evolve=88.3 b_t=1 best=88.3
+00:31:51 [sql-src-4] round 3: 3 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+00:32:33 [sql-src-4] held-out after round 3: 86.67 (104/120)

@@ -5,10 +5,11 @@ __pycache__/
 .ruff_cache/
 .pytest_cache/
 .hypothesis/
-runs/
+/runs/
 *.egg-info/
 .env
 *.lock.tmp
 docs/site/
 data/raw
 results/budget/*.lock
+results/budget/*.tmp

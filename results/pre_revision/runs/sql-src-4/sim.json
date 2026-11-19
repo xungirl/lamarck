@@ -1,0 +1,47 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Harness returns first draft unverified: no execution feedback loop to catch empty results, truncation, or wrong quantifier/join semantics",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "solve.py now executes the draft query and, when it errors, returns 0 rows, or looks truncated, spends the second policy call on a repair turn that includes the execution result and generic probe guidance; system_prompt.md adds rules for literal probing on empty results, 'less...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0576",
+      "sp0610",
+      "sp0774",
+      "sp0786",
+      "sp0894",
+      "sp1008"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0576",
+      "sp0610",
+      "sp0774",
+      "sp0894",
+      "sp1008"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0786"
+     ],
+     "passed": 53,
+     "total": 60,
+     "domain": "spider_evolve/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

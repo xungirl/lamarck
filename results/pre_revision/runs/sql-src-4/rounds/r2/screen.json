@@ -1,0 +1,12 @@
+{
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Task-specialization / evolve-set overfitting. (a) WHICH_ENTITIES is a hard-coded enumeration of ~45 entity nouns (countries, students, professors, flights, planets, ...) that reads like the evolve-set's table inventory; it branches on task-identifying vocabulary and would silently miss unfamiliar entities. (b) The PROJECTION WIDTH flag plus the prompt rewrite ('which <entities>' -> SELECT T1.*, or"
+ },
+ "s3": {
+  "sample": "s3",
+  "accept": true,
+  "reason": "Extends P1's execution-feedback loop to clean-but-semantically-wrong drafts using only schema-agnostic structural signals: row-level !=/<> negation over a join without NOT IN/NOT EXISTS, aggregate over a multi-table join with no GROUP BY/DISTINCT, and repeated identical projected tuples observed in the executed result. No task ids, db/table names, expected outputs or dataset-specific literals; the"
+ }
+}

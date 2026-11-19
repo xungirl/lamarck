@@ -1,0 +1,17 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Both edits are generic and task-agnostic: the negation rule (entity-level NOT IN vs row-level !=), join fan-out DISTINCT, and projection-width guidance apply to any text-to-SQL task, with no db/table/task ids or magic constants. The zero-row repair change replaces a blanket 'answer is almost certainly non-empty' assumption with verify-then-confirm logic while keeping the probe guidance and the sin"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING / description-content mismatch: the declared change claims a 'deterministic tie-break for ORDER BY ... LIMIT superlatives' prompt rule, but the diff contains no such rule (the existing line still says 'break ties deterministically only if asked'). Instead the diff silently adds an undeclared counting-semantics rule ('Count the relationship rows (COUNT(*) after grouping by the e"
+ },
+ "s3": {
+  "sample": "s3",
+  "accept": true,
+  "reason": "Changes are schema/task agnostic: semi-join/negation/projection prompt rules, sample-row feedback plus a faithfulness checklist in the repair turn, and a local literal-existence check that gates the empty-result repair. The literal checker is bounded (4 literals x 4 tables x 25 columns, LIMIT 1 probes) and uses env.execute on the task database, not the scorer. Relaxing usable() to accept empty res"
+ }
+}

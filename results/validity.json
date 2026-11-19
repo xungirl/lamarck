@@ -1,0 +1,41 @@
+{
+ "what": "The provider account ran out of credit mid-run on 2026-11-19 (HTTP 403 AccessDenied.Unpurchased). Before commit 9cbc0c2 the evaluator scored a 403 as a failed task, so every evaluation that saw one measured the infrastructure, not the harness.",
+ "first_403_utc": "2026-11-19 08:34:14",
+ "provider_message": "{\"error\":{\"message\":\"Access to model denied. Please make sure you are eligible for using the model.\",\"type\":\"AccessDenied.Unpurchased\",\"param\":null,\"code\":\"AccessDenied.Unpurchased\"},\"request_id\":\"e80",
+ "audit_status_counts": {
+  "200": 7936,
+  "403": 2138,
+  "429": 35
+ },
+ "calls_with_403_by_run": {
+  "sql-full-1": 60,
+  "sql-full-2": 311,
+  "sql-full-3": 60,
+  "sql-full-4": 185,
+  "sql-full-5": 159,
+  "sql-src-1": 241,
+  "sql-src-2": 38,
+  "sql-src-3": 241,
+  "sql-src-5": 280,
+  "sql-src-6": 179,
+  "sql-transfer-1": 60,
+  "sql-transfer-2": 192,
+  "sql-transfer-4": 132
+ },
+ "calls_with_403_by_role": {
+  "policy": 2088,
+  "proposer": 48,
+  "selector": 2
+ },
+ "finished_runs_without_403": {
+  "sql-src-4": {
+   "last_call_utc": "2026-11-19 08:32:27"
+  }
+ },
+ "set_aside": {
+  "runs/main/aborted/outage-20261119": "target runs sql-full-1..5, sql-transfer-1..4 and the tainted held-out files of sql-src-1,2,3,5,6",
+  "runs/main/runs/sql-src-{1,3,5,6}": "round 3 candidate evaluations saw 403s (0 admissible); kept on disk, not reported",
+  "runs/main/runs/sql-src-2": "rounds 0-3 finished before the outage but its final held-out evaluation saw 403s (54.17 on 120); not reported"
+ },
+ "consequence": "Every run is re-done under PREREG deviation 3 in runs/rev3; only sql-src-4 is reported from before the revision, separately (results/pre_revision/)."
+}

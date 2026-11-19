@@ -1,0 +1,17 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The fan-out probe itself is generic and bounded, but the bundled system_prompt.md edit adds 'When the question names no specific attributes at all ... SELECT * over the join is also acceptable', which directly contradicts the existing projection rule ('select exactly the columns asked for, nothing extra') and encourages extra columns — a known failure mode. This prompt change is an independent edi"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Both probes are schema-free and task-agnostic: duplicate detection via a DISTINCT-wrapped copy (with an explicit n>=20 cap guard) and equality-literal existence checks resolved from the draft's own FROM/JOIN scope, capped at 4 literals and LIMIT 60 values. All work is bounded, exceptions are swallowed safely, and the repair message carries concrete evidence plus generic semantics guidance (entity-"
+ },
+ "s3": {
+  "sample": "s3",
+  "accept": false,
+  "reason": "LEAKAGE / TASK-SPECIALIZATION: the declared description justifies the change by naming evolve-set task ids it is meant to fix ('catches sp0536 (duplicate students from multiple enrolments), sp0766 (SUM inflated by multi-language join), nudges sp0765 toward entity-level negation'), i.e. the edit is tuned to specific measured tasks rather than a general failure class. The COUNT(*) vs COUNT(DISTINCT "
+ }
+}

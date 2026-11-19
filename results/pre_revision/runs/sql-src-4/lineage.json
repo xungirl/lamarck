@@ -1,0 +1,80 @@
+[
+ {
+  "commit": "0736ec0729679ed7cf1ed23fbda46a490841bc21",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r3 s1: Cleanly-executing drafts with join fan-out (duplicate entity",
+  "refs": "cand/r3s1"
+ },
+ {
+  "commit": "851579b1b5b1c44e3245e7727f20357f1a12f78b",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r3 s2: Repair loop only fires on errors/empty results, so cleanly-e",
+  "refs": "cand/r3s2"
+ },
+ {
+  "commit": "f0ca1e38c4dc94ca0c7315abb9b1f43fde9e2dbc",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r3 s3: Cleanly-executing drafts with semantic errors (join fan-out,",
+  "refs": "cand/r3s3"
+ },
+ {
+  "commit": "63a473b4ccff38863e7405e9c6513257dbb2e20c",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r2 s2: Repair loop only triggers on errors/empty results, so cleanl",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "031cd54d8450416e3dbb54fdcf8afe272af8e817",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r2 s1: Repair trigger only covers errors/empty results, so semantic",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "042bcec8624e962cfc1a706dcdac0e8ed7facbef",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r2 s3: Semantically wrong drafts execute cleanly with plausible non",
+  "refs": "cand/r2s3"
+ },
+ {
+  "commit": "d50c9d7dc976e8a65b33be100f945bb78d917da5",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r1 s3: Prompt/control flow mis-specifies join cardinality, negation",
+  "refs": "cand/r1s3"
+ },
+ {
+  "commit": "0a7ba698da4d47d7861859bfb0af895549321836",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r1 s1: Prompt lacks negation/existence and projection-width convent",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "5bbc7c015c496ab930b905a830bfcd78a263ec1b",
+  "parents": "fe9adc78723089c964163b179304fe4e76338c58",
+  "subject": "r1 s2: Semantically wrong drafts execute cleanly with plausible non",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "fe9adc78723089c964163b179304fe4e76338c58",
+  "parents": "25b4860bb109fc52e21f374138a33152d9a4cbea",
+  "subject": "r0 s2: Harness returns first draft unverified: no execution feedbac",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "6beeab37e8ec319e5b891c352f615b647b201fc9",
+  "parents": "25b4860bb109fc52e21f374138a33152d9a4cbea",
+  "subject": "r0 s1: Single-shot harness ships unvalidated SQL: literal/value-col",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "6ec6f98ad50c655e2b9f5cc816bff141ec5ee2ec",
+  "parents": "25b4860bb109fc52e21f374138a33152d9a4cbea",
+  "subject": "r0 s3: Single-shot generation with no execution feedback: unverifie",
+  "refs": "cand/r0s3"
+ },
+ {
+  "commit": "25b4860bb109fc52e21f374138a33152d9a4cbea",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]
