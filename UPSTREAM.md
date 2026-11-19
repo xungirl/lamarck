@@ -21,12 +21,13 @@ of building lamarck that might be useful to them, with pointers to the code here
    `tests/test_stats.py`). One small note: App. C.4 says the signed-rank check "enumerates the 210 sign
    assignments"; with ten non-zero differences there are 2^10 = 1,024 assignments, and enumerating all
    1,024 gives the reported p = 0.006.
-4. **A small-model, small-budget data point.** Our CRSI results with a cheap policy (`qwen3.8-flash`) and
-   N = 4, k = 3 are in RESULTS.md/REPORT.md, including whatever did not replicate. They may be useful as an
-   independent, budget-limited replication attempt with a different model family.
-5. **Retrieval over SIM.** The paper's proposer reads the complete SIM. We tried top-k retrieval (BM25 +
-   embeddings, reciprocal-rank fusion, token budget) over a memory pooled from ten source runs; results in
-   REPORT.md §Retrieval.
+4. **A small-model, small-budget data point.** Our CRSI results with one cheap model (`qwen3.8-flash`) in
+   every role, N = 3, k = 2 and 15-40-task splits (PREREG.md deviation 3: the whole revised study had to fit
+   in RMB 9.50) are in results/RESULTS.md and REPORT.md, including what did not replicate. Read them as a
+   pilot-scale, budget-limited attempt with a different model family, not as a replication.
+5. **Retrieval over SIM.** The paper's proposer reads the complete SIM. We implemented top-k retrieval
+   (BM25 + embeddings, reciprocal-rank fusion, token budget) over a memory pooled from several source runs;
+   see REPORT.md for whether the budget allowed running it.
 
 ## To the RRSI authors
 
