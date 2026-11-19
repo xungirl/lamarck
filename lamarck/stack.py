@@ -77,3 +77,24 @@ def local_stack(root: Path, keyfile: Path | None = None, caps: dict[str, int] | 
     )
     _server, url = start_in_thread(gw)
     return Stack(url, gw.admin_secret, LocalBackend(url), root)
+
+
+def docker_stack(
+    root: Path,
+    keyfile: Path | None = None,
+    fake: bool = True,
+    warm: int = 2,
+    memory_mb: int = 1024,
+    use_runsc: bool = True,
+) -> Stack:
+    """Gateway container + Docker sandbox backend (gVisor when available)."""
+    from .sandbox import docker_backend, image
+
+    tag = image.build(root / "build" / "ctx")
+    state = root / "gateway-state"
+    url = docker_backend.start_gateway(tag, state, keyfile, fake=fake)
+    secret = (state / "admin_secret").read_text().strip()
+    backend = docker_backend.DockerBackend(
+        tag, root / "slots", warm=warm, memory_mb=memory_mb, use_runsc=use_runsc
+    )
+    return Stack(url, secret, backend, root)

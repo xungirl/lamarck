@@ -12,20 +12,13 @@ whole RSI/CRSI pipeline testable end to end, offline and reproducibly.
 
 from __future__ import annotations
 
-from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
 from ...types import TaskOutcome
 from ..base import Domain, Task
+from .ops import OPS
 
-OPS: dict[str, Callable[[str], str]] = {
-    "upper": lambda s: s.upper(),
-    "reverse": lambda s: s[::-1],
-    "double": lambda s: s + s,
-    "title": lambda s: s.title(),
-    "sort": lambda s: "".join(sorted(s)),
-}
 TRUE_OP = {"color": "upper", "animal": "reverse", "number": "double", "city": "title", "fruit": "sort"}
 
 ITEMS = {

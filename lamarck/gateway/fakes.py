@@ -18,7 +18,7 @@ import json
 import re
 from typing import Any
 
-from ..domains.toy.domain import OPS
+from ..domains.toy.ops import OPS
 
 
 def _text(body: dict[str, Any], role: str) -> str:
