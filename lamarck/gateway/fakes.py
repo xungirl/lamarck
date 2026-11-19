@@ -1,6 +1,9 @@
 """Deterministic fake models for offline tests and CI.
 
   fake-policy   the toy domain's policy: obeys `RULE <kind>: <op>` lines in the system prompt
+  fake-policy-alt  a simulated second model family for the cross-model (CRSI) plumbing: it upper-
+                case items when no rule applies and misreads the op `sort` as `reverse`, so a
+                harness evolved for fake-policy transfers only partly
   fake-search   proposer + selector for the toy domain: diagnoses a failing kind, proposes a rule,
                 avoids operations already recorded as missed in SIM or tried in the run history,
                 and selects the admissible candidate with the highest evolve score
@@ -40,6 +43,19 @@ def fake_policy(body: dict[str, Any]) -> str:
     if rule and rule.group(1) in OPS:
         return str(OPS[rule.group(1)](item))
     return item
+
+
+def fake_policy_alt(body: dict[str, Any]) -> str:
+    system, user = _text(body, "system"), _text(body, "user")
+    m = re.search(r"kind=(\w+) item=(\w+)", user)
+    if not m:
+        return ""
+    kind, item = m.groups()
+    rule = re.search(rf"^RULE {kind}: (\w+)\s*$", system, re.M)
+    if rule and rule.group(1) in OPS:
+        op = "reverse" if rule.group(1) == "sort" else rule.group(1)
+        return str(OPS[op](item))
+    return item.upper()
 
 
 # ----------------------------------------------------------------- toy search
@@ -157,6 +173,7 @@ def fake_support(body: dict[str, Any]) -> str | dict[str, Any]:
 
 RESPONDERS: dict[str, Any] = {
     "fake-policy": fake_policy,
+    "fake-policy-alt": fake_policy_alt,
     "fake-search": fake_search,
     "fake-sql": fake_sql,
     "fake-support": fake_support,

@@ -114,3 +114,36 @@ def test_budget_stop_is_clean(tmp_path: Path) -> None:
     with pytest.raises(BudgetStop):
         run.run()
     assert run.state()["status"] == "budget_stop"
+
+
+def test_cross_model_four_conditions_with_a_simulated_second_family(stack: Stack) -> None:
+    """RQ2c's plumbing (unfunded under PREREG deviation 3): a harness evolved with one policy model
+    is continued with another under the four memory conditions. Fake models only."""
+    src = stack.make_run(src_cfg())
+    src.run()
+
+    def xm(memory: str, run_id: str) -> RunConfig:
+        cfg = tgt_cfg(memory, run_id)
+        cfg.policy_model = "fake-policy-alt"
+        return cfg
+
+    runs = {
+        "cold": stack.make_run(xm("none", "xm-cold")),
+        "transfer": stack.make_run(xm("none", "xm-transfer"), source=src),
+        "problems": stack.make_run(xm("problems", "xm-problems"), source=src),
+        "full": stack.make_run(xm("full", "xm-full"), source=src),
+    }
+    out = {k: r.run() for k, r in runs.items()}
+    for k, r in runs.items():
+        assert r.state()["status"] == "done", k
+        assert out[k]["heldout_end"] is not None
+    # transferred arms start from the source-evolved harness, cold start from the seed
+    assert runs["transfer"].repo.tree("evolve") != "" and json.loads(
+        (runs["transfer"].dir / "heldout.jsonl").read_text().splitlines()[0]
+    )["tree"] == src.repo.tree("evolve")
+    sim = runs["full"].sim()
+    sim.check_invariants()
+    tags = {a.domain for p in sim.problems for a in p.attempts}
+    assert "evolve/fake-policy" in tags  # carried from the source family
+    n_alt = sum(a.domain == "t_evolve/fake-policy-alt" for p in sim.problems for a in p.attempts)
+    assert n_alt == out["full"]["accepted"]
