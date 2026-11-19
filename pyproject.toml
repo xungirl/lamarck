@@ -37,7 +37,7 @@ packages = ["lamarck"]
 [tool.ruff]
 line-length = 110
 target-version = "py313"
-extend-exclude = ["runs", "lamarck/domains/supportops/env"]
+extend-exclude = ["runs", "lamarck/domains/supportops/env", "lamarck/domains/*/seed_harness"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
@@ -47,7 +47,7 @@ ignore = ["RUF001", "RUF002", "RUF003", "E501"]
 python_version = "3.13"
 strict = true
 packages = ["lamarck"]
-exclude = ["runs/"]
+exclude = ["runs/", "seed_harness/"]
 
 [[tool.mypy.overrides]]
 module = ["scipy.*", "mcp.*", "mcp_types.*"]

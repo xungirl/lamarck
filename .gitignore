@@ -10,3 +10,4 @@ runs/
 .env
 *.lock.tmp
 docs/site/
+data/raw
