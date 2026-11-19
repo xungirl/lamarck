@@ -122,3 +122,41 @@ Budget caps (enforced in the gateway): ≤ 80,000 policy calls, ≤ 3,000 search
    characters). The 8 partial runs (runs/main/aborted/, 85 search calls and ~1,900 policy calls in the
    ledger) were discarded and all source runs restarted from scratch. This decision used only
    acceptance statistics of source rounds, no target or held-out result.
+3. **2026-11-19, after a provider outage, before any run of the revised plan: budget revision.**
+   At 08:34 UTC the provider account ran out of credit (`AccessDenied.Unpurchased`, HTTP 403) while
+   sql-src-1..6 were finishing and the first paired target runs had started. 403s were then scored
+   as failed tasks; every evaluation that saw one is set aside (`runs/main/aborted/outage-20261119`,
+   `results/validity.json`) and the evaluator now discards provider failures instead of scoring them.
+   The remaining money is about RMB 12, so the plan is scaled down. Changes, applied to every run:
+   - **Money cap.** Every call is priced in RMB from the returned usage by the gateway's spend ledger
+     (`results/budget/spend_ledger.json`), hard stop at RMB 9.50 cumulative (worst-case reservations
+     before each call). The call caps above stay as a second line.
+   - **One model for all roles:** `qwen3.8-flash` (thinking off) is policy, proposer and selector.
+     `qwen4-max` has no known price and would fail closed in the spend ledger.
+   - **Horizon:** N = 3 rounds, k = 2 candidates per round (edit budget annealed 3 → 1 over 3 rounds).
+     All other method settings (deviation 2 included) unchanged.
+   - **Sub-splits** (`data/splits/subsplits.json`, sha256
+     `c90fdbb1ebc563a999b1fa5834c75efd95e6d8ad14574952c4c9d8ebc9b1ae75`, seed 20261119, uniform samples
+     of the frozen splits): `spider_evolve_s30`, `spider_heldout_s40`, `bird_evolve_s30`,
+     `bird_heldout_s40`, `so_evolve_s20`, `so_heldout_s20`; the support-ops target splits
+     `ood_evolve` (15) and `ood_heldout` (15) are used whole. A sub-split's evaluation is taken from a
+     cached evaluation of its parent split when one exists (same harness, model and rollout).
+   - **Experiments, in priority order** (the scheduler launches a run only while the money left covers
+     the conservative cost estimate of it and of the runs in flight; anything not launched is
+     reported as not run):
+     1. text-to-SQL source RSI: 3 runs (seeds 1-3) on `spider_evolve_s30`, held-out `spider_heldout_s40`;
+     2. paired study (RQ1) with **n = 3 pairs** (was 10, minimum 5): Full SIM vs Harness Transfer on
+        `bird_evolve_s30`, endpoint `bird_heldout_s40` EX after round 3; same statistics, which with
+        n = 3 are descriptive only (the exact signed-rank test cannot reach p < 0.05 with 3 pairs);
+     3. text-to-SQL Cold Start and Problem-Only (four conditions with the pair-1 arms);
+     4. support-ops: 1 source run on `so_evolve_s20` (held-out `so_heldout_s20`), then the four
+        conditions on `ood_evolve` / `ood_heldout` in the order Full SIM, Harness Transfer, Cold Start,
+        Problem-Only;
+     5. retrieval ablation with one seed per arm (pooled SIM of the 3 source runs).
+   - **Cross-model (RQ2c) is not run** (no budget for a second model family). The four `xm-*` runs stay
+     in the plan and are exercised end to end with fake models in the offline tests; the
+     pre-revision `deepseek-v4.1-flash` repeat evaluations (in the ledger) are reported as they are.
+   - **Pre-revision runs:** `sql-src-4` (qwen4-max search, full splits, finished before the outage) is
+     reported separately as a pre-revision run; its numbers are not pooled with the revised runs.
+   The revised runs live in a fresh experiment root (`runs/rev3`); only the cached evaluations of
+   unchanged harnesses (none tainted) are copied over from `runs/main`.
