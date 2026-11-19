@@ -27,7 +27,7 @@ class Text2SQLDomain(Domain):
     seed_harness = Path(__file__).parent / "seed_harness"
     runtime = "lamarck.domains.text2sql.runtime"
     editable = ("*.md", "*.json", "*.py")
-    max_calls_per_task = 4
+    max_calls_per_task = 2  # PREREG deviation 2 (was 4)
     brief = (
         "Text-to-SQL on SQLite (Spider / BIRD style). Each task gives a database id, a natural-language question "
         "and sometimes a hint (BIRD 'evidence': domain knowledge or formulas). The harness must return one SQLite "
@@ -38,7 +38,7 @@ class Text2SQLDomain(Domain):
     )
     contract = (
         "solve.py must define solve(task, env) -> {'sql': str}. task = {id, db_id, question, hint}. "
-        "env.chat(messages, max_tokens=None) -> str makes ONE policy call (at most env.max_calls = 4 per task, "
+        "env.chat(messages, max_tokens=None) -> str makes ONE policy call (at most env.max_calls = 2 per task, "
         "further calls raise); env.schema(db_id) -> CREATE statements; env.execute(sql, max_rows=20) -> "
         "{ok, columns, rows, n_rows, error} runs a read-only query on the task's database (use it to check a "
         "draft query); env.descriptions(db_id) -> column descriptions when the dataset ships them, else ''; "

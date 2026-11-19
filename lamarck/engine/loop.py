@@ -467,7 +467,9 @@ class EvolutionRun:
                 "root_cause": c.proposal.root_cause,
                 "what": c.proposal.what,
                 "declared_independent_edits": c.proposal.n_edits,
-                "diff": c.diff[:12000],
+                "diff": c.diff
+                if len(c.diff) <= 40000
+                else c.diff[:40000] + "\n[diff truncated by the loop at 40,000 characters]",
             }
             for c in live
         ]
@@ -514,7 +516,8 @@ class EvolutionRun:
                         "broken_tasks": sorted(set(inc.passed) - set(c.ev.passed)),
                         "predicted": c.proposal.predicted,
                         "files": c.files,
-                        "diff_excerpt": c.diff[:3000],
+                        "diff_excerpt": c.diff[:3000]
+                        + ("\n[excerpt truncated]" if len(c.diff) > 3000 else ""),
                     }
                 )
             messages = selector.select_messages(inc_view, cand_view, self.history.render(), memory_block)

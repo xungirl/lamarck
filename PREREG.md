@@ -109,3 +109,16 @@ Budget caps (enforced in the gateway): ≤ 80,000 policy calls, ≤ 3,000 search
    verbatim `<file>` blocks instead of file contents escaped inside JSON (the JSON parser remains as a
    fallback). That aborted attempt (3 proposer calls, no evaluations of candidates) was deleted and
    `sql-src-1` restarted from scratch. No other setting changed.
+2. **2026-11-19, after the first 1-2 rounds of 8 source runs, before any target run: acceptance rules
+   and call cap.** The seed harness's repeated evaluations at temperature 0 differ by up to 4 of 60
+   tasks (spider_evolve: 78.33 / 85.00 / 78.33), so the calibrated band was δ = 12.5 points. All 21
+   evaluated candidates fell inside that band, where the shaped rule (w_c = 15) rejected every one of
+   them because multi-call harnesses raised tokens by 59-517%: 0 of 21 admissible, so source runs
+   could not produce any edit (and therefore any SIM). Changes, applied to every run and condition:
+   δ = max(1 · sd_null, 1/n) (z = 1 instead of 2); above-band cost rule β1 = 40 (RRSI's published
+   default) instead of 10; within-band shaped rule w_c = 5 instead of 15; text-to-SQL policy calls per
+   task capped at 2 instead of 4 (keeps the policy budget within the 80,000-call cap). The screen now
+   receives the full diff (it had rejected candidates whose diff the loop had truncated at 12,000
+   characters). The 8 partial runs (runs/main/aborted/, 85 search calls and ~1,900 policy calls in the
+   ledger) were discarded and all source runs restarted from scratch. This decision used only
+   acceptance statistics of source rounds, no target or held-out result.

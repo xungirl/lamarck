@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lamarck dashboard</title>
+<meta name="description" content="Experiment dashboard for lamarck: continual self-improvement of LLM agent harnesses with Self-Improvement Memory.">
+<style>
+:root {
+  color-scheme: light;
+  --font: -apple-system, BlinkMacSystemFont, "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --bg: #f5f5f7; --surface: #ffffff; --fill: rgba(120,120,128,.12); --fill-2: rgba(120,120,128,.2);
+  --border: rgba(0,0,0,.08); --border-strong: rgba(0,0,0,.14); --hairline: rgba(0,0,0,.07);
+  --text: #1d1d1f; --text-2: #48484c; --muted: #6e6e73; --accent: #0066cc; --accent-soft: rgba(0,102,204,.1);
+  --up: #1b7f3a; --down: #c9141d; --grid: rgba(0,0,0,.07);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #8b5cf6;
+  --nav-bg: rgba(245,245,247,.72); --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+  --grad: linear-gradient(120deg, #6366f1, #8b5cf6, #d946ef);
+  --radius: 20px; --ease: cubic-bezier(.25,.1,.25,1);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark; --bg: #000; --surface: #1c1c1e; --fill: rgba(120,120,128,.24); --fill-2: rgba(120,120,128,.36);
+  --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.16); --hairline: rgba(255,255,255,.08);
+  --text: #f5f5f7; --text-2: #c7c7cc; --muted: #98989f; --accent: #2997ff; --accent-soft: rgba(41,151,255,.16);
+  --up: #30d158; --down: #ff6961; --grid: rgba(255,255,255,.08);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #a78bfa; --nav-bg: rgba(22,22,23,.72); --shadow: 0 0 0 1px rgba(255,255,255,.02);
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark; --bg: #000; --surface: #1c1c1e; --fill: rgba(120,120,128,.24); --fill-2: rgba(120,120,128,.36);
+  --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.16); --hairline: rgba(255,255,255,.08);
+  --text: #f5f5f7; --text-2: #c7c7cc; --muted: #98989f; --accent: #2997ff; --accent-soft: rgba(41,151,255,.16);
+  --up: #30d158; --down: #ff6961; --grid: rgba(255,255,255,.08);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #a78bfa; --nav-bg: rgba(22,22,23,.72); --shadow: 0 0 0 1px rgba(255,255,255,.02);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+.nav { position: sticky; top: 0; z-index: 20; background: var(--nav-bg); -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--hairline); }
+.nav-in { display: flex; align-items: center; gap: 18px; height: 52px; }
+.brand { font-weight: 700; letter-spacing: -.02em; display: flex; align-items: center; gap: 9px; color: var(--text); }
+.brand i { width: 22px; height: 22px; border-radius: 7px; background: var(--grad); display: inline-block; }
+.nav-links { display: flex; gap: 2px; margin-left: auto; }
+.nav-links a { color: var(--text-2); font-size: .82rem; padding: 6px 10px; border-radius: 999px; }
+.nav-links a:hover { background: var(--fill); text-decoration: none; }
+.theme { font: inherit; font-size: .8rem; border: 0; background: var(--fill); color: var(--text); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
+@media (max-width: 860px) { .nav-links { display: none; } .theme { margin-left: auto; } }
+.hero { padding: 44px 0 6px; }
+.eyebrow { color: var(--accent); font-weight: 600; font-size: .86rem; margin: 0 0 8px; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1.02; letter-spacing: -.035em; margin: 0 0 14px; font-weight: 700; max-width: 20ch; }
+h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { color: var(--text-2); font-size: 1.1rem; max-width: 68ch; margin: 0 0 26px; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); min-width: 0; }
+.kpi .v { font-size: 1.8rem; font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--muted); font-size: .78rem; line-height: 1.35; margin-top: 2px; }
+@media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.sec { padding-top: 56px; scroll-margin-top: 56px; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); letter-spacing: -.03em; margin: 0 0 6px; }
+.note { color: var(--muted); font-size: .9rem; max-width: 76ch; margin: 0 0 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); min-width: 0; }
+.grid2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+@media (max-width: 960px) { .grid3 { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 860px) { .grid2 { grid-template-columns: minmax(0,1fr); } }
+.card h3 { margin: 0 0 10px; font-size: .95rem; }
+.seg { display: inline-flex; padding: 2px; border-radius: 10px; background: var(--fill); gap: 2px; flex-wrap: wrap; }
+.seg button { font: inherit; font-size: .8rem; border: 0; background: transparent; color: var(--text); padding: 5px 12px; border-radius: 8px; cursor: pointer; }
+.seg button[aria-selected="true"] { background: var(--surface); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { fill: var(--muted); font-size: 11px; font-family: var(--font); font-variant-numeric: tabular-nums; }
+.chart .lbl { fill: var(--text-2); font-weight: 600; }
+.gridline { stroke: var(--grid); } .zero { stroke: var(--border-strong); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .8rem; color: var(--text-2); margin-top: 10px; }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+table.tbl { width: 100%; border-collapse: collapse; font-size: .86rem; }
+.tbl th { text-align: left; color: var(--muted); font-weight: 600; font-size: .74rem; padding: 8px 10px; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
+.tbl td { padding: 8px 10px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+.tbl tr:last-child td { border-bottom: 0; }
+.num { text-align: right !important; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.up { color: var(--up); } .down { color: var(--down); } .muted { color: var(--muted); }
+.scroll { overflow-x: auto; }
+.chip { display: inline-block; font-size: .72rem; border-radius: 7px; padding: 1px 7px; margin: 2px 3px 2px 0; background: var(--fill); color: var(--text-2); font-family: var(--mono); }
+.chip.fixed { background: color-mix(in srgb, var(--up) 16%, transparent); color: var(--up); }
+.chip.missed { background: color-mix(in srgb, var(--down) 14%, transparent); color: var(--down); }
+.prob { border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; }
+.prob summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+.prob summary::-webkit-details-marker { display: none; }
+.pid { font-family: var(--mono); font-size: .78rem; color: #fff; background: var(--grad); border-radius: 7px; padding: 1px 7px; flex: none; }
+.att { border-left: 3px solid var(--border-strong); margin: 10px 0 0 4px; padding: 2px 0 2px 12px; font-size: .84rem; }
+.att.target { border-left-color: var(--s4); }
+.att .meta { color: var(--muted); font-size: .76rem; }
+select { font: inherit; font-size: .85rem; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); max-width: 100%; }
+.row { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
+.node-acc { fill: url(#g); } .node-rej { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+.node-gate { fill: var(--surface); stroke: var(--down); stroke-width: 1.5; stroke-dasharray: 2 2; }
+.path-acc { stroke: url(#gl); stroke-width: 3; fill: none; } .edge { stroke: var(--border-strong); stroke-width: 1.2; fill: none; }
+.tip { font-size: .8rem; color: var(--text-2); min-height: 3.2em; margin-top: 8px; }
+/* roadmap timeline (the author's timeline component; layout-derived fill) */
+.roadmap { position: relative; max-width: 760px; margin: 0 auto; padding: .3rem 0; }
+.roadmap .rm-line, .roadmap .rm-fill { position: absolute; left: 11px; top: 0; width: 3px; border-radius: 2px; }
+.roadmap .rm-line { bottom: 0; background: var(--border-strong); }
+.roadmap .rm-fill { height: 0; background: linear-gradient(180deg, #6366f1, #8b5cf6, #d946ef); box-shadow: 0 0 12px rgba(139,92,246,.55); transition: height .25s ease-out; }
+.roadmap .rm-item { position: relative; padding: 0 0 1.4rem 2.8rem; }
+.roadmap .rm-item:last-child { padding-bottom: .3rem; }
+.roadmap .rm-dot { position: absolute; left: 0; top: .15rem; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 800; color: #fff; background: var(--surface); border: 2px solid var(--border-strong); }
+.roadmap .rm-item.done .rm-dot { background: var(--grad); border: none; box-shadow: 0 0 14px rgba(139,92,246,.6); }
+.roadmap .rm-item.done .rm-dot::after { content: "✓"; }
+.roadmap .rm-item.current .rm-dot { animation: rm-pulse 2.2s infinite; }
+@keyframes rm-pulse { 0% { box-shadow: 0 0 0 0 rgba(217,70,239,.55); } 70% { box-shadow: 0 0 0 13px rgba(217,70,239,0); } 100% { box-shadow: 0 0 0 0 rgba(217,70,239,0); } }
+.roadmap .rm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: .8rem 1.1rem; transition: transform .2s, border-color .2s; }
+.roadmap .rm-card:hover { transform: translateX(4px); border-color: #8b5cf6; }
+.roadmap .rm-date { font-size: .74rem; font-weight: 700; color: #8b5cf6; margin-bottom: .2rem; }
+.roadmap .rm-card h3 { margin: 0 0 .2rem; font-size: .98rem; }
+.roadmap .rm-card p { margin: 0; font-size: .85rem; color: var(--text-2); }
+.roadmap .rm-item.todo .rm-card { opacity: .6; border-style: dashed; }
+.roadmap .rm-item.todo .rm-date { color: var(--muted); }
+.roadmap .rm-tag { font-size: .66rem; font-weight: 700; color: #d946ef; background: rgba(217,70,239,.12); border: 1px solid rgba(217,70,239,.45); border-radius: 999px; padding: .05rem .5rem; margin-left: .45rem; }
+@media (prefers-reduced-motion: reduce) { .roadmap .rm-item.current .rm-dot { animation: none; } .roadmap .rm-fill { transition: none; } }
+footer { color: var(--muted); font-size: .8rem; padding: 48px 0 40px; }
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap nav-in">
+  <a class="brand" href="#top"><i></i>lamarck</a>
+  <div class="nav-links">
+    <a href="#paired">Paired study</a><a href="#curves">Curves</a><a href="#lineage">Lineage</a>
+    <a href="#sim">SIM explorer</a><a href="#cost">Cost</a><a href="#roadmap">Roadmap</a>
+  </div>
+  <button class="theme" id="theme" type="button">Theme</button>
+</div></nav>
+<main class="wrap" id="top">
+  <section class="hero">
+    <p class="eyebrow">Continual recursive self-improvement of agent harnesses</p>
+    <h1>Does a harness optimizer <em>learn from its own history</em>?</h1>
+    <p class="sub" id="sub"></p>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section class="sec" id="paired">
+    <h2>Paired study: Spider → BIRD</h2>
+    <p class="note" id="paired-note"></p>
+    <div class="grid2">
+      <div class="card"><h3>Final held-out score per independent source run</h3><div class="chart" id="paired-chart"></div>
+        <div class="legend"><span style="--c:var(--s2)">No SIM (Harness Transfer)</span><span style="--c:var(--s4)">Full SIM</span><span style="--c:var(--muted)">start (H<sub>S</sub>)</span></div></div>
+      <div class="card scroll"><h3>Per pair</h3><table class="tbl" id="paired-table"></table></div>
+    </div>
+  </section>
+
+  <section class="sec" id="curves">
+    <h2>Held-out score after each round</h2>
+    <p class="note">Each line is one complete run; round −1 is the starting harness. Single runs per condition (as in the paper): read as descriptive.</p>
+    <div class="row"><div class="seg" id="curve-seg" role="tablist"></div></div>
+    <div class="grid2"><div class="card"><div class="chart" id="curve-chart"></div><div class="legend" id="curve-legend"></div></div>
+      <div class="card scroll"><table class="tbl" id="curve-table"></table></div></div>
+  </section>
+
+  <section class="sec" id="lineage">
+    <h2>Harness lineage</h2>
+    <p class="note">Every candidate is a git commit on its own branch. Filled nodes: selected (the incumbent moves); hollow: evaluated but not selected; dashed red: dropped by the screen before evaluation.</p>
+    <div class="card"><div class="row"><select id="lin-run" aria-label="run"></select><span class="muted" id="lin-meta"></span></div>
+      <div class="chart" id="lin-chart"></div><div class="tip" id="lin-tip">Hover a node for its root cause, edit and score.</div></div>
+  </section>
+
+  <section class="sec" id="sim">
+    <h2>SIM explorer</h2>
+    <p class="note">Problem entries keyed by root cause. Each attempt shows the tasks predicted <b>before</b> evaluation and which of them were fixed or missed afterwards. Purple attempts were added in this run; grey ones were carried from the source run.</p>
+    <div class="card"><div class="row"><select id="sim-run" aria-label="run"></select><span class="muted" id="sim-meta"></span></div><div id="sim-body"></div></div>
+  </section>
+
+  <section class="sec" id="cost">
+    <h2>Cost</h2>
+    <p class="note" id="cost-note"></p>
+    <div class="grid2"><div class="card scroll"><h3>Calls and tokens by role and model (gateway ledger)</h3><table class="tbl" id="cost-models"></table></div>
+      <div class="card scroll"><h3>Per run group</h3><table class="tbl" id="cost-groups"></table></div></div>
+  </section>
+
+  <section class="sec" id="roadmap">
+    <h2>Project roadmap</h2>
+    <p class="note">How the project was built, stage by stage.</p>
+    <div class="roadmap" id="rm"><div class="rm-line"></div><div class="rm-fill"></div></div>
+  </section>
+  <footer id="foot"></footer>
+</main>
+<script>
+const DATA = /*__DATA__*/null;
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pts = (x) => (x == null ? "n/a" : (x * 100).toFixed(2));
+const sign = (x) => (x > 0 ? "+" : "") + x.toFixed(2);
+const NS = "http://www.w3.org/2000/svg";
+
+// theme toggle (light / dark / system)
+(function () {
+  const root = document.documentElement; const btn = $("#theme"); let mode = "system";
+  try { mode = localStorage.getItem("lamarck-theme") || "system"; } catch (e) {}
+  const apply = () => { if (mode === "system") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", mode); btn.textContent = { system: "Auto", light: "Light", dark: "Dark" }[mode]; };
+  btn.addEventListener("click", () => { mode = { system: "light", light: "dark", dark: "system" }[mode]; try { localStorage.setItem("lamarck-theme", mode); } catch (e) {} apply(); });
+  apply();
+})();
+
+function svg(w, h) { const s = document.createElementNS(NS, "svg"); s.setAttribute("viewBox", `0 0 ${w} ${h}`); s.setAttribute("role", "img"); return s; }
+function el(tag, attrs, parent, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+function scale(d0, d1, r0, r1) { return (v) => r0 + ((v - d0) / (d1 - d0 || 1)) * (r1 - r0); }
+function yAxis(s, y, lo, hi, x0, x1, step) {
+  for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) {
+    el("line", { x1: x0, x2: x1, y1: y(v), y2: y(v), class: "gridline" }, s); el("text", { x: x0 - 6, y: y(v) + 4, "text-anchor": "end" }, s, v.toFixed(0));
+  }
+}
+
+// ---------------------------------------------------------------- hero
+function hero() {
+  const p = DATA.summary.paired, st = p.stats;
+  $("#sub").textContent = DATA.pitch;
+  const k = [];
+  if (st) k.push([sign(st.mean_diff), `mean final held-out Δ, Full SIM − No SIM over ${st.n} paired source runs (95% CI ${sign(st.ci95[0])} to ${sign(st.ci95[1])})`]);
+  if (st) k.push([st.p_t_two_sided.toFixed(3), `paired t-test p (two-sided); signed-rank p ${st.wilcoxon.p_two_sided.toFixed(3)}`]);
+  const pol = DATA.summary.ledger.pools || {};
+  k.push([(pol.policy?.calls ?? 0).toLocaleString(), "policy calls through the gateway (cap 80,000)"]);
+  k.push([(pol.search?.calls ?? 0).toLocaleString(), "proposer / selector calls (cap 3,000)"]);
+  $("#kpis").innerHTML = k.map(([v, l]) => `<div class="kpi"><div class="v">${esc(v)}</div><div class="l">${esc(l)}</div></div>`).join("");
+}
+
+// ---------------------------------------------------------------- paired
+function paired() {
+  const p = DATA.summary.paired; const pairs = p.pairs || [];
+  if (!pairs.length) { $("#paired-note").textContent = "No completed pairs yet."; return; }
+  const st = p.stats;
+  $("#paired-note").textContent = st ? `Same source-evolved harness, policy, tasks and budgets in each pair; the independent source run is the unit of analysis. Mean Δ = ${sign(st.mean_diff)} points, 95% CI [${sign(st.ci95[0])}, ${sign(st.ci95[1])}], t(${st.df}) = ${st.t.toFixed(2)}, p = ${st.p_t_two_sided.toFixed(3)}; exact signed-rank p = ${st.wilcoxon.p_two_sided.toFixed(3)}; d_z = ${st.d_z.toFixed(2)}.` : "";
+  const W = 520, H = 40 + pairs.length * 30, L = 70, R = 16;
+  const vals = pairs.flatMap((r) => [r.start, r.no_sim, r.sim]).map((v) => v * 100);
+  const lo = Math.floor(Math.min(...vals) / 5) * 5, hi = Math.ceil(Math.max(...vals) / 5) * 5;
+  const x = scale(lo, hi, L, W - R); const s = svg(W, H);
+  for (let v = lo; v <= hi; v += 5) { el("line", { x1: x(v), x2: x(v), y1: 10, y2: H - 22, class: "gridline" }, s); el("text", { x: x(v), y: H - 6, "text-anchor": "middle" }, s, v); }
+  pairs.forEach((r, i) => {
+    const y = 26 + i * 30; el("text", { x: L - 10, y: y + 4, "text-anchor": "end", class: "lbl" }, s, `run ${r.source}`);
+    el("line", { x1: x(r.no_sim * 100), x2: x(r.sim * 100), y1: y, y2: y, stroke: "var(--border-strong)", "stroke-width": 3 }, s);
+    el("path", { d: `M${x(r.start * 100)},${y - 6} l5,6 l-5,6 l-5,-6 z`, fill: "var(--muted)" }, s).appendChild(el("title", {}, null, `start ${pts(r.start)}`));
+    el("circle", { cx: x(r.no_sim * 100), cy: y, r: 6, fill: "var(--s2)" }, s).appendChild(el("title", {}, null, `No SIM ${pts(r.no_sim)}`));
+    el("circle", { cx: x(r.sim * 100), cy: y, r: 6, fill: "var(--s4)" }, s).appendChild(el("title", {}, null, `SIM ${pts(r.sim)}`));
+  });
+  $("#paired-chart").appendChild(s);
+  $("#paired-table").innerHTML = `<thead><tr><th>run</th><th class="num">start</th><th class="num">No SIM</th><th class="num">SIM</th><th class="num">Δ</th></tr></thead><tbody>` +
+    pairs.map((r) => `<tr><td>${r.source}</td><td class="num">${pts(r.start)}</td><td class="num">${pts(r.no_sim)}</td><td class="num">${pts(r.sim)}</td><td class="num ${r.delta > 0 ? "up" : r.delta < 0 ? "down" : ""}">${sign(r.delta * 100)}</td></tr>`).join("") + "</tbody>";
+}
+
+// ---------------------------------------------------------------- curves
+const COND_COLORS = { "Cold Start": "var(--s1)", "Harness Transfer": "var(--s2)", "Problem-Only Memory": "var(--s3)", "Full SIM": "var(--s4)" };
+function curves() {
+  const sets = { sql: "Spider → BIRD", supportops: "Support-ops policy shift", crossmodel: "Cross-model (qwen → DeepSeek)" };
+  const seg = $("#curve-seg"); let active = null;
+  const keys = Object.keys(sets).filter((k) => (DATA.summary.conditions[k] || []).length);
+  keys.forEach((k, i) => { const b = document.createElement("button"); b.textContent = sets[k]; b.setAttribute("role", "tab"); b.onclick = () => draw(k); seg.appendChild(b); });
+  function draw(k) {
+    active = k; [...seg.children].forEach((b, i) => b.setAttribute("aria-selected", keys[i] === k));
+    const rows = DATA.summary.conditions[k]; const W = 520, H = 280, L = 40, R = 14, T = 12, B = 28;
+    const all = rows.flatMap((r) => r.curve.map((c) => c[1] * 100)); const lo = Math.floor(Math.min(...all) / 5) * 5 - 2, hi = Math.ceil(Math.max(...all) / 5) * 5 + 2;
+    const rounds = Math.max(...rows.flatMap((r) => r.curve.map((c) => c[0])));
+    const x = scale(-1, rounds, L, W - R), y = scale(lo, hi, H - B, T); const s = svg(W, H);
+    yAxis(s, y, lo, hi, L, W - R, 5);
+    for (let r = -1; r <= rounds; r++) el("text", { x: x(r), y: H - 8, "text-anchor": "middle" }, s, r);
+    rows.forEach((r) => {
+      const c = COND_COLORS[r.condition] || "var(--muted)"; const d = r.curve.map((p, i) => `${i ? "L" : "M"}${x(p[0])},${y(p[1] * 100)}`).join("");
+      el("path", { d, stroke: c, "stroke-width": 2.5, fill: "none", "stroke-linejoin": "round" }, s);
+      r.curve.forEach((p) => el("circle", { cx: x(p[0]), cy: y(p[1] * 100), r: 3.5, fill: c }, s).appendChild(el("title", {}, null, `${r.condition} after round ${p[0]}: ${pts(p[1])}`)));
+    });
+    const box = $("#curve-chart"); box.innerHTML = ""; box.appendChild(s);
+    $("#curve-legend").innerHTML = rows.map((r) => `<span style="--c:${COND_COLORS[r.condition]}">${esc(r.condition)}</span>`).join("");
+    $("#curve-table").innerHTML = `<thead><tr><th>condition</th><th class="num">before</th><th class="num">after</th><th class="num">gain</th><th class="num">policy calls</th></tr></thead><tbody>` +
+      rows.map((r) => { const g = (r.after - r.before) * 100; return `<tr><td>${esc(r.condition)}</td><td class="num">${pts(r.before)}</td><td class="num">${pts(r.after)}</td><td class="num ${g > 0 ? "up" : g < 0 ? "down" : ""}">${sign(g)}</td><td class="num">${r.policy_calls.toLocaleString()}</td></tr>`; }).join("") + "</tbody>";
+  }
+  if (keys.length) draw(keys[0]);
+}
+
+// ---------------------------------------------------------------- lineage
+function lineage() {
+  const sel = $("#lin-run"); const names = Object.keys(DATA.runs);
+  names.forEach((n) => { const o = document.createElement("option"); o.value = n; o.textContent = n; sel.appendChild(o); });
+  const pref = names.find((n) => n === "sql-full-1") || names[0]; if (pref) sel.value = pref;
+  sel.onchange = () => draw(sel.value); if (pref) draw(pref);
+  function draw(name) {
+    const run = DATA.runs[name]; const hist = run.history || []; const rounds = run.summary.rounds; const k = run.summary.k;
+    $("#lin-meta").textContent = `${run.summary.memory} memory · ${run.summary.policy_model} · ${run.summary.evolve_split} · ${run.summary.accepted} accepted / ${run.summary.proposed} proposed`;
+    const W = 720, H = 70 + k * 46, L = 70, R = 30; const x = (t) => L + 60 + t * ((W - L - R - 60) / Math.max(1, rounds - 1 + 0.6));
+    const yInc = 34, yC = (j) => 76 + j * 44; const s = svg(W, H);
+    const defs = el("defs", {}, s); const g = el("linearGradient", { id: "g", x1: 0, x2: 1 }, defs);
+    [["0", "#6366f1"], ["0.5", "#8b5cf6"], ["1", "#d946ef"]].forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, g));
+    const gl = el("linearGradient", { id: "gl", x1: 0, x2: 1 }, defs); [["0", "#6366f1"], ["1", "#d946ef"]].forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, gl));
+    el("text", { x: 8, y: yInc + 4, class: "lbl" }, s, "incumbent"); el("text", { x: 8, y: yC(0) + 4, class: "lbl" }, s, "candidates");
+    const start = run.summary.source ? `from ${run.summary.source}` : "seed H0";
+    let px = L, py = yInc; el("circle", { cx: L, cy: yInc, r: 8, class: "node-acc" }, s).appendChild(el("title", {}, null, start));
+    el("text", { x: L, y: yInc - 14, "text-anchor": "middle" }, s, start);
+    const tip = $("#lin-tip");
+    for (let t = 0; t < rounds; t++) {
+      el("text", { x: x(t), y: H - 6, "text-anchor": "middle" }, s, `round ${t}`);
+      const cands = hist.filter((r) => r.round === t);
+      const chosen = cands.find((r) => r.selected);
+      cands.forEach((r, j) => {
+        const cx = x(t), cy = yC(j);
+        el("path", { d: `M${px},${py} C${(px + cx) / 2},${py} ${(px + cx) / 2},${cy} ${cx},${cy}`, class: "edge" }, s);
+        const cls = r.selected ? "node-acc" : r.gate ? "node-gate" : "node-rej";
+        const n = el("circle", { cx, cy, r: 7, class: cls, tabindex: 0 }, s);
+        const score = r.score == null ? "not evaluated" : `evolve ${pts(r.score)} (${r.d_score >= 0 ? "+" : ""}${(r.d_score * 100).toFixed(1)})`;
+        const show = () => { tip.innerHTML = `<b>r${t} ${esc(r.sample)}</b> · ${esc(score)} · ${r.selected ? "selected" : r.gate ? "dropped: " + esc(r.gate.slice(0, 120)) : esc((r.decision || "").slice(0, 140))}<br><span class="muted">root cause${r.cite ? " [" + esc(r.cite) + "]" : ""}: ${esc(r.root_cause)}</span><br>${esc((r.what || "").slice(0, 260))}`; };
+        n.addEventListener("mouseenter", show); n.addEventListener("focus", show);
+        el("text", { x: cx + 11, y: cy + 4 }, s, r.sample);
+      });
+      const nx = x(t) + 26;
+      if (chosen) { const cy = yC(cands.indexOf(chosen)); el("path", { d: `M${px},${py} C${(px + x(t)) / 2},${py} ${(px + x(t)) / 2},${cy} ${x(t)},${cy} S${nx - 10},${yInc} ${nx},${yInc}`, class: "path-acc" }, s); }
+      else el("path", { d: `M${px},${py} L${nx},${yInc}`, class: "path-acc", opacity: 0.35 }, s);
+      el("circle", { cx: nx, cy: yInc, r: 5, class: "node-acc" }, s); px = nx; py = yInc;
+    }
+    const box = $("#lin-chart"); box.innerHTML = ""; box.appendChild(s);
+  }
+}
+
+// ---------------------------------------------------------------- SIM explorer
+function simExplorer() {
+  const sel = $("#sim-run"); const names = Object.keys(DATA.runs).filter((n) => (DATA.runs[n].sim.problems || []).length);
+  names.forEach((n) => { const o = document.createElement("option"); o.value = n; o.textContent = n; sel.appendChild(o); });
+  const pref = names.find((n) => n === "sql-full-1") || names[0]; if (pref) sel.value = pref;
+  sel.onchange = () => draw(sel.value); if (pref) draw(pref);
+  function draw(name) {
+    const run = DATA.runs[name], sim = run.sim, own = `${run.summary.evolve_split}/${run.summary.policy_model}`;
+    const n = sim.problems.reduce((a, p) => a + p.attempts.length, 0);
+    const cf = sim.carried_from ? ` · carried from ${sim.carried_from.arm}` : "";
+    $("#sim-meta").textContent = `${sim.problems.length} entries · ${n} attempts${cf}${Object.keys(sim.aliases || {}).length ? " · aliases " + Object.entries(sim.aliases).slice(0, 4).map(([a, b]) => a + "→" + b).join(", ") : ""}`;
+    $("#sim-body").innerHTML = sim.problems.map((p, i) => `<details class="prob" ${i < 3 ? "open" : ""}><summary><span class="pid">${esc(p.id)}</span><span>${esc(p.name)}</span><span class="muted" style="margin-left:auto;font-weight:400;font-size:.78rem">opened r${p.opened_round} · ${p.attempts.length} attempt(s)</span></summary>` +
+      p.attempts.map((a) => `<div class="att ${a.domain === own ? "target" : ""}"><div class="meta">round ${a.round} · ${esc(a.sample)} · ${esc(a.domain)} · passed ${a.passed}/${a.total} · files ${esc(a.files)}</div><div>${esc(a.what)}</div>` +
+        `<div>${a.predicted.length ? a.predicted.map((t) => `<span class="chip ${a.fixed.includes(t) ? "fixed" : "missed"}">${esc(t)}</span>`).join("") : '<span class="muted">no task-level prediction</span>'}</div></div>`).join("") + "</details>").join("") || '<p class="muted">empty</p>';
+  }
+}
+
+// ---------------------------------------------------------------- cost
+function cost() {
+  const c = DATA.cost; $("#cost-note").textContent = c.note;
+  $("#cost-models").innerHTML = `<thead><tr><th>role · model</th><th class="num">calls</th><th class="num">prompt tok</th><th class="num">completion tok</th><th class="num">est. USD</th></tr></thead><tbody>` +
+    c.models.map((m) => `<tr><td>${esc(m.key)}</td><td class="num">${m.calls.toLocaleString()}</td><td class="num">${m.prompt_tokens.toLocaleString()}</td><td class="num">${m.completion_tokens.toLocaleString()}</td><td class="num">${m.usd == null ? "n/a" : m.usd.toFixed(2)}</td></tr>`).join("") + "</tbody>";
+  $("#cost-groups").innerHTML = `<thead><tr><th>group</th><th class="num">runs</th><th class="num">policy calls</th><th class="num">search calls</th><th class="num">policy tok</th></tr></thead><tbody>` +
+    c.groups.map((g) => `<tr><td>${esc(g.group)}</td><td class="num">${g.runs}</td><td class="num">${g.policy_calls.toLocaleString()}</td><td class="num">${g.search_calls.toLocaleString()}</td><td class="num">${g.policy_tokens.toLocaleString()}</td></tr>`).join("") + "</tbody>";
+}
+
+// ---------------------------------------------------------------- roadmap
+function roadmap() {
+  const rm = $("#rm"); const items = DATA.roadmap; const lastDone = items.map((i) => i.status).lastIndexOf("done");
+  items.forEach((it, i) => {
+    const d = document.createElement("div"); d.className = "rm-item " + (it.status === "done" ? "done" : "todo") + (i === lastDone ? " current" : "");
+    d.innerHTML = `<div class="rm-dot"></div><div class="rm-card"><div class="rm-date">${esc(it.label)}${i === lastDone ? '<span class="rm-tag">latest</span>' : ""}</div><h3>${esc(it.title)}</h3><p>${esc(it.text)}</p></div>`;
+    rm.appendChild(d);
+  });
+  const fill = rm.querySelector(".rm-fill");
+  function target() { const dots = rm.querySelectorAll(".rm-item.done .rm-dot"); if (!dots.length) return 0; const d = dots[dots.length - 1]; return d.closest(".rm-item").offsetTop + d.offsetTop + d.offsetHeight / 2; }
+  function update() { const r = rm.getBoundingClientRect(); const vh = window.innerHeight || document.documentElement.clientHeight; const p = Math.max(0, Math.min(1, (vh * 0.8 - r.top) / (r.height * 0.9))); fill.style.height = target() * p + "px"; }
+  ["scroll", "resize", "load"].forEach((ev) => window.addEventListener(ev, update, { passive: true })); update();
+}
+
+hero(); paired(); curves(); lineage(); simExplorer(); cost(); roadmap();
+$("#foot").innerHTML = `Generated ${esc(DATA.generated)} from results/ by <code>lamarck dashboard</code>. Method credits: SIM — Yu, Xia, Pan, Tang, Liu, Yu, Jiang, Chen, Xue, Yu (arXiv 2611.18856); RRSI — Xia et al. (arXiv 2609.24972). Every number on this page comes from a run on one laptop.`;
+</script>
+</body>
+</html>

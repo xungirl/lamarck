@@ -59,6 +59,9 @@ def _cfg(
         k=3,
         memory=memory,  # type: ignore[arg-type]
         heldout_curve=curve,
+        delta_z=1.0,  # PREREG deviation 2
+        beta1=40.0,  # PREREG deviation 2 (RRSI's default)
+        w_c=5.0,  # PREREG deviation 2
         task_parallel=8,
         eval_parallel=3,
     )
