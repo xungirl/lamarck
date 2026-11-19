@@ -21,6 +21,11 @@ points, while the same harness re-evaluated at temperature 0 moved by up to 5 po
 
 So: no evidence for the effect, and no power to see it. I am reporting it as exactly that.
 
+With the money left I added four more pairs. Because I decided that after seeing the first result
+(optional stopping), the 7-pair numbers are a separate, secondary analysis: mean −1.07, 95% CI
+[−5.3, +3.1], p = 0.55, four of seven pairs tied. Still nothing, and the interval still contains the
+paper's +2.36.
+
 ## Post 3/3: Things that went wrong and how they show up in the report
 
 - A provider outage scored 403s as wrong answers: set aside, documented, evaluator fixed.

@@ -29,11 +29,11 @@ Lesson: measure your evaluator's noise before you trust any "improvement" it rep
 
 ## Post 3/3: The optimizer overfits, even with regularizers
 
-Three independent source runs on Spider all discovered the same edit: execute the drafted SQL and ask
-for a repair when it returns no rows. Evolve accuracy went 83.3 → 90.0 / 93.3 / 90.0.
+Five of seven independent source runs on Spider discovered the same kind of edit: execute the drafted
+SQL and ask for a repair when it returns no rows. Evolve accuracy rose in every run (83.3 → 86.7-93.3).
 
-Held-out accuracy went 80.0 → 77.5 in all three runs.
+Held-out accuracy, averaged over the seven runs: 80.0 before, 80.0 after.
 
-And moved to BIRD, every Spider-evolved harness started below the untouched seed harness (55.0 / 62.5 /
-65.0 vs 67.5). Small evolve sets make self-improvement look better than it is. Keep a held-out split the
+And moved to BIRD, six of the seven Spider-evolved harnesses started below the untouched seed harness
+(55.0-65.0 vs 67.5). Small evolve sets make self-improvement look better than it is. Keep a held-out split the
 optimizer never sees, and look at it.

@@ -34,5 +34,6 @@ Then I had about RMB 12 left, so the gateway learned to count money:
 - after the call it settles at the price of the usage the API returned, cached tokens at the cached rate.
 
 The scheduler only starts an experiment if the money left covers it and every higher-priority
-experiment. The whole revised study cost RMB 5.384 for 5,184 calls; 58% of the policy's prompt tokens
-were served from the provider's cache.
+experiment, and a source run claims the money for its two paired arms, so no pair is started that cannot
+finish. Everything, including four extra pairs, cost RMB 8.181 for 7,563 calls; 55% of the policy's
+prompt tokens were served from the provider's cache.
