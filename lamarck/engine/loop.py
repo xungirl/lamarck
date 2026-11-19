@@ -31,11 +31,12 @@ from typing import Any
 from ..config import RunConfig
 from ..domains.base import Domain
 from ..gateway.client import GatewayClient, GatewayError
+from ..sandbox.runtime_util import INFRA_STATUSES
 from ..sim import prompts as sim_prompts
 from ..sim.memory import SIM, Attempt, files_field, truncate
 from ..types import EvalResult, read_json, write_json
 from . import critic, proposer, regularizers, selector
-from .evaluator import BudgetStop, Evaluator
+from .evaluator import BudgetStop, Evaluator, InfraFailure
 from .gitops import EVOLVE, HarnessRepo
 from .history import CandidateRecord, RunHistory
 
@@ -66,6 +67,8 @@ class SearchLLM:
         except GatewayError as exc:
             if exc.budget_exceeded:
                 raise BudgetStop(str(exc)) from exc
+            if exc.status in INFRA_STATUSES:
+                raise InfraFailure(f"{role}: {exc}"[:500]) from exc
             raise
         return res.content
 
@@ -216,6 +219,11 @@ class EvolutionRun:
         except BudgetStop as exc:
             self.log(f"BUDGET STOP: {exc}")
             self.save_state(status="budget_stop", stop_reason=str(exc))
+            raise
+        except InfraFailure as exc:
+            # nothing from the failed step was recorded; the run resumes from here once the provider works
+            self.log(f"INFRA FAILURE (run paused, resumable): {exc}")
+            self.save_state(status="infra_error", stop_reason=str(exc)[:500])
             raise
 
     def heldout_point(self, after_round: int) -> None:
@@ -415,7 +423,7 @@ class EvolutionRun:
             text = self.search.ask("proposer", messages, seed=seed)
             (rdir / sample / "response.txt").write_text(text)
             prop = proposer.parse_proposal(text, sample, self.domain, failing)
-        except BudgetStop:
+        except (BudgetStop, InfraFailure):
             raise
         except (GatewayError, proposer.ProposalError) as exc:
             self.log(f"round {t} {sample}: proposal failed: {exc}")
@@ -477,7 +485,7 @@ class EvolutionRun:
         try:
             text = self.search.ask("selector", messages, seed=self.cfg.seed * 1000 + t, temperature=0.0)
             verdicts = selector.parse_screen(text, samples)
-        except BudgetStop:
+        except (BudgetStop, InfraFailure):
             raise
         except (GatewayError, ValueError) as exc:
             self.log(f"round {t}: screen failed ({exc}); accepting all")
@@ -527,7 +535,7 @@ class EvolutionRun:
                 )
                 sample, reason = selector.parse_select(text, list(by_sample))
                 choice = by_sample[sample] if sample else None
-            except BudgetStop:
+            except (BudgetStop, InfraFailure):
                 raise
             except (GatewayError, ValueError) as exc:
                 choice, reason = fallback, f"selector unavailable ({exc}); argmax fallback"[:300]

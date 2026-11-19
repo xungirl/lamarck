@@ -51,6 +51,12 @@ class Domain:
         """{name: host directory}; mounted read-only at /data/<name> in the sandbox."""
         return {}
 
+    def parent_split(self, split: str) -> str | None:
+        """The split a sub-split was sampled from (budget-revision sub-splits), else None."""
+        from .subsplits import parent_of
+
+        return parent_of(self.name, split)
+
     def job_extra(self, split: str) -> dict[str, Any]:
         """Extra non-secret settings for the runtime (e.g. which store a task uses)."""
         return {}

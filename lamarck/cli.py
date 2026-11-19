@@ -135,8 +135,8 @@ def cmd_schedule(a: argparse.Namespace) -> None:
                 )
                 if st != "done":
                     failed.add(n)
-                if st == "budget_stop":
-                    print("budget stop reached; not launching more runs", flush=True)
+                if st in ("budget_stop", "infra_error"):
+                    print(f"{st}: not launching more runs", flush=True)
                     todo = []
         pending = [n for n in todo if state_of(a.root, n) != "done" and n not in running and n not in failed]
         ready = [n for n in pending if all(state_of(a.root, d) == "done" for d in dependencies(plan[n]))]

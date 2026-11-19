@@ -54,7 +54,12 @@ def tasks() -> dict[str, dict[str, Any]]:
 
 
 def splits() -> dict[str, list[str]]:
+    """Frozen splits plus the budget-revision sub-splits (lamarck.domains.subsplits)."""
+    from .. import subsplits
+
     data: dict[str, list[str]] = json.loads(split_file().read_text())["splits"]
+    for name, entry in subsplits.table("text2sql").items():
+        data[name] = [str(i) for i in entry["ids"]]
     return data
 
 

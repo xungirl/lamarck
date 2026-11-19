@@ -174,3 +174,18 @@ def test_call_cap_refusal_releases_money_reservation(tmp_path: Path) -> None:
     assert gw.chat(tok, "policy", body())[0] == 429  # call cap
     assert gw.spend is not None
     assert gw.spend.remaining() == pytest.approx(1.0 - gw.spend.spent)  # nothing left in flight
+
+
+def test_reasoning_tokens_are_billed_as_output(tmp_path: Path) -> None:
+    led = SpendLedger(tmp_path / "s.json", cap_rmb=1.0)
+    r = led.reserve(MODEL, body())
+    usage = {
+        "prompt_tokens": 10,
+        "completion_tokens": 30,
+        "completion_tokens_details": {"reasoning_tokens": 26},
+    }
+    assert led.settle(r, "probe", "policy", usage) == pytest.approx(price_of(MODEL, 10, 30))
+    r = led.reserve(MODEL, body())
+    odd = {"prompt_tokens": 10, "completion_tokens": 4, "completion_tokens_details": {"reasoning_tokens": 26}}
+    assert led.settle(r, "probe", "policy", odd) == pytest.approx(price_of(MODEL, 10, 30))
+    assert led.snapshot()["by"]["role:policy"]["reasoning_tokens"] == 52

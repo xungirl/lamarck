@@ -36,6 +36,7 @@ class EvalResult:
     rollout: int
     outcomes: dict[str, TaskOutcome]
     wall_s: float = 0.0
+    projected_from: str = ""  # parent split this result was projected from ("" = evaluated directly)
 
     @property
     def score(self) -> float:
@@ -77,6 +78,7 @@ class EvalResult:
             "score": round(self.score, 6),
             "cost": round(self.cost, 1),
             "calls": self.calls,
+            **({"projected_from": self.projected_from} if self.projected_from else {}),
             "outcomes": {t: asdict(o) for t, o in sorted(self.outcomes.items())},
         }
 
@@ -89,6 +91,7 @@ class EvalResult:
             rollout=int(d["rollout"]),
             outcomes={t: TaskOutcome(**o) for t, o in d["outcomes"].items()},
             wall_s=float(d.get("wall_s", 0.0)),
+            projected_from=str(d.get("projected_from", "")),
         )
 
     def save(self, path: Path) -> None:

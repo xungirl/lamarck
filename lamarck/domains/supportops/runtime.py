@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from ...gateway.client import GatewayClient, GatewayError
-from ...sandbox.runtime_util import CallBudgetExhausted, PolicyEnv, run_tasks
+from ...sandbox.runtime_util import CallBudgetExhausted, PolicyEnv, run_tasks, runtime_flags
 from .env.agent.harness_dir import load_harness
 from .env.agent.loop import Agent
 from .env.agent.providers import LLMError, TransientLLMError
@@ -95,6 +95,7 @@ async def _run_one(
         "error": result.error or "",
         "tokens": policy.tokens,
         "calls": policy.calls,
+        **runtime_flags(policy),
     }
 
 

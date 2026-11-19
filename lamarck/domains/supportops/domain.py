@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from ...types import EvalResult, TaskOutcome
+from .. import subsplits
 from ..base import Domain, Task
 from .env.agent.loop import AgentResult, ToolCallRecord
 from .env.agent.types import Usage
@@ -85,9 +86,15 @@ class SupportOpsDomain(Domain):
 
     # ---------------------------------------------------------------- tasks
     def splits(self) -> list[str]:
-        return list(STORE_OF_SPLIT)
+        return [*STORE_OF_SPLIT, *subsplits.table(self.name)]
+
+    def store_of(self, split: str) -> str:
+        return STORE_OF_SPLIT[subsplits.root_split(self.name, split)]
 
     def split_ids(self, split: str) -> list[str]:
+        sub = subsplits.ids_of(self.name, split)
+        if sub is not None:
+            return sub
         ids: list[str] = json.loads(SPLIT_FILE.read_text())["splits"][split]
         return ids
 
@@ -95,7 +102,7 @@ class SupportOpsDomain(Domain):
         out = []
         for tid in self.split_ids(split):
             t = self._tasks[tid]
-            assert t.store == STORE_OF_SPLIT[split], f"{tid} is on store {t.store}"
+            assert t.store == self.store_of(split), f"{tid} is on store {t.store}"
             out.append(Task(tid, {"id": tid, "prompt": t.prompt, "read_only": t.read_only}, {"task": t}))
         return out
 
@@ -109,7 +116,7 @@ class SupportOpsDomain(Domain):
         return path
 
     def data_mounts(self, split: str) -> dict[str, Path]:
-        return {"store": self.store_db(STORE_OF_SPLIT[split]).parent}
+        return {"store": self.store_db(self.store_of(split)).parent}
 
     def describe_task(self, task: Task) -> str:
         ro = " (read-only server: no write tools)" if task.public.get("read_only") else ""
@@ -119,7 +126,7 @@ class SupportOpsDomain(Domain):
     def score(
         self, split: str, tasks: list[Task], raw: dict[str, dict[str, Any]], out_dir: Path
     ) -> dict[str, TaskOutcome]:
-        template = self.store_db(STORE_OF_SPLIT[split])
+        template = self.store_db(self.store_of(split))
         before = snapshot(template)
         outcomes = {}
         for t in tasks:

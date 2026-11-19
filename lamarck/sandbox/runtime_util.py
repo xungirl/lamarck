@@ -26,6 +26,14 @@ class CallBudgetExhausted(RuntimeError):
     pass
 
 
+# Gateway statuses that say nothing about the harness: the provider or the gateway itself failed
+# (auth/billing 401/403, unknown model 404, rate limit after the gateway's own retries 429,
+# upstream/server errors 5xx, 599 = no connection). A task that hit one of these is not a task
+# failure; the host discards the whole evaluation instead of scoring it 0 (see Evaluator).
+# 400 is not in the list: it is usually a malformed request built by harness code.
+INFRA_STATUSES = frozenset({401, 403, 404, 429, *range(500, 600)})
+
+
 class PolicyEnv:
     def __init__(self, client: GatewayClient, model: str, max_calls: int, params: dict[str, Any]) -> None:
         self._client = client
@@ -34,7 +42,8 @@ class PolicyEnv:
         self.max_calls = max_calls
         self.calls = 0
         self.tokens = 0
-        self.budget_hit = False  # the gateway refused because a global/run cap was reached
+        self.budget_hit = False  # the gateway refused because a global/run/RMB cap was reached
+        self.infra_errors: list[str] = []  # provider/gateway failures (never the harness's fault)
 
     def chat(
         self,
@@ -55,9 +64,16 @@ class PolicyEnv:
         except GatewayError as exc:
             if exc.budget_exceeded:
                 self.budget_hit = True
+            elif exc.status in INFRA_STATUSES:
+                self.infra_errors.append(str(exc)[:300])
             raise
         self.tokens += res.tokens
         return res
+
+
+def runtime_flags(policy: PolicyEnv) -> dict[str, Any]:
+    """Fields every runtime adds to a task record, outside the harness's control."""
+    return {"budget_hit": policy.budget_hit, "infra_errors": policy.infra_errors[:3]}
 
 
 _import_lock = threading.Lock()

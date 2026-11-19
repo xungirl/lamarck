@@ -12,6 +12,7 @@ expectations stay in host memory and are used by Domain.score after the sandbox 
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import threading
 import time
@@ -28,6 +29,21 @@ POLICY_PARAMS_DEFAULT: dict[str, Any] = {"temperature": 0.0, "max_tokens": 2048,
 
 class BudgetStop(RuntimeError):
     """The gateway refused a call because a hard cap was reached; stop the run cleanly."""
+
+
+class InfraFailure(RuntimeError):
+    """The provider or the gateway failed (e.g. HTTP 403 when the account ran out of credit).
+    Such an evaluation measures the infrastructure, not the harness: it is discarded, never
+    cached and never scored. (Before this check existed, a provider outage on 2026-11-19 was
+    scored as 0/120 for several runs; see results/validity.json.)"""
+
+
+# outcome errors that can only come from the provider/gateway (used to reject stale cache files)
+INFRA_ERROR = re.compile(r"gateway (?:401|403|404|5\d\d)\b|AccessDenied|connection failed")
+
+
+def infra_tainted(result: EvalResult) -> list[str]:
+    return sorted(t for t, o in result.outcomes.items() if INFRA_ERROR.search(o.error or ""))
 
 
 @dataclass
@@ -61,10 +77,37 @@ class Evaluator:
         path = self.cache_path(split, model, tree, rollout)
         with self._lock(str(path)):
             if path.exists():
-                return EvalResult.load(path)
+                cached = EvalResult.load(path)
+                if not infra_tainted(cached):
+                    return cached
+                path.rename(path.with_name(path.name + ".infra-tainted"))  # keep it for the record
+            projected = self._project(tree, split, model, rollout)
+            if projected is not None:
+                projected.save(path)
+                return projected
             result = self._run(harness_dir, tree, split, model, rollout)
             result.save(path)
             return result
+
+    def _project(self, tree: str, split: str, model: str, rollout: int) -> EvalResult | None:
+        """A sub-split's result taken from a cached evaluation of its parent split.
+
+        Tasks are solved independently (one rollout each, fixed seed), so the parent's outcomes on
+        the sub-split's tasks are an evaluation of the sub-split. Used for the budget-revision
+        sub-splits (PREREG deviation 3) so evaluations made before the revision are not paid twice.
+        """
+        parent = self.domain.parent_split(split)
+        if parent is None:
+            return None
+        src = self.cached(parent, model, tree, rollout)
+        if src is None or infra_tainted(src):
+            return None
+        ids = [t.id for t in self.domain.tasks(split)]
+        if any(i not in src.outcomes for i in ids):
+            return None
+        return EvalResult(
+            tree, split, model, rollout, {i: src.outcomes[i] for i in ids}, wall_s=0.0, projected_from=parent
+        )
 
     def _run(self, harness_dir: Path, tree: str, split: str, model: str, rollout: int) -> EvalResult:
         tasks = self.domain.tasks(split)
@@ -102,8 +145,11 @@ class Evaluator:
                 if line.strip():
                     rec = json.loads(line)
                     raw[str(rec.get("task_id"))] = rec
-        if any("gateway 429: budget" in str(r.get("error", "")) for r in raw.values()):
+        if any(r.get("budget_hit") or "gateway 429: budget" in str(r.get("error", "")) for r in raw.values()):
             raise BudgetStop(f"policy budget exhausted during {job_id}")
+        infra = sorted({e for r in raw.values() for e in (r.get("infra_errors") or [])})
+        if infra:
+            raise InfraFailure(f"{job_id}: provider/gateway failure, evaluation discarded: {infra[0][:300]}")
         if not jr.ok and not raw:
             status = out_dir / "status.json"
             detail = status.read_text()[:800] if status.exists() else jr.log_tail[-800:]

@@ -86,6 +86,22 @@ def worst_case(model: str, body: dict[str, Any]) -> float:
     return price_of(model, chars, max_out)
 
 
+def billed_output_tokens(usage: dict[str, Any]) -> int:
+    """Output tokens to bill. Thinking ("reasoning") tokens are billed at the output price.
+    DashScope reports them inside completion_tokens (completion_tokens_details.reasoning_tokens is
+    a breakdown); if a response ever reported more reasoning tokens than completion tokens, they
+    cannot have been included, so they are added."""
+    completion = int(usage.get("completion_tokens") or 0)
+    details = usage.get("completion_tokens_details") or {}
+    reasoning = int(details.get("reasoning_tokens") or 0) if isinstance(details, dict) else 0
+    return completion if completion >= reasoning else completion + reasoning
+
+
+def reasoning_tokens_of(usage: dict[str, Any]) -> int:
+    details = usage.get("completion_tokens_details") or {}
+    return int(details.get("reasoning_tokens") or 0) if isinstance(details, dict) else 0
+
+
 def cached_tokens_of(usage: dict[str, Any]) -> int:
     details = usage.get("prompt_tokens_details") or {}
     if isinstance(details, dict):
@@ -135,7 +151,14 @@ class SpendLedger:
 
     def _bucket(self, key: str) -> dict[str, Any]:
         b: dict[str, Any] = self.state["by"].setdefault(key, {})
-        for f in ("calls", "failed", "prompt_tokens", "cached_tokens", "completion_tokens"):
+        for f in (
+            "calls",
+            "failed",
+            "prompt_tokens",
+            "cached_tokens",
+            "completion_tokens",
+            "reasoning_tokens",
+        ):
             b.setdefault(f, 0)
         b.setdefault("rmb", 0.0)
         return b
@@ -182,7 +205,8 @@ class SpendLedger:
         """
         u = usage or {}
         prompt = int(u.get("prompt_tokens") or 0)
-        completion = int(u.get("completion_tokens") or 0)
+        completion = billed_output_tokens(u)
+        reasoning = reasoning_tokens_of(u)
         cached = cached_tokens_of(u)
         if unknown:
             cost = res.amount
@@ -204,6 +228,7 @@ class SpendLedger:
                 b["prompt_tokens"] += prompt
                 b["cached_tokens"] += cached
                 b["completion_tokens"] += completion
+                b["reasoning_tokens"] += reasoning
                 b["rmb"] = float(b["rmb"]) + cost
             self._flush()
         return cost

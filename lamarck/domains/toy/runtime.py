@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from ...gateway.client import GatewayClient
-from ...sandbox.runtime_util import PolicyEnv, read_config, read_text, run_tasks
+from ...sandbox.runtime_util import PolicyEnv, read_config, read_text, run_tasks, runtime_flags
 
 
 def run_job(
@@ -23,10 +23,14 @@ def run_job(
     def solve(task: dict[str, Any]) -> dict[str, Any]:
         env = PolicyEnv(client, job["model"], job["max_calls"], job["policy_params"])
         user = f"kind={task['kind']} item={task['item']}"
-        res = env.chat(
-            [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            max_tokens=int(cfg.get("max_tokens", 64)),
-        )
-        return {"answer": res.content.strip(), "tokens": env.tokens, "calls": env.calls}
+        try:
+            res = env.chat(
+                [{"role": "system", "content": system}, {"role": "user", "content": user}],
+                max_tokens=int(cfg.get("max_tokens", 64)),
+            )
+        except Exception as exc:
+            return {"answer": "", "error": str(exc)[:300], "tokens": env.tokens, "calls": env.calls,
+                    **runtime_flags(env)}  # fmt: skip
+        return {"answer": res.content.strip(), "tokens": env.tokens, "calls": env.calls, **runtime_flags(env)}
 
     run_tasks(tasks, solve, out_dir, job.get("task_parallel", 4))

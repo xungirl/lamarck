@@ -13,7 +13,14 @@ from pathlib import Path
 from typing import Any
 
 from ...gateway.client import GatewayClient
-from ...sandbox.runtime_util import PolicyEnv, load_harness_module, read_config, read_text, run_tasks
+from ...sandbox.runtime_util import (
+    PolicyEnv,
+    load_harness_module,
+    read_config,
+    read_text,
+    run_tasks,
+    runtime_flags,
+)
 from . import sqlexec
 
 
@@ -96,6 +103,7 @@ def run_job(
             "calls": policy.calls,
             "error": err,
             "log": env.log[-6:],
+            **runtime_flags(policy),
         }
 
     run_tasks(tasks, solve_one, out_dir, job.get("task_parallel", 8))
