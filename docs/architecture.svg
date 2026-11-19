@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="-apple-system, BlinkMacSystemFont, Inter, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#6366f1"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e73"/></marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/></marker>
+    <style>
+      .box { fill: #ffffff; stroke: rgba(0,0,0,.12); stroke-width: 1.2; }
+      .zone { fill: #f5f5f7; stroke: rgba(0,0,0,.08); }
+      .sbx { fill: #eef6ff; stroke: #2a78d6; stroke-dasharray: 6 4; stroke-width: 1.4; }
+      .t { font-size: 15px; font-weight: 650; fill: #1d1d1f; }
+      .s { font-size: 12.5px; fill: #48484c; }
+      .m { font-size: 11.5px; fill: #6e6e73; }
+      .z { font-size: 12px; font-weight: 700; fill: #6e6e73; letter-spacing: .06em; }
+      .e { stroke: #6e6e73; stroke-width: 1.5; fill: none; marker-end: url(#a); }
+      .ep { stroke: #8b5cf6; stroke-width: 2; fill: none; marker-end: url(#ap); stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+  <rect width="1200" height="760" fill="#ffffff"/>
+  <text x="40" y="44" font-size="24" font-weight="750" fill="#1d1d1f">lamarck</text>
+  <text x="152" y="44" font-size="15" fill="#6e6e73">continual self-improvement of agent harnesses (RRSI engine + Self-Improvement Memory)</text>
+
+  <!-- host zone -->
+  <rect class="zone" x="30" y="70" width="760" height="660" rx="22"/>
+  <text class="z" x="52" y="98">HOST (macOS) — TRUSTED</text>
+
+  <!-- evolution engine -->
+  <rect class="box" x="56" y="116" width="708" height="250" rx="16"/>
+  <text class="t" x="76" y="142">Evolution engine  (lamarck/engine)</text>
+  <text class="m" x="76" y="160">round t: evaluate → propose k → screen → evaluate → select; resumable; incumbent is always a commit</text>
+  <rect class="box" x="76" y="176" width="150" height="84" rx="12"/><text class="t" x="92" y="200">Proposer</text><text class="s" x="92" y="219">qwen4-max</text><text class="m" x="92" y="236">1 call / candidate</text><text class="m" x="92" y="251">seals predictions</text>
+  <rect class="box" x="246" y="176" width="150" height="84" rx="12"/><text class="t" x="262" y="200">Screen</text><text class="s" x="262" y="219">critic regex + AST</text><text class="m" x="262" y="236">LLM screen (selector)</text><text class="m" x="262" y="251">edit budget b_t</text>
+  <rect class="box" x="416" y="176" width="150" height="84" rx="12"/><text class="t" x="432" y="200">Select</text><text class="s" x="432" y="219">noise floor S*−δ</text><text class="m" x="432" y="236">cost rule, guards</text><text class="m" x="432" y="251">LLM picks or none</text>
+  <rect class="box" x="586" y="176" width="158" height="84" rx="12"/><text class="t" x="602" y="200">Harness repo</text><text class="s" x="602" y="219">git worktree / branch</text><text class="m" x="602" y="236">per candidate</text><text class="m" x="602" y="251">fast-forward evolve</text>
+  <path class="e" d="M226,218 H244"/><path class="e" d="M396,218 H414"/><path class="e" d="M566,218 H584"/>
+  <rect class="box" x="76" y="276" width="320" height="74" rx="12"/><text class="t" x="92" y="300">Run history D_t</text><text class="m" x="92" y="319">every candidate, decision, ΔS, ΔC (this run only)</text><text class="m" x="92" y="336">prune set from recent yield</text>
+  <rect class="box" x="416" y="276" width="328" height="74" rx="12"/><text class="t" x="432" y="300">Evaluator + cache</text><text class="m" x="432" y="319">key: domain · split · model · harness tree</text><text class="m" x="432" y="336">host-side scoring with gold (never mounted)</text>
+
+  <!-- SIM -->
+  <rect x="56" y="384" width="708" height="150" rx="16" fill="url(#g)" opacity=".10"/>
+  <rect x="56" y="384" width="708" height="150" rx="16" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text class="t" x="76" y="410">Self-Improvement Memory (lamarck/sim)</text>
+  <text class="s" x="76" y="432">problems keyed by root cause → attempts {round, sample, accepted, backfilled, what, files,</text>
+  <text class="s" x="76" y="450">predicted, fixed, missed, passed, total, domain}; aliases for merged ids; carried_from on transfer</text>
+  <text class="m" x="76" y="474">conditions: Cold Start · Harness Transfer · Problem-Only · Full SIM · (+ retrieved top-k, BM25 + embeddings)</text>
+  <text class="m" x="76" y="492">read by proposer AND selector · updated only with the selected edit, after evaluation</text>
+  <text class="m" x="76" y="510">predictions recorded before evaluation · identical root causes merged deterministically</text>
+  <path class="ep" d="M150,384 V262"/><path class="ep" d="M490,384 V262"/>
+
+  <!-- experiments / dashboard -->
+  <rect class="box" x="56" y="552" width="340" height="156" rx="16"/>
+  <text class="t" x="76" y="578">Experiments</text>
+  <text class="s" x="76" y="600">PREREG.md (sha256 of splits) → plan as code</text>
+  <text class="s" x="76" y="620">scheduler: dependencies, 6 runs in parallel</text>
+  <text class="s" x="76" y="640">paired t + exact signed-rank, CI, d_z</text>
+  <text class="s" x="76" y="660">results/ → RESULTS.md, REPORT.md</text>
+  <text class="m" x="76" y="684">domains: text-to-SQL (Spider → BIRD), support-ops (MCP)</text>
+  <rect class="box" x="416" y="552" width="348" height="156" rx="16"/>
+  <text class="t" x="436" y="578">Static dashboard</text>
+  <text class="s" x="436" y="600">lineage tree (candidates as commits)</text>
+  <text class="s" x="436" y="620">curves per condition · SIM explorer</text>
+  <text class="s" x="436" y="640">cost panel · roadmap timeline</text>
+  <text class="m" x="436" y="664">one HTML file, zero runtime dependencies,</text>
+  <text class="m" x="436" y="680">light + dark</text>
+
+  <!-- docker zone -->
+  <rect class="zone" x="820" y="70" width="350" height="660" rx="22"/>
+  <text class="z" x="842" y="98">COLIMA VM · DOCKER · gVisor (runsc)</text>
+  <rect class="box" x="842" y="116" width="306" height="190" rx="16"/>
+  <text class="t" x="862" y="142">LLM gateway (container)</text>
+  <text class="s" x="862" y="164">per-run grants (role + model scopes)</text>
+  <text class="s" x="862" y="184">hard caps: 80k policy · 3k search calls</text>
+  <text class="s" x="862" y="204">token buckets · retries · ledger</text>
+  <text class="s" x="862" y="224">audit log (hashes, no content)</text>
+  <text class="m" x="862" y="248">the only holder of the provider key</text>
+  <text class="m" x="862" y="266">bridge network → DashScope (Qwen, DeepSeek)</text>
+  <text class="m" x="862" y="284">fake-* models for tests / CI</text>
+  <rect class="sbx" x="842" y="340" width="306" height="300" rx="16"/>
+  <text class="t" x="862" y="366">Sandbox job (fresh container)</text>
+  <text class="s" x="862" y="388">network: lamarck-sbx (--internal)</text>
+  <text class="s" x="862" y="408">only peer: gateway (via --add-host)</text>
+  <text class="s" x="862" y="428">/harness :ro   /job :ro   /data/&lt;split&gt; :ro</text>
+  <text class="s" x="862" y="448">/out rw · /tmp tmpfs · root fs ro</text>
+  <text class="s" x="862" y="468">uid nobody · cap-drop ALL · no-new-privs</text>
+  <text class="s" x="862" y="488">cpu / mem / pid limits · host timeout</text>
+  <text class="m" x="862" y="514">runner → domain runtime → harness code</text>
+  <text class="m" x="862" y="532">(text-to-SQL solve.py · support-ops MCP loop)</text>
+  <text class="m" x="862" y="556">warm pool per mount profile, single-use</text>
+  <text class="m" x="862" y="574">escape probes: all fail (results/)</text>
+  <text class="m" x="862" y="598">no gold answers, no held-out data</text>
+  <text class="m" x="862" y="616">during evolve evaluations</text>
+  <path class="e" d="M995,340 V310"/>
+  <path class="e" d="M764,313 C800,313 800,480 840,480"/>
+  <text class="m" x="772" y="402" transform="rotate(90 772 402)">docker exec</text>
+  <path class="e" d="M764,220 H840"/>
+  <text class="m" x="772" y="212">search roles</text>
+</svg>

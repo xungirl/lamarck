@@ -1,0 +1,26 @@
+{
+ "concurrency_1": {
+  "requests": 400,
+  "rps": 95.6,
+  "p50_ms": 6.06,
+  "p95_ms": 31.57,
+  "p99_ms": 72.15
+ },
+ "concurrency_4": {
+  "requests": 400,
+  "rps": 133.5,
+  "p50_ms": 23.06,
+  "p95_ms": 70.87,
+  "p99_ms": 111.48
+ },
+ "concurrency_16": {
+  "requests": 400,
+  "rps": 253.8,
+  "p50_ms": 56.41,
+  "p95_ms": 112.11,
+  "p99_ms": 126.51
+ },
+ "ledger_counted": 1200,
+ "ledger_exact": true,
+ "note": "in-process gateway, fake model, 2 kB prompt, ledger + audit log written on every request; Apple M2"
+}

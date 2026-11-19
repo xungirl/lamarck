@@ -249,10 +249,13 @@ def make_handler(gw: Gateway) -> type[BaseHTTPRequestHandler]:
     return Handler
 
 
+class _Server(ThreadingHTTPServer):
+    daemon_threads = True
+    request_queue_size = 512  # the stdlib default (5) resets connections under bursty load
+
+
 def serve(gw: Gateway, host: str, port: int) -> ThreadingHTTPServer:
-    server = ThreadingHTTPServer((host, port), make_handler(gw))
-    server.daemon_threads = True
-    return server
+    return _Server((host, port), make_handler(gw))
 
 
 def start_in_thread(gw: Gateway, host: str = "127.0.0.1", port: int = 0) -> tuple[ThreadingHTTPServer, str]:

@@ -7,6 +7,7 @@ harness under test cannot reach anything but this one URL anyway.
 from __future__ import annotations
 
 import json
+import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
@@ -40,6 +41,24 @@ class GatewayClient:
         self.timeout_s = timeout_s
 
     def chat(
+        self,
+        role: str,
+        model: str,
+        messages: list[dict[str, Any]],
+        **params: Any,
+    ) -> ChatResult:
+        """One chat completion. Connection-level failures (the request never got a response) are
+        retried a few times with backoff; HTTP errors from the gateway are not (it retries upstream)."""
+        for attempt in range(4):
+            try:
+                return self._chat_once(role, model, messages, **params)
+            except GatewayError as exc:
+                if exc.status != 599 or attempt == 3:
+                    raise
+                time.sleep(0.5 * 2**attempt)
+        raise AssertionError("unreachable")
+
+    def _chat_once(
         self,
         role: str,
         model: str,

@@ -1,0 +1,21 @@
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.13"
+      - run: uv sync --frozen
+      - name: lint
+        run: |
+          uv run ruff check lamarck tests scripts
+          uv run ruff format --check lamarck tests scripts
+      - name: type check (mypy --strict)
+        run: uv run mypy
+      - name: offline tests (fake models, subprocess sandbox, no secrets)
+        run: uv run pytest -m "not docker and not live"
