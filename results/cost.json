@@ -1,0 +1,49 @@
+{
+ "note": "Token counts are exact (gateway ledger). USD is an ESTIMATE for qwen3.8-flash only, from a reported list price of CNY 0.80 / 2.70 per 1M input / output tokens (assumed unit) at 7.1 CNY/USD, retrieved 2026-11-19; no public price was found for qwen4-max or deepseek-v4.1-flash. Ledger totals include pilot/calibration evaluations and the discarded first attempts.",
+ "prices_cny_per_million": {
+  "qwen3.8-flash": [
+   0.8,
+   2.7
+  ]
+ },
+ "cny_per_usd": 7.1,
+ "models": [
+  {
+   "key": "policy|deepseek-v4.1-flash",
+   "calls": 303,
+   "prompt_tokens": 293419,
+   "completion_tokens": 144468,
+   "usd": null
+  },
+  {
+   "key": "policy|qwen3.8-flash",
+   "calls": 6879,
+   "prompt_tokens": 8719718,
+   "completion_tokens": 512506,
+   "usd": 1.1774000845070425
+  },
+  {
+   "key": "proposer|qwen4-max",
+   "calls": 141,
+   "prompt_tokens": 612269,
+   "completion_tokens": 470480,
+   "usd": null
+  },
+  {
+   "key": "selector|qwen4-max",
+   "calls": 39,
+   "prompt_tokens": 394892,
+   "completion_tokens": 17596,
+   "usd": null
+  }
+ ],
+ "groups": [
+  {
+   "group": "sql-source",
+   "runs": 1,
+   "policy_calls": 828,
+   "search_calls": 25,
+   "policy_tokens": 895328
+  }
+ ]
+}
