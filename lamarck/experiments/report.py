@@ -14,7 +14,7 @@ from typing import Any
 from ..engine.gitops import HarnessRepo
 from ..sim.memory import SIM
 from ..types import EvalResult
-from .plan import N_RET_SEEDS, N_SQL_SOURCES, UNFUNDED_GROUPS, build_plan
+from .plan import N_PRIMARY_PAIRS, N_RET_SEEDS, N_SQL_SOURCES, UNFUNDED_GROUPS, build_plan
 from .stats import paired_summary, wilson_ci
 
 PRICES_NOTE = "see results/cost.json"
@@ -122,9 +122,9 @@ def spend_summary(spend: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def paired_block(runs: dict[str, Any]) -> dict[str, Any]:
+def paired_block(runs: dict[str, Any], n_pairs: int = N_PRIMARY_PAIRS) -> dict[str, Any]:
     pairs = []
-    for i in range(1, N_SQL_SOURCES + 1):
+    for i in range(1, n_pairs + 1):
         f, t = runs.get(f"sql-full-{i}"), runs.get(f"sql-transfer-{i}")
         if f and t and f["state"]["status"] == "done" and t["state"]["status"] == "done":
             pairs.append({"source": i, "start": t["heldout_start"], "no_sim": t["heldout_end"], "sim": f["heldout_end"],
@@ -178,7 +178,10 @@ def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any
     ]  # fmt: skip
 
     # ---- paired study
-    agg["paired"] = paired_block(runs)
+    agg["paired"] = paired_block(runs)  # primary: pairs 1-3 (deviation 3)
+    if N_SQL_SOURCES > N_PRIMARY_PAIRS:  # deviation 5: extended analysis, reported separately
+        agg["paired_extended"] = paired_block(runs, N_SQL_SOURCES)
+        agg["paired_extended"]["planned_pairs"] = N_SQL_SOURCES
     race = root / "aborted" / "race"
     if (race / "runs").exists():  # PREREG deviation 4: the first, raced execution of the paired arms
         raced = {n: s for n in plan if (s := load_run(race, n)) is not None}
@@ -186,7 +189,7 @@ def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any
         agg["paired_raced"]["start_by_arm"] = [
             {"source": i, "sim_arm": raced[f"sql-full-{i}"]["heldout_start"],
              "no_sim_arm": raced[f"sql-transfer-{i}"]["heldout_start"]}
-            for i in range(1, N_SQL_SOURCES + 1) if f"sql-full-{i}" in raced and f"sql-transfer-{i}" in raced
+            for i in range(1, N_PRIMARY_PAIRS + 1) if f"sql-full-{i}" in raced and f"sql-transfer-{i}" in raced
         ]  # fmt: skip
 
     # ---- four conditions
@@ -293,6 +296,27 @@ def render_markdown(agg: dict[str, Any]) -> str:
                 f"With n = {s['n']} pairs these statistics are descriptive: the smallest attainable exact signed-rank p "
                 f"is {2 / 2 ** s['n']:.3f}, and one held-out task is {100 / 40:.1f} points on the 40-task split.",
             ]
+        L.append("")
+    px = agg.get("paired_extended")
+    if px and len(px["pairs"]) > len(p["pairs"]):
+        L += [f"## Extended paired analysis, pairs 1-{len(px['pairs'])} (PREREG deviation 5; secondary, not the primary analysis)", "",
+              f"Pairs {len(p['pairs']) + 1}-{len(px['pairs'])} were added after the 3-pair result above had been seen (optional stopping);",
+              "same protocol, configs, splits and code. This analysis does not replace the primary one.", "",
+              "| source run | start (H_S on BIRD held-out) | No SIM | SIM | Δ (SIM − No SIM) |", "|---|---|---|---|---|"]  # fmt: skip
+        for r in px["pairs"]:
+            L.append(
+                f"| {r['source']} | {pts(r['start'])} | {pts(r['no_sim'])} | {pts(r['sim'])} | {r['delta'] * 100:+.2f} |"
+            )
+        if "stats" in px:
+            s = px["stats"]
+            L += ["", f"Mean Δ = {s['mean_diff']:+.2f} points (95% CI [{s['ci95'][0]:+.2f}, {s['ci95'][1]:+.2f}]), "
+                  f"paired t({s['df']}) = {s['t']:.2f}, p = {s['p_t_two_sided']:.3f}; exact signed-rank p = "
+                  f"{s['wilcoxon']['p_two_sided']:.3f}; d_z = {s['d_z']:.2f}; SIM wins {s['wins']}, loses {s['losses']}, ties {s['ties']}.",
+                  f"On the evolve split the mean Δ is {px['evolve_stats']['mean_diff']:+.2f} (p = {px['evolve_stats']['p_t_two_sided']:.3f})."]  # fmt: skip
+        if len(px["pairs"]) < px["planned_pairs"]:
+            L.append(
+                f"{px['planned_pairs'] - len(px['pairs'])} planned extra pair(s) not completed (see the not-run list)."
+            )
         L.append("")
     for key, title in (("sql", "Four conditions: Spider → BIRD (qwen3.8-flash)"),
                        ("supportops", "Four conditions: support-ops standard → shifted policy (qwen3.8-flash)"),

@@ -122,6 +122,8 @@ def money_gate(
     running: list[str],
     est: dict[str, float],
     spend: dict[str, Any],
+    reserve: float = 0.0,
+    bundles: dict[str, list[str]] | None = None,
 ) -> set[str]:
     """Runs that may be launched now without putting a higher-priority run at risk.
 
@@ -129,19 +131,27 @@ def money_gate(
     Walking the priority order, every pending run (launchable now or still waiting for its
     dependencies) claims its estimate; a run is allowed only if its claim still fits.
     So a cheap low-priority run never takes money that a higher-priority run will need.
+    `reserve` is headroom that is never planned for; `bundles` maps a run to the runs that depend on it
+    and are claimed together with it.
     """
     by = spend.get("by", {})
-    left = float(spend.get("cap_rmb", 0.0)) - float(spend.get("spent_rmb", 0.0))
+    left = float(spend.get("cap_rmb", 0.0)) - float(spend.get("spent_rmb", 0.0)) - reserve
     left -= float(spend.get("in_flight_rmb", 0.0))
     for n in running:
         left -= max(0.0, est[n] - float(by.get(f"run:{n}", {}).get("rmb", 0.0)))
+    claimed: set[str] = set()
     allowed: set[str] = set()
     for n in order:
-        if n not in pending:
+        if n not in pending or n in claimed:
             continue
-        if est[n] <= left:
+        # a run is launched together with the claim of its pending dependents (e.g. a source run and
+        # its two paired arms), so a unit is started only if all of it fits
+        unit = [n] + [d for d in (bundles or {}).get(n, []) if d in pending and d not in claimed]
+        need = sum(est[u] for u in unit)
+        if need <= left:
             allowed.add(n)
-        left -= est[n]
+        left -= need
+        claimed.update(unit)
     return allowed
 
 
@@ -183,7 +193,8 @@ def cmd_schedule(a: argparse.Namespace) -> None:
 
             spend = ledger_snapshot(f"http://127.0.0.1:{a.port}", secret).get("spend")
             if spend is not None:
-                ok = money_gate(todo, pending, list(running), est, spend)
+                bundles = {n: [m for m in todo if n in dependencies(plan[m])] for n in todo}
+                ok = money_gate(todo, pending, list(running), est, spend, a.reserve_rmb, bundles)
                 for n in ready:
                     if n not in ok and n not in held:
                         print(f"{time.strftime('%H:%M:%S')} holding {n}: money gate", flush=True)
@@ -287,6 +298,7 @@ def main() -> None:
     s.add_argument("--parallel", type=int, default=4)
     s.add_argument("--port", type=int, default=18080)
     s.add_argument("--no-money-gate", action="store_true", help="offline/fake runs only")
+    s.add_argument("--reserve-rmb", type=float, default=0.0, help="headroom under the cap never planned for")
     s.set_defaults(fn=cmd_schedule)
     sub.add_parser("status").set_defaults(fn=cmd_status)
     sub.add_parser("ledger").set_defaults(fn=cmd_ledger)

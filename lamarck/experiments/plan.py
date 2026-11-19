@@ -33,7 +33,11 @@ POLICY_PARAMS: dict[str, dict[str, Any]] = {
 # the whole output budget; qwen3.8-flash is a hybrid model too).
 SEARCH_EXTRA: dict[str, Any] = {"enable_thinking": False}
 ROUNDS, K = 3, 2  # deviation 3 (was N = 4, k = 3)
-N_SQL_SOURCES = 3  # deviation 3 (was 10)
+N_SQL_SOURCES = (
+    7  # deviation 5: pairs 4-7 added after the 3-pair primary analysis (deviation 3 had 3; PREREG 10)
+)
+N_PRIMARY_PAIRS = 3  # the primary (deviation 3) paired analysis uses pairs 1-3 only
+N_RET_POOL = 3  # the retrieval ablation pooled the SIM of sql-src-1..3 (it ran before deviation 5)
 N_SO_SOURCES = 1  # deviation 3 (was 2)
 N_RET_SEEDS = 1  # deviation 3 (was 2)
 # Splits (deviation 3 sub-splits of the frozen splits; ood_* are used whole)
@@ -44,8 +48,9 @@ OOD_EVOLVE, OOD_HELDOUT = "ood_evolve", "ood_heldout"
 # Conservative RMB estimate of one run per group, used by the scheduler to launch a run only while the
 # money left covers it and the runs in flight (from per-task costs measured before the revision).
 EST_RMB: dict[str, float] = {
-    "sql-source": 0.6,
-    "sql-paired": 0.9,
+    # deviation 5: from the spend ledger of pairs 1-3 (max source run RMB 0.144, max arm RMB 0.407), rounded up
+    "sql-source": 0.15,
+    "sql-paired": 0.41,
     "sql-conditions": 0.8,
     "so-source": 1.6,
     "so-conditions": 1.3,
@@ -147,7 +152,7 @@ def build_plan() -> dict[str, RunSpec]:
             )
         )
 
-    sources = [f"sql-src-{i}" for i in range(1, N_SQL_SOURCES + 1)]
+    sources = [f"sql-src-{i}" for i in range(1, N_RET_POOL + 1)]
     for s in range(1, N_RET_SEEDS + 1):
         for arm, mem in (("full", "full"), ("top", "retrieved")):
             name = f"ret-{arm}-{s}"

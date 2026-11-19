@@ -46,7 +46,19 @@ def test_revised_plan_matches_deviation_3() -> None:
     funded = [s for s in plan.values() if s.group not in UNFUNDED_GROUPS]
     assert all(s.cfg.policy_model == "qwen3.8-flash" for s in funded)
     pairs = [n for n in plan if n.startswith("sql-full-")]
-    assert pairs == ["sql-full-1", "sql-full-2", "sql-full-3"]
+    assert pairs == [f"sql-full-{i}" for i in range(1, 8)]  # deviation 5: pairs 4-7 added
+    assert plan["ret-full-1"].pooled_sim_from == ["sql-src-1", "sql-src-2", "sql-src-3"]
+    for i in range(4, 8):  # same protocol as pairs 1-3
+        a, b = plan[f"sql-full-{i}"].cfg, plan["sql-full-2"].cfg
+        assert (a.evolve_split, a.heldout_split, a.rounds, a.k, a.memory, a.heldout_curve, a.seed) == (
+            b.evolve_split,
+            b.heldout_split,
+            b.rounds,
+            b.k,
+            b.memory,
+            b.heldout_curve,
+            100 + i,
+        )
     assert plan["sql-src-1"].cfg.evolve_split == "spider_evolve_s30"
     assert plan["sql-full-1"].cfg.heldout_split == "bird_heldout_s40"
     assert plan["so-src-1"].cfg.evolve_split == "so_evolve_s20"
@@ -56,3 +68,15 @@ def test_revised_plan_matches_deviation_3() -> None:
         "so-cold",
         "so-problems",
     ]
+
+
+def test_gate_reserve_and_bundles() -> None:
+    est = {"s": 0.2, "f": 0.4, "t": 0.4, "s2": 0.2, "f2": 0.4, "t2": 0.4}
+    order = list(est)
+    b = {"s": ["f", "t"], "s2": ["f2", "t2"]}
+    # 9.5 - 8.0 - reserve 0.5 = 1.0 left: pair 1 (1.0) fits, pair 2 is not started
+    assert money_gate(order, order, [], est, spend(8.0), 0.5, b) == {"s"}
+    # without bundles the second source would slip in on its own estimate
+    assert "s2" not in money_gate(order, order, [], est, spend(8.0), 0.5, b)
+    assert money_gate(order, ["s2", "f2", "t2"], [], est, spend(8.0), 0.5, b) == {"s2"}
+    assert money_gate(order, ["s2", "f2", "t2"], [], est, spend(8.2), 0.5, b) == set()
