@@ -35,7 +35,7 @@ STAGES = [
     ),
     (
         "LLM gateway",
-        "Per-run grants, hard caps (80k policy / 3k search calls), token buckets, retries, ledger, audit log.",
+        "Per-run grants, call caps, token buckets, retries, audit log, and an RMB spend ledger with a hard cap.",
     ),
     (
         "Sandboxed evaluation",
@@ -47,11 +47,11 @@ STAGES = [
     ),
     (
         "Source RSI runs",
-        "10 text-to-SQL and 2 support-ops source runs build evolved harnesses and their SIM.",
+        "Budget-revised plan: 3 text-to-SQL and 1 support-ops source runs build evolved harnesses and their SIM.",
     ),
     (
         "CRSI experiments",
-        "Four memory conditions on three transitions, including a cross-family model change.",
+        "Four memory conditions on Spider → BIRD and a support-ops policy shift; cross-model with simulated models.",
     ),
     (
         "Paired study",

@@ -174,7 +174,7 @@ footer { color: var(--muted); font-size: .8rem; padding: 48px 0 40px; }
   <section class="sec" id="cost">
     <h2>Cost</h2>
     <p class="note" id="cost-note"></p>
-    <div class="grid2"><div class="card scroll"><h3>Calls and tokens by role and model (gateway ledger)</h3><table class="tbl" id="cost-models"></table></div>
+    <div class="grid2"><div class="card scroll"><h3>Calls, tokens and RMB by role (spend ledger)</h3><table class="tbl" id="cost-models"></table></div>
       <div class="card scroll"><h3>Per run group</h3><table class="tbl" id="cost-groups"></table></div></div>
   </section>
 
@@ -218,9 +218,9 @@ function hero() {
   const k = [];
   if (st) k.push([sign(st.mean_diff), `mean final held-out Δ, Full SIM − No SIM over ${st.n} paired source runs (95% CI ${sign(st.ci95[0])} to ${sign(st.ci95[1])})`]);
   if (st) k.push([st.p_t_two_sided.toFixed(3), `paired t-test p (two-sided); signed-rank p ${st.wilcoxon.p_two_sided.toFixed(3)}`]);
-  const pol = DATA.summary.ledger.pools || {};
-  k.push([(pol.policy?.calls ?? 0).toLocaleString(), "policy calls through the gateway (cap 80,000)"]);
-  k.push([(pol.search?.calls ?? 0).toLocaleString(), "proposer / selector calls (cap 3,000)"]);
+  const pol = DATA.summary.ledger.pools || {}; const sp = DATA.summary.spend;
+  if (sp) k.push([`¥${sp.spent_rmb.toFixed(2)}`, `spent of the ¥${sp.cap_rmb.toFixed(2)} hard cap, priced per call from returned usage`]);
+  k.push([((pol.policy?.calls ?? 0) + (pol.search?.calls ?? 0)).toLocaleString(), "LLM calls through the gateway (policy + proposer / selector)"]);
   $("#kpis").innerHTML = k.map(([v, l]) => `<div class="kpi"><div class="v">${esc(v)}</div><div class="l">${esc(l)}</div></div>`).join("");
 }
 
@@ -250,7 +250,7 @@ function paired() {
 // ---------------------------------------------------------------- curves
 const COND_COLORS = { "Cold Start": "var(--s1)", "Harness Transfer": "var(--s2)", "Problem-Only Memory": "var(--s3)", "Full SIM": "var(--s4)" };
 function curves() {
-  const sets = { sql: "Spider → BIRD", supportops: "Support-ops policy shift", crossmodel: "Cross-model (qwen → DeepSeek)" };
+  const sets = { sql: "Spider → BIRD", supportops: "Support-ops policy shift", crossmodel: "Cross-model" };
   const seg = $("#curve-seg"); let active = null;
   const keys = Object.keys(sets).filter((k) => (DATA.summary.conditions[k] || []).length);
   keys.forEach((k, i) => { const b = document.createElement("button"); b.textContent = sets[k]; b.setAttribute("role", "tab"); b.onclick = () => draw(k); seg.appendChild(b); });
@@ -337,10 +337,11 @@ function simExplorer() {
 // ---------------------------------------------------------------- cost
 function cost() {
   const c = DATA.cost; $("#cost-note").textContent = c.note;
-  $("#cost-models").innerHTML = `<thead><tr><th>role · model</th><th class="num">calls</th><th class="num">prompt tok</th><th class="num">completion tok</th><th class="num">est. USD</th></tr></thead><tbody>` +
-    c.models.map((m) => `<tr><td>${esc(m.key)}</td><td class="num">${m.calls.toLocaleString()}</td><td class="num">${m.prompt_tokens.toLocaleString()}</td><td class="num">${m.completion_tokens.toLocaleString()}</td><td class="num">${m.usd == null ? "n/a" : m.usd.toFixed(2)}</td></tr>`).join("") + "</tbody>";
-  $("#cost-groups").innerHTML = `<thead><tr><th>group</th><th class="num">runs</th><th class="num">policy calls</th><th class="num">search calls</th><th class="num">policy tok</th></tr></thead><tbody>` +
-    c.groups.map((g) => `<tr><td>${esc(g.group)}</td><td class="num">${g.runs}</td><td class="num">${g.policy_calls.toLocaleString()}</td><td class="num">${g.search_calls.toLocaleString()}</td><td class="num">${g.policy_tokens.toLocaleString()}</td></tr>`).join("") + "</tbody>";
+  const r = (x) => (x == null ? "n/a" : x.toFixed(3));
+  $("#cost-models").innerHTML = `<thead><tr><th>role</th><th class="num">calls</th><th class="num">prompt tok</th><th class="num">cached</th><th class="num">completion tok</th><th class="num">RMB</th></tr></thead><tbody>` +
+    c.models.map((m) => `<tr><td>${esc(m.key)}</td><td class="num">${m.calls.toLocaleString()}</td><td class="num">${m.prompt_tokens.toLocaleString()}</td><td class="num">${(m.cached_tokens ?? 0).toLocaleString()}</td><td class="num">${m.completion_tokens.toLocaleString()}</td><td class="num">${r(m.rmb)}</td></tr>`).join("") + "</tbody>";
+  $("#cost-groups").innerHTML = `<thead><tr><th>group</th><th class="num">runs</th><th class="num">policy calls</th><th class="num">search calls</th><th class="num">policy tok</th><th class="num">RMB</th></tr></thead><tbody>` +
+    c.groups.map((g) => `<tr><td>${esc(g.group)}</td><td class="num">${g.runs}</td><td class="num">${g.policy_calls.toLocaleString()}</td><td class="num">${g.search_calls.toLocaleString()}</td><td class="num">${g.policy_tokens.toLocaleString()}</td><td class="num">${r(g.rmb)}</td></tr>`).join("") + "</tbody>";
 }
 
 // ---------------------------------------------------------------- roadmap
