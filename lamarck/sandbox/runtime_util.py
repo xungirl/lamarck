@@ -118,16 +118,22 @@ def run_tasks(
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     lock = threading.Lock()
-    path = out_dir / "results.jsonl"
+    # One handle for the whole job: on some bind mounts (virtiofs) a file created by the sandbox
+    # user is not re-openable by it, so the file is opened exactly once.
+    with open(out_dir / "results.jsonl", "a") as sink:
 
-    def wrapped(task: dict[str, Any]) -> None:
-        try:
-            rec = solve_one(task)
-        except Exception as exc:  # untrusted harness code
-            rec = {"error": f"{type(exc).__name__}: {exc}"[:500], "traceback": traceback.format_exc()[-1500:]}
-        rec["task_id"] = task["id"]
-        with lock, open(path, "a") as f:
-            f.write(json.dumps(rec, default=str) + "\n")
+        def wrapped(task: dict[str, Any]) -> None:
+            try:
+                rec = solve_one(task)
+            except Exception as exc:  # untrusted harness code
+                rec = {
+                    "error": f"{type(exc).__name__}: {exc}"[:500],
+                    "traceback": traceback.format_exc()[-1500:],
+                }
+            rec["task_id"] = task["id"]
+            with lock:
+                sink.write(json.dumps(rec, default=str) + "\n")
+                sink.flush()
 
-    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-        list(pool.map(wrapped, tasks))
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+            list(pool.map(wrapped, tasks))

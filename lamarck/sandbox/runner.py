@@ -39,6 +39,7 @@ def main() -> int:
     out = Path(os.environ["LAMARCK_OUT"])
     client = GatewayClient(os.environ["LAMARCK_GATEWAY"], os.environ["LAMARCK_TOKEN"])
     job, tasks = load_job(job_dir)
+    os.umask(0)  # files written to /out stay readable/writable across the host/VM uid mapping
     t0 = time.time()
     try:
         runtime = importlib.import_module(job["runtime"])
