@@ -222,6 +222,23 @@ def build(root: Path, out: Path, spend_file: Path = SPEND_FILE) -> dict[str, Any
     ]
     agg["unfunded"] = [n for n, spec in plan.items() if spec.group in UNFUNDED_GROUPS]
 
+    # ---- search behaviour (one model as proposer and selector under deviation 3)
+    failures: dict[str, int] = {}
+    for n in runs:
+        log = root / "runs" / n / "events.log"
+        for line in log.read_text().splitlines() if log.exists() else []:
+            if "proposal failed: " in line:
+                why = line.split("proposal failed: ", 1)[1].split(" (")[0][:60]
+                failures[why] = failures.get(why, 0) + 1
+    agg["search"] = {
+        "slots": sum(r["rounds"] * r["k"] for r in runs.values()),
+        **{
+            k: sum(int(r[k]) for r in runs.values())
+            for k in ("proposed", "screened_out", "evaluated", "accepted")
+        },
+        "proposal_failures": dict(sorted(failures.items(), key=lambda kv: -kv[1])),
+    }
+
     # ---- evaluation variance (cached repeated evaluations of the same harness)
     var = []
     for r0 in sorted((root / "cache" / "evals").glob("*/*/*/*__r0.json")):
@@ -304,6 +321,13 @@ def render_markdown(agg: dict[str, Any]) -> str:
                 f"| {r['condition']} | {pts(r['before'])} | {pts(r['after'])} | {pts(r['evolve_after'])} | {r['search_tokens']} | {rmb(r.get('rmb'))} |"
             )
         L.append("")
+    sb = agg.get("search")
+    if sb and sb["slots"]:
+        L += ["## Search behaviour (qwen3.8-flash as proposer and selector)", "",
+              f"Across {len(agg['runs'])} runs: {sb['slots']} candidate slots (rounds × k), {sb['proposed']} usable proposals, "
+              f"{sb['screened_out']} dropped by the critic or the LLM screen before evaluation, {sb['evaluated']} evaluated, "
+              f"{sb['accepted']} accepted. Unusable proposals by reason: "
+              + (", ".join(f"{k} ({v})" for k, v in sb["proposal_failures"].items()) or "none") + ".", ""]  # fmt: skip
     if agg.get("not_run") or agg.get("unfunded"):
         L += ["## Planned but not run / not finished", ""]
         for r in agg.get("not_run", []):
@@ -369,7 +393,7 @@ def render_markdown(agg: dict[str, Any]) -> str:
                      f"{pts(r['heldout_start'])} → {pts(r['heldout_end'])} | {r['accepted']} | {r['cost']['policy_calls']} | {r['cost']['search_calls']} |")  # fmt: skip
         L += [
             "",
-            "| role \\| model | calls | failed | prompt tokens | completion tokens | RMB (estimate) |",
+            "| role \\| model | calls | failed | prompt tokens | completion tokens | RMB (estimate, no cache discount) |",
             "|---|---|---|---|---|---|",
         ]
         for k, v in pre["ledger"]["models"].items():
