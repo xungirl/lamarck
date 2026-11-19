@@ -19,16 +19,16 @@ from pathlib import Path
 from typing import Any
 
 from .sim.memory import SIM
+from .stack import Stack
 
 REPO = Path(__file__).resolve().parents[1]
 DEFAULT_ROOT = REPO / "runs" / "main"
 KEYFILE = Path("/Users/xunxun/flowbeat/backend/.env")
 
 
-def attach(root: Path) -> Any:
+def attach(root: Path) -> Stack:
     """A Stack bound to the already-running gateway container (does not restart it)."""
     from .sandbox import docker_backend, image
-    from .stack import Stack
 
     tag = image.build(root / "build" / "ctx")
     secret = (root / "gateway-state" / "admin_secret").read_text().strip()
