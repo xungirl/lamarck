@@ -52,3 +52,24 @@ def test_clone_preserves_lineage(tmp_path: Path) -> None:
     assert tgt.rev("evolve") == c
     assert tgt.tree() == src.tree()
     assert any("evolved" in row["subject"] for row in tgt.lineage())
+
+
+def test_relative_root_inside_an_ignoring_parent_repo(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Regression (2026-11-19): `--root runs/rev3` inside the project repo, whose .gitignore ignores
+    runs/, made `git add` in candidate worktrees fail. Repo roots are resolved to absolute paths."""
+    import subprocess
+
+    parent = tmp_path / "project"
+    parent.mkdir()
+    subprocess.run(["git", "init", "-q"], cwd=parent, check=True)
+    (parent / ".gitignore").write_text("runs\n")
+    monkeypatch.chdir(parent)
+    repo = HarnessRepo.create(Path("runs/x/repo"), seed(tmp_path))
+    assert repo.root.is_absolute()
+    wt = repo.add_worktree(Path("runs/x/wt/c1"), "cand/c1")
+    (wt / "harness" / "prompt.md").write_text("changed\n")
+    commit = repo.commit_worktree(Path("runs/x/wt/c1"), "c1")
+    repo.fast_forward(commit)
+    assert repo.read_files()["prompt.md"] == "changed\n"

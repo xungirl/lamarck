@@ -43,6 +43,11 @@ def git(cwd: Path, *args: str, strip: bool = True) -> str:
 class HarnessRepo:
     root: Path
 
+    def __post_init__(self) -> None:
+        # Absolute, always: worktree paths are handed to git from different working directories, and a
+        # relative path inside another repository's ignored folder made `git add` fail (2026-11-19).
+        self.root = Path(self.root).resolve()
+
     # ------------------------------------------------------------ creation
     @classmethod
     def create(cls, root: Path, seed_harness: Path, message: str = "H0: seed harness") -> HarnessRepo:
@@ -106,12 +111,14 @@ class HarnessRepo:
     # ------------------------------------------------------------ mutation
     def add_worktree(self, path: Path, branch: str, start: str = EVOLVE) -> Path:
         """Fresh worktree at `path` on a new branch `branch` (an older one is replaced)."""
+        path = Path(path).resolve()
         self.remove_worktree(path, branch)
         path.parent.mkdir(parents=True, exist_ok=True)
         git(self.root, "worktree", "add", "-q", "-b", branch, str(path), start)
         return path
 
     def remove_worktree(self, path: Path, branch: str | None = None) -> None:
+        path = Path(path).resolve()
         if path.exists():
             subprocess.run(
                 ["git", "worktree", "remove", "--force", str(path)], cwd=self.root, capture_output=True
@@ -123,6 +130,7 @@ class HarnessRepo:
 
     def commit_worktree(self, worktree: Path, message: str) -> str:
         """Commit everything under harness/ in `worktree`; return the commit hash."""
+        worktree = Path(worktree).resolve()
         git(worktree, "add", "-A", "--", HARNESS_DIR)
         git(worktree, "commit", "-q", "--allow-empty", "-m", message)
         return git(worktree, "rev-parse", "HEAD")

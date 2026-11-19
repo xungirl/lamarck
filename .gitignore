@@ -11,3 +11,4 @@ runs/
 *.lock.tmp
 docs/site/
 data/raw
+results/budget/*.lock

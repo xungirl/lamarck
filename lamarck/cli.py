@@ -302,6 +302,7 @@ def main() -> None:
     for sp in (g, e, s, v):
         sp.add_argument("--root", type=Path, default=argparse.SUPPRESS)
     a = p.parse_args()
+    a.root = Path(a.root).resolve()
     a.fn(a)
 
 
