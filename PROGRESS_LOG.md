@@ -19,3 +19,22 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
   gVisor cannot reach Docker's embedded DNS, so the gateway name is injected with --add-host.
   Escape probes: results/sandbox_probes.json (all escapes fail, gateway reachable).
 - Note: agent-eval-mcp's stopped RRSI stage left stores/hooks/tasks on branch `rrsi-wip` (read-only for us).
+
+## 2026-11-19 (provider outage, budget revision)
+
+- 00:34-00:36: the provider account ran out of credit (403 `AccessDenied.Unpurchased`) while
+  sql-src-1..6 were finishing; 2,138 calls got 403 and were scored as failures. Only sql-src-4 had
+  finished before the first 403 (last call 08:32:27 UTC, first 403 08:34:14 UTC). Evaluator fixed to
+  discard provider failures (commit 9cbc0c2); tainted runs set aside in runs/main/aborted/outage-20261119.
+- Budget revision (PREREG deviation 3): RMB spend ledger with a hard cap of 9.50 (results/budget/),
+  qwen3.8-flash for every role, N=3 k=2, sub-splits (20-40 tasks), 3 sql sources / 3 pairs,
+  1 support-ops source, priority order + scheduler money gate, cross-model unfunded (fake-model test).
+- 03:20 API check: one call, HTTP 200 (scripts/api_check.py). New experiment root runs/rev3 with the
+  untainted cached evaluations of runs/main copied in (sub-splits are projected from them for free).
+- colima restart drops gVisor from /etc/docker/daemon.json: re-register with
+  `colima ssh -- sudo runsc install && colima ssh -- sudo systemctl restart docker`.
+  The gateway container has restart policy unless-stopped: `docker rm -f lamarck-gateway` before
+  `colima stop`, or it comes back on the next `colima start`.
+- 03:23 first launch failed (relative --root -> git add of ignored path); fixed, RMB 0.035 lost.
+- 03:25 relaunched: `uv run python -m lamarck.cli --root runs/rev3 schedule --parallel 4`
+  (log runs/rev3/schedule.out, per-run logs runs/rev3/logs/). Resume = run the same command again.
