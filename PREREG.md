@@ -160,3 +160,18 @@ Budget caps (enforced in the gateway): ≤ 80,000 policy calls, ≤ 3,000 search
      reported separately as a pre-revision run; its numbers are not pooled with the revised runs.
    The revised runs live in a fresh experiment root (`runs/rev3`); only the cached evaluations of
    unchanged harnesses (none tainted) are copied over from `runs/main`.
+4. **2026-11-19 03:38, during the revised run, before any paired statistic was computed: evaluation race.**
+   The evaluation cache was locked per process only. sql-full-i and sql-transfer-i run in separate
+   processes and start from the same harness, so both evaluated it at the same time (calibration on
+   `bird_evolve_s30`, held-out start on `bird_heldout_s40`) and the later write replaced the earlier
+   cache file. The arms therefore did not share one measurement of their common start, as the design
+   requires (e.g. held-out start of pair 1: 60.0 in the Full SIM arm, 55.0 in the transfer arm; pair 2:
+   67.5 vs 62.5; calibration scores of pairs 2 and 3 differ between arms). Fix: a cross-process file
+   lock per cache key (commit "Evaluator: cross-process file lock ..."). Decision, taken after seeing
+   the per-arm event logs of pairs 1-2 but before computing any paired difference or statistic: the six
+   paired arms are re-run from scratch with the fix (same names, same seeds, same sources); the first
+   execution is set aside in `runs/rev3/aborted/race/` and reported in REPORT.md as a secondary,
+   flawed execution, never pooled. Cached evaluations stay: each cache file is one complete evaluation
+   of its harness, and with the lock every arm now reads the same one. sql-cold, sql-problems-1 and the
+   source runs did not race (no concurrent process shared their keys) and are kept. All support-ops
+   condition runs started after the fix.
