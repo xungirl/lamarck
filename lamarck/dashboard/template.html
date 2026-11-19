@@ -284,7 +284,7 @@ function lineage() {
   function draw(name) {
     const run = DATA.runs[name]; const hist = run.history || []; const rounds = run.summary.rounds; const k = run.summary.k;
     $("#lin-meta").textContent = `${run.summary.memory} memory · ${run.summary.policy_model} · ${run.summary.evolve_split} · ${run.summary.accepted} accepted / ${run.summary.proposed} proposed`;
-    const W = 720, H = 70 + k * 46, L = 70, R = 30; const x = (t) => L + 60 + t * ((W - L - R - 60) / Math.max(1, rounds - 1 + 0.6));
+    const W = 760, H = 70 + k * 46, L = 128, R = 30; const x = (t) => L + 60 + t * ((W - L - R - 60) / Math.max(1, rounds - 1 + 0.6));
     const yInc = 34, yC = (j) => 76 + j * 44; const s = svg(W, H);
     const defs = el("defs", {}, s); const g = el("linearGradient", { id: "g", x1: 0, x2: 1 }, defs);
     [["0", "#6366f1"], ["0.5", "#8b5cf6"], ["1", "#d946ef"]].forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, g));
