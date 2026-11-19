@@ -86,7 +86,7 @@ make report                  # rebuild results/ and the dashboard from runs/rev3
 
 Data: `scripts/prepare_text2sql_splits.py` (Spider 1.0 and BIRD mini-dev archives, hashes in
 PREREG.md), `scripts/prepare_supportops_splits.py`, `scripts/prepare_subsplits.py`. The API key is read
-by the gateway process only (path in `lamarck/cli.py`); nothing else ever sees it. `PROGRESS_LOG.md` has
+by the gateway process only, from `./.env` (or the file named by `$LAMARCK_KEYFILE`); nothing else ever sees it. `PROGRESS_LOG.md` has
 the operational notes (gVisor re-registration after a colima restart, how to resume a schedule).
 
 ## Prior art
@@ -104,4 +104,4 @@ proposer, a support-ops target split at ceiling, no cross-model run with real mo
 [REPORT.md](REPORT.md) §Threats to validity. A reading guide for the code (Chinese) is in
 [INTERVIEW.md](INTERVIEW.md).
 
-License: Apache-2.0 (declared in `pyproject.toml`).
+License: Apache-2.0 (see [LICENSE](LICENSE)).

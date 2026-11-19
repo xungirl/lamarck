@@ -1,7 +1,7 @@
 # Provenance
 
 The `server/` and `agent/` packages here are copied from the author's own project
-**agent-eval-mcp** (`/Users/xunxun/agent-eval-mcp`, branch `rrsi-wip`, commit `3b186b3`),
+**agent-eval-mcp** (https://github.com/xungirl/agent-eval-mcp; local unpublished branch `rrsi-wip`, commit `3b186b3`),
 with these changes only:
 
 - `server/app.py`: the standalone `main()` entry point and its seeding import are removed.

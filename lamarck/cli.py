@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -24,7 +25,8 @@ from .stack import Stack
 REPO = Path(__file__).resolve().parents[1]
 # Experiment root of the revised plan (PREREG deviation 3). runs/main holds the pre-revision runs.
 DEFAULT_ROOT = REPO / "runs" / "rev3"
-KEYFILE = Path("/Users/xunxun/flowbeat/backend/.env")
+# Env file holding DASHSCOPE_API_KEY; override with LAMARCK_KEYFILE. Never committed (.gitignore).
+KEYFILE = Path(os.environ.get("LAMARCK_KEYFILE", REPO / ".env"))
 # The RMB spend ledger covers every real call this project makes after the 2026-11-19 budget
 # revision (PREREG deviation 3); committed so the spend is auditable.
 SPEND_FILE = REPO / "results" / "budget" / "spend_ledger.json"

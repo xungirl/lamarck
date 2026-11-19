@@ -2,7 +2,7 @@
 # Reproduce the budget-revised experiments (PREREG.md deviation 3) on one machine.
 #
 # Needs: colima + Docker, gVisor installed in the colima VM (see PROGRESS_LOG.md), the data under
-# data/ (scripts/prepare_*), DASHSCOPE_API_KEY in the key file named in lamarck/cli.py.
+# data/ (scripts/prepare_*), DASHSCOPE_API_KEY in ./.env (or the file named by $LAMARCK_KEYFILE).
 # Every call goes through the gateway, which stops at the RMB cap in lamarck/cli.py (SPEND_CAP_RMB).
 # Safe to re-run: finished runs are skipped, interrupted runs resume from their last round.
 set -euo pipefail
