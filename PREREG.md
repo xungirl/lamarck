@@ -101,4 +101,11 @@ Budget caps (enforced in the gateway): ≤ 80,000 policy calls, ≤ 3,000 search
 
 ## Deviations
 
-(none yet)
+1. **2026-11-19, before any result was used: search model settings and proposal format.** The first
+   attempt of `sql-src-1` produced 0/3 usable proposals in round 0: `qwen4-max` returned only
+   `reasoning_content` (thinking mode on by default) and hit the 8,192-token output cap with empty
+   content (one diagnostic call: 198 s, 8,192 completion tokens). Fix: the search roles (proposer,
+   selector) run `qwen4-max` with `enable_thinking=false`, and the proposer returns a JSON manifest plus
+   verbatim `<file>` blocks instead of file contents escaped inside JSON (the JSON parser remains as a
+   fallback). That aborted attempt (3 proposer calls, no evaluations of candidates) was deleted and
+   `sql-src-1` restarted from scratch. No other setting changed.

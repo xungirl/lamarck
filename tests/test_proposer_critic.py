@@ -42,3 +42,14 @@ def test_critic_checks() -> None:
 def test_critic_ignores_removed_lines() -> None:
     diff = "-old line mentioning sp0042\n+new generic line\n"
     assert critic.screen(diff, {"p.md": "new generic line"}, 1, 1, [(r"sp\d{4}", "task id")]) == []
+
+
+def test_tagged_format_keeps_code_verbatim() -> None:
+    text = (
+        "short reasoning\n<manifest>\n"
+        '{"root_cause": {"cite": null, "name": "quotes break json"}, "what": "w", "n_independent_edits": 1, "predicted": []}\n'
+        '</manifest>\n<file path="rules.md">\nline with "quotes" and \\backslashes\\ and {braces}\n</file>\n'
+    )
+    p = parse_proposal(text, "s1", ToyDomain(), failing=set())
+    assert p.edits == {"rules.md": 'line with "quotes" and \\backslashes\\ and {braces}'}
+    assert p.cite is None and p.root_cause == "quotes break json"

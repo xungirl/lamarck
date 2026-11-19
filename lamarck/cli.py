@@ -48,7 +48,7 @@ def cmd_gateway_up(a: argparse.Namespace) -> None:
 
 def run_spec(name: str, root: Path) -> dict[str, Any]:
     from .engine.loop import EvolutionRun
-    from .experiments.plan import POLICY_PARAMS, RUN_BUDGET, build_plan
+    from .experiments.plan import POLICY_PARAMS, RUN_BUDGET, SEARCH_EXTRA, build_plan
 
     plan = build_plan()
     spec = plan[name]
@@ -67,7 +67,9 @@ def run_spec(name: str, root: Path) -> dict[str, Any]:
         if source.state().get("status") != "done":
             raise SystemExit(f"source {spec.source} is not done")
     fresh = not (root / "runs" / name / "state.json").exists()
-    run = stack.make_run(spec.cfg, source=source, policy_params=POLICY_PARAMS[spec.cfg.policy_model])
+    run = stack.make_run(
+        spec.cfg, source=source, policy_params=POLICY_PARAMS[spec.cfg.policy_model], search_extra=SEARCH_EXTRA
+    )
     if fresh and spec.pooled_sim_from:
         mems = [SIM.load(root / "runs" / s / "sim.json") for s in spec.pooled_sim_from]
         pooled = SIM.pooled(mems, spec.pooled_sim_from)

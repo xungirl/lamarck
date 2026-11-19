@@ -48,12 +48,17 @@ RULES
   contract's function signatures.
 - Every edit must have a plausible causal link to the failures you diagnose.
 
-OUTPUT: strict JSON only, no prose before or after:
+OUTPUT FORMAT (exactly this, nothing else; keep any reasoning short and put it before the manifest):
+<manifest>
 {{"root_cause": {{"cite": "<id of an existing memory entry, or null>", "name": "<one-line root-cause hypothesis>"}},
  "what": "<what the edit changes and why, 1-3 sentences>",
  "n_independent_edits": <integer>,
- "edits": [{{"file": "<path relative to the harness>", "content": "<the COMPLETE new file content>"}}],
- "predicted": ["<ids of CURRENTLY FAILING evolve tasks you expect this edit to fix>"]}}"""
+ "predicted": ["<ids of CURRENTLY FAILING evolve tasks you expect this edit to fix>"]}}
+</manifest>
+<file path="<path relative to the harness>">
+<the COMPLETE new content of that file, verbatim, no code fences>
+</file>
+(one <file> block per changed file; omit unchanged files)"""
 
 
 @dataclass
@@ -175,8 +180,28 @@ def extract_json(text: str) -> dict[str, Any]:
     raise ProposalError("unterminated JSON object")
 
 
+MANIFEST = re.compile(r"<manifest>\s*(.*?)\s*</manifest>", re.S)
+FILE_BLOCK = re.compile(r'<file path="([^"]+)">\n?(.*?)\n?</file>', re.S)
+
+
+def split_tagged(text: str) -> dict[str, Any] | None:
+    """Parse the tagged format: a JSON manifest plus verbatim <file> blocks (no escaping needed).
+    Returns the same shape as the JSON format, or None if the text is not in the tagged format."""
+    m = MANIFEST.search(text)
+    if not m:
+        return None
+    obj = extract_json(m.group(1))
+    files = FILE_BLOCK.findall(text[m.end() :])
+    if not files:
+        raise ProposalError("manifest without <file> blocks")
+    obj["edits"] = [
+        {"file": path, "content": body if body.strip() != "<deleted>" else None} for path, body in files
+    ]
+    return obj
+
+
 def parse_proposal(text: str, sample: str, domain: Domain, failing: set[str]) -> Proposal:
-    obj = extract_json(text)
+    obj = split_tagged(text) or extract_json(text)
     rc = obj.get("root_cause") or {}
     if not isinstance(rc, dict):
         rc = {"cite": None, "name": str(rc)}

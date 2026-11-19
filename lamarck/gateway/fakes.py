@@ -79,15 +79,13 @@ def _propose(body: dict[str, Any]) -> str:
     new_rules = (
         re.sub(rf"^RULE {kind}: \w+\n?", "", rules, flags=re.M).rstrip("\n") + f"\nRULE {kind}: {op}\n"
     )
-    return json.dumps(
-        {
-            "root_cause": {"cite": cite, "name": name},
-            "what": f"add rule kind={kind} op={op}",
-            "n_independent_edits": 1,
-            "edits": [{"file": "rules.md", "content": new_rules}],
-            "predicted": [tid for tid, k, _ in failing if k == kind],
-        }
-    )
+    manifest = {
+        "root_cause": {"cite": cite, "name": name},
+        "what": f"add rule kind={kind} op={op}",
+        "n_independent_edits": 1,
+        "predicted": [tid for tid, k, _ in failing if k == kind],
+    }
+    return f'<manifest>\n{json.dumps(manifest)}\n</manifest>\n<file path="rules.md">\n{new_rules}</file>\n'
 
 
 def _screen(body: dict[str, Any]) -> str:

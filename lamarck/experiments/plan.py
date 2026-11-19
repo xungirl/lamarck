@@ -26,6 +26,9 @@ POLICY_PARAMS: dict[str, dict[str, Any]] = {
     QWEN: {"temperature": 0.0, "max_tokens": 2048, "seed": 1234, "enable_thinking": False},
     DEEPSEEK: {"temperature": 0.0, "max_tokens": 2048, "seed": 1234},
 }
+# qwen4-max is a hybrid reasoning model: with thinking on, the reasoning consumed the whole output
+# budget (observed in the first sql-src-1 attempt), so the search roles run with thinking off.
+SEARCH_EXTRA: dict[str, Any] = {"enable_thinking": False}
 N_SQL_SOURCES = 10
 N_SO_SOURCES = 2
 # per-run caps on top of the global caps (defence against a runaway run)

@@ -413,6 +413,7 @@ class EvolutionRun:
         seed = self.cfg.seed * 1000 + t * 10 + j
         try:
             text = self.search.ask("proposer", messages, seed=seed)
+            (rdir / sample / "response.txt").write_text(text)
             prop = proposer.parse_proposal(text, sample, self.domain, failing)
         except BudgetStop:
             raise
