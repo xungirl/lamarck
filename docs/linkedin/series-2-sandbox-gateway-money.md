@@ -8,7 +8,7 @@ The harness code in lamarck is written by an LLM, so it is untrusted. Each evalu
 gVisor container: read-only root and mounts, no capabilities, CPU / memory / pid limits, and an
 internal-only network whose only peer is an LLM gateway that holds the API key.
 
-Escape probes run in CI: external IPs, DNS, cloud metadata, the host, the Docker socket, raw sockets,
+Escape probes run as tests (make test-docker): external IPs, DNS, cloud metadata, the host, the Docker socket, raw sockets,
 writes to read-only mounts. All fail; only the gateway answers.
 
 One surprise: gVisor cannot reach Docker's embedded DNS, so the gateway's address is injected with

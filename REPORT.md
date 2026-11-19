@@ -126,7 +126,7 @@ files are set aside.
 
 Sub-splits are seeded uniform samples of the frozen splits; an evaluation on a sub-split is taken from a
 cached evaluation of its parent split when one exists (tasks are solved independently at temperature 0
-with a fixed seed). All 18 runs finished; none was held back by the money gate or stopped by the cap.
+with a fixed seed). All 18 runs finished; the money gate delayed some launches but left none unrun, and the cap was never reached.
 
 ## 5. Results
 
