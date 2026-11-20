@@ -46,6 +46,12 @@ models (no budget). One pre-revision source run with `qwen4-max` as proposer (fu
 went 78.3 → 88.3 on Spider evolve and 81.7 → 86.7 on held-out; it is reported separately in
 `results/pre_revision/` (it is not the revised plan's `sql-src-4`).
 
+**Study 2 (prepared, not run yet).** A separate, pre-registered follow-up (PREREG.md, "Study 2"): five Spider
+source runs with `qwen4-max` as proposer and selector and everything else as in `sql-src-1..7`, to test whether
+the flash search model was the bottleneck. Own ledger and cap (RMB 9.00, `results/study2/budget/`), estimated
+RMB 1.3-2.1 per run. `scripts/run_study2.sh` runs it; `make dryrun-study2` runs the same steps offline with a
+simulated upstream. Its results will go to `results/study2/`; nothing above changes.
+
 ## What is in the box
 
 | component | what it does | code |
@@ -78,10 +84,12 @@ went 78.3 → 88.3 on Spider evolve and 81.7 → 86.7 on held-out; it is reporte
 
 ```bash
 uv sync                      # Python 3.13
-make ci                      # ruff, mypy, 91 offline tests with fake models (no network, no key)
+make ci                      # ruff, mypy, 105 offline tests with fake models (no network, no key)
 make test-docker             # sandbox + escape probes (colima + Docker, gVisor if installed)
 scripts/reproduce.sh         # the budget-revised experiments: API check, gateway, schedule, report
 make report                  # rebuild results/ and the dashboard from runs/rev3
+make dryrun-study2           # Study 2 launcher end to end, offline (simulated upstream, temp root)
+scripts/run_study2.sh        # Study 2 for real (qwen4-max search; RMB 9.00 cap in its own ledger)
 ```
 
 Data: `scripts/prepare_text2sql_splits.py` (Spider 1.0 and BIRD mini-dev archives, hashes in
