@@ -33,6 +33,9 @@ SEEDS = tuple(range(21, 31))
 PREFIX = "s3-src"
 # every run of the plan is in the (only, primary) analysis: fixed n, no extension
 PRIMARY_RUNS = tuple(f"{PREFIX}-{i}" for i in range(1, len(SEEDS) + 1))
+# the runs that had finished when a provider credit outage stopped Study 3 (PREREG "Notes (Study 3)" item 1):
+# reported as an interim result only, never as the primary analysis
+INTERIM_RUNS = ("s3-src-1", "s3-src-2", "s3-src-3", "s3-src-4", "s3-src-6")
 CONTROLS = study2.CONTROLS
 GROUP = "s3-source"
 SPEND_FILE = REPO / "results" / "study3" / "budget" / "spend_ledger.json"

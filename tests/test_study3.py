@@ -171,3 +171,18 @@ def test_stop_reasons_of_unfinished_runs(tmp_path: Path) -> None:
         and got["s3-src-5"].startswith("gateway 403")
         and len(got["s3-src-5"]) == 240
     )
+
+
+def test_interim_analysis_uses_exactly_the_five_runs_finished_at_the_outage() -> None:
+    from lamarck.experiments.study3_report import analysis, interim
+
+    assert study3.INTERIM_RUNS == ("s3-src-1", "s3-src-2", "s3-src-3", "s3-src-4", "s3-src-6")
+    s3 = list(study3.PRIMARY_RUNS)
+    vals: list[float | None] = [0.0, 2.5, 5.0, 2.5, 0.0, 7.5, 2.5, -2.5, 5.0, 0.0]
+    rows = _rows(s3, vals)
+    x = interim(rows, CONTROLS)
+    assert x["runs_analysed"] == list(study3.INTERIM_RUNS) and x["n"] == 5
+    assert x["primary"]["values"] == pytest.approx([0.0, 2.5, 5.0, 2.5, 7.5])
+    assert "verdict" not in x and x["label"].startswith("interim")
+    full = analysis(rows, CONTROLS)
+    assert full["n"] == 10 and full["runs_analysed"] == s3  # the primary analysis is all ten

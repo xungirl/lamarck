@@ -48,10 +48,13 @@ def verdict(p_one_sided: float | None) -> str:
     return REPLICATED if p_one_sided is not None and p_one_sided < study3.ALPHA else NOT_REPLICATED
 
 
-def analysis(rows: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict[str, Any]:
-    """The Study 3 analysis of exactly study3.PRIMARY_RUNS (in plan order), whatever else is in `rows`."""
+def analysis(
+    rows: list[dict[str, Any]], controls: list[dict[str, Any]], runs: tuple[str, ...] = study3.PRIMARY_RUNS
+) -> dict[str, Any]:
+    """The Study 3 analysis of exactly `runs` (default study3.PRIMARY_RUNS, in plan order), whatever else is
+    in `rows`."""
     by_run = {r["run"]: r for r in rows}
-    used = [by_run[n] for n in study3.PRIMARY_RUNS if n in by_run]
+    used = [by_run[n] for n in runs if n in by_run]
     a = analyse(used, controls)
     d = a["primary"]["values"]
     a["primary"]["one_sided_vs_0"] = one_sample_greater(d) if len(d) >= 2 else None
@@ -59,13 +62,25 @@ def analysis(rows: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict
     return {
         "label": LABEL,
         "runs_analysed": [r["run"] for r in used if r["heldout_change"] is not None],
-        "runs_not_finished": [
-            n for n in study3.PRIMARY_RUNS if n not in by_run or by_run[n]["heldout_change"] is None
-        ],
+        "runs_not_finished": [n for n in runs if n not in by_run or by_run[n]["heldout_change"] is None],
         **a,
         "alpha_one_sided": study3.ALPHA,
         "verdict": verdict(p1),
     }
+
+
+INTERIM_LABEL = (
+    "interim (not the pre-registered analysis): the n = 5 runs finished when a provider credit outage stopped "
+    "the study; the decision to complete to n = 10 was made after this result was visible"
+)
+
+
+def interim(rows: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict[str, Any]:
+    """The interim analysis of exactly study3.INTERIM_RUNS, with the same tests; it carries no verdict."""
+    a = analysis(rows, controls, study3.INTERIM_RUNS)
+    a.pop("verdict")
+    a.pop("runs_not_finished")
+    return {**a, "label": INTERIM_LABEL}
 
 
 def stop_reasons(root: Path, status: dict[str, str]) -> dict[str, str]:
@@ -90,6 +105,7 @@ def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROL
         "controls": c["controls"],
         "controls_source": f"{controls_file.name} key `source`",
         "analysis": analysis(c["rows"], c["controls"]),
+        "analysis_interim": interim(c["rows"], c["controls"]),
         "limitations": LIMITATIONS,
         "money": {
             "cap_rmb": spend.get("cap_rmb"),
@@ -155,6 +171,24 @@ def render_markdown(agg: dict[str, Any]) -> str:
         "",
         "Secondary (descriptive):",
     ]
+    if agg.get("analysis_interim"):
+        x = agg["analysis_interim"]
+        xp, x1, xo = x["primary"], x["primary"]["one_sided_vs_0"], x["primary"]["one_sample_vs_0"]
+        block = [
+            f"Interim result (labelled interim, not the pre-registered analysis; PREREG Notes (Study 3) item 1): "
+            f"n = {x['n']} ({', '.join(x['runs_analysed'])}), the runs finished when a provider credit outage "
+            f"stopped the study; completing to n = 10 was decided after it was visible. Mean {_f(xp['mean'])}."
+        ]
+        if x1 and xo:
+            block.append(
+                f"- interim: one-sided t({x1['df']}) = {_f(x1['t'])}, p = {_f(x1['p_t_greater'], 4)}; two-sided "
+                f"p = {_f(xo['p_t_two_sided'], 4)}, 95% CI [{_f(xo['ci95'][0])}, {_f(xo['ci95'][1])}]; signed-rank "
+                f"p two-sided = {_f(xo['wilcoxon']['p_two_sided'], 4)}, one-sided = "
+                f"{_f(x1['wilcoxon_greater']['p_greater'], 4)}"
+            )
+        block.append("")
+        i = L.index("Secondary (descriptive):")
+        L[i:i] = block
     stops = agg.get("stop_reasons") or {}
     if stops:
         L[L.index("Secondary (descriptive):") : L.index("Secondary (descriptive):")] = [
