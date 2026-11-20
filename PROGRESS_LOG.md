@@ -144,3 +144,17 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
   none provider-tainted; the interrupted held-out evaluation of `s3-src-5` was never cached; `s3-src-7`'s
   sealed round-1 proposal s2 is reused, only the failed s1 call is repeated (same seed). Ledger entries,
   state.json and heldout.jsonl of `s3-src-1,2,3,4,6` snapshotted to compare after the round.
+- 12:12 UTC `LAMARCK_KEYFILE=<file outside the repo> scripts/run_study3.sh` again: colima started, gVisor
+  registered, API check HTTP 200 for both models (RMB 0.0004). `s3-src-5` resumed and measured only its final
+  held-out point (32/40 = 80.0, tree b84e3fdbfa23; 20 s); `s3-src-7` resumed at round 1; `s3-src-8..10`
+  launched as the gate allowed. All ten `done` by 12:23 UTC, no 403 or other failure this round (audit: still
+  the 18 outage 403s).
+- Checked after the round: ledger entries, state.json and heldout.jsonl of `s3-src-1,2,3,4,6` byte-identical to
+  the pre-resume snapshot (not re-run, not re-billed).
+- Pre-registered n = 10: changes 0, +2.5, +5, +2.5, 0, +7.5, +10, +2.5, 0, +7.5, mean +3.75; one-sided t(9) =
+  3.31, p = 0.0046; two-sided p = 0.0091, 95% CI [1.19, 6.31]; signed-rank 0.0156 / 0.0078. Verdict:
+  **replicated**. Interim n = 5 (labelled interim in RESULTS): one-sided p = 0.026. Secondary vs controls Welch
+  p = 0.031, Mann-Whitney p = 0.036; evolve mean +6.3.
+- Money: RMB 4.212 this round (runs RMB 4.2115 + API check RMB 0.0004), RMB 12.074 of 15.00 in total, 2,110
+  calls. Report regenerated (with the interim block), README Study 3 paragraph rewritten. `make ci` green (117
+  tests). Key-leak scan clean; colima stopped; no leftover processes. Nothing pushed.
