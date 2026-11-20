@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "All three edits are declared (grounding rules in system_prompt.md, appending env.descriptions, draft-execute-repair loop) and are task-agnostic: no db/table/task ids, expected outputs or magic constants tied to a single task. The repair path is bounded (one extra policy call, at most 3 sample-value probes with LIMIT 8), exceptions fall back to the draft rather than crashing, and the final selectio"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Declared scope covers the execute-and-repair pass plus prompt rules; the config.json 'verify' flag is the switch for that same mechanism (and descriptions are appended as part of the grounded prompt), so no independent undeclared change. Logic is generic: no task/db identifiers, hard-coded answers or task-fingerprint branches. Work is explicitly bounded by env.max_calls and a single repair attempt"
+ }
+}

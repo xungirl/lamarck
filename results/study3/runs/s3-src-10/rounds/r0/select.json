@@ -1,0 +1,4 @@
+{
+ "choice": "s2",
+ "reason": "s2 improves the evolve score from 83.33 to 86.67 with a general, domain-agnostic mechanism (execute-and-repair on error/empty results plus literal-matching prompt rules) rather than task-specific hacks; the single regression (sp0600) is outweighed by two fixes and the token increase stays within admissibility."
+}

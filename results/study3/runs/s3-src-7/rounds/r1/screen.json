@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "Two independent problems. (a) Undeclared, damaging edit: STR_LIT is changed from r\"'((?:[^']|'')*)'\" to r\"'((?:[^']|'')*'\" — the closing quote moves inside the capture group and the pattern loses its terminator, so literal extraction becomes greedy/incorrect and feeds wrong 'string literals you used' evidence into the repair prompt. This breaks a working mechanism and is not covered by the declare"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Generic, task-agnostic extension of execution feedback: duplicate-row detection on the executed result, plus bounded construction/execution of at most two alternatives (DISTINCT variant, wider single-entity projection) offered as evidence for the policy to accept or reject. No task ids, db/table names, expected outputs or magic constants; all heuristics (top-level SELECT parsing, alias detection, "
+ }
+}

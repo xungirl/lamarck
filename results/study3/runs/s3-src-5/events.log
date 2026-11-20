@@ -1,0 +1,11 @@
+03:30:01 [s3-src-5] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+03:30:01 [s3-src-5] held-out after round -1: 80.00 (32/40)
+03:30:01 [s3-src-5] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+03:31:51 [s3-src-5] round 0: 2 proposed, 2 evaluated, 1 admissible -> s2 (s2 improves the evolve score from 83.33 to 86.67 with a fixed task (sp0610) and no regressions, and its execute-and-repa)
+03:31:51 [s3-src-5] round 0: SIM <- P1 (1/3 predicted fixes realized)
+03:31:51 [s3-src-5] round 1: incumbent b84e3fdbfa23 evolve=86.7 b_t=2 best=86.7
+03:33:30 [s3-src-5] round 1: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:33:30 [s3-src-5] round 2: incumbent b84e3fdbfa23 evolve=86.7 b_t=1 best=86.7
+03:34:50 [s3-src-5] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:34:57 [s3-src-5] INFRA FAILURE (run paused, resumable): text2sql-spider_heldout_s40-qwen3.8-flash-b84e3fdbfa23-r0-74490133: provider/gateway failure, evaluation discarded: gateway 403: upstream 403: {"error":{"message":"Access to model denied. Please make sure you are eligible for using the model.","type":"AccessDenied.Unpurchased","param":null,"code":"AccessDenied.Unpurchased"},"request_id":"33616016-e679-9e4a-a16d-b874b2263f3a"}
+04:12:34 [s3-src-5] held-out after round 2: 80.00 (32/40)

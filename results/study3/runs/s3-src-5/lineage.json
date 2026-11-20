@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "8c9e80f3cfd661f71f5a4c1fc5aed219acf9b8ae",
+  "parents": "35aebee7d67938cbce67f31446d26eeb07543654",
+  "subject": "r2 s2: Verification only fires on error/empty, so silently-wrong dr",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "389989af2a0a1db3634e24afa8332ecef731168c",
+  "parents": "35aebee7d67938cbce67f31446d26eeb07543654",
+  "subject": "r2 s1: Repair only fires on error/empty results, so silently-wrong",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "613a419801012ab9b7eeab0389666b37fcbd33d1",
+  "parents": "35aebee7d67938cbce67f31446d26eeb07543654",
+  "subject": "r1 s2: Projection/grain semantics: 'which <entity>' questions need",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "401c4c15b05577299c01a04179a027abfe78a85f",
+  "parents": "35aebee7d67938cbce67f31446d26eeb07543654",
+  "subject": "r1 s1: Verification triggers only on SQL error/empty result, so sil",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "35aebee7d67938cbce67f31446d26eeb07543654",
+  "parents": "b1202938cf2069531c91b6e0d1cdface01d4e3e6",
+  "subject": "r0 s2: Draft SQL is never executed, so literal/format mismatches si",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "2aac77e97495936753f4926a3636b902e5ff4a9a",
+  "parents": "b1202938cf2069531c91b6e0d1cdface01d4e3e6",
+  "subject": "r0 s1: Single-shot generation with no execution feedback: wrong lit",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "b1202938cf2069531c91b6e0d1cdface01d4e3e6",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

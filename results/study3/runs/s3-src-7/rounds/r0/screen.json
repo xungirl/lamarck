@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->repair loop with data-grounded probing; no task ids, db/table names or expected outputs hard-coded (table/column names are parsed from the live schema). Work is bounded: at most two policy calls gated on env.max_calls, probe capped at 6 queries x 8 rows, single repair attempt with explicit fallbacks to the original SQL on any exception. Prompt rules are general text-to-SQL "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Removes a working safety mechanism without replacement: solve() now issues the second env.chat call unconditionally whenever the draft errors or returns 0 rows, with no check of env.max_calls (the baseline contract caps calls per task), so it can exceed the budget on single-call configurations. Additionally the literal-probe path interpolates raw question-derived literals directly into SQL ('...LI"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Draft SQL is never executed, so literal/format mismatches silently yield empty results and go unrepaired",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add an execute-and-repair loop: run the draft query, and if it errors or returns zero rows, probe the database for the actual stored spellings of the question's literals (LIKE probes over text columns) and make one focused repair call with the error/row evidence. Also tighten...",
+     "files": "config.json, solve.py, system_prompt.md",
+     "predicted": [
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 26,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

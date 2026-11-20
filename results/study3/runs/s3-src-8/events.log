@@ -1,0 +1,10 @@
+04:12:42 [s3-src-8] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+04:12:42 [s3-src-8] held-out after round -1: 80.00 (32/40)
+04:12:42 [s3-src-8] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+04:14:38 [s3-src-8] round 0: 2 proposed, 2 evaluated, 2 admissible -> s2 (Both candidates reach the same evolve score (90.0) with one regression each, but s2 does it at 882 vs 1237 mean tokens a)
+04:14:38 [s3-src-8] round 0: SIM <- P1 (3/5 predicted fixes realized)
+04:14:38 [s3-src-8] round 1: incumbent 467785df8e53 evolve=90.0 b_t=2 best=90.0
+04:16:08 [s3-src-8] round 1: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:16:08 [s3-src-8] round 2: incumbent 467785df8e53 evolve=90.0 b_t=1 best=90.0
+04:17:44 [s3-src-8] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:18:05 [s3-src-8] held-out after round 2: 82.50 (33/40)

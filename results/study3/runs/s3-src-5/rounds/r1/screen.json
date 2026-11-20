@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the existing execute-and-repair mechanism (P1) into an always-on grounded critic with generic, schema-agnostic diagnostics (all-NULL output columns, duplicate result rows) and multi-column LIKE probes. No task ids, db/table names or expected outputs are hard-coded; the projection/grain/negation rules are phrased generically and would apply to unfamiliar Spider/BIRD tasks. Work is bounded: "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Adds a generic duplicate-row detector that widens the existing single repair trigger (error / empty / duplicated rows) and feeds row-grain evidence to the model; prompt rules for entity-wide projection, filter ownership, DISTINCT over fan-out joins and both-direction anti-joins are stated in general terms with illustrative examples, not task-specific constants or identifiers. Litmus test passes: a"
+ }
+}

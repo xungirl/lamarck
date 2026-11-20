@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "58b96a6de5e6e69e2fe6768200cefe7a837785e4",
+  "parents": "5cafa997a87a439008d9b5f1154be806dfb0c6ab",
+  "subject": "r2 s1: Executable-but-wrong output shape: join fan-out duplicates a",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "7320c83d8c6944845d5f7bac874346b2b8c90a7a",
+  "parents": "5cafa997a87a439008d9b5f1154be806dfb0c6ab",
+  "subject": "r2 s2: Projection width is guessed from question wording, so 'which",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "396009afe935a713850bd4b7b98b1d6de6e26045",
+  "parents": "5cafa997a87a439008d9b5f1154be806dfb0c6ab",
+  "subject": "r1 s2: No structural self-check: join fan-out produces duplicate ro",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "7992ca6cf13cf4c65017833e4d33ac90b1ef9011",
+  "parents": "5cafa997a87a439008d9b5f1154be806dfb0c6ab",
+  "subject": "r1 s1: Executable-but-wrong results go unchecked: one-to-many join",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "5cafa997a87a439008d9b5f1154be806dfb0c6ab",
+  "parents": "8e12a08e356da4bc5b91f9138b23ece90717378a",
+  "subject": "r0 s2: No execution feedback loop: literal/format mismatches and em",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "9ddb6723a9bcfe46a0c7151f1d7a6d324ca2ecf8",
+  "parents": "8e12a08e356da4bc5b91f9138b23ece90717378a",
+  "subject": "r0 s1: Single-shot generation with no execution feedback: unmatched",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "8e12a08e356da4bc5b91f9138b23ece90717378a",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

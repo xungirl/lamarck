@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic fan-out duplicate detection on the already-fetched execution result, gated by a static screen (JOIN/UNION without DISTINCT/GROUP BY/aggregates/LIMIT), and a single bounded repair turn that asks the model to make a semantic multiplicity decision rather than blindly deduping; the repair is accepted only if it executes. No task ids, db/table names or magic constants — the heuristic transfers "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The deterministic rewrite silently changes answer semantics: whenever a plain joined SELECT returns any exactly repeated tuple, DISTINCT is injected with no reference to the question. Legitimate per-occurrence/per-match multisets (and Spider/BIRD gold queries that intentionally omit DISTINCT) get collapsed, so this can break currently-passing tasks while claiming a safe fix — the acceptance test o"
+ }
+}

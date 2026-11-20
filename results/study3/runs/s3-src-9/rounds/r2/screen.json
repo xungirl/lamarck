@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "Rule 2c is a projection heuristic reverse-engineered from one evolve-set task: it instructs the model that for any 'which <entities> ... condition in another table' question the reference 'typically returns the full joined rows', and illustrates it with the exact country/countrylanguage schema of sp0755. That claim is not generally true (Spider/BIRD gold queries for such questions usually project "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The shape audit hard-codes the same evolve-set-specific projection prior into control code: branch (b) forces SELECT * over all joined tables whenever a vague multi-table question projects fewer columns than the sum of table widths, and the single-table branch pushes star results down to one guessed column. Both encode gold-query shapes observed on sp0755-style items rather than a general property"
+ }
+}

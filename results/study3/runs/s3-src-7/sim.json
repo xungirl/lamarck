@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "No execution feedback: unverified literals/joins silently yield empty results",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "solve.py now executes the draft query, and if it errors or returns 0 rows it probes actual sample values of the string columns used in the draft and asks the policy for one corrected query (second allowed call). system_prompt.md adds concise rules on exact stored literals, NUL...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610",
+      "sp0894"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0755"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

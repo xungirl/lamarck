@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "5842bcce0f823d6f471f32afde159157434e13ef",
+  "parents": "71279fe3c77f3ec01b36611c236aeffabc21a4cc",
+  "subject": "r2 s2: Execution feedback only reacts to errors/empty results, so j",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "346e0b69ab62ca22338c501e321cb0c40884a214",
+  "parents": "71279fe3c77f3ec01b36611c236aeffabc21a4cc",
+  "subject": "r2 s1: Repair feedback only fires on error/zero rows, so non-empty",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "81abe1401bb64321519e84176fd31020c75de02f",
+  "parents": "71279fe3c77f3ec01b36611c236aeffabc21a4cc",
+  "subject": "r1 s1: Execution feedback only fires on error/zero rows, so non-emp",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "28a144425dc42bad7389dfd09903e5c11068a951",
+  "parents": "71279fe3c77f3ec01b36611c236aeffabc21a4cc",
+  "subject": "r1 s2: Silent row-multiplicity errors: join fan-out duplicates are",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "71279fe3c77f3ec01b36611c236aeffabc21a4cc",
+  "parents": "1e5de8fd6cf153c9fb45bed4d479dfc8a7209e86",
+  "subject": "r0 s2: No execution feedback: silently-empty queries from wrong str",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "ef426a7ae8ce3b5a1e2b53d0ecf30c70a1fd05af",
+  "parents": "1e5de8fd6cf153c9fb45bed4d479dfc8a7209e86",
+  "subject": "r0 s1: Single-shot harness never executes the draft, so empty-resul",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "1e5de8fd6cf153c9fb45bed4d479dfc8a7209e86",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

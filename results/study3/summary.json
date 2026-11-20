@@ -6,17 +6,14 @@
   "s3-src-2": "done",
   "s3-src-3": "done",
   "s3-src-4": "done",
-  "s3-src-5": "infra_error",
+  "s3-src-5": "done",
   "s3-src-6": "done",
-  "s3-src-7": "infra_error",
-  "s3-src-8": "not run",
-  "s3-src-9": "not run",
-  "s3-src-10": "not run"
+  "s3-src-7": "done",
+  "s3-src-8": "done",
+  "s3-src-9": "done",
+  "s3-src-10": "done"
  },
- "stop_reasons": {
-  "s3-src-5": "text2sql-spider_heldout_s40-qwen3.8-flash-b84e3fdbfa23-r0-74490133: provider/gateway failure, evaluation discarded: gateway 403: upstream 403: {\"error\":{\"message\":\"Access to model denied. Please make sure you are eligible for using the mode",
-  "s3-src-7": "proposer: gateway 403: upstream 403: {\"error\":{\"message\":\"Access to model denied. Please make sure you are eligible for using the model.\",\"type\":\"AccessDenied.Unpurchased\",\"param\":null,\"code\":\"AccessDenied.Unpurchased\"},\"request_id\":\"2c1917"
- },
+ "stop_reasons": {},
  "runs": [
   {
    "run": "s3-src-1",
@@ -78,16 +75,15 @@
    "run": "s3-src-5",
    "batch": "study3",
    "seed": 25,
-   "search_model": null,
-   "heldout_start": null,
-   "heldout_end": null,
-   "heldout_change": null,
-   "evolve_start": null,
-   "evolve_end": null,
-   "evolve_change": null,
-   "accepted": null,
-   "rmb": 1.3817139999999994,
-   "status": "infra_error"
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 86.6667,
+   "evolve_change": 3.3333,
+   "accepted": 1,
+   "rmb": 1.407847099999999
   },
   {
    "run": "s3-src-6",
@@ -107,61 +103,57 @@
    "run": "s3-src-7",
    "batch": "study3",
    "seed": 27,
-   "search_model": null,
-   "heldout_start": null,
-   "heldout_end": null,
-   "heldout_change": null,
-   "evolve_start": null,
-   "evolve_end": null,
-   "evolve_change": null,
-   "accepted": null,
-   "rmb": 0.48425490000000004,
-   "status": "infra_error"
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 90.0,
+   "heldout_change": 10.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 1.1379680000000005
   },
   {
    "run": "s3-src-8",
    "batch": "study3",
    "seed": 28,
-   "search_model": null,
-   "heldout_start": null,
-   "heldout_end": null,
-   "heldout_change": null,
-   "evolve_start": null,
-   "evolve_end": null,
-   "evolve_change": null,
-   "accepted": null,
-   "rmb": null,
-   "status": "not run"
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 82.5,
+   "heldout_change": 2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 1.0594314000000002
   },
   {
    "run": "s3-src-9",
    "batch": "study3",
    "seed": 29,
-   "search_model": null,
-   "heldout_start": null,
-   "heldout_end": null,
-   "heldout_change": null,
-   "evolve_start": null,
-   "evolve_end": null,
-   "evolve_change": null,
-   "accepted": null,
-   "rmb": null,
-   "status": "not run"
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 1.3841909000000008
   },
   {
    "run": "s3-src-10",
    "batch": "study3",
    "seed": 30,
-   "search_model": null,
-   "heldout_start": null,
-   "heldout_end": null,
-   "heldout_change": null,
-   "evolve_start": null,
-   "evolve_end": null,
-   "evolve_change": null,
-   "accepted": null,
-   "rmb": null,
-   "status": "not run"
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 87.5,
+   "heldout_change": 7.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 86.6667,
+   "evolve_change": 3.3333,
+   "accepted": 1,
+   "rmb": 1.0880356
   }
  ],
  "controls": [
@@ -272,14 +264,178 @@
    "s3-src-2",
    "s3-src-3",
    "s3-src-4",
-   "s3-src-6"
-  ],
-  "runs_not_finished": [
    "s3-src-5",
+   "s3-src-6",
    "s3-src-7",
    "s3-src-8",
    "s3-src-9",
    "s3-src-10"
+  ],
+  "runs_not_finished": [],
+  "n": 10,
+  "n_controls": 7,
+  "primary": {
+   "values": [
+    0.0,
+    2.5,
+    5.0,
+    2.5,
+    0.0,
+    7.5,
+    10.0,
+    2.5,
+    0.0,
+    7.5
+   ],
+   "control_values": [
+    -2.5,
+    -2.5,
+    -2.5,
+    2.5,
+    0.0,
+    0.0,
+    5.0
+   ],
+   "mean": 3.75,
+   "control_mean": 0.0,
+   "one_sample_vs_0": {
+    "n": 10,
+    "ci95": [
+     1.1859446720062978,
+     6.314055327993702
+    ],
+    "t": 3.308465799422135,
+    "df": 9,
+    "p_t_two_sided": 0.009106153759546388,
+    "wilcoxon": {
+     "n_nonzero": 7,
+     "w_plus": 28.0,
+     "p_two_sided": 0.015625,
+     "assignments": 128
+    },
+    "d_z": 1.0462287486943735,
+    "wins": 7,
+    "losses": 0,
+    "ties": 3,
+    "mean": 3.75,
+    "sd": 3.5843021946010944,
+    "values": [
+     0.0,
+     2.5,
+     5.0,
+     2.5,
+     0.0,
+     7.5,
+     10.0,
+     2.5,
+     0.0,
+     7.5
+    ]
+   },
+   "two_sample_vs_controls": {
+    "n_a": 10,
+    "n_b": 7,
+    "mean_a": 3.75,
+    "mean_b": 0.0,
+    "sd_a": 3.5843021946010944,
+    "sd_b": 2.886751345948129,
+    "diff_of_means": 3.75,
+    "welch_t": 2.3835609338657364,
+    "welch_df": 14.60121448257439,
+    "p_welch_two_sided": 0.03120123040416928,
+    "ci95_welch": [
+     0.3886463369779576,
+     7.111353663022042
+    ],
+    "mann_whitney": {
+     "u_a": 56.0,
+     "n_a": 10,
+     "n_b": 7,
+     "p_two_sided": 0.0355820649938297,
+     "assignments": 19448
+    }
+   },
+   "one_sided_vs_0": {
+    "t": 3.308465799422135,
+    "df": 9,
+    "p_t_greater": 0.004553076879773194,
+    "wilcoxon_greater": {
+     "n_nonzero": 7,
+     "w_plus": 28.0,
+     "p_greater": 0.0078125,
+     "assignments": 128
+    }
+   }
+  },
+  "secondary": {
+   "evolve_change": [
+    3.3333,
+    10.0,
+    3.3333,
+    6.6667,
+    3.3333,
+    13.3333,
+    6.6667,
+    6.6667,
+    6.6667,
+    3.3333
+   ],
+   "evolve_change_mean": 6.333329999999999,
+   "control_evolve_change": [
+    6.6667,
+    10.0,
+    6.6667,
+    6.6667,
+    6.6667,
+    10.0,
+    3.3333
+   ],
+   "control_evolve_change_mean": 7.142871428571428,
+   "accepted": [
+    1,
+    2,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "control_accepted": [
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "rmb_per_run": [
+    1.2491560000000008,
+    1.1044981999999994,
+    1.3858289000000006,
+    1.1584059,
+    1.407847099999999,
+    1.0975344,
+    1.1379680000000005,
+    1.0594314000000002,
+    1.3841909000000008,
+    1.0880356
+   ]
+  },
+  "alpha_one_sided": 0.05,
+  "verdict": "replicated"
+ },
+ "analysis_interim": {
+  "label": "interim (not the pre-registered analysis): the n = 5 runs finished when a provider credit outage stopped the study; the decision to complete to n = 10 was made after this result was visible",
+  "runs_analysed": [
+   "s3-src-1",
+   "s3-src-2",
+   "s3-src-3",
+   "s3-src-4",
+   "s3-src-6"
   ],
   "n": 5,
   "n_controls": 7,
@@ -390,12 +546,7 @@
     2,
     1,
     1,
-    null,
-    2,
-    null,
-    null,
-    null,
-    null
+    2
    ],
    "control_accepted": [
     1,
@@ -411,75 +562,69 @@
     1.1044981999999994,
     1.3858289000000006,
     1.1584059,
-    1.3817139999999994,
-    1.0975344,
-    0.48425490000000004,
-    null,
-    null,
-    null
+    1.0975344
    ]
   },
-  "alpha_one_sided": 0.05,
-  "verdict": "replicated"
+  "alpha_one_sided": 0.05
  },
  "limitations": "The controls (sql-src-1..7) are not randomized: they ran earlier (2026-11-19), on another date and not interleaved with Study 3, so the two-sample comparison is not a randomized comparison (time, provider state and model versions may differ). Held-out scores move in steps of 2.5 points on 40 tasks. Evaluation noise: repeat evaluations of one harness at temperature 0 differ by about as much as the effect (results/summary.json `eval_variance`), and every run shares one cached measurement of the seed harness's held-out start. Host: all Study 3 runs ran on macOS arm64 (colima, gVisor). Power at Study 2's extended estimate is about 0.77 and lower if that estimate is inflated by its optional stopping, so 'not replicated' does not show the effect is 0. One model family, one benchmark, 3 rounds.",
  "money": {
   "cap_rmb": 15.0,
-  "spent_rmb": 7.8617805999999995,
-  "calls": 1325,
+  "spent_rmb": 12.073672999999989,
+  "calls": 2110,
   "failed": 18,
   "by_model": {
    "qwen3.8-flash": {
-    "cached_tokens": 233472,
-    "calls": 1256,
-    "completion_tokens": 83714,
+    "cached_tokens": 422912,
+    "calls": 2005,
+    "completion_tokens": 146386,
     "failed": 17,
-    "prompt_tokens": 1116479,
+    "prompt_tokens": 1807149,
     "reasoning_tokens": 0,
-    "rmb": 0.9557805999999992
+    "rmb": 1.5449230000000007
    },
    "qwen4-max": {
-    "cached_tokens": 97024,
-    "calls": 69,
-    "completion_tokens": 125603,
+    "cached_tokens": 150784,
+    "calls": 105,
+    "completion_tokens": 191662,
     "failed": 1,
-    "prompt_tokens": 313791,
+    "prompt_tokens": 477889,
     "reasoning_tokens": 0,
-    "rmb": 6.906000000000003
+    "rmb": 10.528750000000004
    }
   },
   "by_role": {
    "policy": {
-    "cached_tokens": 233472,
-    "calls": 1256,
-    "completion_tokens": 83714,
+    "cached_tokens": 422912,
+    "calls": 2005,
+    "completion_tokens": 146386,
     "failed": 17,
-    "prompt_tokens": 1116479,
+    "prompt_tokens": 1807149,
     "reasoning_tokens": 0,
-    "rmb": 0.9557805999999992
+    "rmb": 1.5449230000000007
    },
    "proposer": {
-    "cached_tokens": 92416,
-    "calls": 41,
-    "completion_tokens": 117128,
+    "cached_tokens": 143616,
+    "calls": 63,
+    "completion_tokens": 178267,
     "failed": 1,
-    "prompt_tokens": 157113,
+    "prompt_tokens": 243022,
     "reasoning_tokens": 0,
-    "rmb": 5.08497
+    "rmb": 7.778230000000002
    },
    "selector": {
-    "cached_tokens": 4608,
-    "calls": 28,
-    "completion_tokens": 8475,
+    "cached_tokens": 7168,
+    "calls": 42,
+    "completion_tokens": 13395,
     "failed": 0,
-    "prompt_tokens": 156678,
+    "prompt_tokens": 234867,
     "reasoning_tokens": 0,
-    "rmb": 1.8210300000000004
+    "rmb": 2.750520000000001
    }
   },
-  "runs_rmb": 7.8613923,
+  "runs_rmb": 12.072896400000001,
   "outside_runs": {
-   "api-check": 0.0003883
+   "api-check": 0.0007766
   },
   "run_bound_rmb": 2.1,
   "prices_rmb_per_million": {

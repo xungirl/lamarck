@@ -1,0 +1,8 @@
+{
+ "next_round": 3,
+ "best_score": 0.8666666666666667,
+ "delta": 0.059647,
+ "status": "done",
+ "updated": "2026-11-20 04:12:34",
+ "stop_reason": "text2sql-spider_heldout_s40-qwen3.8-flash-b84e3fdbfa23-r0-74490133: provider/gateway failure, evaluation discarded: gateway 403: upstream 403: {\"error\":{\"message\":\"Access to model denied. Please make sure you are eligible for using the model.\",\"type\":\"AccessDenied.Unpurchased\",\"param\":null,\"code\":\"AccessDenied.Unpurchased\"},\"request_id\":\"33616016-e679-9e4a-a16d-b874b2263f3a\"}"
+}

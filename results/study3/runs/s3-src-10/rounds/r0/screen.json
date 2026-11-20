@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic execute-and-repair mechanism: draft is run, and only on error/zero rows a second (bounded) policy call gets concrete diagnostics. Diagnostics are derived from the task's own schema and data (declared FKs between tables actually used, LIKE probes for literals present in the draft, predicate-ablation to find the killer filter) — no task ids, db/table names, expected outputs or magic constant"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Adds a bounded execution check plus one conditional repair turn triggered only by SQLite error or zero rows; feedback is generic (error text, empty-result signal, instructions to match stored literals), with no task ids, entity/table names, expected answers or task-identifying branches — fully transferable to unseen databases. Termination is explicit: exactly one extra chat call, no loops. Existin"
+ }
+}

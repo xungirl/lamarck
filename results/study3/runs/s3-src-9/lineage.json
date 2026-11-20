@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "902070ed58de030de491cd5e6e89f2704fc59144",
+  "parents": "b3cbc6f3c83a58d5ef5f79f7a2d5b2bb1b7aed4d",
+  "subject": "r2 s2: Result-shape blindness: drafts that execute with rows are sh",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "f463609e1c880bf1d7f6397542c5c8f09030c7cd",
+  "parents": "b3cbc6f3c83a58d5ef5f79f7a2d5b2bb1b7aed4d",
+  "subject": "r2 s1: Projection/duplicate errors are invisible to the execute che",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "c144c31a8f44a2d9f00d2b1cff99738fac4899c3",
+  "parents": "b3cbc6f3c83a58d5ef5f79f7a2d5b2bb1b7aed4d",
+  "subject": "r1 s2: Result-shape errors invisible to the execute check: drafts t",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "74ce7aab985118aa75f6891d14179e7bc0c9bc15",
+  "parents": "b3cbc6f3c83a58d5ef5f79f7a2d5b2bb1b7aed4d",
+  "subject": "r1 s1: Result-shape blindness: drafts that execute with rows are sh",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "b3cbc6f3c83a58d5ef5f79f7a2d5b2bb1b7aed4d",
+  "parents": "6f147addf638e94d887499acb75e244acc83b091",
+  "subject": "r0 s1: Ungrounded literals/projections: single-shot generation neve",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "91ff331cbe3ff207df4e2aebccb73397135e18ad",
+  "parents": "6f147addf638e94d887499acb75e244acc83b091",
+  "subject": "r0 s2: No execution feedback loop: drafts that return 0 rows due to",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "6f147addf638e94d887499acb75e244acc83b091",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Ungrounded literals/projections: single-shot generation never checks execution results or real cell values, so guessed string filters, narrow SELECT lists and fragile NOT IN negations go unnoticed",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Rewrite system_prompt.md with grounding rules (verify literals with LIKE/case-insensitive matching, return all columns for vague 'details'/entity questions, prefer EXCEPT/NOT EXISTS over NOT IN, handle ties), append env.descriptions to the user message, and add a draft-execute...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0610",
+      "sp0894"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0536",
+      "sp0755"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

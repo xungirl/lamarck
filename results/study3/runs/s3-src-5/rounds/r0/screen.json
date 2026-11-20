@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic execute-and-repair mechanism: draft is run, and only on error/zero rows does it make one bounded second policy call with the error text plus LIKE-probed stored values. No task ids, db/table names or expected outputs are hard-coded; probes derive tables/columns from the live schema, so the change transfers to unfamiliar databases. Work is explicitly bounded (max 2 chat calls, literal probe "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic verification direction implemented more carefully: single repair pass gated on env.max_calls and a config 'verify' flag, explicit probe budget (14 queries, <=6 literals, <=8 notes), every env call guarded with fallback to the original draft, and the repaired query is only adopted if it executes and is not worse (empty stays empty -> keep draft). Literal grounding uses question/hint te"
+ }
+}

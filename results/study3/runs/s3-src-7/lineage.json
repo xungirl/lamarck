@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "9de89f7ae141fc90dd79088b57d159b54f3b7caa",
+  "parents": "ff0d6b1ba0f1257cff6ae95bac0f95ffc07efd34",
+  "subject": "r2 s1: Join fan-out emits duplicate rows and entity questions get n",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "d1d5d1c0eb5dc361c93cdb78859198ef7a9602ff",
+  "parents": "ff0d6b1ba0f1257cff6ae95bac0f95ffc07efd34",
+  "subject": "r2 s2: Join fan-out emits repeated rows and entity questions get na",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "b6e67213baa8cbf0d1463aed1b675536a20ed1dd",
+  "parents": "ff0d6b1ba0f1257cff6ae95bac0f95ffc07efd34",
+  "subject": "r1 s1: Join fan-out produces duplicate rows and entity questions ge",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "878b9b8cc4e2596ff15945cf3fe7618327561ad3",
+  "parents": "ff0d6b1ba0f1257cff6ae95bac0f95ffc07efd34",
+  "subject": "r1 s2: Repair only triggers on empty/error results, so successfully",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "ff0d6b1ba0f1257cff6ae95bac0f95ffc07efd34",
+  "parents": "b69b40a4032b808ca00a2092e83866370312a61d",
+  "subject": "r0 s1: No execution feedback: unverified literals/joins silently yi",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "28b5da379aa9f930ec4f8c2e2f2d96e5e208af2f",
+  "parents": "b69b40a4032b808ca00a2092e83866370312a61d",
+  "subject": "r0 s2: No execution feedback: guessed literals/casing yield empty r",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "b69b40a4032b808ca00a2092e83866370312a61d",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

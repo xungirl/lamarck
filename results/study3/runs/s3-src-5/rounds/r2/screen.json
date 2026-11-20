@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the existing single repair call to fire on generic, task-agnostic structural signals (duplicate result rows, all-NULL projected columns) computed from the executed draft. No task ids, db/table names or expected outputs are hard-coded; the prompt rules (one row per requested entity, filter on the owning column) are general SQL hygiene that would apply to an unfamiliar database. Repair remai"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The narrow-projection flag branches on a hard-coded list of ~35 entity nouns (countries, students, templates, paragraphs, drivers, ...) plus magic thresholds (ncols<=2, tables with >=6 columns, 40-char regex window). This is task-specialization tuned to the evolve-set's question vocabulary: it fires only when the question happens to mention one of these words and silently misses any other entity t"
+ }
+}

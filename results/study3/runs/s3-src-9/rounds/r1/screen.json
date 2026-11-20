@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the existing repair gate with generic result-shape checks (projection width vs. named/vague question wording, join fan-out duplicates verified by two bounded COUNT probes) and matching prompt rules 2/6. No task ids, db/table names or expected outputs are hard-coded; the ENTITY_LIST/NAMED_ATTRS word lists are broad domain vocabulary that would still apply to an unfamiliar Spider/BIRD task. "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same declared direction as s1 but implemented more robustly: top-level SELECT parsing outside strings/parens, schema-derived detection of explicitly named attributes (no fixed entity vocabulary), a bounded star-projection preview probe, and sample-based duplicate detection feeding the existing single repair call. Prompt rules 2/6 tightened consistently. Nothing branches on task-identifying feature"
+ }
+}

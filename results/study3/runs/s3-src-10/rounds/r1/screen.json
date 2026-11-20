@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The duplicate probe is built on invalid SQLite: `COUNT(DISTINCT sub.*)` is not legal (DISTINCT aggregates take a single expression, and `sub.*` cannot be used there), so env.execute always errors, the except swallows it and _dup_probe returns False unconditionally. The claimed mechanism therefore never fires; only the incidental in-memory check on the truncated first rows can trigger, which is not"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Both edits are declared and generic: a duplicate-row detector over the executed result plus a repair turn asking for DISTINCT/EXISTS restructuring, and general prompt rules on projection and row multiplicity. No task ids, schema names or magic constants; the multiplicity guard uses generic question keywords ('how many', 'count', 'each ') that transfer to unseen tasks. Existing error/zero-row feedb"
+ }
+}

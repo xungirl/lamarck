@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the existing bounded second-call repair (still one extra call, no new loops) with a generic duplicate-row trigger and executed DISTINCT / first-table-star alternatives shown to the policy. No task ids, db/table names or magic constants; triggers are generic question verbs plus JOIN presence, and the final choice stays with the model rather than being forced. Prompt edits (default DISTINCT "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The post-processing rewrite silently injects DISTINCT into any final query containing JOIN (or a comma join) without DISTINCT/GROUP/UNION/LIMIT/OFFSET, regardless of whether duplicates actually occur or whether multiplicity is semantically required. This contradicts its own prompt bullet ('unless the question asks for one row per matching child record') and will corrupt correct answers where repea"
+ }
+}

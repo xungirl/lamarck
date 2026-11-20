@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic execute-and-repair mechanism: draft is run, and on error/empty result one corrective call receives real stored-value probes (LIKE search over schema tables) and a relation-direction check. No task ids, db/table names or expected outputs are hard-coded; all diagnostics derive from the draft SQL and live schema, so it transfers to unfamiliar tasks. Work is bounded: at most two policy calls g"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic draft-then-verify direction implemented independently: execute first SQL, and on error or zero rows issue exactly one repair call containing the error signal plus sampled DISTINCT values from text columns of tables referenced in the draft. All probing is derived from the generated SQL and PRAGMA metadata — no evolve-set ids, database/table names, magic constants or expected results ap"
+ }
+}

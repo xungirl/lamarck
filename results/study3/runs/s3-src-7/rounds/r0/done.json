@@ -1,0 +1,4 @@
+{
+ "chosen": "s1",
+ "reason": "s1 delivers a large measured gain (83.33 -> 90.0) with only one regression, and its mechanism—execute the draft, probe actual stored literals on error/empty results, then allow one grounded repair—is a general text-to-SQL pattern rather than task-specific patching; the token increase is justified by the score jump and stays within the admissibility cost rule."
+}

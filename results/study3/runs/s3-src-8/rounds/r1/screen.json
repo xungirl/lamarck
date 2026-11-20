@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the accepted P1 execution-feedback loop with a new, generic defect signal (repeated identical rows) and a focused DISTINCT/projection repair prompt; no task ids, db/table names or magic constants — the heuristic would apply to any unfamiliar text-to-SQL task. Both edits are covered by the declaration (duplicate-row repair trigger + projection/DISTINCT prompt rules); the max_rows 5→20 bump "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same declared direction as s1 (duplicate-row repair trigger + entity-level projection rule), implemented generically: duplicate detection over returned tuples, optional COUNT(*) vs COUNT(DISTINCT col) evidence gathered from the candidate's own SQL, and a DISTINCT/EXISTS-vs-join-key repair prompt. No hard-coded task identifiers, schema names or expected outputs; regexes operate on whatever query wa"
+ }
+}

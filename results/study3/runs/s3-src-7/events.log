@@ -1,0 +1,12 @@
+03:33:41 [s3-src-7] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+03:33:41 [s3-src-7] held-out after round -1: 80.00 (32/40)
+03:33:42 [s3-src-7] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+03:34:51 [s3-src-7] round 0: 2 proposed, 1 evaluated, 1 admissible -> s1 (s1 delivers a large measured gain (83.33 -> 90.0) with only one regression, and its mechanism—execute the draft, probe a)
+03:34:51 [s3-src-7] round 0: SIM <- P1 (3/5 predicted fixes realized)
+03:34:51 [s3-src-7] round 1: incumbent 71db30bca3b9 evolve=90.0 b_t=2 best=90.0
+03:35:55 [s3-src-7] INFRA FAILURE (run paused, resumable): proposer: gateway 403: upstream 403: {"error":{"message":"Access to model denied. Please make sure you are eligible for using the model.","type":"AccessDenied.Unpurchased","param":null,"code":"AccessDenied.Unpurchased"},"request_id":"2c191730-162a-9f83-b8f7-86f96c8e7ca2"}
+04:12:32 [s3-src-7] round 1: incumbent 71db30bca3b9 evolve=90.0 b_t=2 best=90.0
+04:13:43 [s3-src-7] round 1: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:13:43 [s3-src-7] round 2: incumbent 71db30bca3b9 evolve=90.0 b_t=1 best=90.0
+04:15:04 [s3-src-7] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+04:15:23 [s3-src-7] held-out after round 2: 90.00 (36/40)

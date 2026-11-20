@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The added review path is generic: duplicate-row evidence from the executed draft, PRAGMA-based column inventory of whatever tables the query uses, and a question-shape heuristic (entity-listing vs attribute/aggregate) with no task ids, db/table names or expected outputs. It would behave sensibly on an unfamiliar Spider/BIRD task. Work is bounded (one extra chat call, capped probes via max_rows, si"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Task specialization / evolve-set overfitting: the description explicitly targets sp0755 and states the gold projection (country.* + countrylanguage.*), and the prompt rule is written around that exact case, including the literal example `SELECT T1.*, T2.* FROM country AS T1 JOIN countrylanguage AS T2`. The blanket policy 'return FULL rows of every table in the FROM/JOIN chain whenever no attribute"
+ }
+}
