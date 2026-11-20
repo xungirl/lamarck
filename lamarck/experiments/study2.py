@@ -4,7 +4,8 @@ Question: with `qwen4-max` as proposer and selector and everything else identica
 source runs of the revised plan (sql-src-1..7, `qwen3.8-flash` in every role), does Spider held-out improve?
 
 Runs: s2-src-1..5, seeds 11-15 (the first study used 1-7; PREREG reserved 1-10), configuration identical to
-sql-src-i except run id, seed and search model (a test checks this). They live in their own experiment root
+sql-src-i except run id, seed and search model (a test checks this). Extension (PREREG, Study 2 deviation 1):
+s2-src-6..10, seeds 16-20, added after the n = 5 result; runs 1-5 (PRIMARY_RUNS) stay the primary analysis. They live in their own experiment root
 (runs/study2) and spend from their own ledger (results/study2/budget/spend_ledger.json, cap RMB 9.00); the
 first study's ledger (RMB 9.50 cap) is never opened. The seed harness's evaluations on the two Spider sub-splits
 are taken from the first study's cache (same harness, policy model, split and rollout: `lamarck seed-cache`).
@@ -35,7 +36,10 @@ POLICY_PARAMS: dict[str, dict[str, Any]] = rev3.POLICY_PARAMS  # policy settings
 # default (8,192), as in that run and in the controls.
 SEARCH_EXTRA: dict[str, Any] = dict(rev3.SEARCH_EXTRA)
 SEARCH_MAX_TOKENS = 8192
-SEEDS = (11, 12, 13, 14, 15)
+SEEDS = (11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+# the pre-registered n = 5 runs: the primary analysis, never replaced; runs 6-10 are the extension
+PRIMARY_RUNS = tuple(f"s2-src-{i}" for i in range(1, 6))
+EXTENSION_RUNS = tuple(f"s2-src-{i}" for i in range(6, 11))
 CONTROLS = tuple(f"sql-src-{i}" for i in range(1, rev3.N_SQL_SOURCES + 1))
 GROUP = "s2-source"
 SPEND_FILE = REPO / "results" / "study2" / "budget" / "spend_ledger.json"

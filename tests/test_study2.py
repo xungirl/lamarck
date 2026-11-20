@@ -27,9 +27,11 @@ from lamarck.stack import Stack
 def test_plan_identical_to_controls_except_search_model_and_seed() -> None:
     plan = study2.build_plan()
     controls = rev3.build_plan()
-    assert list(plan) == [f"s2-src-{i}" for i in range(1, 6)]
+    assert list(plan) == [f"s2-src-{i}" for i in range(1, 11)]
+    assert list(study2.PRIMARY_RUNS) + list(study2.EXTENSION_RUNS) == list(plan)
     seeds = [s.cfg.seed for s in plan.values()]
-    assert seeds == [11, 12, 13, 14, 15]
+    assert seeds == list(range(11, 21))
+    assert [plan[n].cfg.seed for n in study2.PRIMARY_RUNS] == [11, 12, 13, 14, 15]
     assert not set(seeds) & {controls[f"sql-src-{i}"].cfg.seed for i in range(1, 8)}
     ref = asdict(controls["sql-src-1"].cfg)
     for spec in plan.values():
