@@ -18,7 +18,9 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+from collections.abc import Callable
 from pathlib import Path
+from types import ModuleType
 from typing import Any
 
 from . import study2
@@ -49,14 +51,20 @@ def _pts(x: float | None) -> float | None:
     return None if x is None else round(x * 100, 4)
 
 
-def _row(r: dict[str, Any], rmb: float | None) -> dict[str, Any]:
+def _study2_batch(name: str | None) -> str | None:
+    return (
+        "primary" if name in study2.PRIMARY_RUNS else ("extension" if name in study2.EXTENSION_RUNS else None)
+    )
+
+
+def _row(
+    r: dict[str, Any], rmb: float | None, batch_of: Callable[[str | None], str | None] = _study2_batch
+) -> dict[str, Any]:
     hs, he, es, ee = r.get("heldout_start"), r.get("heldout_end"), r.get("evolve_start"), r.get("evolve_end")
     name = r.get("run_id") or r.get("run")
     return {
         "run": name,
-        "batch": "primary"
-        if name in study2.PRIMARY_RUNS
-        else ("extension" if name in study2.EXTENSION_RUNS else None),
+        "batch": batch_of(name),
         "seed": r.get("seed"),
         "search_model": r.get("search_model"),
         "heldout_start": _pts(hs),
@@ -130,10 +138,19 @@ def analyses(rows: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict
     }
 
 
-def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROLS_FILE) -> dict[str, Any]:
+def collect(
+    pm: ModuleType,
+    root: Path,
+    out: Path,
+    spend_file: Path,
+    controls_file: Path = CONTROLS_FILE,
+    batch_of: Callable[[str | None], str | None] = _study2_batch,
+) -> dict[str, Any]:
+    """Run rows (in plan order, finished runs exported to `out`), statuses, control rows and the spend ledger
+    of a source-run study plan `pm` (study2 or study3): the part of the report the studies share."""
     spend = json.loads(spend_file.read_text()) if spend_file.exists() else {}
     by = spend.get("by", {})
-    plan = study2.build_plan()
+    plan = pm.build_plan()
     rows: list[dict[str, Any]] = []
     status: dict[str, str] = {}
     for name in plan:
@@ -144,20 +161,35 @@ def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROL
         if r is not None:
             export_run(root, out, name)
             rows.append(
-                _row({**r, "seed": plan[name].cfg.seed, "search_model": plan[name].cfg.search_model}, rmb)
+                _row(
+                    {**r, "seed": plan[name].cfg.seed, "search_model": plan[name].cfg.search_model},
+                    rmb,
+                    batch_of,
+                )
             )
         else:
-            rows.append({**_row({"run": name, "seed": plan[name].cfg.seed}, rmb), "status": status[name]})
+            rows.append(
+                {**_row({"run": name, "seed": plan[name].cfg.seed}, rmb, batch_of), "status": status[name]}
+            )
     ctrl_src = json.loads(controls_file.read_text())["source"]
     ctrl_plan = build_rev3_plan()
     controls = [
         _row(
             {**r, "seed": ctrl_plan[r["run"]].cfg.seed, "search_model": ctrl_plan[r["run"]].cfg.search_model},
             r.get("rmb"),
+            batch_of,
         )
         for r in ctrl_src
-        if r["run"] in study2.CONTROLS
+        if r["run"] in pm.CONTROLS
     ]
+    return {"spend": spend, "by": by, "plan": plan, "rows": rows, "status": status, "controls": controls}
+
+
+def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROLS_FILE) -> dict[str, Any]:
+    c = collect(study2, root, out, spend_file, controls_file)
+    spend, by, plan, rows, status, controls = (
+        c[k] for k in ("spend", "by", "plan", "rows", "status", "controls")
+    )
     both = analyses(rows, controls)
     agg = {
         "study": "Study 2: strong search model (PREREG.md)",
