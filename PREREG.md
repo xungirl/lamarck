@@ -289,3 +289,33 @@ held-out score of a source run improve?
   8,192 output tokens are assumed, would stop runs well below their real cost.) Consequence: the fifth run
   starts only if the first four spent at most RMB 6.90 (RMB 1.725 per run on average), so n = 5 is expected
   under the low and central estimates and n = 4 under the high one.
+
+## Deviations (Study 2)
+
+1. **2026-11-20 (UTC), after the n = 5 result had been seen, before any data of new runs existed: extension
+   to 10 runs.** The user asked for five more Study 2 runs, `s2-src-6` … `s2-src-10` with seeds **16-20**.
+   They are added *after* seeing the n = 5 result (`results/study2/RESULTS.md`, commit `26c6984`: held-out
+   changes 0, 0, +5, +5, +2.5, mean +2.5; vs 0 t(4) = 2.24, p = 0.089; vs the controls Welch p = 0.14). This is
+   **optional stopping**, so:
+   - **The n = 5 analysis above (runs `s2-src-1..5`) stays the primary Study 2 result and is never replaced**,
+     whatever the new runs show. `study2_report` keeps computing it from exactly runs 1-5 (a test checks this).
+   - The **n = 10 analysis** (runs `s2-src-1..10`, all that finish) is a **separate, clearly labelled secondary
+     analysis**, with the same endpoint and tests as the primary one (held-out change vs 0; vs the **same 7
+     controls** `sql-src-1..7`). Its p-values are not corrected for the optional stopping and are not a
+     confirmatory test: they cannot turn the primary reading into "held-out improved" or "better than the
+     flash proposer".
+   - **n of the extension is however many of the new runs finish under the money gate** (rules unchanged:
+     launch order `s2-src-6..10`, at most 3 at a time, per-run bound RMB 2.10, no further launch after a
+     `budget_stop`; a run the gate never admits is reported as not run; no run is excluded after the fact).
+   - **Money:** the Study 2 cap rises from **RMB 9.00 to RMB 15.00**, in the same ledger file
+     (`results/study2/budget/spend_ledger.json`, RMB 5.624 spent before the extension). Runs 1-5 cost RMB
+     0.994-1.339 each (mean 1.124), so five more runs are expected to cost about RMB 5.6; RMB 9.38 are left
+     under the new cap. The first study's ledger is still never opened.
+   - **Host platform (a possible confound):** runs 1-5 ran on an AWS EC2 host (Ubuntu, Linux arm64, host Docker
+     with gVisor `runsc`); runs 6-10 run on a macOS arm64 machine (Docker in a colima VM with gVisor `runsc`).
+     The sandbox image is built from the same Dockerfile; protocol, configuration, splits, seed-harness cached
+     evaluations, models and request settings are the same (the code changes are only the plan length, the
+     cap and the report's second analysis). Policy calls go to the same provider at temperature 0, so the
+     host should not change the scores, but the two batches also differ in time (a few hours apart) and provider
+     state, and host and batch are confounded: a difference between runs 1-5 and 6-10 cannot be attributed to
+     either.
