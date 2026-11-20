@@ -63,21 +63,22 @@ p = 0.062), and +2.25 vs the controls, Welch p = 0.13 (exact Mann-Whitney p = 0.
 remains the primary result. Study 2 total: RMB 11.17 of RMB 15.00, 1,944 calls.
 Tables: [results/study2/RESULTS.md](results/study2/RESULTS.md); raw: `results/study2/summary.json`.
 
-**Study 3: confirmatory replication of Study 2 (run 2026-11-20 UTC on macOS/colima; stopped by the provider at
-5 of 10 runs).** Pre-registered before any of its runs (PREREG.md, "Study 3"): ten new runs `s3-src-1..10`
-(seeds 21-30), configuration equal to Study 2's except run ids and seeds, fixed n, primary test one-sided
-one-sample t of the held-out change vs 0 (α = 0.05). During the run the DashScope account stopped serving both
-models (HTTP 403 `AccessDenied.Unpurchased`, the account-credit error), so `s3-src-5` and `s3-src-7` ended in
-`infra_error` (no endpoint, nothing imputed) and `s3-src-8..10` were never launched. **n = 5 finished**
-(`s3-src-1, 2, 3, 4, 6`), with held-out changes 0, +2.5, +5.0, +2.5, +7.5 (mean **+3.5** points): one-sided
-t(4) = 2.75, p = 0.026; two-sided p = 0.052, 95% CI [−0.04, +7.04]; exact signed-rank p = 0.125 two-sided,
-0.0625 one-sided. **Verdict by the pre-registered rule, on the five finished runs: replicated.** It is a
-fragile result: half the planned n, the two-sided interval just includes 0 and the rank test does not reach
-0.05. Secondary: +3.5 vs the seven flash controls (not randomized, run a day earlier), Welch p = 0.067, exact
-Mann-Whitney p = 0.068; evolve change mean +7.3 (controls +7.1). RMB 7.86 of its RMB 15.00 cap (the ledger
-cap was never reached; the provider balance ran out first), 1,325 calls (18 failed, all 403s in the two
-stopped runs). Whether to resume `s3-src-5`/`s3-src-7` under the outage rule and launch `s3-src-8..10` after a
-top-up is not decided. Tables: [results/study3/RESULTS.md](results/study3/RESULTS.md); raw:
+**Study 3: confirmatory replication of Study 2 (run 2026-11-20 UTC on macOS/colima).** Pre-registered before
+any of its runs (PREREG.md, "Study 3"): ten new runs `s3-src-1..10` (seeds 21-30), configuration equal to Study
+2's except run ids and seeds, fixed n, primary test one-sided one-sample t of the held-out change vs 0
+(α = 0.05). All ten finished. Held-out changes: 0, +2.5, +5.0, +2.5, 0, +7.5, +10.0, +2.5, 0, +7.5 (mean
+**+3.75** points): one-sided t(9) = 3.31, p = 0.0046; two-sided p = 0.0091, 95% CI [+1.19, +6.31]; exact
+signed-rank p = 0.0156 two-sided, 0.0078 one-sided. **Verdict by the pre-registered rule: replicated.**
+Secondary: +3.75 vs the seven flash controls (not randomized, run a day earlier), Welch p = 0.031, 95% CI
+[+0.39, +7.11], exact Mann-Whitney p = 0.036; evolve change mean +6.3 (controls +7.1); one or two accepted
+edits per run. *Disclosure:* a provider credit outage (DashScope HTTP 403 `AccessDenied.Unpurchased`) stopped
+the study at 5 finished runs; that **interim** result (n = 5: mean +3.5, one-sided p = 0.026, two-sided
+p = 0.052, 95% CI [−0.04, +7.04]) was visible when the account was topped up and the decision was made to
+complete the pre-registered n = 10. No rule changed: the two paused runs (`s3-src-5`, `s3-src-7`) resumed
+under the outage rule, and the five finished runs were not re-run or re-billed (PREREG "Notes (Study 3)").
+Before resuming, a resume defect was fixed: a run paused in its final held-out evaluation would have reported
+its start as its end. RMB 12.07 of its RMB 15.00 cap (RMB 7.86 before the outage, RMB 4.21 after), 2,110 calls
+(18 failed, all the 403s of the outage). Tables: [results/study3/RESULTS.md](results/study3/RESULTS.md); raw:
 `results/study3/summary.json`.
 
 ## What is in the box
