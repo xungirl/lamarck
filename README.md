@@ -46,7 +46,7 @@ models (no budget). One pre-revision source run with `qwen4-max` as proposer (fu
 went 78.3 → 88.3 on Spider evolve and 81.7 → 86.7 on held-out; it is reported separately in
 `results/pre_revision/` (it is not the revised plan's `sql-src-4`).
 
-**Study 2: strong search model (run 2026-11-20 UTC on an AWS EC2 Graviton host).** A separate follow-up,
+**Study 2: strong search model (run 2026-11-20 UTC; runs 1-5 on an AWS EC2 Graviton host, runs 6-10 on macOS/colima).** A separate follow-up,
 pre-registered before any of its runs (PREREG.md, "Study 2"): five Spider source runs with `qwen4-max` as
 proposer and selector and everything else as in `sql-src-1..7`, to test whether the flash search model was the
 bottleneck. All five finished. Held-out change per run: 0.0, 0.0, +5.0, +5.0, +2.5 (mean **+2.5** points) vs the
@@ -55,6 +55,12 @@ signed-rank p = 0.25). Against the controls: +2.5, Welch p = 0.14, 95% CI [−1.
 p = 0.18). **A positive trend, not a significant effect** at n = 5: the steps are 2.5 points on 40 tasks and
 the evaluation noise is of the same order; the controls ran a day earlier (not randomized). Evolve-split gain
 was similar (mean +6.0 vs +7.1), with one accepted edit per run. RMB 5.62 of its RMB 9.00 cap, 1,025 calls.
+**Extended analysis (secondary, not confirmatory):** five more runs (`s2-src-6..10`, seeds 16-20) were added
+*after* seeing the n = 5 result (optional stopping; PREREG Study 2 deviation 1, cap raised to RMB 15.00) and ran
+on macOS/colima instead of EC2 (host and batch confounded); all five finished, with held-out changes +7.5, 0, +2.5,
+0, 0, so over all ten runs the mean is +2.25, t(9) = 2.59, p = 0.029, 95% CI [+0.3, +4.2] (exact signed-rank
+p = 0.062), and +2.25 vs the controls, Welch p = 0.13 (exact Mann-Whitney p = 0.12); the n = 5 analysis above
+remains the primary result. Study 2 total: RMB 11.17 of RMB 15.00, 1,944 calls.
 Tables: [results/study2/RESULTS.md](results/study2/RESULTS.md); raw: `results/study2/summary.json`.
 
 ## What is in the box
@@ -89,12 +95,12 @@ Tables: [results/study2/RESULTS.md](results/study2/RESULTS.md); raw: `results/st
 
 ```bash
 uv sync                      # Python 3.13
-make ci                      # ruff, mypy, 105 offline tests with fake models (no network, no key)
+make ci                      # ruff, mypy, 106 offline tests with fake models (no network, no key)
 make test-docker             # sandbox + escape probes (colima + Docker, gVisor if installed)
 scripts/reproduce.sh         # the budget-revised experiments: API check, gateway, schedule, report
 make report                  # rebuild results/ and the dashboard from runs/rev3
 make dryrun-study2           # Study 2 launcher end to end, offline (simulated upstream, temp root)
-scripts/run_study2.sh        # Study 2 for real (qwen4-max search; RMB 9.00 cap in its own ledger)
+scripts/run_study2.sh        # Study 2 for real (qwen4-max search; RMB 15.00 cap in its own ledger)
 ```
 
 Data: `scripts/prepare_text2sql_splits.py` (Spider 1.0 and BIRD mini-dev archives, hashes in
