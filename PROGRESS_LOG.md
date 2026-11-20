@@ -78,3 +78,30 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
   sandbox or container code changed); Docker/colima not started.
 - To run it: put `DASHSCOPE_API_KEY=...` in ./.env (or point `$LAMARCK_KEYFILE` at a file), then
   `scripts/run_study2.sh`. Resume = the same command. Results: `results/study2/`. Nothing pushed.
+
+## 2026-11-20 UTC (Study 2 extension to 10 runs, local macOS run)
+
+- Earlier the same day (EC2 Ubuntu arm64 host): Study 2 runs `s2-src-1..5` all `done`; results committed in
+  26c6984 (mean held-out change +2.5, t(4) = 2.24, p = 0.089; Welch vs controls p = 0.14; RMB 5.624).
+- Extension requested after that result. PREREG "Deviations (Study 2)" item 1 committed (268c6f3) before any new
+  run: `s2-src-6..10` (seeds 16-20), optional stopping, so n = 5 stays the primary analysis and n = 10 is a
+  labelled secondary analysis vs the same 7 controls; cap RMB 9.00 -> 15.00 in the same ledger; host platform
+  (EC2 Linux vs macOS/colima) stated as a confound.
+- Code: plan of 10 runs with `PRIMARY_RUNS` / `EXTENSION_RUNS`; cap 15.00; report writes `analysis` (primary,
+  exactly runs 1-5) and `analysis_extended` (runs 1-10) plus runs 6-10 alone (descriptive); test that the
+  primary analysis uses exactly runs 1-5. `make ci` green (106 tests); `make dryrun-study2` green (10/10 runs).
+- Before launching: `lamarck --plan study2 status` showed runs 1-5 `done` (never pending in the scheduler) and
+  the gate admitting 6-9 at RMB 5.624 spent; after the run the ledger entries of runs 1-5 are byte-identical to
+  26c6984 (not re-run, not re-billed); seed-cache copied nothing.
+- 06:56 UTC (22:56 PST) `LAMARCK_KEYFILE=<file outside the repo> scripts/run_study2.sh` on macOS: colima started,
+  gVisor `runsc` registered by the script, API check HTTP 200 for qwen3.8-flash and qwen4-max (ledger at RMB
+  5.624 before it), gateway image `lamarck-runtime:37e3c499562e`. Runs 6, 7, 8 started at once, 9 and 10 after
+  the gate saw real spend; all five `done` by 07:07 UTC, no failures, no provider errors.
+- Held-out changes of runs 6-10: +7.5, 0, +2.5, 0, 0 (two runs accepted no edit). Primary (runs 1-5) unchanged.
+  Extended (runs 1-10): mean +2.25, t(9) = 2.59, p = 0.029, 95% CI [0.28, 4.22], signed-rank p = 0.062; vs
+  controls Welch p = 0.132, Mann-Whitney p = 0.121. Not confirmatory (optional stopping, host confound).
+- Money (results/study2/budget/spend_ledger.json): RMB 5.545 this round (runs 6-10 RMB 5.545 incl. API check
+  RMB 0.0004), RMB 11.169 of RMB 15.00 in total, 1,944 calls (2 failed, both from the EC2 batch).
+- Report regenerated, README Study 2 paragraph extended. Key-leak scan: key value in no repo file, no git
+  history, no diff, not in the launcher log. Gateway container removed and colima stopped by the launcher's
+  trap; `colima stop` confirmed; no leftover gateway/eval processes. Nothing pushed.
