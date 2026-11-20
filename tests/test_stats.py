@@ -38,3 +38,42 @@ def test_average_ranks_and_zero_handling() -> None:
 def test_wilson() -> None:
     lo, hi = wilson_ci(50, 100)
     assert lo == pytest.approx(0.4038, abs=1e-3) and hi == pytest.approx(0.5962, abs=1e-3)
+
+
+# Study 2: the seven flash-proposer controls (results/summary.json `source`, held-out after - before)
+CONTROLS = [-2.5, -2.5, -2.5, 2.5, 0.0, 0.0, 5.0]
+
+
+def test_one_sample_matches_scipy() -> None:
+    from lamarck.experiments.stats import one_sample_summary
+
+    d = [5.0, 2.5, 7.5, -2.5, 10.0]
+    s = one_sample_summary(d)
+    ref = sps.ttest_1samp(d, 0.0)
+    assert s["mean"] == pytest.approx(4.5) and s["n"] == 5
+    assert s["t"] == pytest.approx(float(ref.statistic)) and s["p_t_two_sided"] == pytest.approx(ref.pvalue)
+    assert s["wilcoxon"]["p_two_sided"] == pytest.approx(sps.wilcoxon(d, method="exact").pvalue)
+    c = one_sample_summary(CONTROLS)
+    assert c["mean"] == pytest.approx(0.0) and c["p_t_two_sided"] == pytest.approx(1.0)
+
+
+def test_two_sample_welch_and_exact_mann_whitney() -> None:
+    from lamarck.experiments.stats import mann_whitney_exact, two_sample_summary
+
+    a = [5.0, 7.5, 2.5, 10.0, 5.0]
+    s = two_sample_summary(a, CONTROLS)
+    ref = sps.ttest_ind(a, CONTROLS, equal_var=False)
+    assert s["welch_t"] == pytest.approx(float(ref.statistic))
+    assert s["p_welch_two_sided"] == pytest.approx(ref.pvalue)
+    assert s["diff_of_means"] == pytest.approx(6.0)
+    assert s["mann_whitney"]["assignments"] == 792  # C(12, 5)
+    # without ties the enumeration equals scipy's exact distribution
+    x, y = [1.0, 4.0, 6.0], [2.0, 3.0, 5.0, 7.0, 8.0]
+    assert mann_whitney_exact(x, y)["p_two_sided"] == pytest.approx(
+        sps.mannwhitneyu(x, y, method="exact").pvalue
+    )
+    # identical groups: nothing is more extreme than the centre
+    assert mann_whitney_exact([1.0, 2.0], [1.0, 2.0])["p_two_sided"] == 1.0
+    # zero variance in both groups does not crash
+    z = two_sample_summary([0.0, 0.0], [0.0, 0.0])
+    assert z["p_welch_two_sided"] == 1.0 and z["ci95_welch"] is None
