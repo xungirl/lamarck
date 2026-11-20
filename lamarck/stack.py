@@ -19,7 +19,7 @@ from .engine.evaluator import Evaluator
 from .engine.loop import EvolutionRun, SearchLLM
 from .gateway.client import GatewayClient, create_grant
 from .gateway.ledger import Ledger
-from .gateway.providers import DashScopeProvider, FakeProvider, Router, read_dotenv_key
+from .gateway.providers import DashScopeProvider, FakeProvider, Provider, Router, read_dotenv_key
 from .gateway.server import Gateway, GatewayConfig, start_in_thread
 from .gateway.spend import SpendLedger
 from .sandbox.backends import Backend, LocalBackend
@@ -72,12 +72,22 @@ def local_stack(
     caps: dict[str, int] | None = None,
     spend_file: Path | None = None,
     spend_cap: float = 9.50,
+    simulate: str | None = None,
 ) -> Stack:
+    """simulate: a simulated upstream answering the real model names (lamarck.gateway.simulated)."""
     from .gateway.fakes import RESPONDERS
 
-    if keyfile is not None and spend_file is None:
+    if keyfile is not None and simulate is not None:
+        raise ValueError("a key file and a simulated upstream are mutually exclusive")
+    if (keyfile is not None or simulate is not None) and spend_file is None:
         raise ValueError("an upstream gateway needs a spend ledger file")
-    upstream = DashScopeProvider(read_dotenv_key(keyfile, "DASHSCOPE_API_KEY")) if keyfile else None
+    upstream: Provider | None = None
+    if keyfile is not None:
+        upstream = DashScopeProvider(read_dotenv_key(keyfile, "DASHSCOPE_API_KEY"))
+    elif simulate is not None:
+        from .gateway.simulated import SimulatedDashScope
+
+        upstream = SimulatedDashScope(simulate)
     gw = Gateway(
         Router(upstream=upstream, fake=FakeProvider(RESPONDERS)),
         Ledger(root / "gateway" / "ledger.json", caps),
