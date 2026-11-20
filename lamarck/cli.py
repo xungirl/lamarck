@@ -6,6 +6,15 @@ lamarck exp NAME                                    run one planned run (see lam
 lamarck schedule [--group G ...] [--parallel P]     run every planned run whose dependencies are done
 lamarck status                                      planned runs and their state
 lamarck ledger                                      calls and tokens per role/model so far
+lamarck seed-cache --from runs/rev3                 copy the seed harness's cached evaluations (Study 2)
+
+`--plan rev3` (default) is the budget-revised plan (PREREG deviations 3 and 5); `--plan study2` is the
+follow-up "Study 2: strong search model" (lamarck/experiments/study2.py), with its own default root
+(runs/study2) and its own spend ledger and cap.
+
+Offline dry runs: with LAMARCK_BACKEND=local, runs use the subprocess backend and a gateway already listening
+on 127.0.0.1:$LAMARCK_GATEWAY_PORT (e.g. `python -m lamarck.gateway.server --simulate ...`) instead of
+Docker. Never used for real runs (no sandbox isolation).
 """
 
 from __future__ import annotations
@@ -17,6 +26,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from types import ModuleType
 from typing import Any
 
 from .sim.memory import SIM
@@ -31,38 +41,90 @@ KEYFILE = Path(os.environ.get("LAMARCK_KEYFILE", REPO / ".env"))
 # revision (PREREG deviation 3); committed so the spend is auditable.
 SPEND_FILE = REPO / "results" / "budget" / "spend_ledger.json"
 SPEND_CAP_RMB = 9.50
+PLANS = ("rev3", "study2")
+
+
+def plan_module(name: str) -> ModuleType:
+    """The experiment plan module: build_plan, dependencies, EST_RMB, UNFUNDED_GROUPS, POLICY_PARAMS,
+    RUN_BUDGET, SEARCH_EXTRA."""
+    if name == "study2":
+        from .experiments import study2
+
+        return study2
+    if name == "rev3":
+        from .experiments import plan
+
+        return plan
+    raise SystemExit(f"unknown plan {name!r}")
+
+
+def plan_money(name: str) -> tuple[Path, float]:
+    """(spend ledger file, hard RMB cap) of a plan. Each study has its own ledger."""
+    if name == "study2":
+        from .experiments import study2
+
+        return study2.SPEND_FILE, study2.SPEND_CAP_RMB
+    return SPEND_FILE, SPEND_CAP_RMB
+
+
+def plan_root(name: str) -> Path:
+    if name == "study2":
+        from .experiments import study2
+
+        return study2.DEFAULT_ROOT
+    return DEFAULT_ROOT
+
+
+def gateway_port() -> int:
+    from .sandbox.docker_backend import GATEWAY_PORT
+
+    return int(os.environ.get("LAMARCK_GATEWAY_PORT", GATEWAY_PORT))
+
+
+def local_mode() -> bool:
+    return os.environ.get("LAMARCK_BACKEND", "docker") == "local"
 
 
 def attach(root: Path) -> Stack:
-    """A Stack bound to the already-running gateway container (does not restart it)."""
+    """A Stack bound to the already-running gateway (does not restart it): the gateway container and the
+    Docker backend, or with LAMARCK_BACKEND=local a local gateway process and the subprocess backend."""
+    secret = (root / "gateway-state" / "admin_secret").read_text().strip()
+    url = f"http://127.0.0.1:{gateway_port()}"
+    if local_mode():
+        from .sandbox.backends import LocalBackend
+
+        return Stack(url, secret, LocalBackend(url), root)
     from .sandbox import docker_backend, image
 
     tag = image.build(root / "build" / "ctx")
-    secret = (root / "gateway-state" / "admin_secret").read_text().strip()
     backend = docker_backend.DockerBackend(tag, root / "slots", warm=1, memory_mb=1024)
-    return Stack(f"http://127.0.0.1:{docker_backend.GATEWAY_PORT}", secret, backend, root)
+    return Stack(url, secret, backend, root)
 
 
 def cmd_gateway_up(a: argparse.Namespace) -> None:
     from .sandbox import docker_backend, image
 
+    spend_file, cap = plan_money(a.plan)
     tag = image.build(a.root / "build" / "ctx")
     url = docker_backend.start_gateway(
         tag,
         a.root / "gateway-state",
         KEYFILE if not a.offline else None,
         fake=True,
-        spend_file=SPEND_FILE if not a.offline else None,
-        spend_cap=SPEND_CAP_RMB,
+        spend_file=spend_file if not a.offline else None,
+        spend_cap=cap,
     )
-    print(f"gateway {url} image {tag} spend ledger {SPEND_FILE if not a.offline else 'off'}")
+    print(
+        f"gateway {url} image {tag} spend ledger {spend_file if not a.offline else 'off'} cap RMB {cap:.2f}"
+    )
 
 
-def run_spec(name: str, root: Path) -> dict[str, Any]:
+def run_spec(name: str, root: Path, plan_name: str = "rev3") -> dict[str, Any]:
     from .engine.loop import EvolutionRun
-    from .experiments.plan import POLICY_PARAMS, RUN_BUDGET, SEARCH_EXTRA, build_plan
 
-    plan = build_plan()
+    pm = plan_module(plan_name)
+    POLICY_PARAMS, RUN_BUDGET, SEARCH_EXTRA = pm.POLICY_PARAMS, pm.RUN_BUDGET, pm.SEARCH_EXTRA
+    plan = pm.build_plan()
     spec = plan[name]
     stack = attach(root)
     orig_grant = stack.grant
@@ -103,7 +165,7 @@ def run_spec(name: str, root: Path) -> dict[str, Any]:
 
 
 def cmd_exp(a: argparse.Namespace) -> None:
-    print(json.dumps(run_spec(a.name, a.root), indent=1))
+    print(json.dumps(run_spec(a.name, a.root, a.plan), indent=1))
 
 
 def state_of(root: Path, name: str) -> str:
@@ -112,9 +174,7 @@ def state_of(root: Path, name: str) -> str:
 
 
 def cmd_status(a: argparse.Namespace) -> None:
-    from .experiments.plan import build_plan
-
-    for name, spec in build_plan().items():
+    for name, spec in plan_module(a.plan).build_plan().items():
         print(f"{name:18s} {spec.group:15s} {state_of(a.root, name)}")
 
 
@@ -160,9 +220,9 @@ def money_gate(
 def cmd_schedule(a: argparse.Namespace) -> None:
     """Run planned runs in dependency and priority order, P at a time, each in its own process.
     With a real gateway, a run is launched only while the money gate allows it (see money_gate)."""
-    from .experiments.plan import EST_RMB, UNFUNDED_GROUPS, build_plan, dependencies
-
-    plan = build_plan()
+    pm = plan_module(a.plan)
+    EST_RMB, UNFUNDED_GROUPS, dependencies = pm.EST_RMB, pm.UNFUNDED_GROUPS, pm.dependencies
+    plan = pm.build_plan()
     todo = [
         n
         for n, s in plan.items()
@@ -206,7 +266,7 @@ def cmd_schedule(a: argparse.Namespace) -> None:
             n = ready.pop(0)
             with open(logs / f"{n}.log", "a") as log:
                 running[n] = subprocess.Popen(
-                    [sys.executable, "-m", "lamarck.cli", "exp", n, "--root", str(a.root)],
+                    [sys.executable, "-m", "lamarck.cli", "--plan", a.plan, "exp", n, "--root", str(a.root)],
                     stdout=log,
                     stderr=log,
                     cwd=REPO,
@@ -224,7 +284,8 @@ def cmd_schedule(a: argparse.Namespace) -> None:
 def cmd_eval(a: argparse.Namespace) -> None:
     from .domains.registry import get_domain
     from .engine.evaluator import Evaluator
-    from .experiments.plan import POLICY_PARAMS
+
+    POLICY_PARAMS = plan_module(a.plan).POLICY_PARAMS
 
     stack = attach(a.root)
     dom = get_domain(a.domain)
@@ -280,13 +341,77 @@ def cmd_ledger(a: argparse.Namespace) -> None:
     from .gateway.client import ledger_snapshot
 
     secret = (a.root / "gateway-state" / "admin_secret").read_text().strip()
-    snap = ledger_snapshot("http://127.0.0.1:18080", secret)
+    snap = ledger_snapshot(f"http://127.0.0.1:{gateway_port()}", secret)
     print(json.dumps({"pools": snap["pools"], "models": snap["models"], "caps": snap["caps"]}, indent=1))
+
+
+def seed_cache(root: Path, source: Path, plan_name: str) -> dict[str, Any]:
+    """Copy the cached evaluations of the domain seed harness from an earlier experiment root.
+
+    Only cache entries whose key matches exactly are copied: same domain, split (the plan's evolve and held-out
+    splits of runs that start from the seed harness, and their parent splits), policy model, seed-harness tree
+    and rollout. Existing files are never overwritten and the source is only read. A provenance file records
+    what was copied and the sha256 of each file."""
+    import hashlib
+    import shutil
+
+    from .domains.registry import get_domain
+
+    plan = plan_module(plan_name).build_plan()
+    keys: set[tuple[str, str, str]] = set()
+    for spec in plan.values():
+        if spec.source or spec.pooled_sim_from:
+            continue
+        dom = get_domain(spec.cfg.domain)
+        for split in (spec.cfg.evolve_split, spec.cfg.heldout_split):
+            for sp in (split, dom.parent_split(split)):
+                if sp:
+                    keys.add((spec.cfg.domain, sp, spec.cfg.policy_model))
+    copied: list[dict[str, Any]] = []
+    trees: dict[str, str] = {}
+    for domain, split, model in sorted(keys):
+        if domain not in trees:
+            trees[domain] = harness_tree(get_domain(domain).seed_harness, root / "work")
+        tree = trees[domain]
+        rel = Path("cache") / "evals" / domain / split / model.replace("/", "_")
+        for f in sorted((source / rel).glob(f"{tree}__r*.json")):
+            dst = root / rel / f.name
+            if dst.exists():
+                continue
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, dst)
+            rec = json.loads(dst.read_text())
+            copied.append(
+                {
+                    "file": str(rel / f.name),
+                    "sha256": hashlib.sha256(dst.read_bytes()).hexdigest(),
+                    "score": rec.get("score"),
+                    "projected_from": rec.get("projected_from"),
+                }
+            )
+    prov = {
+        "source_root": str(source),
+        "seed_trees": trees,
+        "copied": copied,
+        "copied_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    if copied:
+        p = root / "cache" / "seed_cache_provenance.jsonl"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        with open(p, "a") as fh:
+            fh.write(json.dumps(prov) + "\n")
+    return prov
+
+
+def cmd_seed_cache(a: argparse.Namespace) -> None:
+    prov = seed_cache(a.root, Path(a.source).resolve(), a.plan)
+    print(json.dumps(prov, indent=1))
 
 
 def main() -> None:
     p = argparse.ArgumentParser(prog="lamarck")
-    p.add_argument("--root", type=Path, default=DEFAULT_ROOT)
+    p.add_argument("--plan", choices=PLANS, default="rev3")
+    p.add_argument("--root", type=Path, default=None)
     sub = p.add_subparsers(dest="cmd", required=True)
     g = sub.add_parser("gateway-up")
     g.add_argument("--offline", action="store_true")
@@ -298,7 +423,7 @@ def main() -> None:
     s.add_argument("--group", nargs="*", default=[])
     s.add_argument("--only", nargs="*", default=[])
     s.add_argument("--parallel", type=int, default=4)
-    s.add_argument("--port", type=int, default=18080)
+    s.add_argument("--port", type=int, default=gateway_port())
     s.add_argument("--no-money-gate", action="store_true", help="offline/fake runs only")
     s.add_argument("--reserve-rmb", type=float, default=0.0, help="headroom under the cap never planned for")
     s.set_defaults(fn=cmd_schedule)
@@ -312,11 +437,14 @@ def main() -> None:
     v.add_argument("--tree", default="")
     v.add_argument("--rollouts", type=int, nargs="+", default=[0])
     v.set_defaults(fn=cmd_eval)
+    c = sub.add_parser("seed-cache")
+    c.add_argument("--from", dest="source", required=True, help="earlier experiment root (read only)")
+    c.set_defaults(fn=cmd_seed_cache)
     # allow `--root` after the subcommand too
-    for sp in (g, e, s, v):
+    for sp in (g, e, s, v, c):
         sp.add_argument("--root", type=Path, default=argparse.SUPPRESS)
     a = p.parse_args()
-    a.root = Path(a.root).resolve()
+    a.root = Path(a.root or plan_root(a.plan)).resolve()
     a.fn(a)
 
 
