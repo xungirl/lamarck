@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "15e58710722f450813182d4eb3d5c3b3a2a8c8e9",
+  "parents": "a506c4fadc1f11450c22029a26fc4957d08c4feb",
+  "subject": "r2 s1: Verification only reacts to errors/empty results, so silent",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "197d2234b659a9ad89ffb5dc6b0640fb7fd4d8d4",
+  "parents": "a506c4fadc1f11450c22029a26fc4957d08c4feb",
+  "subject": "r2 s2: Repair loop only fires on errors/zero rows, so silent semant",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "19869f473ed014bb4c7c44fba93060751c59979f",
+  "parents": "a506c4fadc1f11450c22029a26fc4957d08c4feb",
+  "subject": "r1 s2: Repair loop only triggers on errors/zero rows, missing silen",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "3903b75109d582d6673a3cdc1b7c2650a7b2ff20",
+  "parents": "a506c4fadc1f11450c22029a26fc4957d08c4feb",
+  "subject": "r1 s1: Prompt rules actively push wrong semantics: anti-DISTINCT on",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "a506c4fadc1f11450c22029a26fc4957d08c4feb",
+  "parents": "deaceebc41da04f9a39f2ae5cc936bdca1ce409e",
+  "subject": "r0 s1: No execution feedback: first-draft SQL with over-specific/ca",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "51148b1c280a4e023b2a0315805b3dcac847f14b",
+  "parents": "deaceebc41da04f9a39f2ae5cc936bdca1ce409e",
+  "subject": "r0 s2: Blind single-shot generation: literal filters and output sha",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "deaceebc41da04f9a39f2ae5cc936bdca1ce409e",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

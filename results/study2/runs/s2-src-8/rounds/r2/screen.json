@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The duplicate probe is degenerate: it wraps the draft as SELECT COUNT(*), COUNT(*) - COUNT(DISTINCT combo) FROM (SELECT DISTINCT CAST(t.* AS TEXT) ...). The inner DISTINCT already removes duplicates, so extra_rows is always 0 and the fan-out finding can never fire; additionally CAST(t.* AS TEXT) is not valid SQLite, so the probe would error out anyway. The claimed core mechanism therefore does not"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Both probes are generic and executable: the dedup probe compares real row count vs SELECT DISTINCT count on uncapped results with a question-based guard for per-record questions, and the sibling-column probe derives candidates from live schema sampling and only reports executed alternatives whose results differ, leaving the decision to the model. No task ids, table names or magic constants; all lo"
+ }
+}

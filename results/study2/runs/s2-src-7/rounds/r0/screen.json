@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->repair loop with bounded work: probe budget=3, at most two literals, two tables, one repair call, and a fallback to the original SQL if the repair fails to execute. No task ids, db/table names or expected outputs are hard-coded; the schema parser and value probes derive everything from the current database, so it transfers to unfamiliar tasks. Prompt rules (column scope, st"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic validate-and-repair direction, implemented with explicit bounds: _sample_values caps at 6 columns / 12 values, parenthesis check is a single pass, exactly one corrective chat call gated on env.max_calls, and _safe_execute wraps probes so a bad query cannot crash the harness. All table/column information is parsed from the live schema; no evolve-set ids, entity names or magic constants"
+ }
+}

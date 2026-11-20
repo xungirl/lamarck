@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->repair mechanism with an explicit bound (one extra policy call, capped table/column sampling: 4 tables, 8 cols, 6 values, 24 lines). No task ids, db/table names or expected outputs are hard-coded; all probes derive from the draft SQL and live schema. Prompt additions are general text-to-SQL heuristics (LIKE/NOCASE, projection shape, DISTINCT, ties, NULL-safe NOT IN) that tr"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same bounded verify-repair idea plus literal probing driven by parsed CREATE statements and alias resolution — fully generic, no evolve-set identifiers, constants or gold answers embedded. Work is explicitly bounded: at most two chat calls, max_probe_literals=4 literals, one probe per literal with LIMIT 6, single pass over targets; every env.execute/chat is wrapped with fallback to the draft, and "
+ }
+}

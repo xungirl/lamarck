@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The blanket rule 'WHICH entities ... select ALL columns of ALL tables involved in the join with a bare SELECT *' is tuned to one evolve-set gold convention (sp0755) rather than a generalizable principle: on unfamiliar tasks it will emit extra joined-table columns and fail execution comparison, and it directly contradicts the retained first rule ('Select exactly the columns the question asks for .."
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Adds a generic, task-agnostic duplicate-row detector (no ids, table names or magic constants) that extends the existing execute-and-repair loop to catch join fan-out — precisely the sp0536 failure P1 missed, i.e. new evidence justifying the revisit. Work stays bounded (still at most one repair call gated by max_calls < 2), error/empty-result handling is preserved, and the rewrite acceptance guard "
+ }
+}

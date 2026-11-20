@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Single prompt-only edit, fully covered by the declaration. The three rules (DISTINCT on 1:N fan-out unless individual records are requested; full-row projection for open-ended 'which/details' questions; union both id columns of symmetric relations before negation) are generic SQL semantics that transfer to unseen databases — no task ids, table names or expected outputs are hard-coded (the country/"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Task-specialization plus a degenerate mechanism. (a) ENTITY_Q hard-codes a ~70-word entity vocabulary (countries, students, professors, pilots, ...) lifted from the evolve-set schemas/questions; it silently fails on any unfamiliar entity type, so the change does not generalize — litmus test fails. (b) The duplicate-detection probe groups the wrapped query by positional column 1 only ('GROUP BY 1')"
+ }
+}

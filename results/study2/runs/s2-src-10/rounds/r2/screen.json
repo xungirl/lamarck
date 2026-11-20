@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic, evidence-triggered repair: fires only when an executed non-aggregate/non-DISTINCT listing actually returns exact duplicate rows (classic join fan-out), spends the already-budgeted second call on a targeted dedup rewrite, and accepts it only if duplicates are gone. No task ids, db/table names or magic constants; no scorer interaction; bounded by max_calls<2 and a single follow-up. The acce"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Single prompt-level change making the DISTINCT rule operational for entity listings over one-to-many/link joins, with explicit carve-outs for aggregates, GROUP BY, superlative LIMIT 1 and explicitly requested occurrences. Uses generic placeholder table aliases (T1/T2/T3) and relation categories, not evolve-set schema names or task ids; would apply unchanged to an unfamiliar database. No extra call"
+ }
+}

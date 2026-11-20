@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Both additions are generic, schema-driven diagnostics: identifier validation against columns parsed from the CREATE statements (with alias resolution and keyword/function filtering) and a projection-scope heuristic keyed on question phrasing plus join/SELECT shape. No task ids, db/table names or expected outputs appear in code; the mechanism transfers to unseen tasks. It targets exactly the residu"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The mechanism itself is generic and acceptable, but the declared description embeds evolve-set task identifiers and their specific artifacts ('fixes sp0894's invented Friend.student_id/friend_id', 'fixes sp0755'). This is task-specialization evidence: the change is justified and tuned against known grading items rather than a transferable failure class, failing the litmus test framing required for"
+ }
+}

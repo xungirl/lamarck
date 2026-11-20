@@ -1,16 +1,22 @@
 {
  "study": "Study 2: strong search model (PREREG.md)",
- "root": "/home/ubuntu/lamarck/runs/study2",
+ "root": "/Users/xunxun/lamarck/runs/study2",
  "status": {
   "s2-src-1": "done",
   "s2-src-2": "done",
   "s2-src-3": "done",
   "s2-src-4": "done",
-  "s2-src-5": "done"
+  "s2-src-5": "done",
+  "s2-src-6": "done",
+  "s2-src-7": "done",
+  "s2-src-8": "done",
+  "s2-src-9": "done",
+  "s2-src-10": "done"
  },
  "runs": [
   {
    "run": "s2-src-1",
+   "batch": "primary",
    "seed": 11,
    "search_model": "qwen4-max",
    "heldout_start": 80.0,
@@ -24,6 +30,7 @@
   },
   {
    "run": "s2-src-2",
+   "batch": "primary",
    "seed": 12,
    "search_model": "qwen4-max",
    "heldout_start": 80.0,
@@ -37,6 +44,7 @@
   },
   {
    "run": "s2-src-3",
+   "batch": "primary",
    "seed": 13,
    "search_model": "qwen4-max",
    "heldout_start": 80.0,
@@ -50,6 +58,7 @@
   },
   {
    "run": "s2-src-4",
+   "batch": "primary",
    "seed": 14,
    "search_model": "qwen4-max",
    "heldout_start": 80.0,
@@ -63,6 +72,7 @@
   },
   {
    "run": "s2-src-5",
+   "batch": "primary",
    "seed": 15,
    "search_model": "qwen4-max",
    "heldout_start": 80.0,
@@ -73,11 +83,82 @@
    "evolve_change": 6.6667,
    "accepted": 1,
    "rmb": 1.1222429
+  },
+  {
+   "run": "s2-src-6",
+   "batch": "extension",
+   "seed": 16,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 87.5,
+   "heldout_change": 7.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 93.3333,
+   "evolve_change": 10.0,
+   "accepted": 1,
+   "rmb": 1.6625318999999987
+  },
+  {
+   "run": "s2-src-7",
+   "batch": "extension",
+   "seed": 17,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 83.3333,
+   "evolve_change": 0.0,
+   "accepted": 0,
+   "rmb": 0.7841900000000005
+  },
+  {
+   "run": "s2-src-8",
+   "batch": "extension",
+   "seed": 18,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 82.5,
+   "heldout_change": 2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 1.0968624999999994
+  },
+  {
+   "run": "s2-src-9",
+   "batch": "extension",
+   "seed": 19,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 83.3333,
+   "evolve_change": 0.0,
+   "accepted": 0,
+   "rmb": 0.7776876
+  },
+  {
+   "run": "s2-src-10",
+   "batch": "extension",
+   "seed": 20,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 93.3333,
+   "evolve_change": 10.0,
+   "accepted": 1,
+   "rmb": 1.2235479999999994
   }
  ],
  "controls": [
   {
    "run": "sql-src-1",
+   "batch": null,
    "seed": 1,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -91,6 +172,7 @@
   },
   {
    "run": "sql-src-2",
+   "batch": null,
    "seed": 2,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -104,6 +186,7 @@
   },
   {
    "run": "sql-src-3",
+   "batch": null,
    "seed": 3,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -117,6 +200,7 @@
   },
   {
    "run": "sql-src-4",
+   "batch": null,
    "seed": 4,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -130,6 +214,7 @@
   },
   {
    "run": "sql-src-5",
+   "batch": null,
    "seed": 5,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -143,6 +228,7 @@
   },
   {
    "run": "sql-src-6",
+   "batch": null,
    "seed": 6,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -156,6 +242,7 @@
   },
   {
    "run": "sql-src-7",
+   "batch": null,
    "seed": 7,
    "search_model": "qwen3.8-flash",
    "heldout_start": 80.0,
@@ -170,6 +257,14 @@
  ],
  "controls_source": "summary.json key `source`",
  "analysis": {
+  "label": "primary (pre-registered): runs s2-src-1..5",
+  "runs_analysed": [
+   "s2-src-1",
+   "s2-src-2",
+   "s2-src-3",
+   "s2-src-4",
+   "s2-src-5"
+  ],
   "n": 5,
   "n_controls": 7,
   "primary": {
@@ -199,7 +294,7 @@
     ],
     "t": 2.23606797749979,
     "df": 4,
-    "p_t_two_sided": 0.08900934250008569,
+    "p_t_two_sided": 0.08900934250008567,
     "wilcoxon": {
      "n_nonzero": 3,
      "w_plus": 6.0,
@@ -288,64 +383,235 @@
    ]
   }
  },
- "limitations": "The controls (sql-src-1..7) ran earlier (2026-11-19) under the same protocol, splits and cached seed-harness evaluations; Study 2's runs were neither randomized against nor interleaved with them, so the two-sample comparison is not a randomized comparison (time, provider state and model versions may differ). n is small (at most 5 vs 7), scores move in steps of 2.5 points on 40 held-out tasks, and the repeat-evaluation noise of one harness at temperature 0 is of the same order (results/summary.json `eval_variance`).",
+ "analysis_extended": {
+  "label": "extended (secondary, PREREG Study 2 deviation 1): runs s2-src-1..10 that finished; runs 6-10 were added after the primary result was seen (optional stopping)",
+  "runs_analysed": [
+   "s2-src-1",
+   "s2-src-2",
+   "s2-src-3",
+   "s2-src-4",
+   "s2-src-5",
+   "s2-src-6",
+   "s2-src-7",
+   "s2-src-8",
+   "s2-src-9",
+   "s2-src-10"
+  ],
+  "n": 10,
+  "n_controls": 7,
+  "primary": {
+   "values": [
+    0.0,
+    0.0,
+    5.0,
+    5.0,
+    2.5,
+    7.5,
+    0.0,
+    2.5,
+    0.0,
+    0.0
+   ],
+   "control_values": [
+    -2.5,
+    -2.5,
+    -2.5,
+    2.5,
+    0.0,
+    0.0,
+    5.0
+   ],
+   "mean": 2.25,
+   "control_mean": 0.0,
+   "one_sample_vs_0": {
+    "n": 10,
+    "ci95": [
+     0.28186548742160666,
+     4.218134512578393
+    ],
+    "t": 2.5861309700971087,
+    "df": 9,
+    "p_t_two_sided": 0.029399460726834678,
+    "wilcoxon": {
+     "n_nonzero": 5,
+     "w_plus": 15.0,
+     "p_two_sided": 0.0625,
+     "assignments": 32
+    },
+    "d_z": 0.8178064193007666,
+    "wins": 5,
+    "losses": 0,
+    "ties": 5,
+    "mean": 2.25,
+    "sd": 2.75126233653653,
+    "values": [
+     0.0,
+     0.0,
+     5.0,
+     5.0,
+     2.5,
+     7.5,
+     0.0,
+     2.5,
+     0.0,
+     0.0
+    ]
+   },
+   "two_sample_vs_controls": {
+    "n_a": 10,
+    "n_b": 7,
+    "mean_a": 2.25,
+    "mean_b": 0.0,
+    "sd_a": 2.75126233653653,
+    "sd_b": 2.886751345948129,
+    "diff_of_means": 2.25,
+    "welch_t": 1.6123251720790113,
+    "welch_df": 12.647039989147277,
+    "p_welch_two_sided": 0.13155324995815204,
+    "ci95_welch": [
+     -0.7733700596589879,
+     5.273370059658988
+    ],
+    "mann_whitney": {
+     "u_a": 51.0,
+     "n_a": 10,
+     "n_b": 7,
+     "p_two_sided": 0.12134923899629782,
+     "assignments": 19448
+    }
+   }
+  },
+  "secondary": {
+   "evolve_change": [
+    6.6667,
+    6.6667,
+    3.3333,
+    6.6667,
+    6.6667,
+    10.0,
+    0.0,
+    6.6667,
+    0.0,
+    10.0
+   ],
+   "evolve_change_mean": 5.6666799999999995,
+   "control_evolve_change": [
+    6.6667,
+    10.0,
+    6.6667,
+    6.6667,
+    6.6667,
+    10.0,
+    3.3333
+   ],
+   "control_evolve_change_mean": 7.142871428571428,
+   "accepted": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "control_accepted": [
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "rmb_per_run": [
+    1.0368620999999996,
+    0.9937845999999999,
+    1.3390302000000003,
+    1.1304224999999999,
+    1.1222429,
+    1.6625318999999987,
+    0.7841900000000005,
+    1.0968624999999994,
+    0.7776876,
+    1.2235479999999994
+   ]
+  },
+  "extension_runs_only": {
+   "values": [
+    7.5,
+    0.0,
+    2.5,
+    0.0,
+    0.0
+   ],
+   "mean": 2.0
+  }
+ },
+ "limitations": "The controls (sql-src-1..7) ran earlier (2026-11-19) under the same protocol, splits and cached seed-harness evaluations; Study 2's runs were neither randomized against nor interleaved with them, so the two-sample comparison is not a randomized comparison (time, provider state and model versions may differ). n is small (5, or at most 10 in the extended analysis, vs 7), scores move in steps of 2.5 points on 40 held-out tasks, and the repeat-evaluation noise of one harness at temperature 0 is of the same order (results/summary.json `eval_variance`). The extended analysis adds runs chosen after the primary result was seen (optional stopping): its p-values are not confirmatory. Runs 1-5 ran on an EC2 Linux arm64 host and runs 6-10 on macOS arm64 (colima), hours apart: host and batch are confounded (PREREG Study 2 deviation 1).",
  "money": {
-  "cap_rmb": 9.0,
-  "spent_rmb": 5.623700899999998,
-  "calls": 1025,
+  "cap_rmb": 15.0,
+  "spent_rmb": 11.168909200000002,
+  "calls": 1944,
   "failed": 2,
   "by_model": {
    "qwen3.8-flash": {
-    "cached_tokens": 136192,
-    "calls": 973,
-    "completion_tokens": 63079,
+    "cached_tokens": 347136,
+    "calls": 1842,
+    "completion_tokens": 149796,
     "failed": 1,
-    "prompt_tokens": 763125,
+    "prompt_tokens": 1601629,
     "reasoning_tokens": 0,
-    "rmb": 0.6855508999999999
+    "rmb": 1.4428292000000005
    },
    "qwen4-max": {
-    "cached_tokens": 68096,
-    "calls": 52,
-    "completion_tokens": 91620,
+    "cached_tokens": 142336,
+    "calls": 102,
+    "completion_tokens": 180210,
     "failed": 1,
-    "prompt_tokens": 218868,
+    "prompt_tokens": 431891,
     "reasoning_tokens": 0,
-    "rmb": 4.93815
+    "rmb": 9.726080000000003
    }
   },
   "by_role": {
    "policy": {
-    "cached_tokens": 136192,
-    "calls": 973,
-    "completion_tokens": 63079,
+    "cached_tokens": 347136,
+    "calls": 1842,
+    "completion_tokens": 149796,
     "failed": 1,
-    "prompt_tokens": 763125,
+    "prompt_tokens": 1601629,
     "reasoning_tokens": 0,
-    "rmb": 0.6855508999999999
+    "rmb": 1.4428292000000005
    },
    "proposer": {
-    "cached_tokens": 64512,
-    "calls": 32,
-    "completion_tokens": 85033,
+    "cached_tokens": 135168,
+    "calls": 63,
+    "completion_tokens": 167776,
     "failed": 1,
-    "prompt_tokens": 106029,
+    "prompt_tokens": 219238,
     "reasoning_tokens": 0,
-    "rmb": 3.6121499999999993
+    "rmb": 7.226529999999999
    },
    "selector": {
-    "cached_tokens": 3584,
-    "calls": 20,
-    "completion_tokens": 6587,
+    "cached_tokens": 7168,
+    "calls": 39,
+    "completion_tokens": 12434,
     "failed": 0,
-    "prompt_tokens": 112839,
+    "prompt_tokens": 212653,
     "reasoning_tokens": 0,
-    "rmb": 1.326
+    "rmb": 2.49955
    }
   },
   "outside_runs": {
-   "api-check": 0.0013303,
+   "api-check": 0.0017186,
    "diag": 2.83e-05
+  },
+  "by_batch_rmb": {
+   "primary": 5.6223423,
+   "extension": 5.544819999999998
   },
   "run_bound_rmb": 2.1,
   "prices_rmb_per_million": {

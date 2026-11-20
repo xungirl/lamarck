@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Both edits are generic and transferable: the prompt rules (projection width, LIKE for containment, verifying categorical values against stored data, EXCEPT/NOT IN for negation, join/aggregation hygiene) are dataset-level conventions that apply to any unseen Spider/BIRD task, and the execute-and-repair step is a real mechanism with an explicit exit (exactly one repair call, guarded acceptance of th"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING plus dead/degenerate code inside the claimed mechanism. Beyond the two declared edits (guarded repair + prompt guidance), the diff silently rewrites extract_sql with new unterminated-fence and bare-line fallbacks, adds an env.descriptions injection into the user prompt, adds config-gated behaviors ('repair', 'probe_values'), and introduces a fabricated 'SELECT 1' answer when ex"
+ }
+}

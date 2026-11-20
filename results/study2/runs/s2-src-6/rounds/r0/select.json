@@ -1,0 +1,4 @@
+{
+ "choice": "s1",
+ "reason": "s1 delivers the largest measured gain (93.33 vs 83.33 incumbent, +10 points) with zero broken tasks, and its extra cost buys genuinely general mechanisms — execution-grounded literal probing and zero-row join inspection plus dataset-agnostic prompt rules — rather than task-specific hacks. s2 is cheaper but leaves sp0536 unfixed and relies on a static checklist without evidence from the database; s"
+}

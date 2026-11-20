@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic execution-feedback mechanism: draft -> execute -> bounded literal/join probes (max_probes=6, budget decremented) -> exactly one repair call, with fallback to the original SQL on failure. No task ids, db/table names or expected outputs are hard-coded; all probing derives table/column names from the task's own schema and draft SQL, so it transfers to unfamiliar databases. The prompt rules (p"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Adds a single bounded repair pass triggered only by execution error or zero rows, feeding back the SQLite error plus a generic diagnostic checklist (case-insensitive LIKE, TRIM, correct filter column, NULL-safe NOT EXISTS, FK verification). Both edits match the declaration (solve.py loop + system prompt rules); guidance is domain-general with no task ids, database/table names or magic constants, a"
+ }
+}

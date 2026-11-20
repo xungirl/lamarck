@@ -1,0 +1,32 @@
+[
+ {
+  "commit": "9f1320611879c9556c775b46b6b83b3fbfc3263c",
+  "parents": "19a08cffce95a531d9b2f0078ec5701ada7bd1a9",
+  "subject": "r2 s1: Valid-but-empty drafts (wrong literals/join keys/negation) s",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "5c773a973952d9613d23181ae74a615d198bdad2",
+  "parents": "19a08cffce95a531d9b2f0078ec5701ada7bd1a9",
+  "subject": "r1 s1: Draft SQL is never executed: wrong literals/join keys and em",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "c337695734ac24e48d486d4af2c55c4be8d2883b",
+  "parents": "19a08cffce95a531d9b2f0078ec5701ada7bd1a9",
+  "subject": "r0 s1: No execution feedback loop + missing Spider gold conventions",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "a8d27f886c5b6332f8f0a8f6cb8f774f3b1f6ed4",
+  "parents": "19a08cffce95a531d9b2f0078ec5701ada7bd1a9",
+  "subject": "r0 s2: Silent-empty drafts: wrong literals/join keys/column choice",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "19a08cffce95a531d9b2f0078ec5701ada7bd1a9",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": "HEAD -> evolve"
+ }
+]

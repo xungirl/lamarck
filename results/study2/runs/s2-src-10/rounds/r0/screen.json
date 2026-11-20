@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Execution-grounded draft->probe->single repair is a generic mechanism that transfers to unseen tasks: no task ids, db/table names or expected outputs are hard-coded; probes derive literals/columns/FKs from the schema and the draft itself. Work is bounded (one repair call gated on env.max_calls>=2, probe loops capped at 3 tokens x 4 tables, 4 compared columns, 10 output lines), read-only execution "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic execute-and-repair direction with sampled real values for the columns the draft touches; nothing keys on task ids, database/table names or gold outputs, so it would behave sensibly on unfamiliar tasks. Bounded work: exactly one extra policy call gated on max_calls>=2, evidence sampling limited to 4 tables / 5 columns / 12 rows with a 3500-char budget, all env calls wrapped in try/exce"
+ }
+}

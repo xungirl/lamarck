@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Single-shot generation with no execution feedback: literal-value mismatches, wrong join keys and wrong projection scope are never caught or repaired",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a validate-and-repair loop: run the draft SQL via env.execute, probe actual stored values for literals that match nothing (and inspect real rows of joined tables when a join yields zero rows), then make one repair call with that evidence. Strengthen the system prompt with...",
+     "files": "config.json, solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0536",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0755",
+      "sp0894"
+     ],
+     "passed": 28,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

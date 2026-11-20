@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "c99ac9280c354d0b6f6775df63b38212b5a35656",
+  "parents": "124b9aa67b8a8dbddbad2c11c3a518ee928ec4a8",
+  "subject": "r2 s1: Join fan-out duplicates entity rows on listing questions: th",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "70782eeaba52d76296ea56c950d3789a8af98fca",
+  "parents": "124b9aa67b8a8dbddbad2c11c3a518ee928ec4a8",
+  "subject": "r2 s2: Executable-but-wrong result shape: entity listings over 1-to",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "c708847ba48206bafc7ae783b08b5f200c5f0f30",
+  "parents": "124b9aa67b8a8dbddbad2c11c3a518ee928ec4a8",
+  "subject": "r1 s2: Join fan-out duplicates entity rows: listing questions over",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "7ee369726e97a55d62eac654c3e0d1fe542f5a58",
+  "parents": "124b9aa67b8a8dbddbad2c11c3a518ee928ec4a8",
+  "subject": "r1 s1: Result-shape mismatch on executable queries: join fan-out du",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "124b9aa67b8a8dbddbad2c11c3a518ee928ec4a8",
+  "parents": "9f947aa631e6a3727d62426da6c3a1f20bb36de7",
+  "subject": "r0 s2: Single-shot generation never validates literals against DB c",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "e4302f2f255354280a4c642d272f28554fa117ea",
+  "parents": "9f947aa631e6a3727d62426da6c3a1f20bb36de7",
+  "subject": "r0 s1: No execution grounding: drafts that return 0 rows (literal/f",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "9f947aa631e6a3727d62426da6c3a1f20bb36de7",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

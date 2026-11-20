@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The change is a generic, task-agnostic mechanism: draft -> execute -> conditional value probe -> exactly one repair call. No task ids, database/table names, expected outputs or magic constants tied to specific tasks appear; all table/column/literal information is derived at runtime from the model's own SQL and the live schema, so it would behave identically on an unfamiliar Spider/BIRD task. Work "
+ }
+}

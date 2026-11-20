@@ -1,0 +1,38 @@
+[
+ {
+  "commit": "c1b685f1836b26ea11b25474052d9c4477b1d400",
+  "parents": "920afe5c1385ca417fb07abe950cfa13bb62d1a3",
+  "subject": "r2 s1: Case-sensitive string equality against differently-cased sto",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "9b481a9f6e3332843f9979a1e1b988ec7defd36a",
+  "parents": "920afe5c1385ca417fb07abe950cfa13bb62d1a3",
+  "subject": "r2 s2: Projection scope is under-specified: vague 'details/which X'",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "ba56346173833a4ec0728bfa25f9ae8675f47c30",
+  "parents": "920afe5c1385ca417fb07abe950cfa13bb62d1a3",
+  "subject": "r1 s1: Unverified one-shot SQL: over-strict literals / wrong join k",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "97d43140059bc8f6e32c4f894424b207d5bf88c1",
+  "parents": "920afe5c1385ca417fb07abe950cfa13bb62d1a3",
+  "subject": "r0 s1: No execution feedback loop: unverified drafts with over-stri",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "0b7060c4e0f726beea60a12a54b4a4fcb4dd9d78",
+  "parents": "920afe5c1385ca417fb07abe950cfa13bb62d1a3",
+  "subject": "r0 s2: Blind one-shot generation: exact-match literals and guessed",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "920afe5c1385ca417fb07abe950cfa13bb62d1a3",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": "HEAD -> evolve"
+ }
+]

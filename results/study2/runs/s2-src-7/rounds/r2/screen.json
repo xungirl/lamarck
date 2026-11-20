@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic, task-agnostic mechanism: a bounded (at most two executions, no loop) zero-row fallback that rewrites string '=' / IN literals to case-insensitive LIKE and keeps the rewrite only if it yields rows. No db/table/task ids, expected outputs or magic constants; regexes are general SQL patterns and would apply unchanged to an unfamiliar database. The prompt additions are generic text-to-SQL guid"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Prompt-only edit addressing projection scope, literal formatting, anti-join/NULL handling — all stated as general conventions that transfer to unseen databases. Examples ('Bachelors' vs 'Bachelor', 'T'/'True', friend/likes relation symmetry) are illustrative value-format and schema-shape patterns, not hard-coded task ids, table names or expected answers; no branching on task-identifying features. "
+ }
+}

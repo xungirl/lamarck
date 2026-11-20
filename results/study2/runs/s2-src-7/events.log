@@ -1,0 +1,10 @@
+22:57:01 [s2-src-7] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+22:57:01 [s2-src-7] held-out after round -1: 80.00 (32/40)
+22:57:01 [s2-src-7] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+22:59:00 [s2-src-7] round 0: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+22:59:00 [s2-src-7] round 1: incumbent 685dca477777 evolve=83.3 b_t=2 best=83.3
+22:59:14 [s2-src-7] round 1 s2: proposal failed: manifest without <file> blocks
+23:00:01 [s2-src-7] round 1: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+23:00:01 [s2-src-7] round 2: incumbent 685dca477777 evolve=83.3 b_t=1 best=83.3
+23:00:59 [s2-src-7] round 2: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+23:00:59 [s2-src-7] held-out after round 2: 80.00 (32/40)

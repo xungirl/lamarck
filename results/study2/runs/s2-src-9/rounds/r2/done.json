@@ -1,0 +1,4 @@
+{
+ "chosen": null,
+ "reason": "The only candidate repeats a direction that failed the cost rule twice (r0 s1, r1 s1) with the same +3.3pt gain but even higher token overhead (+53% here vs prior shaped penalties), fixes just 2 of 5 predicted tasks while breaking sp0600, and adds substantial schema-parsing complexity plus Spider-specific prompt rules that hurt generality. The measured gain is within noise and does not justify the"
+}

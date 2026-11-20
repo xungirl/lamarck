@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "Two problems. (a) UNDECLARED BUNDLING / DEGENERATE: the diff inserts a dead, malformed block into the zero-row branch — `if not jn if 'jn' in dir() else True:` followed by `pass`, under a comment claiming it will 'show sample rows of the main table too'. It does nothing, is not covered by either declared edit (identifier validation, projection scope), and injects fragile control flow into an exist"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Both edits are generic SQLite/Spider-style mechanisms with no task ids, db/table names or expected outputs hard-coded: (1) NULL probing of subquery outputs when the draft returns zero rows, with the correct explanation that a single NULL makes `x NOT IN (sub)` never TRUE and a NOT EXISTS rewrite instruction — this addresses a real, previously undiagnosed failure class (executable but semantically "
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The mechanism is generic and task-agnostic: it executes the draft read-only, triggers only on the silent-empty failure mode, builds value probes from the schema of whatever database the task names (no hard-coded db/table/column names, ids, literals or expected outputs), and makes exactly one bounded repair call with explicit exits at every branch (config kill-switch, SQL_START guard, exception fal"
+ }
+}

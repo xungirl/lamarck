@@ -1,0 +1,8 @@
+{
+  "max_tokens": 800,
+  "repair_max_tokens": 700,
+  "enable_repair": true,
+  "probe_literals": true,
+  "probe_zero_row_joins": true,
+  "max_probes": 6
+}

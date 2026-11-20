@@ -1,0 +1,11 @@
+23:01:01 [s2-src-9] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+23:01:01 [s2-src-9] held-out after round -1: 80.00 (32/40)
+23:01:01 [s2-src-9] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+23:02:18 [s2-src-9] round 0: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+23:02:18 [s2-src-9] round 1: incumbent 685dca477777 evolve=83.3 b_t=2 best=83.3
+23:02:37 [s2-src-9] round 1 s2: proposal failed: manifest without <file> blocks
+23:03:39 [s2-src-9] round 1: 1 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+23:03:39 [s2-src-9] round 2: incumbent 685dca477777 evolve=83.3 b_t=1 best=83.3
+23:03:51 [s2-src-9] round 2 s2: proposal failed: manifest without <file> blocks
+23:04:50 [s2-src-9] round 2: 1 proposed, 1 evaluated, 1 admissible -> keep incumbent (The only candidate repeats a direction that failed the cost rule twice (r0 s1, r1 s1) with the same +3.3pt gain but even)
+23:04:50 [s2-src-9] held-out after round 2: 80.00 (32/40)

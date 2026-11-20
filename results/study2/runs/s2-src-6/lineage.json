@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "6392eb4083d9de187e4f391b423979e79b3e9056",
+  "parents": "05431eb28662264c644fd47d29ac9a65c87e6333",
+  "subject": "r2 s1: Repair loop only reacts to errors/zero-rows/literal mismatch",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "f5d44a553929836264a65603eec2347760a8b7c0",
+  "parents": "05431eb28662264c644fd47d29ac9a65c87e6333",
+  "subject": "r2 s2: Repair loop only reacts to errors/zero rows/literal mismatch",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "9fccc2a285a8fd8dc972e1d8283f7517d7c90179",
+  "parents": "05431eb28662264c644fd47d29ac9a65c87e6333",
+  "subject": "r1 s1: Repair loop only triggers on execution errors/zero rows/lite",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "313dc6225b9d8a86657c8aa302767197e53eca53",
+  "parents": "05431eb28662264c644fd47d29ac9a65c87e6333",
+  "subject": "r1 s2: Repair loop only reacts to errors/empty results/literal mism",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "05431eb28662264c644fd47d29ac9a65c87e6333",
+  "parents": "01af9b0b33a1bdbdf0e36ee73c2d71f873b8a4ba",
+  "subject": "r0 s1: Single-shot generation with no execution feedback: literal-v",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "c4827ba885bbb46b875b7f93182bb2699574924f",
+  "parents": "01af9b0b33a1bdbdf0e36ee73c2d71f873b8a4ba",
+  "subject": "r0 s2: One-shot generation with no execution feedback: literal/case",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "01af9b0b33a1bdbdf0e36ee73c2d71f873b8a4ba",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

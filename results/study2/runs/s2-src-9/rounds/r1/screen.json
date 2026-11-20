@@ -1,0 +1,7 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Both edits are declared and match the diff. Edit 1 adds a bounded execution-feedback repair: exactly one extra chat call, triggered only on SQLite error or zero rows, with sampled values pulled generically from tables/columns parsed out of the schema (no task ids, db/table names, or expected outputs hard-coded); all probes are read-only SELECTs with LIMIT caps, exceptions are caught, and the origi"
+ }
+}

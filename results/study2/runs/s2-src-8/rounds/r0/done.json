@@ -1,0 +1,4 @@
+{
+ "chosen": "s1",
+ "reason": "s1 lifts evolve score from 83.33 to 90.0 with two fixes and zero regressions, and its draft-execute-verify-repair loop plus literal/column-matching guidance is a general text-to-SQL mechanism rather than task-specific patching; the ~450 extra tokens per task are justified by the gain and bounded by the 2-call cap."
+}
