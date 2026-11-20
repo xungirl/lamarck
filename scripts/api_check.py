@@ -5,6 +5,7 @@ Exits non-zero if any call failed, so a launcher stops there.
     uv run python scripts/api_check.py                  # first study: qwen3.8-flash, ledger results/budget/
     uv run python scripts/api_check.py --plan study2    # Study 2: qwen3.8-flash and qwen4-max,
                                                         # ledger results/study2/budget/ (cap RMB 15.00)
+    uv run python scripts/api_check.py --plan study3    # Study 3: the same models, ledger results/study3/budget/
     ... --simulate text2sql --spend-file F              # offline dry run: simulated upstream, no network
 
 The spend ledger is owned by one process at a time: no gateway may be running on the same ledger.
@@ -27,6 +28,7 @@ from lamarck.stack import local_stack
 CHECKS = {
     "rev3": [("policy", "qwen3.8-flash")],
     "study2": [("policy", "qwen3.8-flash"), ("proposer", "qwen4-max")],
+    "study3": [("policy", "qwen3.8-flash"), ("proposer", "qwen4-max")],
 }
 
 

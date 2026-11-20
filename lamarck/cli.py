@@ -10,7 +10,8 @@ lamarck seed-cache --from runs/rev3                 copy the seed harness's cach
 
 `--plan rev3` (default) is the budget-revised plan (PREREG deviations 3 and 5); `--plan study2` is the
 follow-up "Study 2: strong search model" (lamarck/experiments/study2.py), with its own default root
-(runs/study2) and its own spend ledger and cap.
+(runs/study2) and its own spend ledger and cap; `--plan study3` is its fixed-n replication "Study 3"
+(lamarck/experiments/study3.py, runs/study3, its own ledger and cap).
 
 Offline dry runs: with LAMARCK_BACKEND=local, runs use the subprocess backend and a gateway already listening
 on 127.0.0.1:$LAMARCK_GATEWAY_PORT (e.g. `python -m lamarck.gateway.server --simulate ...`) instead of
@@ -41,7 +42,7 @@ KEYFILE = Path(os.environ.get("LAMARCK_KEYFILE", REPO / ".env"))
 # revision (PREREG deviation 3); committed so the spend is auditable.
 SPEND_FILE = REPO / "results" / "budget" / "spend_ledger.json"
 SPEND_CAP_RMB = 9.50
-PLANS = ("rev3", "study2")
+PLANS = ("rev3", "study2", "study3")
 
 
 def plan_module(name: str) -> ModuleType:
@@ -51,6 +52,10 @@ def plan_module(name: str) -> ModuleType:
         from .experiments import study2
 
         return study2
+    if name == "study3":
+        from .experiments import study3
+
+        return study3
     if name == "rev3":
         from .experiments import plan
 
@@ -60,18 +65,15 @@ def plan_module(name: str) -> ModuleType:
 
 def plan_money(name: str) -> tuple[Path, float]:
     """(spend ledger file, hard RMB cap) of a plan. Each study has its own ledger."""
-    if name == "study2":
-        from .experiments import study2
-
-        return study2.SPEND_FILE, study2.SPEND_CAP_RMB
+    if name in ("study2", "study3"):
+        pm = plan_module(name)
+        return pm.SPEND_FILE, pm.SPEND_CAP_RMB
     return SPEND_FILE, SPEND_CAP_RMB
 
 
 def plan_root(name: str) -> Path:
-    if name == "study2":
-        from .experiments import study2
-
-        return study2.DEFAULT_ROOT
+    if name in ("study2", "study3"):
+        return Path(plan_module(name).DEFAULT_ROOT)
     return DEFAULT_ROOT
 
 
