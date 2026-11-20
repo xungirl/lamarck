@@ -94,7 +94,8 @@ print(json.dumps({
     "spent_rmb_simulated": round(spend["spent_rmb"], 4), "calls": spend["calls"],
     "calls_by_model": {k: v["calls"] for k, v in by.items() if k.startswith("model:")},
     "rmb_by_run": {k: round(v["rmb"], 4) for k, v in by.items() if k.startswith("run:")},
-    "n_analysed": summ["analysis"]["n"],
+    "n_analysed_primary": summ["analysis"]["n"],
+    "n_analysed_extended": summ["analysis_extended"]["n"],
 }, indent=1))
 EOF
   exit 0
