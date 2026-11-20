@@ -319,3 +319,115 @@ held-out score of a source run improve?
      host should not change the scores, but the two batches also differ in time (a few hours apart) and provider
      state, and host and batch are confounded: a difference between runs 1-5 and 6-10 cannot be attributed to
      either.
+
+---
+
+# Study 3: confirmatory replication of Study 2 (fixed n)
+
+Written and committed **2026-11-20 (UTC), before any Study 3 run**: no Study 3 call has been made, no Study 3
+run directory (`runs/study3`) and no Study 3 result exist. Everything above (the first study, Study 2 and its
+deviation 1) is unchanged, and so are their results. Study 3 has its own experiment root (`runs/study3`), its
+own spend ledger and cap, and its own result files (`results/study3/`). Deviations from this section will be
+appended below it, dated.
+
+## What had been seen when this was written
+
+- Study 2 (`results/study2/RESULTS.md`, `results/study2/summary.json`), `qwen4-max` proposer and selector:
+  - primary, pre-registered n = 5 (`s2-src-1..5`, EC2 Linux): held-out changes 0, 0, +5, +5, +2.5, mean +2.5,
+    t(4) = 2.24, two-sided p = 0.089, 95% CI [−0.60, +5.60]; vs the 7 flash controls Welch p = 0.142.
+  - extended n = 10 (runs 6-10 added after seeing the n = 5 result, optional stopping, macOS/colima): changes
+    of runs 6-10 +7.5, 0, +2.5, 0, 0; all ten: mean +2.25, t(9) = 2.59, two-sided p = 0.029, 95% CI
+    [+0.28, +4.22], exact signed-rank p = 0.062; vs the controls Welch p = 0.132, Mann-Whitney p = 0.121.
+    Not confirmatory.
+  - cost per run RMB 0.778-1.663 (mean 1.117), `results/study2/budget/spend_ledger.json`.
+- The 7 flash controls `sql-src-1..7` (`results/summary.json`, key `source`): held-out changes −2.5, −2.5,
+  −2.5, +2.5, 0, 0, +5.0 (mean 0.0).
+- Because the n = 10 p-value came from optional stopping, Study 3 is a fresh, fixed-n test of the same
+  hypothesis with new seeds, pre-registered before any of its runs. Its direction is taken from Study 2.
+
+## Hypothesis
+
+With `qwen4-max` as proposer and selector and everything else identical to Study 2 (and so to
+`sql-src-1..7` apart from the search model), the Spider held-out change of a source run after RSI is greater
+than 0.
+
+## Design (fixed)
+
+- **Runs:** exactly 10 new runs, `s3-src-1` … `s3-src-10`, seeds **21, 22, …, 30** (Study 1 used 1-7,
+  Study 2 11-20). Source RSI from the seed harness with an empty SIM that the run builds (memory `full`).
+- **Identical to Study 2's runs except run id and seed:** domain text2sql; splits `spider_evolve_s30` /
+  `spider_heldout_s40` (`data/splits/subsplits.json`, sha256
+  `c90fdbb1ebc563a999b1fa5834c75efd95e6d8ad14574952c4c9d8ebc9b1ae75`); N = 3 rounds, k = 2 candidates; the
+  deviation-2 acceptance rules; at most 2 policy calls per task; per-run call caps (policy 9,000, proposer
+  40, selector 30, critic 10); one rollout, rollout index 0; same engine, evaluator and sandbox code. Policy
+  `qwen3.8-flash` (thinking off, temperature 0, seed 1234 + rollout, max 2,048 output tokens); proposer and
+  selector `qwen4-max` (thinking off, temperature 0.8 / 0, max_tokens 8,192). `lamarck/experiments/study3.py`
+  builds the plan from Study 2's plan builder; `tests/test_study3.py` checks that each Study 3 configuration
+  equals the corresponding Study 2 configuration except `run_id` and `seed`.
+- **Seed-harness evaluations reused:** as in Study 2, `lamarck seed-cache --from runs/rev3` copies the cached
+  evaluations of the seed harness (tree `685dca477777`) on `spider_evolve_s30` (rollouts 0-2, the
+  calibration), `spider_heldout_s40` (rollout 0, the held-out start) and their parent-split files (exact
+  cache key: domain, split, policy model, harness tree, rollout; never overwriting). Every Study 3 run
+  therefore starts from the same measurements as Study 2 and the controls (evolve 83.3, held-out 80.0).
+  Evolved candidates are evaluated anew.
+- **Host:** all Study 3 runs on one macOS arm64 machine, Docker in a colima VM with gVisor `runsc`.
+- **Launch:** `scripts/run_study3.sh` (API check of both models, seed cache, gateway, scheduler with the
+  money gate, report). At most 3 runs at a time, launched in the order `s3-src-1..10`.
+
+## Fixed n
+
+- **No further runs are added after seeing any Study 3 result, whatever it is.** There is no extension.
+- If money stops runs (the gate never admits a run, or a run ends in `budget_stop`), **n is the number of runs
+  that finished**, and that is reported together with the runs that did not; nothing is imputed and the
+  missing runs are not replaced by other seeds.
+- **No re-runs of failed runs**, except after a provider or gateway error, and then only under the existing
+  outage rule (first study deviation 3, Study 2 "Rules"): provider failures pause a run, evaluations that saw
+  one are discarded, and the same run (same id, same seed) resumes from its last completed round. A run that
+  fails for any other reason is reported with its status and has no endpoint.
+- No run is excluded after the fact.
+
+## Endpoints and analysis (fixed)
+
+- **Primary outcome:** per run, held-out execution accuracy on `spider_heldout_s40` (40 tasks) of the harness
+  retained after round 3 minus that of the seed harness, in points (as in Study 2).
+- **Primary test:** one-sample t-test of the held-out changes of the finished runs among `s3-src-1..10`
+  (exactly these runs, no other study's runs) against 0, **one-sided (mean > 0), α = 0.05**. No test with
+  fewer than 2 finished runs.
+- **Also reported for the primary outcome:** the two-sided t-test p, the 95% two-sided t interval, and the
+  exact Wilcoxon signed-rank test (zeros dropped, average ranks, every sign assignment enumerated), two-sided
+  and one-sided (greater). These do not change the verdict.
+- **Interpretation rule (fixed in advance):** one-sided t-test p < 0.05 → **"replicated"**; otherwise
+  **"not replicated"**. README and `results/study3/RESULTS.md` use exactly that word for the verdict.
+- **Secondary (descriptive, no verdict):** held-out changes vs the 7 flash controls `sql-src-1..7` (two-sided
+  Welch t with a 95% interval for the difference of means, exact two-sided Mann-Whitney), evolve-split change
+  (`spider_evolve_s30`), accepted edits per run, RMB per run and in total.
+- **Limitations, stated before any data:**
+  - the controls are not randomized: they ran earlier (2026-11-19), on another date and not interleaved with
+    Study 3, so the two-sample comparison is not a randomized comparison (time, provider state, model
+    versions);
+  - held-out scores move in steps of 2.5 points on 40 tasks;
+  - evaluation noise: repeat evaluations of one harness at temperature 0 differ by about as much as the
+    effect (`results/summary.json`, `eval_variance`); every run shares one cached measurement of the seed
+    harness's held-out start (80.0), so the noise of that one measurement is common to all runs;
+  - host: all Study 3 runs on macOS/colima (Study 2's runs 1-5 ran on EC2 Linux);
+  - power: at Study 2's n = 10 mean (+2.25) and sd (2.75) the one-sided test with n = 10 has power about
+    0.77; at half that effect about 0.33. Study 2's estimate may be inflated by optional stopping, so a
+    "not replicated" verdict does not show that the effect is 0.
+  - one model family, one benchmark, pilot-scale horizon (3 rounds).
+
+## Money (fixed)
+
+- **Cap:** RMB **15.00** for everything Study 3 calls (API check included), in a separate ledger
+  `results/study3/budget/spend_ledger.json`, enforced by the gateway with worst-case reservations before each
+  call. The first study's and Study 2's ledgers are not written.
+- **Prices:** as in Study 2 (`qwen3.8-flash` 0.80 / 2.70 / 0.10 cached; `qwen4-max` 10 / 30, cached input at
+  the full price; unknown models refused).
+- **Estimate** (`python -m lamarck.experiments.study3`, from Study 2's ledger): RMB 1.117 per run (Study 2
+  mean, range 0.778-1.663), about **RMB 11.2** for ten runs.
+- **Money gate:** as in Study 2: runs launch in the order `s3-src-1..10`; a run is launched only if
+  cap − spent − in-flight reservations − Σ over running runs (RMB 2.10 − their spend so far) ≥ **RMB 2.10**,
+  the per-run bound (Study 2's bound, above Study 2's most expensive run, RMB 1.663). A run the gate never
+  admits is reported as not run; after any run ends in `budget_stop` no further run is launched. The hard
+  guarantee is the RMB 15.00 cap. Consequence: the tenth run starts only if the runs before it leave room
+  for its bound (at most RMB 12.90 spent and bound by running runs); at Study 2's mean cost n = 10 is
+  expected.
