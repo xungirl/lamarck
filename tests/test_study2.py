@@ -195,3 +195,22 @@ def test_study2_settings_end_to_end_on_toy_with_simulated_upstream(tmp_path: Pat
     assert by["run:s2-src-1"]["rmb"] == pytest.approx(snap["spent_rmb"]) and 0 < snap["spent_rmb"] <= 9.0
     assert set(by) >= {"role:proposer", "role:selector", "role:policy"}
     spend.close()
+
+
+def test_analysis_primary_and_secondary() -> None:
+    from lamarck.experiments.stats import one_sample_summary, two_sample_summary
+    from lamarck.experiments.study2_report import analyse
+
+    def row(h: float | None, e: float, acc: int) -> dict[str, Any]:
+        return {"heldout_change": h, "evolve_change": e, "accepted": acc, "rmb": 1.5}
+
+    study = [row(5.0, 10.0, 2), row(2.5, 6.7, 1), row(7.5, 10.0, 2), row(None, 3.3, 0)]  # 4th: stopped
+    controls = [row(x, 6.7, 1) for x in (-2.5, -2.5, -2.5, 2.5, 0.0, 0.0, 5.0)]
+    a = analyse(study, controls)
+    assert a["n"] == 3 and a["n_controls"] == 7
+    p = a["primary"]
+    assert p["mean"] == pytest.approx(5.0) and p["control_mean"] == pytest.approx(0.0)
+    assert p["one_sample_vs_0"] == one_sample_summary([5.0, 2.5, 7.5])
+    assert p["two_sample_vs_controls"] == two_sample_summary([5.0, 2.5, 7.5], p["control_values"])
+    assert a["secondary"]["accepted"] == [2, 1, 2, 0]
+    assert analyse(study[:1], controls)["primary"]["one_sample_vs_0"] is None  # n < 2: no test
