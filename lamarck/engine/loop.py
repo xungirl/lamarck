@@ -208,6 +208,10 @@ class EvolutionRun:
             if self.cfg.use_noise_floor or self.cfg.use_cost_rule:
                 self.delta()
             self.heldout_point(-1)
+            # resume after an outage in the held-out evaluation that follows a saved round: measure that
+            # point now (a no-op if it is recorded or not wanted), or the run would end without it
+            if int(self.state()["next_round"]) > 0:
+                self.heldout_point(int(self.state()["next_round"]) - 1)
             while self.state()["next_round"] < self.cfg.rounds:
                 t = int(self.state()["next_round"])
                 self.round(t)

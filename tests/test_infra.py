@@ -138,3 +138,31 @@ def test_parallel_processes_share_one_evaluation(tmp_path: Path) -> None:
     procs = [subprocess.Popen([sys.executable, "-c", script, str(i)]) for i in range(2)]
     assert all(p.wait(timeout=60) == 0 for p in procs)
     assert len((tmp_path / "calls").read_text().splitlines()) == 1
+
+
+def test_resume_after_outage_in_final_heldout_point_measures_it(stack: Stack) -> None:
+    """An outage during the held-out evaluation after the last round (round already saved, next_round ==
+    rounds) must not leave the run without its end point: the resumed run evaluates it instead of reporting
+    the start as the end (Study 3, s3-src-5)."""
+    import json
+
+    cfg = RunConfig(run_id="r-end", domain="toy", rounds=2, k=2)
+    run = stack.make_run(cfg)
+    orig = run.heldout_point
+    calls = {"n": 0}
+
+    def flaky(after_round: int) -> None:
+        if after_round == cfg.rounds - 1 and calls["n"] == 0:
+            calls["n"] += 1
+            raise InfraFailure("heldout: gateway 403: upstream 403 AccessDenied.Unpurchased")
+        orig(after_round)
+
+    run.heldout_point = flaky  # type: ignore[method-assign]
+    with pytest.raises(InfraFailure):
+        run.run()
+    assert run.state()["status"] == "infra_error" and run.state()["next_round"] == cfg.rounds
+    s = run.run()
+    pts = [json.loads(x) for x in (run.dir / "heldout.jsonl").read_text().splitlines()]
+    assert sorted(p["after_round"] for p in pts) == [-1, cfg.rounds - 1]
+    assert max(p["after_round"] for p in s["heldout_curve"]) == cfg.rounds - 1
+    assert run.state()["status"] == "done"
