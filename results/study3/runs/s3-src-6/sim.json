@@ -1,0 +1,62 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Single-shot generation with no execution feedback: empty-result queries are returned unchecked (over-strict equality/LIKE filters, wrong column or join direction), and projection width is guessed without guidance",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Turn solve.py into a draft -> execute -> repair loop: run the first query, and if it errors or returns zero rows, make one repair call that includes the schema, question, the failing SQL and its result, plus generic relaxation advice (LIKE/case-insensitive matching, verify lit...",
+     "files": "config.json, solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0755"
+     ],
+     "passed": 28,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 2,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Replace the blanket 'whole entity -> SELECT *' bullet in system_prompt.md with an explicit projection procedure: resolve attribute words against actual schema column names first (so 'details for the paragraph ... text' picks Paragraph_Text), and when no attribute resolves, sel...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0755"
+     ],
+     "fixed": [
+      "sp0362"
+     ],
+     "missed": [
+      "sp0755"
+     ],
+     "passed": 29,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

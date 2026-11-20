@@ -1,0 +1,64 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Prompt under-specifies Spider output conventions (bare entity questions need SELECT * over the joined rows) and gives no execution feedback, so silently-empty queries from mis-guessed literals/columns are never repaired",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Adds a cheap deterministic execution check: if the draft errors or returns 0 rows, probe the real stored values of quoted literals (LIKE substring + fuzzy match) and send ONE grounded repair call; also extends system_prompt.md with output-shape rules (bare 'which countries/stu...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0610",
+      "sp0894"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0536",
+      "sp0755"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    },
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Rewrites the output-shape section of system_prompt.md with three explicit cases (attribute-list -> only those columns; bare entity question -> T1.* plus T2.* for each joined table; 'details' questions -> follow hint/typical Spider projection) and adds a rule to use DISTINCT wh...",
+     "files": "system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0755"
+     ],
+     "fixed": [
+      "sp0536"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0755"
+     ],
+     "passed": 28,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

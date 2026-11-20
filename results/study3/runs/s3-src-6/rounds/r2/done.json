@@ -1,0 +1,4 @@
+{
+ "chosen": "s2",
+ "reason": "It is the only admissible candidate and delivers a clean +3.34pt gain (96.67 vs 93.33) with zero broken tasks, fixing sp0362 — one of the two projection failures the r0 execution-feedback loop repeatedly missed (P1). The edit is prompt-only, single-purpose and schema-general (resolve attribute words against real columns before falling back to full rows), so regression risk is low; the ~21% token i"
+}

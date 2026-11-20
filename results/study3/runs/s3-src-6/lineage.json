@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "6089d1c434265e3d5349192ed7e6843c980ed8fd",
+  "parents": "f67626607da435f1b328723b67493422c75729ae",
+  "subject": "r2 s1: Projection width guessed from question wording: 'details' ex",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "b1afb2cfea783d11dbb38adebfaafb65ef3878b7",
+  "parents": "f67626607da435f1b328723b67493422c75729ae",
+  "subject": "r2 s2: Projection width is decided from surface wording: 'details'",
+  "refs": "HEAD -> evolve, cand/r2s2"
+ },
+ {
+  "commit": "d2c07723764214188ed9c7b87122c8c2766e01d6",
+  "parents": "f67626607da435f1b328723b67493422c75729ae",
+  "subject": "r1 s1: Projection width is guessed by a blanket 'whole entity -> SE",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "6f501b1c46eb30a0b4854b4b5b1a6705e1d7070e",
+  "parents": "f67626607da435f1b328723b67493422c75729ae",
+  "subject": "r1 s2: Projection width is guessed from the question's surface word",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "f67626607da435f1b328723b67493422c75729ae",
+  "parents": "208c9d454d79e64825f145d53e7f52e9a427da96",
+  "subject": "r0 s1: Single-shot generation with no execution feedback: empty-res",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "4c8b26c61f11a63637bc6c7ac30e6a1ba3b6b308",
+  "parents": "208c9d454d79e64825f145d53e7f52e9a427da96",
+  "subject": "r0 s2: One-shot generation never checks the draft against real DB v",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "208c9d454d79e64825f145d53e7f52e9a427da96",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

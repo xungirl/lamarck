@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "The mechanism is generic and would transfer to unseen tasks: value sampling is broadened from question-word overlap to (a) text columns actually referenced in the draft SQL, (b) FK/id-like columns of tables mentioned in question or SQL, parsed from the schema's CREATE statements rather than any hard-coded names. No task ids, db/table/column literals, expected outputs or magic constants appear in c"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING / removal of a working fallback: besides the declared _value_samples rewrite and 0-row feedback strengthening, the diff silently deletes the repair-selection branch `elif res2.get(\"ok\") and not res.get(\"ok\"): sql = sql2`. That branch is the safety net that adopts a runnable repaired query when the original draft errored; with it gone, an erroring draft whose repair returns 0 ro"
+ }
+}

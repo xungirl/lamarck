@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Single coherent change to the repair-evidence gatherer, consistent with the declared description. Probing is driven only by generic inputs (question/hint keywords, draft literals, parsed CREATE statements) — no task ids, db/table names, expected outputs or task-identifying branches; the checklist examples are generic column-category illustrations that would apply to any unfamiliar text-to-SQL task"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING / mis-declared scope: the candidate declares 1 independent edit but ships two functionally independent changes — (a) the reworked evidence/repair turn in solve.py and (b) a rewrite of the projection policy in system_prompt.md (plus added FK-join and correlation rules there). The prompt change alters first-draft generation for every task, including those that never reach the rep"
+ }
+}

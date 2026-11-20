@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "One-shot generation with no execution feedback: empty-result queries caused by literal-value mismatch (case/trailing space), wrong filter column, and NULL-unsafe NOT IN are returned unchecked",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a draft->execute->repair loop (2 policy calls max): the harness runs the first query and, when it errors or returns zero rows, probes actual stored values (LIKE/LOWER sample of the literals used) and re-prompts with the error/empty result plus those samples and targeted gu...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0610"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 26,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

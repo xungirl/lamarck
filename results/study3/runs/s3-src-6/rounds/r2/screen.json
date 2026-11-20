@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "Task-specialization / gold-convention hard-coding. The new SHAPE_RULES and prompt bullets encode specific Spider gold-query conventions rather than general SQL reasoning: (a) 'details/information/text/notes' must map to a single column literally named Other_Details/Description/Details/Notes/Text, selected ALONE 'even if its values are NULL, that is the expected answer'; (b) whole-entity questions "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Single declared edit confined to the projection bullet of system_prompt.md; no code changes, no task ids, database/table names or magic constants. The two-step procedure (resolve attribute words against actual schema column names first; only fall back to full rows when nothing resolves) is a generic, schema-driven disambiguation rule that transfers to unfamiliar tasks, and the illustrative example"
+ }
+}

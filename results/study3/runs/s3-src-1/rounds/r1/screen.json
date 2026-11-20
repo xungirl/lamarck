@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the accepted P1 execution-grounding mechanism to a new, generic failure class (clean-executing drafts with join fan-out duplicates). Detection is content-based (repeated result tuples + multi-table query + no DISTINCT), not keyed on task ids, db/table names or expected outputs; the probe uses only tables/columns discovered from the draft and schema. Work is bounded: _dup_probe has an expli"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "Two problems. (1) Degenerate trigger / wasted second call: in Case B, when _shape_probe finds no duplication it falls back to _count_tables, which almost always returns notes ('Table sizes for sanity-checking...'), so essentially every already-correct non-empty draft is sent through a full rewrite pass whose feedback explicitly invites widening the projection to SELECT T1.*, T2.*. That converts a "
+ }
+}

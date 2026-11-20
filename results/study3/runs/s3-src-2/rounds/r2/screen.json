@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Single declared prompt edit, consistent with the diff: output-shape rules are reorganized into attribute-list vs bare-entity vs 'details' cases plus a DISTINCT-on-one-to-many rule. No task ids, database/table names, expected outputs or magic constants appear in the change; the examples ('first, middle and last names', 'a person enrolled several times') are generic phrasing patterns that transfer t"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Pure prompt rewrite matching the declared single edit: explicit projection rules, joined-table .* inclusion with a sensible subquery/EXISTS exception, DISTINCT for entity lists over one-to-many joins, and role-named attribute projection ('..._Details', 'Other_...') stated as a schema pattern rather than a hard-coded column of a specific database. All guidance is phrased generically and would still"
+ }
+}

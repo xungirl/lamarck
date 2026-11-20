@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "b9709b0e4f2276e3c70ab099221b1aae2948b2f8",
+  "parents": "c31790918ecc35482557bdb8fc5ba5d5e142b9af",
+  "subject": "r2 s2: Repair turn is triggered only by errors/zero rows and its gu",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "f42c2594b38b5a7c699bf56ebca3f19f1a65522f",
+  "parents": "c31790918ecc35482557bdb8fc5ba5d5e142b9af",
+  "subject": "r2 s1: Repair turn is starved of evidence: it only probes literals",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "20ef74f22dd65b34e54687a691e85b6546037176",
+  "parents": "c31790918ecc35482557bdb8fc5ba5d5e142b9af",
+  "subject": "r1 s2: Silent semantic bugs (uncorrelated NOT EXISTS due to unalias",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "556e8a9adc86ad592437fb3ca5d192a6b31f9f85",
+  "parents": "c31790918ecc35482557bdb8fc5ba5d5e142b9af",
+  "subject": "r1 s1: Repair turn is starved of usable evidence (LIKE probes on nu",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "c31790918ecc35482557bdb8fc5ba5d5e142b9af",
+  "parents": "f3f984ee7ce5affdf616dfa098eabe7c11238de2",
+  "subject": "r0 s1: One-shot generation with no execution feedback: empty-result",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "13c3d256189b53bc9d6bef4826a9b9fb74130bbb",
+  "parents": "f3f984ee7ce5affdf616dfa098eabe7c11238de2",
+  "subject": "r0 s2: No execution feedback: syntactically valid queries with mism",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "f3f984ee7ce5affdf616dfa098eabe7c11238de2",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

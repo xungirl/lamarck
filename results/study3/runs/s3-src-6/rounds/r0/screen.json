@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->single-repair loop with bounded work (one repair call, explicit exits, fallback to the draft on failure), no task ids/db/table names or magic constants; the added prompt guidance (projection width for bare entity questions, robust text matching, hint fidelity) is dataset-general and would apply to an unfamiliar task. The three edits (repair loop, prompt rules, max_tokens ra"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "The mechanism is generic: on execution error or zero rows it probes DISTINCT sample values for identifiers actually referenced in the draft (derived from the schema at runtime, budget-capped at 6 probes) and makes exactly one repair call gated on env.max_calls >= 2, with try/except fallbacks and a preference for a runnable query. No hard-coded ids, tables, literals or scorer interaction; the probe"
+ }
+}

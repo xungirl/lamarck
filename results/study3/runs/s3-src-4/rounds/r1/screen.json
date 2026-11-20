@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Both edits are generic and match the declared description: value sampling is extended to columns actually referenced in the draft SQL (identifier-token overlap, no task ids or db/table names hard-coded), and a new repair trigger fires when an equality/IN string literal is absent from sampled stored values. The litmus test passes — checking filter literals against real stored spellings and projecti"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The core idea (SQL-referenced/FK-aware sampling plus empty-result diagnostics) is generic and would be acceptable, but the diff contains an undeclared independent behavioral change: the system prompt now instructs 'when unsure match with LIKE on the stem' for exact-name filters. That directly contradicts the retained rule 'use = for exact names; use LIKE only when the question says includes/contai"
+ }
+}

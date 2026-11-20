@@ -1,0 +1,503 @@
+{
+ "study": "Study 3: confirmatory fixed-n replication of Study 2 (PREREG.md)",
+ "root": "/Users/xunxun/lamarck/runs/study3",
+ "status": {
+  "s3-src-1": "done",
+  "s3-src-2": "done",
+  "s3-src-3": "done",
+  "s3-src-4": "done",
+  "s3-src-5": "infra_error",
+  "s3-src-6": "done",
+  "s3-src-7": "infra_error",
+  "s3-src-8": "not run",
+  "s3-src-9": "not run",
+  "s3-src-10": "not run"
+ },
+ "stop_reasons": {
+  "s3-src-5": "text2sql-spider_heldout_s40-qwen3.8-flash-b84e3fdbfa23-r0-74490133: provider/gateway failure, evaluation discarded: gateway 403: upstream 403: {\"error\":{\"message\":\"Access to model denied. Please make sure you are eligible for using the mode",
+  "s3-src-7": "proposer: gateway 403: upstream 403: {\"error\":{\"message\":\"Access to model denied. Please make sure you are eligible for using the model.\",\"type\":\"AccessDenied.Unpurchased\",\"param\":null,\"code\":\"AccessDenied.Unpurchased\"},\"request_id\":\"2c1917"
+ },
+ "runs": [
+  {
+   "run": "s3-src-1",
+   "batch": "study3",
+   "seed": 21,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 86.6667,
+   "evolve_change": 3.3333,
+   "accepted": 1,
+   "rmb": 1.2491560000000008
+  },
+  {
+   "run": "s3-src-2",
+   "batch": "study3",
+   "seed": 22,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 82.5,
+   "heldout_change": 2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 93.3333,
+   "evolve_change": 10.0,
+   "accepted": 2,
+   "rmb": 1.1044981999999994
+  },
+  {
+   "run": "s3-src-3",
+   "batch": "study3",
+   "seed": 23,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 85.0,
+   "heldout_change": 5.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 86.6667,
+   "evolve_change": 3.3333,
+   "accepted": 1,
+   "rmb": 1.3858289000000006
+  },
+  {
+   "run": "s3-src-4",
+   "batch": "study3",
+   "seed": 24,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 82.5,
+   "heldout_change": 2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 1.1584059
+  },
+  {
+   "run": "s3-src-5",
+   "batch": "study3",
+   "seed": 25,
+   "search_model": null,
+   "heldout_start": null,
+   "heldout_end": null,
+   "heldout_change": null,
+   "evolve_start": null,
+   "evolve_end": null,
+   "evolve_change": null,
+   "accepted": null,
+   "rmb": 1.3817139999999994,
+   "status": "infra_error"
+  },
+  {
+   "run": "s3-src-6",
+   "batch": "study3",
+   "seed": 26,
+   "search_model": "qwen4-max",
+   "heldout_start": 80.0,
+   "heldout_end": 87.5,
+   "heldout_change": 7.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 96.6667,
+   "evolve_change": 13.3333,
+   "accepted": 2,
+   "rmb": 1.0975344
+  },
+  {
+   "run": "s3-src-7",
+   "batch": "study3",
+   "seed": 27,
+   "search_model": null,
+   "heldout_start": null,
+   "heldout_end": null,
+   "heldout_change": null,
+   "evolve_start": null,
+   "evolve_end": null,
+   "evolve_change": null,
+   "accepted": null,
+   "rmb": 0.48425490000000004,
+   "status": "infra_error"
+  },
+  {
+   "run": "s3-src-8",
+   "batch": "study3",
+   "seed": 28,
+   "search_model": null,
+   "heldout_start": null,
+   "heldout_end": null,
+   "heldout_change": null,
+   "evolve_start": null,
+   "evolve_end": null,
+   "evolve_change": null,
+   "accepted": null,
+   "rmb": null,
+   "status": "not run"
+  },
+  {
+   "run": "s3-src-9",
+   "batch": "study3",
+   "seed": 29,
+   "search_model": null,
+   "heldout_start": null,
+   "heldout_end": null,
+   "heldout_change": null,
+   "evolve_start": null,
+   "evolve_end": null,
+   "evolve_change": null,
+   "accepted": null,
+   "rmb": null,
+   "status": "not run"
+  },
+  {
+   "run": "s3-src-10",
+   "batch": "study3",
+   "seed": 30,
+   "search_model": null,
+   "heldout_start": null,
+   "heldout_end": null,
+   "heldout_change": null,
+   "evolve_start": null,
+   "evolve_end": null,
+   "evolve_change": null,
+   "accepted": null,
+   "rmb": null,
+   "status": "not run"
+  }
+ ],
+ "controls": [
+  {
+   "run": "sql-src-1",
+   "batch": null,
+   "seed": 1,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 77.5,
+   "heldout_change": -2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 0.1442034
+  },
+  {
+   "run": "sql-src-2",
+   "batch": null,
+   "seed": 2,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 77.5,
+   "heldout_change": -2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 93.3333,
+   "evolve_change": 10.0,
+   "accepted": 2,
+   "rmb": 0.13358580000000003
+  },
+  {
+   "run": "sql-src-3",
+   "batch": null,
+   "seed": 3,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 77.5,
+   "heldout_change": -2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 0.10343350000000001
+  },
+  {
+   "run": "sql-src-4",
+   "batch": null,
+   "seed": 4,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 82.5,
+   "heldout_change": 2.5,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 0.13624519999999996
+  },
+  {
+   "run": "sql-src-5",
+   "batch": null,
+   "seed": 5,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 90.0,
+   "evolve_change": 6.6667,
+   "accepted": 1,
+   "rmb": 0.12832200000000005
+  },
+  {
+   "run": "sql-src-6",
+   "batch": null,
+   "seed": 6,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 80.0,
+   "heldout_change": 0.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 93.3333,
+   "evolve_change": 10.0,
+   "accepted": 1,
+   "rmb": 0.10801989999999997
+  },
+  {
+   "run": "sql-src-7",
+   "batch": null,
+   "seed": 7,
+   "search_model": "qwen3.8-flash",
+   "heldout_start": 80.0,
+   "heldout_end": 85.0,
+   "heldout_change": 5.0,
+   "evolve_start": 83.3333,
+   "evolve_end": 86.6667,
+   "evolve_change": 3.3333,
+   "accepted": 1,
+   "rmb": 0.12286269999999999
+  }
+ ],
+ "controls_source": "summary.json key `source`",
+ "analysis": {
+  "label": "primary (pre-registered, fixed n): runs s3-src-1..10 that finished",
+  "runs_analysed": [
+   "s3-src-1",
+   "s3-src-2",
+   "s3-src-3",
+   "s3-src-4",
+   "s3-src-6"
+  ],
+  "runs_not_finished": [
+   "s3-src-5",
+   "s3-src-7",
+   "s3-src-8",
+   "s3-src-9",
+   "s3-src-10"
+  ],
+  "n": 5,
+  "n_controls": 7,
+  "primary": {
+   "values": [
+    0.0,
+    2.5,
+    5.0,
+    2.5,
+    7.5
+   ],
+   "control_values": [
+    -2.5,
+    -2.5,
+    -2.5,
+    2.5,
+    0.0,
+    0.0,
+    5.0
+   ],
+   "mean": 3.5,
+   "control_mean": 0.0,
+   "one_sample_vs_0": {
+    "n": 5,
+    "ci95": [
+     -0.039286942455679874,
+     7.03928694245568
+    ],
+    "t": 2.745625891934577,
+    "df": 4,
+    "p_t_two_sided": 0.051605957811174726,
+    "wilcoxon": {
+     "n_nonzero": 4,
+     "w_plus": 10.0,
+     "p_two_sided": 0.125,
+     "assignments": 16
+    },
+    "d_z": 1.227881227029841,
+    "wins": 4,
+    "losses": 0,
+    "ties": 1,
+    "mean": 3.5,
+    "sd": 2.850438562747845,
+    "values": [
+     0.0,
+     2.5,
+     5.0,
+     2.5,
+     7.5
+    ]
+   },
+   "two_sample_vs_controls": {
+    "n_a": 5,
+    "n_b": 7,
+    "mean_a": 3.5,
+    "mean_b": 0.0,
+    "sd_a": 2.850438562747845,
+    "sd_b": 2.886751345948129,
+    "diff_of_means": 3.5,
+    "welch_t": 2.085893423501591,
+    "welch_df": 8.843422149169761,
+    "p_welch_two_sided": 0.06716859028164425,
+    "ci95_welch": [
+     -0.30602897943103535,
+     7.306028979431035
+    ],
+    "mann_whitney": {
+     "u_a": 28.5,
+     "n_a": 5,
+     "n_b": 7,
+     "p_two_sided": 0.06818181818181818,
+     "assignments": 792
+    }
+   },
+   "one_sided_vs_0": {
+    "t": 2.745625891934577,
+    "df": 4,
+    "p_t_greater": 0.025802978905587363,
+    "wilcoxon_greater": {
+     "n_nonzero": 4,
+     "w_plus": 10.0,
+     "p_greater": 0.0625,
+     "assignments": 16
+    }
+   }
+  },
+  "secondary": {
+   "evolve_change": [
+    3.3333,
+    10.0,
+    3.3333,
+    6.6667,
+    13.3333
+   ],
+   "evolve_change_mean": 7.3333200000000005,
+   "control_evolve_change": [
+    6.6667,
+    10.0,
+    6.6667,
+    6.6667,
+    6.6667,
+    10.0,
+    3.3333
+   ],
+   "control_evolve_change_mean": 7.142871428571428,
+   "accepted": [
+    1,
+    2,
+    1,
+    1,
+    null,
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   "control_accepted": [
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "rmb_per_run": [
+    1.2491560000000008,
+    1.1044981999999994,
+    1.3858289000000006,
+    1.1584059,
+    1.3817139999999994,
+    1.0975344,
+    0.48425490000000004,
+    null,
+    null,
+    null
+   ]
+  },
+  "alpha_one_sided": 0.05,
+  "verdict": "replicated"
+ },
+ "limitations": "The controls (sql-src-1..7) are not randomized: they ran earlier (2026-11-19), on another date and not interleaved with Study 3, so the two-sample comparison is not a randomized comparison (time, provider state and model versions may differ). Held-out scores move in steps of 2.5 points on 40 tasks. Evaluation noise: repeat evaluations of one harness at temperature 0 differ by about as much as the effect (results/summary.json `eval_variance`), and every run shares one cached measurement of the seed harness's held-out start. Host: all Study 3 runs ran on macOS arm64 (colima, gVisor). Power at Study 2's extended estimate is about 0.77 and lower if that estimate is inflated by its optional stopping, so 'not replicated' does not show the effect is 0. One model family, one benchmark, 3 rounds.",
+ "money": {
+  "cap_rmb": 15.0,
+  "spent_rmb": 7.8617805999999995,
+  "calls": 1325,
+  "failed": 18,
+  "by_model": {
+   "qwen3.8-flash": {
+    "cached_tokens": 233472,
+    "calls": 1256,
+    "completion_tokens": 83714,
+    "failed": 17,
+    "prompt_tokens": 1116479,
+    "reasoning_tokens": 0,
+    "rmb": 0.9557805999999992
+   },
+   "qwen4-max": {
+    "cached_tokens": 97024,
+    "calls": 69,
+    "completion_tokens": 125603,
+    "failed": 1,
+    "prompt_tokens": 313791,
+    "reasoning_tokens": 0,
+    "rmb": 6.906000000000003
+   }
+  },
+  "by_role": {
+   "policy": {
+    "cached_tokens": 233472,
+    "calls": 1256,
+    "completion_tokens": 83714,
+    "failed": 17,
+    "prompt_tokens": 1116479,
+    "reasoning_tokens": 0,
+    "rmb": 0.9557805999999992
+   },
+   "proposer": {
+    "cached_tokens": 92416,
+    "calls": 41,
+    "completion_tokens": 117128,
+    "failed": 1,
+    "prompt_tokens": 157113,
+    "reasoning_tokens": 0,
+    "rmb": 5.08497
+   },
+   "selector": {
+    "cached_tokens": 4608,
+    "calls": 28,
+    "completion_tokens": 8475,
+    "failed": 0,
+    "prompt_tokens": 156678,
+    "reasoning_tokens": 0,
+    "rmb": 1.8210300000000004
+   }
+  },
+  "runs_rmb": 7.8613923,
+  "outside_runs": {
+   "api-check": 0.0003883
+  },
+  "run_bound_rmb": 2.1,
+  "prices_rmb_per_million": {
+   "qwen3.7-flash": [
+    0.8,
+    2.7,
+    0.1
+   ],
+   "qwen3.8-flash": [
+    0.8,
+    2.7,
+    0.1
+   ],
+   "qwen4-max": [
+    10.0,
+    30.0,
+    10.0
+   ]
+  }
+ }
+}

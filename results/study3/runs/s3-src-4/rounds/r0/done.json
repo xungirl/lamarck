@@ -1,0 +1,4 @@
+{
+ "chosen": "s1",
+ "reason": "s1 delivers the largest measured gain (83.33 → 90.0) with zero broken tasks, while s2 gains less and regresses sp0600; both share the same generic execute-then-repair rationale, so s1's extra token cost is justified by its clean, higher-scoring outcome."
+}

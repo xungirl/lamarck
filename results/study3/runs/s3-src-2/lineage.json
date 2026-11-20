@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "896c9f990bd95035f87a03c91a7e6429d5944ca0",
+  "parents": "1728fb6ff7582fe1560fda558329e2449a80a176",
+  "subject": "r2 s2: Output-shape rules are hedged/over-broad: joined-table colum",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "20bacebe5abc7fb644e8c4715db845926c4042c4",
+  "parents": "1728fb6ff7582fe1560fda558329e2449a80a176",
+  "subject": "r2 s1: Output-shape rules are too coarse: bare entity questions nee",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "1728fb6ff7582fe1560fda558329e2449a80a176",
+  "parents": "84f90b30c3448419b7a9128ced689035e27fb179",
+  "subject": "r1 s2: Prompt under-specifies Spider output conventions (bare entit",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "2f90e6423959bd6d8c94ad6827b94ce07b50583d",
+  "parents": "84f90b30c3448419b7a9128ced689035e27fb179",
+  "subject": "r1 s1: One-shot generation never executes its SQL, so guessed liter",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "9878d2a52599e63fde40f004153e27c07c458253",
+  "parents": "84f90b30c3448419b7a9128ced689035e27fb179",
+  "subject": "r0 s2: Single-shot generation with no execution feedback or value g",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "cb0d5a8f1145f5ae7fb82797fad04c154b6b883e",
+  "parents": "84f90b30c3448419b7a9128ced689035e27fb179",
+  "subject": "r0 s1: Blind one-shot generation: exact-match string literals / joi",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "84f90b30c3448419b7a9128ced689035e27fb179",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

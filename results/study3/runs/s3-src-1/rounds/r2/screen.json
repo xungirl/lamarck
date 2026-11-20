@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Prompt-only rewrite of projection/DISTINCT guidance into a general decision procedure. No task ids, db/table names or magic constants; the entity-vs-attribute distinction and fan-out dedup advice would apply to any unfamiliar text-to-SQL task. The full-row convention is a benchmark-wide gold convention rather than per-task specialization, and it was already present in the prior prompt (this edit r"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Adds a deterministic, generic shape check (multi-table join + exact duplicate tuples + no DISTINCT/GROUP BY/LIMIT/set-op) that routes successful-but-suspicious drafts into the existing single repair call. Trigger conditions are structural, not task-identifying; sp0536/sp0755 appear only as motivation in the description, not in code. Work stays bounded: one extra chat call, at most 4 COUNT probes w"
+ }
+}

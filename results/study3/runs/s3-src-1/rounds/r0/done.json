@@ -1,0 +1,4 @@
+{
+ "chosen": "s2",
+ "reason": "Only admissible candidate and it improves evolve score 83.33→86.67 with a general, execution-grounded repair loop (no task-specific hacks); the single regression (sp0600) is outweighed by two fixes, though token cost nearly doubles and prediction precision was low (2/5), so I'd watch sp0600 and cost in the next round."
+}

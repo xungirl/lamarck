@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "e87778018882659b4427afb11b6eb7dbebbfa4e5",
+  "parents": "7ba54b995662870eef2f411b72db3f00e028081f",
+  "subject": "r2 s1: Repair evidence is keyed to question-word/name overlap, so t",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "17ca35a4ceba46a1a96e1568fba166b0ba693f35",
+  "parents": "7ba54b995662870eef2f411b72db3f00e028081f",
+  "subject": "r2 s2: Repair evidence is keyed to question-word overlap, so the co",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "131e4cfe9726f2db7522e11c069bd7ec1258648b",
+  "parents": "7ba54b995662870eef2f411b72db3f00e028081f",
+  "subject": "r1 s2: Repair evidence is keyed to question-word/name overlap, so t",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "8f2c21eb2e5e9b46a7a9e5d183df64c750baaba8",
+  "parents": "7ba54b995662870eef2f411b72db3f00e028081f",
+  "subject": "r1 s1: The repair loop only fires on errors/empty results and its v",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "7ba54b995662870eef2f411b72db3f00e028081f",
+  "parents": "f9c704e7bd432073fe1e958ce630602ab5778e00",
+  "subject": "r0 s1: One-shot generation with no execution feedback: empty/incorr",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "bf5d847171f7952dbe826f8e45ee438f2a495c90",
+  "parents": "f9c704e7bd432073fe1e958ce630602ab5778e00",
+  "subject": "r0 s2: Single-shot SQL is never executed; empty/erroring drafts cau",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "f9c704e7bd432073fe1e958ce630602ab5778e00",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

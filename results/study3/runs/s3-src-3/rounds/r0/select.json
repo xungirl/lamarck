@@ -1,0 +1,4 @@
+{
+ "choice": "s1",
+ "reason": "Only admissible candidate and it improves evolve score (83.33 -> 86.67) with zero broken tasks; the draft->execute->evidence-backed repair loop is a general text-to-SQL mechanism rather than task-specific patching, so the ~413 extra tokens/task are justified despite only 1 of 4 predicted fixes landing."
+}

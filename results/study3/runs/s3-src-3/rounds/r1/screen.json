@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "The probing/FK-map work is generic and bounded, but the projection change is evolve-set specialization. Replacing 'details => that entity's table' with a blanket 'select ALL columns of EVERY joined table (T1.*, T2.*)' plus 'do not add DISTINCT' is tuned to the gold queries of specific Spider items (the prompt even names countries/languages/documents/paragraphs/enrolment as the join cases). On an u"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Targets a real, general SQLite failure mode: an unaliased outer reference inside a correlated subquery silently resolving to the inner table, which executes cleanly and therefore never triggered repair. Detection is schema-driven (no task ids, db/table names or magic constants), string/comment masked, paren matching and span scans are finite, static checks are wrapped in try/except, and there is s"
+ }
+}

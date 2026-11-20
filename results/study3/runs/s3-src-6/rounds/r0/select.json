@@ -1,0 +1,4 @@
+{
+ "choice": "s1",
+ "reason": "s1 delivers the largest measured gain (83.33 -> 93.33) with zero broken tasks, and its mechanism — execute-then-repair on error/empty results plus generic projection guidance — is domain-general rather than task-specific; s2's regex-based column/value sampling adds more brittle complexity for a smaller gain (90.0) and missed two of its three predicted fixes."
+}

@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "No execution feedback: drafts with mismatched string literals/join keys silently return 0 rows and are emitted unchecked",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "solve.py now runs the draft SQL via env.execute; if it errors or yields zero rows it gathers small value samples from the tables/columns implicated by the query's literals and asks the policy for one corrected query (second call), keeping the original if the repair is worse. s...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0755",
+      "sp0894"
+     ],
+     "passed": 26,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

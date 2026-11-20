@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic generate->execute->grounded-repair mechanism: no task ids, db/table names or expected outputs are hard-coded; literal probing is derived from the draft SQL/question/hint and the parsed schema, so it transfers to unfamiliar tasks. Work is bounded (literals capped at 3, probe_budget=24 with explicit breaks, exactly one repair call capped at 220 tokens), error handling is preserved via try/ex"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same class of generic mechanism, implemented without leakage: table/column discovery comes from the live schema, literals from the draft/question/hint, and no evolve-set identifiers, constants or expected results appear. Bounded work (<=3 literals, budget=14 probe queries with explicit breaks, single repair call), exceptions handled with fallback to the original SQL, and the repair is validated by"
+ }
+}

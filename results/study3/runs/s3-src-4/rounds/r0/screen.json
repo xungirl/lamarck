@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft-execute-repair mechanism: no task ids, db/table names or expected outputs are hard-coded; value sampling is driven by question/hint tokens matched against the live schema, so it transfers to unseen tasks. Work is bounded (one repair call, capped table/column/value sampling, all env calls wrapped in try/except), and the original error handling/output contract is preserved rather than "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic verify-and-repair-once design, implemented via literal/column probing over sqlite_master rather than schema parsing; nothing branches on task identity, database names or gold answers. All loops have explicit bounds (3 literals, 3 notes, 20 tables, LIMIT 5 probes) and exactly one repair chat call, so no unbounded work. Failure paths fall back to the original draft instead of deleting s"
+ }
+}

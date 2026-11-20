@@ -1,0 +1,11 @@
+03:30:11 [s3-src-6] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+03:30:11 [s3-src-6] held-out after round -1: 80.00 (32/40)
+03:30:11 [s3-src-6] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+03:31:34 [s3-src-6] round 0: 2 proposed, 2 evaluated, 2 admissible -> s1 (s1 delivers the largest measured gain (83.33 -> 93.33) with zero broken tasks, and its mechanism — execute-then-repair o)
+03:31:34 [s3-src-6] round 0: SIM <- P1 (3/5 predicted fixes realized)
+03:31:34 [s3-src-6] round 1: incumbent 077983561ab6 evolve=93.3 b_t=2 best=93.3
+03:32:45 [s3-src-6] round 1: 2 proposed, 0 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:32:45 [s3-src-6] round 2: incumbent 077983561ab6 evolve=93.3 b_t=1 best=93.3
+03:34:18 [s3-src-6] round 2: 2 proposed, 1 evaluated, 1 admissible -> s2 (It is the only admissible candidate and delivers a clean +3.34pt gain (96.67 vs 93.33) with zero broken tasks, fixing sp)
+03:34:18 [s3-src-6] round 2: SIM <- P1 (1/2 predicted fixes realized)
+03:35:16 [s3-src-6] held-out after round 2: 87.50 (35/40)

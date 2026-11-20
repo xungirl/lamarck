@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "cdea9a0a4f3c2e9d5e97ebe5e415bd5ba0e04ab4",
+  "parents": "ed455fd05bcf547fef12b96b72fc08748fea324e",
+  "subject": "r2 s2: Repair loop only fires on errors/empty results, so join fan-",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "2a7130ecca5477aa87d009ab0b7e403e08e2ce61",
+  "parents": "ed455fd05bcf547fef12b96b72fc08748fea324e",
+  "subject": "r2 s1: Projection convention mismatch: entity questions answered wi",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "481e9fcaa62d927d6bfbbd270c12055642164dce",
+  "parents": "ed455fd05bcf547fef12b96b72fc08748fea324e",
+  "subject": "r1 s2: Repair loop only fires on errors/zero rows, so queries that",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "d0e9ff0a231db832d68265ed4e9f4f69ca515747",
+  "parents": "ed455fd05bcf547fef12b96b72fc08748fea324e",
+  "subject": "r1 s1: Execution grounding stops at errors/empty results: join fan-",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "ed455fd05bcf547fef12b96b72fc08748fea324e",
+  "parents": "42e28afbf584daa3fbf7a98f9a25a71f38c6aa60",
+  "subject": "r0 s2: No execution feedback: drafts with mismatched string literal",
+  "refs": "HEAD -> evolve, cand/r0s2"
+ },
+ {
+  "commit": "1fda819935938831a991fe4b73d5ac4cdcda28ad",
+  "parents": "42e28afbf584daa3fbf7a98f9a25a71f38c6aa60",
+  "subject": "r0 s1: No execution grounding: draft SQL runs unverified, so wrong",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "42e28afbf584daa3fbf7a98f9a25a71f38c6aa60",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

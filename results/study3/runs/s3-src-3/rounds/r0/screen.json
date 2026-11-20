@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->repair mechanism: bounded (2 policy calls, probe budget 6 with explicit breaks), no task ids/db/table names or expected outputs hard-coded; literal probing derives keys from the draft SQL and schema at runtime, so it transfers to unseen tasks. Repair guidance is general SQL hygiene (case-insensitive matching, NULL-safe anti-joins, projection conventions); the 'friends/relat"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same class of generic execution-feedback repair, properly bounded: respects env.max_calls, single repair turn, probe budget 6 with explicit exits, all probes are read-only SELECT DISTINCT with LIMIT. Probing targets columns actually referenced in the draft, derived from schema parsing — no task-specific constants, ids, or database names. Prompt rules are general text-to-SQL correctness guidance (l"
+ }
+}

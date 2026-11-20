@@ -1,0 +1,4 @@
+{
+ "chosen": "s1",
+ "reason": "Both candidates tie at 93.33, but s1 achieves it with no regressions and ~200 fewer tokens per task than s2 (which breaks sp0063 via its aggressive 'details -> role-named column' rule). s1's output-shape rewrite directly addresses the P1 misses recorded in SIM (sp0536 fixed) while keeping rules general enough to transfer beyond these tasks."
+}

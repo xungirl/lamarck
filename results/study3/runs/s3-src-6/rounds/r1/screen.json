@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING: the declared description covers only projection rules (system_prompt.md) and a column-count consistency check (solve.py), but the diff also edits an unrelated text-matching rule in system_prompt.md, appending 'Trim stray spaces inside quoted terms.' to the LIKE/'=' matching bullet. That is an independent value-matching change not covered by the declaration or the 2 declared ed"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING: same issue as s1 — beyond the declared shape-check and projection-procedure edits, the diff appends 'Trim stray whitespace inside quoted terms.' to the unrelated text-value matching rule in system_prompt.md, an independent change outside the declared description. Additionally the new all-NULL heuristic conflicts with the candidate's own stated root cause (gold sometimes wants "
+ }
+}

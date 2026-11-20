@@ -1,0 +1,41 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "One-shot generation with no execution feedback: empty/incorrect drafts (wrong literal values, wrong join keys, wrong projected columns) are returned unchecked",
+   "opened_round": 0,
+   "attempts": [
+    {
+     "round": 0,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add a draft-then-verify loop: execute the first SQL via env.execute and, if it errors or returns 0 rows, make a second policy call that includes the error/empty result plus sampled distinct values of the string columns referenced in the question/hint, so the model can fix lite...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0755",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}
