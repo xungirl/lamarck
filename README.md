@@ -63,6 +63,23 @@ p = 0.062), and +2.25 vs the controls, Welch p = 0.13 (exact Mann-Whitney p = 0.
 remains the primary result. Study 2 total: RMB 11.17 of RMB 15.00, 1,944 calls.
 Tables: [results/study2/RESULTS.md](results/study2/RESULTS.md); raw: `results/study2/summary.json`.
 
+**Study 3: confirmatory replication of Study 2 (run 2026-11-20 UTC on macOS/colima; stopped by the provider at
+5 of 10 runs).** Pre-registered before any of its runs (PREREG.md, "Study 3"): ten new runs `s3-src-1..10`
+(seeds 21-30), configuration equal to Study 2's except run ids and seeds, fixed n, primary test one-sided
+one-sample t of the held-out change vs 0 (α = 0.05). During the run the DashScope account stopped serving both
+models (HTTP 403 `AccessDenied.Unpurchased`, the account-credit error), so `s3-src-5` and `s3-src-7` ended in
+`infra_error` (no endpoint, nothing imputed) and `s3-src-8..10` were never launched. **n = 5 finished**
+(`s3-src-1, 2, 3, 4, 6`), with held-out changes 0, +2.5, +5.0, +2.5, +7.5 (mean **+3.5** points): one-sided
+t(4) = 2.75, p = 0.026; two-sided p = 0.052, 95% CI [−0.04, +7.04]; exact signed-rank p = 0.125 two-sided,
+0.0625 one-sided. **Verdict by the pre-registered rule, on the five finished runs: replicated.** It is a
+fragile result: half the planned n, the two-sided interval just includes 0 and the rank test does not reach
+0.05. Secondary: +3.5 vs the seven flash controls (not randomized, run a day earlier), Welch p = 0.067, exact
+Mann-Whitney p = 0.068; evolve change mean +7.3 (controls +7.1). RMB 7.86 of its RMB 15.00 cap (the ledger
+cap was never reached; the provider balance ran out first), 1,325 calls (18 failed, all 403s in the two
+stopped runs). Whether to resume `s3-src-5`/`s3-src-7` under the outage rule and launch `s3-src-8..10` after a
+top-up is not decided. Tables: [results/study3/RESULTS.md](results/study3/RESULTS.md); raw:
+`results/study3/summary.json`.
+
 ## What is in the box
 
 | component | what it does | code |
@@ -101,6 +118,7 @@ scripts/reproduce.sh         # the budget-revised experiments: API check, gatewa
 make report                  # rebuild results/ and the dashboard from runs/rev3
 make dryrun-study2           # Study 2 launcher end to end, offline (simulated upstream, temp root)
 scripts/run_study2.sh        # Study 2 for real (qwen4-max search; RMB 15.00 cap in its own ledger)
+scripts/run_study3.sh        # Study 3 for real (fixed-n replication; RMB 15.00 cap in its own ledger)
 ```
 
 Data: `scripts/prepare_text2sql_splits.py` (Spider 1.0 and BIRD mini-dev archives, hashes in
