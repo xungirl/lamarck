@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
-# Study 2 (PREREG.md, "Study 2: strong search model"): 10 Spider source runs (s2-src-1..5 pre-registered, 6..10
-# the extension of Study 2 deviation 1) with qwen4-max as proposer and selector, policy qwen3.8-flash, everything
-# else as sql-src-1..7. One command:
+# Launcher of the qwen4-max search studies (Spider source runs, qwen4-max as proposer and selector, policy
+# qwen3.8-flash, everything else as sql-src-1..7), one plan per call:
 #
-#   scripts/run_study2.sh              real run: API checks, seed-cache reuse, gateway, 10 runs behind the
-#                                      money gate (cap RMB 15.00, own ledger results/study2/budget/), report
-#   scripts/run_study2.sh --dry-run [DIR]
+#   study2  PREREG.md "Study 2: strong search model": s2-src-1..5 pre-registered, 6..10 the extension of Study 2
+#           deviation 1; cap RMB 15.00, ledger results/study2/budget/, root runs/study2 (scripts/run_study2.sh)
+#   study3  PREREG.md "Study 3": fixed-n replication s3-src-1..10 (seeds 21-30); cap RMB 15.00, ledger
+#           results/study3/budget/, root runs/study3 (scripts/run_study3.sh)
+#
+#   scripts/run_study.sh PLAN          real run: API checks, seed-cache reuse, gateway, the plan's runs behind
+#                                      the money gate (the plan's cap and own ledger), report
+#   scripts/run_study.sh PLAN --dry-run [DIR]
 #                                      the same steps offline in a temp root (or DIR): simulated upstream
 #                                      answering qwen3.8-flash / qwen4-max at real prices, subprocess sandbox,
 #                                      no Docker, no key, no network
@@ -16,21 +20,26 @@
 # never overwritten. The first study's ledger (results/budget/) is never opened.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-PARALLEL="${STUDY2_PARALLEL:-3}"
+PLAN="${1:-}"
+case "$PLAN" in
+  study2|study3) shift ;;
+  *) echo "usage: $0 study2|study3 [--dry-run [DIR]]"; exit 2 ;;
+esac
+PARALLEL="${STUDY_PARALLEL:-${STUDY2_PARALLEL:-3}}"
 PY="$(uv run python -c 'import sys; print(sys.executable)')"
 
 if [[ "${1:-}" == "--dry-run" ]]; then
   # ------------------------------------------------------------------ offline dry run
-  TMP="${2:-$(mktemp -d "${TMPDIR:-/tmp}/lamarck-study2-dryrun.XXXXXX")}"
+  TMP="${2:-$(mktemp -d "${TMPDIR:-/tmp}/lamarck-$PLAN-dryrun.XXXXXX")}"
   mkdir -p "$TMP"
   TMP="$(cd "$TMP" && pwd)"
   export LAMARCK_BACKEND=local
   LAMARCK_GATEWAY_PORT="$("$PY" -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1])')"
   export LAMARCK_GATEWAY_PORT
   PREV="$TMP/prev"            # stands in for runs/rev3 (the first study's root)
-  ROOT="$TMP/study2"          # stands in for runs/study2
-  SPEND="$TMP/budget/spend_ledger.json"   # stands in for results/study2/budget/spend_ledger.json
-  CAP="$("$PY" -c 'from lamarck.cli import plan_money; print(plan_money("study2")[1])')"
+  ROOT="$TMP/$PLAN"           # stands in for runs/$PLAN
+  SPEND="$TMP/budget/spend_ledger.json"   # stands in for results/$PLAN/budget/spend_ledger.json
+  CAP="$("$PY" -c "from lamarck.cli import plan_money; print(plan_money('$PLAN')[1])")"
   GW_PID=""
   stop_gw() { if [[ -n "$GW_PID" ]]; then kill "$GW_PID" 2>/dev/null || true; wait "$GW_PID" 2>/dev/null || true; GW_PID=""; fi; }
   trap stop_gw EXIT
@@ -54,21 +63,22 @@ if [[ "${1:-}" == "--dry-run" ]]; then
   stop_gw
 
   # 1-5: the launcher's steps
-  "$PY" scripts/api_check.py --plan study2 --simulate text2sql --spend-file "$SPEND"
-  "$PY" -m lamarck.cli --plan study2 --root "$ROOT" seed-cache --from "$PREV"
+  "$PY" scripts/api_check.py --plan "$PLAN" --simulate text2sql --spend-file "$SPEND"
+  "$PY" -m lamarck.cli --plan "$PLAN" --root "$ROOT" seed-cache --from "$PREV"
   start_gw "$ROOT/gateway-state" "$SPEND" "$CAP"
-  "$PY" -m lamarck.cli --plan study2 --root "$ROOT" schedule --parallel "$PARALLEL" | tee -a "$TMP/schedule.out"
+  "$PY" -m lamarck.cli --plan "$PLAN" --root "$ROOT" schedule --parallel "$PARALLEL" | tee -a "$TMP/schedule.out"
   stop_gw
-  "$PY" -m lamarck.experiments.study2_report --root "$ROOT" --out "$TMP/results" --spend-file "$SPEND"
+  "$PY" -m "lamarck.experiments.${PLAN}_report" --root "$ROOT" --out "$TMP/results" --spend-file "$SPEND"
 
   # checks: every run done, seed evaluations reused (not re-run), money within the cap, report written
-  "$PY" - "$TMP" <<'EOF'
+  "$PY" - "$TMP" "$PLAN" <<'EOF'
 import json, sys
 from pathlib import Path
-tmp = Path(sys.argv[1])
-root, prev = tmp / "study2", tmp / "prev"
-from lamarck.experiments import study2
-plan = study2.build_plan()
+tmp, plan_name = Path(sys.argv[1]), sys.argv[2]
+root, prev = tmp / plan_name, tmp / "prev"
+from lamarck.cli import plan_module
+study = plan_module(plan_name)
+plan = study.build_plan()
 states = {n: json.loads((root / "runs" / n / "state.json").read_text())["status"] for n in plan}
 assert all(s == "done" for s in states.values()), states
 prov = [json.loads(x) for x in (root / "cache" / "seed_cache_provenance.jsonl").read_text().splitlines()]
@@ -85,25 +95,29 @@ for f in copied:
     a, b = (root / f).read_bytes(), (prev / f).read_bytes()
     assert a == b, f
 spend = json.loads((tmp / "budget" / "spend_ledger.json").read_text())
-assert spend["spent_rmb"] <= spend["cap_rmb"] == study2.SPEND_CAP_RMB
+assert spend["spent_rmb"] <= spend["cap_rmb"] == study.SPEND_CAP_RMB
 by = spend["by"]
 assert by["model:qwen4-max"]["calls"] > 0 and by["model:qwen3.8-flash"]["calls"] > 0
 summ = json.loads((tmp / "results" / "summary.json").read_text())
-print(json.dumps({
+out = {
     "dry_run_ok": True, "states": states, "seed_cache_files": len(copied),
     "spent_rmb_simulated": round(spend["spent_rmb"], 4), "calls": spend["calls"],
     "calls_by_model": {k: v["calls"] for k, v in by.items() if k.startswith("model:")},
     "rmb_by_run": {k: round(v["rmb"], 4) for k, v in by.items() if k.startswith("run:")},
     "n_analysed_primary": summ["analysis"]["n"],
-    "n_analysed_extended": summ["analysis_extended"]["n"],
-}, indent=1))
+}
+if "analysis_extended" in summ:
+    out["n_analysed_extended"] = summ["analysis_extended"]["n"]
+if "verdict" in summ["analysis"]:
+    out["verdict_simulated"] = summ["analysis"]["verdict"]
+print(json.dumps(out, indent=1))
 EOF
   exit 0
 fi
 
 # ---------------------------------------------------------------------- real run
-ROOT=runs/study2
-L="uv run python -m lamarck.cli --plan study2 --root $ROOT"
+ROOT="runs/$PLAN"
+L="uv run python -m lamarck.cli --plan $PLAN --root $ROOT"
 KEYFILE="${LAMARCK_KEYFILE:-.env}"
 [[ -f "$KEYFILE" ]] || { echo "no key file $KEYFILE (DASHSCOPE_API_KEY=...); see README"; exit 1; }
 [[ -d runs/rev3/cache/evals/text2sql ]] || echo "note: runs/rev3 cache missing; the seed harness will be evaluated anew"
@@ -131,10 +145,10 @@ else
   fi
 fi
 
-# the API check owns the Study 2 spend ledger while it runs: no gateway container may be up at the same time
+# the API check owns the plan's spend ledger while it runs: no gateway container may be up at the same time
 docker rm -f lamarck-gateway >/dev/null 2>&1 || true
-uv run python scripts/api_check.py --plan study2   # one tiny call per model; stops here on 403 / billing errors
+uv run python scripts/api_check.py --plan "$PLAN"   # one tiny call per model; stops here on 403 / billing errors
 [[ -d runs/rev3/cache/evals/text2sql ]] && $L seed-cache --from runs/rev3
 $L gateway-up
 $L schedule --parallel "$PARALLEL" | tee -a "$ROOT/schedule.out"
-uv run python -m lamarck.experiments.study2_report
+uv run python -m "lamarck.experiments.${PLAN}_report"
