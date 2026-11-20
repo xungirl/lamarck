@@ -100,7 +100,7 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
 - Held-out changes of runs 6-10: +7.5, 0, +2.5, 0, 0 (two runs accepted no edit). Primary (runs 1-5) unchanged.
   Extended (runs 1-10): mean +2.25, t(9) = 2.59, p = 0.029, 95% CI [0.28, 4.22], signed-rank p = 0.062; vs
   controls Welch p = 0.132, Mann-Whitney p = 0.121. Not confirmatory (optional stopping, host confound).
-- Money (results/study2/budget/spend_ledger.json): RMB 5.545 this round (runs 6-10 RMB 5.545 incl. API check
+- Money (results/study2/budget/spend_ledger.json): RMB 5.545 this round (runs 6-10 RMB 5.5448 + API check
   RMB 0.0004), RMB 11.169 of RMB 15.00 in total, 1,944 calls (2 failed, both from the EC2 batch).
 - Report regenerated, README Study 2 paragraph extended. Key-leak scan: key value in no repo file, no git
   history, no diff, not in the launcher log. Gateway container removed and colima stopped by the launcher's
