@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic, schema-derived value probing (PRAGMA table_info + LIKE probes on text columns of referenced tables) plus a general absence-check rule; no task ids, entity/table names or magic constants. All loops are explicitly bounded (max_tables=3, max_cols=8, max_literals=3, LIMIT 5, output capped at 12 lines), errors are swallowed safely, and the existing verify/repair guard is preserved rather than "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Schema-driven literal/value diagnostics: literals from the draft plus question/hint tokens matched against DISTINCT values of text columns via token overlap/fuzzy ratio. Fully generic (no db/table/entity hard-coding, thresholds are ordinary similarity heuristics that transfer to unseen tasks). Work is bounded: needles capped at 14, per-column SELECT DISTINCT ... LIMIT 400, max_cols=8, max_vals=6, "
+ }
+}

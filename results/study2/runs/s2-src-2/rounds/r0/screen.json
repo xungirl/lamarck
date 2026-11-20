@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->single-repair loop with no task ids, db/table names or expected outputs; all heuristics (whitespace-in-literal, all-NULL column, zero rows) are task-agnostic and would apply to an unfamiliar Spider/BIRD task. Work is bounded: at most two policy calls gated by env.max_calls, table sampling capped at 4 tables / 3 literals / 5 values with a 2600-char cap, no retry loops. Safet"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic execution-feedback direction implemented independently: schema parsing, literal probing against text columns, and suspicion checks keyed on generic question phrasing ('details', 'all information') rather than any task-identifying feature; no hard-coded ids, entities, constants or gold outputs. Bounded work: one repair call gated by env.max_calls, literal probes limited to 3 literals w"
+ }
+}

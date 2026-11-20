@@ -1,0 +1,296 @@
+{
+ "by": {
+  "model:qwen3.8-flash": {
+   "cached_tokens": 136192,
+   "calls": 973,
+   "completion_tokens": 63079,
+   "failed": 1,
+   "prompt_tokens": 763125,
+   "reasoning_tokens": 0,
+   "rmb": 0.6855508999999999
+  },
+  "model:qwen4-max": {
+   "cached_tokens": 68096,
+   "calls": 52,
+   "completion_tokens": 91620,
+   "failed": 1,
+   "prompt_tokens": 218868,
+   "reasoning_tokens": 0,
+   "rmb": 4.93815
+  },
+  "role:policy": {
+   "cached_tokens": 136192,
+   "calls": 973,
+   "completion_tokens": 63079,
+   "failed": 1,
+   "prompt_tokens": 763125,
+   "reasoning_tokens": 0,
+   "rmb": 0.6855508999999999
+  },
+  "role:proposer": {
+   "cached_tokens": 64512,
+   "calls": 32,
+   "completion_tokens": 85033,
+   "failed": 1,
+   "prompt_tokens": 106029,
+   "reasoning_tokens": 0,
+   "rmb": 3.6121499999999993
+  },
+  "role:selector": {
+   "cached_tokens": 3584,
+   "calls": 20,
+   "completion_tokens": 6587,
+   "failed": 0,
+   "prompt_tokens": 112839,
+   "reasoning_tokens": 0,
+   "rmb": 1.326
+  },
+  "run:api-check": {
+   "cached_tokens": 0,
+   "calls": 4,
+   "completion_tokens": 3,
+   "failed": 2,
+   "prompt_tokens": 62,
+   "reasoning_tokens": 0,
+   "rmb": 0.0013303
+  },
+  "run:diag": {
+   "cached_tokens": 0,
+   "calls": 1,
+   "completion_tokens": 1,
+   "failed": 0,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 2.83e-05
+  },
+  "run:s2-src-1": {
+   "cached_tokens": 41728,
+   "calls": 227,
+   "completion_tokens": 29562,
+   "failed": 0,
+   "prompt_tokens": 219396,
+   "reasoning_tokens": 0,
+   "rmb": 1.0368620999999996
+  },
+  "run:s2-src-2": {
+   "cached_tokens": 40448,
+   "calls": 214,
+   "completion_tokens": 30963,
+   "failed": 0,
+   "prompt_tokens": 192369,
+   "reasoning_tokens": 0,
+   "rmb": 0.9937845999999999
+  },
+  "run:s2-src-3": {
+   "cached_tokens": 37888,
+   "calls": 192,
+   "completion_tokens": 34557,
+   "failed": 0,
+   "prompt_tokens": 189825,
+   "reasoning_tokens": 0,
+   "rmb": 1.3390302000000003
+  },
+  "run:s2-src-4": {
+   "cached_tokens": 38400,
+   "calls": 200,
+   "completion_tokens": 30360,
+   "failed": 0,
+   "prompt_tokens": 194951,
+   "reasoning_tokens": 0,
+   "rmb": 1.1304224999999999
+  },
+  "run:s2-src-5": {
+   "cached_tokens": 45824,
+   "calls": 187,
+   "completion_tokens": 29253,
+   "failed": 0,
+   "prompt_tokens": 185358,
+   "reasoning_tokens": 0,
+   "rmb": 1.1222429
+  },
+  "run_role:api-check|policy": {
+   "cached_tokens": 0,
+   "calls": 2,
+   "completion_tokens": 1,
+   "failed": 1,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 0.0001003
+  },
+  "run_role:api-check|proposer": {
+   "cached_tokens": 0,
+   "calls": 2,
+   "completion_tokens": 2,
+   "failed": 1,
+   "prompt_tokens": 30,
+   "reasoning_tokens": 0,
+   "rmb": 0.00123
+  },
+  "run_role:diag|policy": {
+   "cached_tokens": 0,
+   "calls": 1,
+   "completion_tokens": 1,
+   "failed": 0,
+   "prompt_tokens": 32,
+   "reasoning_tokens": 0,
+   "rmb": 2.83e-05
+  },
+  "run_role:s2-src-1|policy": {
+   "cached_tokens": 32768,
+   "calls": 217,
+   "completion_tokens": 14011,
+   "failed": 0,
+   "prompt_tokens": 178100,
+   "reasoning_tokens": 0,
+   "rmb": 0.15737209999999996
+  },
+  "run_role:s2-src-1|proposer": {
+   "cached_tokens": 8448,
+   "calls": 6,
+   "completion_tokens": 14233,
+   "failed": 0,
+   "prompt_tokens": 21205,
+   "reasoning_tokens": 0,
+   "rmb": 0.63904
+  },
+  "run_role:s2-src-1|selector": {
+   "cached_tokens": 512,
+   "calls": 4,
+   "completion_tokens": 1318,
+   "failed": 0,
+   "prompt_tokens": 20091,
+   "reasoning_tokens": 0,
+   "rmb": 0.24045
+  },
+  "run_role:s2-src-2|policy": {
+   "cached_tokens": 28672,
+   "calls": 204,
+   "completion_tokens": 15750,
+   "failed": 0,
+   "prompt_tokens": 153125,
+   "reasoning_tokens": 0,
+   "rmb": 0.1449546
+  },
+  "run_role:s2-src-2|proposer": {
+   "cached_tokens": 11008,
+   "calls": 6,
+   "completion_tokens": 13788,
+   "failed": 0,
+   "prompt_tokens": 16889,
+   "reasoning_tokens": 0,
+   "rmb": 0.58253
+  },
+  "run_role:s2-src-2|selector": {
+   "cached_tokens": 768,
+   "calls": 4,
+   "completion_tokens": 1425,
+   "failed": 0,
+   "prompt_tokens": 22355,
+   "reasoning_tokens": 0,
+   "rmb": 0.2663
+  },
+  "run_role:s2-src-3|policy": {
+   "cached_tokens": 21504,
+   "calls": 182,
+   "completion_tokens": 10750,
+   "failed": 0,
+   "prompt_tokens": 139935,
+   "reasoning_tokens": 0,
+   "rmb": 0.1259202
+  },
+  "run_role:s2-src-3|proposer": {
+   "cached_tokens": 15616,
+   "calls": 6,
+   "completion_tokens": 22735,
+   "failed": 0,
+   "prompt_tokens": 25847,
+   "reasoning_tokens": 0,
+   "rmb": 0.94052
+  },
+  "run_role:s2-src-3|selector": {
+   "cached_tokens": 768,
+   "calls": 4,
+   "completion_tokens": 1072,
+   "failed": 0,
+   "prompt_tokens": 24043,
+   "reasoning_tokens": 0,
+   "rmb": 0.27259
+  },
+  "run_role:s2-src-4|policy": {
+   "cached_tokens": 23552,
+   "calls": 190,
+   "completion_tokens": 11523,
+   "failed": 0,
+   "prompt_tokens": 152046,
+   "reasoning_tokens": 0,
+   "rmb": 0.13626249999999998
+  },
+  "run_role:s2-src-4|proposer": {
+   "cached_tokens": 14080,
+   "calls": 6,
+   "completion_tokens": 17531,
+   "failed": 0,
+   "prompt_tokens": 19933,
+   "reasoning_tokens": 0,
+   "rmb": 0.72526
+  },
+  "run_role:s2-src-4|selector": {
+   "cached_tokens": 768,
+   "calls": 4,
+   "completion_tokens": 1306,
+   "failed": 0,
+   "prompt_tokens": 22972,
+   "reasoning_tokens": 0,
+   "rmb": 0.26890000000000003
+  },
+  "run_role:s2-src-5|policy": {
+   "cached_tokens": 29696,
+   "calls": 177,
+   "completion_tokens": 11043,
+   "failed": 0,
+   "prompt_tokens": 139855,
+   "reasoning_tokens": 0,
+   "rmb": 0.12091290000000003
+  },
+  "run_role:s2-src-5|proposer": {
+   "cached_tokens": 15360,
+   "calls": 6,
+   "completion_tokens": 16744,
+   "failed": 0,
+   "prompt_tokens": 22125,
+   "reasoning_tokens": 0,
+   "rmb": 0.7235699999999999
+  },
+  "run_role:s2-src-5|selector": {
+   "cached_tokens": 768,
+   "calls": 4,
+   "completion_tokens": 1466,
+   "failed": 0,
+   "prompt_tokens": 23378,
+   "reasoning_tokens": 0,
+   "rmb": 0.27776
+  }
+ },
+ "calls": 1025,
+ "cap_rmb": 9.0,
+ "failed": 2,
+ "prices_rmb_per_million": {
+  "qwen3.7-flash": [
+   0.8,
+   2.7,
+   0.1
+  ],
+  "qwen3.8-flash": [
+   0.8,
+   2.7,
+   0.1
+  ],
+  "qwen4-max": [
+   10.0,
+   30.0,
+   10.0
+  ]
+ },
+ "spent_rmb": 5.623700899999998,
+ "updated": "2026-11-20 03:48:54"
+}

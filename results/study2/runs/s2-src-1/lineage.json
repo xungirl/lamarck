@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "a813c57d242c6fbdc6e4d4ca81e11a335067c1bd",
+  "parents": "749ff03e01c3ce4f681bc697429726bf7642db19",
+  "subject": "r2 s2: Literal/value mismatches are only diagnosed from head-of-tab",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "d6dc0bcb431eddd193b48d97078ece3b24560739",
+  "parents": "749ff03e01c3ce4f681bc697429726bf7642db19",
+  "subject": "r2 s1: Repair feedback lacks targeted value evidence: LIKE on the w",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "adf95e263cd6727dcde1c1d0dbd4c9223d2e21ae",
+  "parents": "749ff03e01c3ce4f681bc697429726bf7642db19",
+  "subject": "r1 s1: Repair loop only sees the draft's own tables and never inspe",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "583195f33747190cad35733d125cd2658ed279bb",
+  "parents": "749ff03e01c3ce4f681bc697429726bf7642db19",
+  "subject": "r1 s2: Repair feedback shows only sample rows, not real column name",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "749ff03e01c3ce4f681bc697429726bf7642db19",
+  "parents": "fdae7601694494edd8859ad6ef40f6daa786a042",
+  "subject": "r0 s1: No execution feedback: literal/join mismatches and projectio",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "651ac977e855b404abbddf643f363014adca6bbd",
+  "parents": "fdae7601694494edd8859ad6ef40f6daa786a042",
+  "subject": "r0 s2: Single-shot generation is never executed or value-checked: e",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "fdae7601694494edd8859ad6ef40f6daa786a042",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

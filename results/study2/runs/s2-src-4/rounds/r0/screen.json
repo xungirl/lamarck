@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Execution-grounded verify-and-repair is a genuine, generic mechanism: draft execution, read-only literal/join-key probes derived from the query's own aliases and schema, one bounded repair call (no loops), with try/except fallbacks that preserve the original SQL on failure. All probe work is capped (<=3 literals, <=4 targets, <=3 join notes, LIMIT 5 samples), so no unbounded work. Prompt additions"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING plus a removed safety guard. Beyond the declared verify/repair stage and prompt expansion, extract_sql is rewritten to regex-truncate everything before the first WITH/SELECT keyword — an independent parsing change that silently discards leading content and can mangle valid drafts, not covered by the description. It also replaces the previous graceful empty-output path with a fa"
+ }
+}

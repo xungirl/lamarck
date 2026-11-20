@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "409f82d4fc7ec9fd7527d67b78a8ef24a7201f54",
+  "parents": "febb00e00e85fe8ae6336c24e30f2a9244363031",
+  "subject": "r2 s1: Repair loop only fires on error/0 rows; silent join-fanout d",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "b2c75e95c814b0eb3d1bfb05a973c285a5fa6f72",
+  "parents": "febb00e00e85fe8ae6336c24e30f2a9244363031",
+  "subject": "r2 s2: Projection-width under-selection and ungrounded column inven",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "636b61344700ecbaa1c0e34b2fab09c7799e4a60",
+  "parents": "febb00e00e85fe8ae6336c24e30f2a9244363031",
+  "subject": "r1 s2: Repair triggers only on error/0 rows, so duplicate-row fan-o",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "35d05a605a8da8e47ca846371d55ce9f819da18d",
+  "parents": "febb00e00e85fe8ae6336c24e30f2a9244363031",
+  "subject": "r1 s1: Repair loop only triggers on errors/0 rows, so silent duplic",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "febb00e00e85fe8ae6336c24e30f2a9244363031",
+  "parents": "6b30ac494ddda7a5f9d0eddcf83b5639447ecd46",
+  "subject": "r0 s1: No execution feedback loop: literal/value mismatches, invent",
+  "refs": "HEAD -> evolve, cand/r0s1"
+ },
+ {
+  "commit": "ab9fe2e4017c7896cf07ed2385af4bf0cc06584d",
+  "parents": "6b30ac494ddda7a5f9d0eddcf83b5639447ecd46",
+  "subject": "r0 s2: Blind single-shot harness: no execution feedback, so zero-ro",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "6b30ac494ddda7a5f9d0eddcf83b5639447ecd46",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

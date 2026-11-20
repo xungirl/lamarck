@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the existing single repair call with generic, schema-driven diagnostics: samples from unreferenced schema tables (bounded to 3), LIKE probes for draft string literals (bounded to 4 literals / 4 tables / 3 hits), and a mechanically derived SELECT * alternative offered only as an LLM-visible candidate. No task ids, db/table names or expected outputs are hard-coded; the sp05xx references appe"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Replaces sample-row feedback with schema-derived diagnostics (per-literal DISTINCT value probes, CREATE statements plus value profiles of filter columns, FK edges among referenced tables). Everything is parsed from env.schema and the draft itself; no task ids, database/table names, magic constants or expected results are embedded, and it would behave identically on an unfamiliar database. Work is "
+ }
+}

@@ -1,0 +1,4 @@
+{
+ "choice": "s2",
+ "reason": "It is the only admissible candidate and delivers a real +6.7pt gain (83.33→90.0) with zero broken tasks, using general SQL hygiene rules (exact literal matching, NOT EXISTS over NOT IN, trimming quoted text) plus an evidence-based repair that fires only on error/empty results — domain-general rather than task-specific. The added ~240 tokens/task is bounded by the conditional trigger, and although "
+}

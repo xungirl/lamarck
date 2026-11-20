@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Drafts are never executed, so silently-wrong queries (0-row literal/format drift, narrow projections) ship unchanged",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "Add an execution-grounded verify-and-repair stage: run the draft SQL and only when it errors or returns zero rows, spend the second policy call on a repair prompt containing the error/row count plus bounded probe results (LIKE variants for each string literal, value samples of...",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

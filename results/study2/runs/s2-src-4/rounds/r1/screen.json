@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Execution-grounded verify/repair is a generic mechanism: diagnostics are derived from the draft SQL and live cell values, not from task ids, db/table names or expected outputs. All probing loops are explicitly bounded (tables[:4], lits[:4], hits>=6, out[:6], max_rows=20) and there is exactly one repair call gated by env.max_calls, so no unbounded work. extract_sql and existing guards are untouched"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Adds a bounded execute-then-repair stage triggered only on execution error or zero rows: at most one extra policy call, literal probes capped at 4 values / 5-8 rows / 6 report lines, all wrapped in try/except with fallback to the draft. No task ids, database/table names, gold outputs or task-identifying branches; probes are computed from the draft's own literals and FROM clause, so the mechanism t"
+ }
+}

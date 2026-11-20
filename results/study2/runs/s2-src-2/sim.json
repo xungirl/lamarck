@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Unverified literals and over-narrow projections ship silently: the harness never executes the draft, so 0-row results from trailing-space/case-mismatched string filters and name-only SELECTs are returned unchecked.",
+   "opened_round": 2,
+   "attempts": [
+    {
+     "round": 2,
+     "sample": "s1",
+     "accepted": true,
+     "backfilled": false,
+     "what": "solve.py now executes the first draft; only when it errors or returns 0 rows does it spend the second policy call on a repair prompt that tells the model to re-check quoted literals (stray spaces, casing, stored abbreviations) against real values and to widen the projection to...",
+     "files": "solve.py",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0755"
+     ],
+     "fixed": [
+      "sp0610"
+     ],
+     "missed": [
+      "sp0362",
+      "sp0536",
+      "sp0755"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

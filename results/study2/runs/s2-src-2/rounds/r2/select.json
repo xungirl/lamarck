@@ -1,0 +1,4 @@
+{
+ "choice": "s1",
+ "reason": "Both candidates reach 90.0 with no broken tasks, but s1 does it at 660 vs 891 tokens/task and with a single-file, execution-gated repair that leaves passing drafts untouched — lower cost and lower regression surface than s2's regex schema parser plus per-literal probes injected into every prompt (which also edits system_prompt.md, a direction that regressed -3.3pts in r1). Unlike the dropped r1 va"
+}

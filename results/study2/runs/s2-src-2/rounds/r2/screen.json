@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Execution-gated single repair pass is a generic, task-agnostic mechanism: it triggers only on execution error or empty result, leaves passing drafts untouched, and is bounded (one draft + at most one repair call, no loop). The repair guidance (literal whitespace/casing/abbreviation checks, FK direction, flag codes, projection width for 'details' questions) is general text-to-SQL advice with no db/"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Read-only value grounding before generation is a standard, generalizable technique: literals are extracted from the question/hint of whatever task arrives, columns are discovered by parsing the provided schema, and probe queries are explicitly bounded (<=4 literals, budget of 14 probes, LIMIT 4 / max_rows=4 per probe), so no unbounded work. No task ids, database/table names, gold outputs, or task-"
+ }
+}

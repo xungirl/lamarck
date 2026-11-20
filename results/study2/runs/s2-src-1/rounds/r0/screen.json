@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic verify-and-repair mechanism: executes the draft, one bounded repair call (no unbounded loop), feeds back error/empty-result plus small value samples from tables parsed out of the draft itself — no task ids, db/table names or expected outputs hard-coded. Prompt rules are general SQL hygiene (projection fidelity, NULL-safe anti-joins, hint fidelity, GROUP BY/LIMIT). The 'which countries' phr"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The core execute-and-repair loop is sound and bounded, but the change embeds evolve-set-specific knowledge. (a) The declared rationale cites concrete evolve-task values ('Korea ' padding, 'Bachelors' vs stored degree name, cartoon title casing) as the driver of the edit. (b) _probe_literals hard-codes the exclusion set ('t','f','yes','no') — magic constants that only fit specific boolean/text colu"
+ }
+}

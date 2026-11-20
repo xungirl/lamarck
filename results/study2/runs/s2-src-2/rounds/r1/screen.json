@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "Grader-proxy acceptance plus unsafe deterministic rewrites. The repair loops accept any candidate solely because it returns >0 rows (join-key swap, FK re-pointing, literal substitution), with no check that the result still answers the question; a semantically wrong join or a LIKE-matched value from an unrelated column can turn a correct empty answer into a confidently wrong non-empty one. This opt"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Prompt-only change with general, transferable text-to-SQL guidance: literal normalization/case tolerance, projection width tied to whether the question names attributes, symmetric relation handling for absence queries, and hint fidelity. No task ids, database/table names, expected outputs or magic constants; the illustrative value variants ('Bachelors', 'USA') are generic examples, not task-specif"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Extends the existing single-repair mechanism (P1) to two generic, execution-derived defect signals: duplicated result rows and NULL-poisoned NOT IN. No task ids, db/table names or magic constants; the duplicate probe uses the draft's own projection and the follow-up explicitly tells the model to keep duplicates when per-record rows are asked, so it is not a blanket DISTINCT hack. It also replaces "
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The new 'bare which/what/list <entity>' rule instructs SELECT main.* plus other.* whenever a join is used. That directly contradicts the retained rule 'select exactly the columns the question asks for; no extra columns' and systematically emits extra columns, which execution grading penalizes (gold queries for such questions typically project a name/id). This is an evolve-set-shaped guess about go"
+ }
+}

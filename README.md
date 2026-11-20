@@ -46,11 +46,16 @@ models (no budget). One pre-revision source run with `qwen4-max` as proposer (fu
 went 78.3 → 88.3 on Spider evolve and 81.7 → 86.7 on held-out; it is reported separately in
 `results/pre_revision/` (it is not the revised plan's `sql-src-4`).
 
-**Study 2 (prepared, not run yet).** A separate, pre-registered follow-up (PREREG.md, "Study 2"): five Spider
-source runs with `qwen4-max` as proposer and selector and everything else as in `sql-src-1..7`, to test whether
-the flash search model was the bottleneck. Own ledger and cap (RMB 9.00, `results/study2/budget/`), estimated
-RMB 1.3-2.1 per run. `scripts/run_study2.sh` runs it; `make dryrun-study2` runs the same steps offline with a
-simulated upstream. Its results will go to `results/study2/`; nothing above changes.
+**Study 2: strong search model (run 2026-11-20 UTC on an AWS EC2 Graviton host).** A separate follow-up,
+pre-registered before any of its runs (PREREG.md, "Study 2"): five Spider source runs with `qwen4-max` as
+proposer and selector and everything else as in `sql-src-1..7`, to test whether the flash search model was the
+bottleneck. All five finished. Held-out change per run: 0.0, 0.0, +5.0, +5.0, +2.5 (mean **+2.5** points) vs the
+seven flash-search controls' mean 0.0. Against 0: t(4) = 2.24, p = 0.089, 95% CI [−0.6, +5.6] (exact
+signed-rank p = 0.25). Against the controls: +2.5, Welch p = 0.14, 95% CI [−1.0, +6.0] (exact Mann-Whitney
+p = 0.18). **A positive trend, not a significant effect** at n = 5: the steps are 2.5 points on 40 tasks and
+the evaluation noise is of the same order; the controls ran a day earlier (not randomized). Evolve-split gain
+was similar (mean +6.0 vs +7.1), with one accepted edit per run. RMB 5.62 of its RMB 9.00 cap, 1,025 calls.
+Tables: [results/study2/RESULTS.md](results/study2/RESULTS.md); raw: `results/study2/summary.json`.
 
 ## What is in the box
 

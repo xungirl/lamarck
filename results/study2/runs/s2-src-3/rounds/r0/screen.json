@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic draft->execute->diagnose->single-repair loop: no task ids, db/table names or expected outputs are hard-coded; the value-probe heuristic (text-ish column-name patterns) and prompt rules are domain-general SQLite guidance that would apply to an unfamiliar database. Work is bounded (one repair call, <=3 literals x <=14 columns, <=8 probe lines, LIMIT on every probe), errors are caught with fa"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": false,
+  "reason": "The core execute/diagnose/repair mechanism is generic and bounded, but the change bundles undeclared independent edits and embeds evolve-set-specific content. (a) UNDECLARED BUNDLING: config.json raises max_tokens 800->1100 and adds repair_max_tokens plus verify/diagnose/use_descriptions toggles, descriptions are now injected into the user prompt, and extract_sql is rewritten (statement splitting "
+ }
+}

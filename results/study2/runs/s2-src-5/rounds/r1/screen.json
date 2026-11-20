@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": false,
+  "reason": "UNDECLARED BUNDLING: the diff adds a third independent change not covered by the declared description or the 2 declared edits — solve() now fetches env.descriptions(db_id) and injects up to 2000 chars of column descriptions into the user prompt on every task. The declaration only covers (a) the execute/probe/repair step and (b) prompt rules; it explicitly claims 'No extra tokens on healthy tasks',"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Generic, task-agnostic execution validation plus one bounded evidence-based repair call: literals are probed via LIKE against schema-parsed tables/columns, FK join pairs come from the parsed schema, NULL-in-negation evidence is derived from the draft's own subquery. No task ids, db/table names, expected outputs or magic constants; all loops are bounded (lits[:3], hits cap, notes[:12]) and there is"
+ }
+}

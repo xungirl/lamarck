@@ -1,0 +1,10 @@
+03:44:13 [s2-src-5] noise band delta = 0.0596 from scores [0.833333, 0.866667, 0.8]
+03:44:13 [s2-src-5] held-out after round -1: 80.00 (32/40)
+03:44:13 [s2-src-5] round 0: incumbent 685dca477777 evolve=83.3 b_t=3 best=83.3
+03:46:12 [s2-src-5] round 0: 2 proposed, 2 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:46:12 [s2-src-5] round 1: incumbent 685dca477777 evolve=83.3 b_t=2 best=83.3
+03:47:37 [s2-src-5] round 1: 2 proposed, 1 evaluated, 1 admissible -> s2 (It is the only admissible candidate and delivers a real +6.7pt gain (83.33→90.0) with zero broken tasks, using general S)
+03:47:37 [s2-src-5] round 1: SIM <- P1 (2/4 predicted fixes realized)
+03:47:37 [s2-src-5] round 2: incumbent f98fa382599d evolve=90.0 b_t=1 best=90.0
+03:48:46 [s2-src-5] round 2: 2 proposed, 1 evaluated, 0 admissible -> keep incumbent (nothing admissible)
+03:48:56 [s2-src-5] held-out after round 2: 82.50 (33/40)

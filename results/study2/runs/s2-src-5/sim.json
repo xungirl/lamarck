@@ -1,0 +1,39 @@
+{
+ "next_id": 2,
+ "carried_from": null,
+ "aliases": {},
+ "problems": [
+  {
+   "id": "P1",
+   "name": "Silently-empty drafts are returned unverified: wrong literal casing/value, wrong filter column, or NULL-poisoned NOT IN yield 0 rows with no feedback",
+   "opened_round": 1,
+   "attempts": [
+    {
+     "round": 1,
+     "sample": "s2",
+     "accepted": true,
+     "backfilled": false,
+     "what": "solve.py now executes the draft once and, only on SQL error or zero rows, issues a single compact repair call carrying schema-derived evidence (real stored values LIKE-matching each draft literal, foreign-key join pairs when joins exist, NULL count inside a negated subquery)....",
+     "files": "solve.py, system_prompt.md",
+     "predicted": [
+      "sp0362",
+      "sp0536",
+      "sp0610",
+      "sp0894"
+     ],
+     "fixed": [
+      "sp0362",
+      "sp0610"
+     ],
+     "missed": [
+      "sp0536",
+      "sp0894"
+     ],
+     "passed": 27,
+     "total": 30,
+     "domain": "spider_evolve_s30/qwen3.8-flash"
+    }
+   ]
+  }
+ ]
+}

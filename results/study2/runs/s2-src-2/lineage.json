@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "e07af036b3573368ee17d7d21763f80916015edf",
+  "parents": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "subject": "r2 s2: Unverified string literals and join keys: the policy guesses",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "72edd004c37ab7360285bcc11392ed445bc905fb",
+  "parents": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "subject": "r2 s1: Unverified literals and over-narrow projections ship silentl",
+  "refs": "HEAD -> evolve, cand/r2s1"
+ },
+ {
+  "commit": "8c283be6cdf76dcd21635d8f44c63ea9885dc722",
+  "parents": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "subject": "r1 s1: No execution feedback: literal mismatches, wrong join keys/d",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "8407031d48b60c39c22d225ff6c2360338e66661",
+  "parents": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "subject": "r1 s2: Prompt lacks literal-normalization and projection-width guid",
+  "refs": "cand/r1s2"
+ },
+ {
+  "commit": "9bbfb1e17921951fec7eaaf88d12c616052c2e26",
+  "parents": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "subject": "r0 s1: No execution feedback: unverified literal equality, join-key",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "7090fffc803f356dbec1295e1bbf04dca9c9762c",
+  "parents": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "subject": "r0 s2: No execution feedback: unverified literals/columns and over-",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "0f15199209e872ee9aa99254f398aa6f4bf3df4e",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

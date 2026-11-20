@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "8ba16491ba4dc19596e52b2e2389af39bb37675c",
+  "parents": "9780c5771a0f838f0b5dc39db4b0fd35aaf09080",
+  "subject": "r2 s2: Repair triggers only on execution errors / zero rows, so sil",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "4763e5a3add3b0ff61dcdcbe146d7530230007f0",
+  "parents": "9780c5771a0f838f0b5dc39db4b0fd35aaf09080",
+  "subject": "r2 s1: Repair triggers only on error/zero rows, so silently-wrong d",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "9780c5771a0f838f0b5dc39db4b0fd35aaf09080",
+  "parents": "935f2d52418117f8e96c3dabafaad51cf5a391ad",
+  "subject": "r1 s2: Drafts are never executed, so silently-wrong queries (0-row",
+  "refs": "HEAD -> evolve, cand/r1s2"
+ },
+ {
+  "commit": "a3471482978603c5af965383ce41c07a02562fd9",
+  "parents": "935f2d52418117f8e96c3dabafaad51cf5a391ad",
+  "subject": "r1 s1: No execution grounding: drafts fail silently on literal case",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "9d6ccc308e158db851daea3b8d56657eb51c427d",
+  "parents": "935f2d52418117f8e96c3dabafaad51cf5a391ad",
+  "subject": "r0 s2: No execution feedback: silently-wrong drafts (literal case/f",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "de1584d7c937f28a32305441e52a02058d2369aa",
+  "parents": "935f2d52418117f8e96c3dabafaad51cf5a391ad",
+  "subject": "r0 s1: Single-shot generation with no execution feedback: literal-f",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "935f2d52418117f8e96c3dabafaad51cf5a391ad",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

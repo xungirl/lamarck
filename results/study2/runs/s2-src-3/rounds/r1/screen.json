@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Generic duplicate-row detector plus a DISTINCT/join-fanout rule: no task ids, db/table names or magic constants in the code (task ids appear only in the rationale), and it would behave identically on an unfamiliar Spider/BIRD task. It extends rather than removes the existing error/0-row repair path, keeps the single bounded repair call, and adds no scorer interaction. The two edits (detector + mat"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Same generic fan-out detector with grounded row/column shape feedback, plus a tightening of the entity-projection rule; both edits are explicitly declared (2 independent edits) and neither hard-codes task-identifying features — the 'first, middle, last names' phrasing is a generic projection example, not a branch on a specific task. Existing error/0-row handling and literal probing are preserved, "
+ }
+}

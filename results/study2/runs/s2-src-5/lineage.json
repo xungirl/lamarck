@@ -1,0 +1,44 @@
+[
+ {
+  "commit": "0d6f9fe46b9bca5f3e1571f29c6a8fa43aa818a3",
+  "parents": "fea4abd34e605425d1f437655fdab1bf61d9934d",
+  "subject": "r2 s1: Repair loop only triggers on error/zero rows, so silently-wr",
+  "refs": "cand/r2s1"
+ },
+ {
+  "commit": "5d8074b7e76ed46df8fe2786357ebaa696ce2718",
+  "parents": "fea4abd34e605425d1f437655fdab1bf61d9934d",
+  "subject": "r2 s2: Non-empty drafts with wrong result shape go unchecked: 1:N j",
+  "refs": "cand/r2s2"
+ },
+ {
+  "commit": "fea4abd34e605425d1f437655fdab1bf61d9934d",
+  "parents": "6b48f42f75380ca15acbde683a3f011bf99d6763",
+  "subject": "r1 s2: Silently-empty drafts are returned unverified: wrong literal",
+  "refs": "HEAD -> evolve, cand/r1s2"
+ },
+ {
+  "commit": "f6f0b573b2fa24f5c7d198e24e3828d8445a0976",
+  "parents": "6b48f42f75380ca15acbde683a3f011bf99d6763",
+  "subject": "r1 s1: Unverified drafts: silent zero-row results from inexact stri",
+  "refs": "cand/r1s1"
+ },
+ {
+  "commit": "f9723064ee4e00e981a66ff8d3475d547c170a3e",
+  "parents": "6b48f42f75380ca15acbde683a3f011bf99d6763",
+  "subject": "r0 s1: No execution grounding: silently-empty drafts (wrong literal",
+  "refs": "cand/r0s1"
+ },
+ {
+  "commit": "48d41de3f35db45dc2533f97d258ee87d87e830a",
+  "parents": "6b48f42f75380ca15acbde683a3f011bf99d6763",
+  "subject": "r0 s2: No execution feedback: silent zero-row results from wrong li",
+  "refs": "cand/r0s2"
+ },
+ {
+  "commit": "6b48f42f75380ca15acbde683a3f011bf99d6763",
+  "parents": "",
+  "subject": "H0: seed harness",
+  "refs": ""
+ }
+]

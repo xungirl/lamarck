@@ -1,0 +1,12 @@
+{
+ "s1": {
+  "sample": "s1",
+  "accept": true,
+  "reason": "Execution-grounded draft->diagnose->single repair is a genuine, generic mechanism: all probes are derived from the draft's own literals/join equalities and the parsed schema (no db/table/task ids, no expected outputs, no magic task constants). Work is bounded (probe_budget=8, literal cap 3, equality cap 2, exactly one extra policy call gated on env.max_calls>=2), errors are caught with fallback to"
+ },
+ "s2": {
+  "sample": "s2",
+  "accept": true,
+  "reason": "Validate-and-repair adds real execution feedback with generic diagnostics: LIKE/DISTINCT sampling of string columns of tables referenced by the draft, plus a NULL-count check for NOT IN subqueries — all derived from the draft and schema, with no task ids, table names or expected answers hard-coded (the 'Bachelors'/'Korea, South' strings are illustrative prompt examples of a general case/wording-mi"
+ }
+}

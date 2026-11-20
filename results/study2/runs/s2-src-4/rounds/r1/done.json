@@ -1,0 +1,4 @@
+{
+ "chosen": "s2",
+ "reason": "It delivers a clear +6.7pt gain (83.33→90.0) with zero broken tasks, and the execution-grounded verify-and-repair mechanism is general rather than task-specific; the earlier r0 s2 drop was for an undeclared extract_sql rewrite that this version's diff no longer contains, and the added ~292 tokens/task are justified by the size of the gain."
+}
