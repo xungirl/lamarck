@@ -114,11 +114,19 @@ cleanup() {
   if [[ "$STARTED_COLIMA" == 1 ]]; then colima stop || true; fi
 }
 trap cleanup EXIT
-if ! colima status >/dev/null 2>&1; then colima start; STARTED_COLIMA=1; fi
-# colima regenerates /etc/docker/daemon.json on start, which drops the runsc runtime
-if ! docker info 2>/dev/null | grep -q runsc; then
-  colima ssh -- sudo runsc install
-  colima ssh -- sudo systemctl restart docker
+if [[ "$(uname -s)" == Darwin ]]; then
+  if ! colima status >/dev/null 2>&1; then colima start; STARTED_COLIMA=1; fi
+  # colima regenerates /etc/docker/daemon.json on start, which drops the runsc runtime
+  if ! docker info 2>/dev/null | grep -q runsc; then
+    colima ssh -- sudo runsc install
+    colima ssh -- sudo systemctl restart docker
+  fi
+else
+  # native Linux (e.g. an EC2 host): Docker runs directly; register gVisor once if missing
+  if ! docker info 2>/dev/null | grep -q runsc; then
+    sudo runsc install
+    sudo systemctl restart docker
+  fi
 fi
 
 # the API check owns the Study 2 spend ledger while it runs: no gateway container may be up at the same time
