@@ -48,7 +48,8 @@ def main() -> None:
             simulate=a.simulate,
         )
         for role, model in CHECKS[a.plan]:
-            tok = stack.grant("api-check", [role], {role: 1})
+            # 3 calls: room for a gateway retry after a transient upstream error
+            tok = stack.grant("api-check", [role], {role: 3})
             c = GatewayClient(stack.gateway_url, tok)
             out: dict[str, object] = {"role": role, "model": model}
             try:
