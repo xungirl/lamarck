@@ -29,7 +29,7 @@ def _assert_close(a: Any, b: Any, path: str = "") -> None:
             _assert_close(a[k], b[k], f"{path}.{k}")
     elif isinstance(a, list):
         assert isinstance(b, list) and len(a) == len(b), path
-        for i, (x, y) in enumerate(zip(a, b)):
+        for i, (x, y) in enumerate(zip(a, b, strict=True)):
             _assert_close(x, y, f"{path}[{i}]")
     else:
         assert a == b, path
