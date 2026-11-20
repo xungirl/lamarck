@@ -53,13 +53,19 @@ DEFAULT_ROOT = REPO / "runs" / "study2"
 PREVIOUS_ROOT = REPO / "runs" / "rev3"  # cache source for the seed harness's evaluations
 
 
-def build_plan() -> dict[str, RunSpec]:
+def source_plan(prefix: str, seeds: tuple[int, ...], group: str) -> dict[str, RunSpec]:
+    """Spider source runs `{prefix}-1..n` with the given seeds and qwen4-max search, otherwise identical to
+    sql-src-i. Shared by Study 2 and its replication, Study 3 (lamarck.experiments.study3)."""
     plan: dict[str, RunSpec] = {}
-    for i, seed in enumerate(SEEDS, 1):
-        name = f"s2-src-{i}"
+    for i, seed in enumerate(seeds, 1):
+        name = f"{prefix}-{i}"
         cfg = rev3._cfg(name, "text2sql", SPIDER_EVOLVE, SPIDER_HELDOUT, QWEN, "full", seed, False)
-        plan[name] = RunSpec(name, replace(cfg, search_model=SEARCH), group=GROUP)
+        plan[name] = RunSpec(name, replace(cfg, search_model=SEARCH), group=group)
     return plan
+
+
+def build_plan() -> dict[str, RunSpec]:
+    return source_plan("s2-src", SEEDS, GROUP)
 
 
 def estimate(
