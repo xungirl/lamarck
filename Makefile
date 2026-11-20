@@ -1,5 +1,5 @@
 # Local equivalent of .github/workflows/ci.yml (offline: fake models, no secrets).
-.PHONY: ci lint type test test-docker flaky dashboard report
+.PHONY: ci lint type test test-docker flaky dashboard report dryrun-study2
 
 ci: lint type test
 
@@ -24,3 +24,6 @@ report:
 
 dashboard:
 	uv run python -m lamarck.dashboard.build
+
+dryrun-study2:  ## Study 2 launcher end to end, offline (simulated upstream, temp root; needs data/raw)
+	scripts/run_study2.sh --dry-run
