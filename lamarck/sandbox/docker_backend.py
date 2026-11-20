@@ -79,6 +79,11 @@ def start_gateway(
         "-v", f"{state_dir.resolve()}:/state",
         "--read-only", "--tmpfs", "/tmp", "--cap-drop", "ALL", "--security-opt", "no-new-privileges",
     ]  # fmt: skip
+    if hasattr(os, "getuid") and os.uname().sysname == "Linux":
+        # Native Linux Docker enforces host ownership on bind mounts, and --cap-drop ALL removes root's
+        # DAC override, so run as the host user that owns state_dir / the budget dir (colima's mounts
+        # on macOS are permissive and did not need this).
+        args += ["--user", f"{os.getuid()}:{os.getgid()}"]
     cmd = ["python", "-m", "lamarck.gateway.server", "--state", "/state", "--port", "8080"]
     if keyfile is not None:
         args += ["-v", f"{keyfile.resolve()}:/secrets/provider.env:ro"]
