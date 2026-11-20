@@ -67,8 +67,28 @@ def test_hard_cap_refuses_before_crossing(tmp_path: Path) -> None:
 
 def test_unknown_model_fails_closed(tmp_path: Path) -> None:
     led = SpendLedger(tmp_path / "s.json")
-    with pytest.raises(BudgetExceeded, match="no RMB price"):
-        led.reserve("qwen4-max", body())
+    for model in ("deepseek-v4.1-flash", "deepseek-v4-pro", "qwen4-max-latest"):
+        with pytest.raises(BudgetExceeded, match="no RMB price"):
+            led.reserve(model, {**body(), "model": model})
+    assert led.snapshot()["in_flight_rmb"] == 0.0
+
+
+def test_qwen4_max_price_cached_input_not_discounted(tmp_path: Path) -> None:
+    m = "qwen4-max"
+    assert price_of(m, 1_000_000, 0) == pytest.approx(10.0)
+    assert price_of(m, 0, 1_000_000) == pytest.approx(30.0)
+    # no confirmed cache discount: cached prompt tokens cost the full input price
+    assert price_of(m, 1_000_000, 0, cached_tokens=900_000) == pytest.approx(10.0)
+    led = SpendLedger(tmp_path / "s.json", cap_rmb=1.0)
+    r = led.reserve(m, {**body(max_tokens=8192), "model": m})
+    assert r.amount >= 8192 * 30 / 1e6  # worst case covers a full-length answer
+    usage = {
+        "prompt_tokens": 4932,
+        "completion_tokens": 3698,
+        "prompt_tokens_details": {"cached_tokens": 4096},
+    }
+    assert led.settle(r, "s2-src-1", "proposer", usage) == pytest.approx((4932 * 10 + 3698 * 30) / 1e6)
+    assert led.snapshot()["by"]["model:qwen4-max"]["cached_tokens"] == 4096
 
 
 def test_persists_across_restarts_and_single_owner(tmp_path: Path) -> None:
@@ -189,3 +209,41 @@ def test_reasoning_tokens_are_billed_as_output(tmp_path: Path) -> None:
     odd = {"prompt_tokens": 10, "completion_tokens": 4, "completion_tokens_details": {"reasoning_tokens": 26}}
     assert led.settle(r, "probe", "policy", odd) == pytest.approx(price_of(MODEL, 10, 30))
     assert led.snapshot()["by"]["role:policy"]["reasoning_tokens"] == 52
+
+
+def test_cap_holds_across_models_under_concurrency(tmp_path: Path) -> None:
+    """Study 2 mixes a cheap policy model and an expensive search model behind one ledger: concurrent calls
+    of both through the gateway never cross the cap, and refused calls never reach the provider."""
+    # usage within the bounds a real provider respects: prompt tokens <= characters, output <= max_tokens
+    up = Upstream(prompt=3000, completion=2000, cached=1024)
+    gw = gateway(tmp_path, up, cap=0.5)
+    tok_p = gw.create_grant(Grant("s2-src-1", ["policy"], ["qwen3.8-flash"]))
+    tok_s = gw.create_grant(Grant("s2-src-1", ["proposer", "selector"], ["qwen4-max"]))
+    statuses: list[int] = []
+    lock = threading.Lock()
+
+    def worker(i: int) -> None:
+        for _ in range(40):
+            if i % 2:
+                st = gw.chat(tok_p, "policy", {**body("p" * 4000, 2048), "model": "qwen3.8-flash"})[0]
+            else:
+                st = gw.chat(tok_s, "proposer", {**body("s" * 4000, 4096), "model": "qwen4-max"})[0]
+            with lock:
+                statuses.append(st)
+
+    threads = [threading.Thread(target=worker, args=(i,)) for i in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert gw.spend is not None
+    snap = gw.spend.snapshot()
+    assert 429 in statuses and gw.spend.spent <= 0.5
+    assert snap["in_flight_rmb"] == pytest.approx(0.0, abs=1e-12)
+    assert up.calls == statuses.count(200) == snap["calls"]
+    by = snap["by"]
+    assert by["model:qwen4-max"]["calls"] > 0 and by["model:qwen3.8-flash"]["calls"] > 0
+    expected = by["model:qwen4-max"]["calls"] * price_of("qwen4-max", 3000, 2000, 1024) + by[
+        "model:qwen3.8-flash"
+    ]["calls"] * price_of("qwen3.8-flash", 3000, 2000, 1024)
+    assert gw.spend.spent == pytest.approx(expected)

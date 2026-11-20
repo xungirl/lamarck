@@ -23,7 +23,8 @@ from ..config import RunConfig
 
 QWEN = "qwen3.8-flash"
 DEEPSEEK = "deepseek-v4.1-flash"
-# Deviation 3: one model for every role (qwen4-max has no known price; the spend ledger fails closed).
+# Deviation 3: one model for every role (qwen4-max had no known price then; the spend ledger failed closed).
+# Study 2 (lamarck/experiments/study2.py) prices qwen4-max and uses it as the search model.
 SEARCH = QWEN
 POLICY_PARAMS: dict[str, dict[str, Any]] = {
     QWEN: {"temperature": 0.0, "max_tokens": 2048, "seed": 1234, "enable_thinking": False},

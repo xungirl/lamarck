@@ -50,9 +50,15 @@ from .ledger import BudgetExceeded
 # context-cache hits are discounted (RMB 0.10 per 1M from the brief).
 # qwen3.7-flash: the same page lists it below qwen3.8-flash ($0.028 / $0.110 for <= 32K input);
 # we deliberately charge it at the qwen3.8-flash rate, an upper bound, so the cap stays safe.
+# qwen4-max (Study 2 search model, added 2026-11-19 after the first study had finished): China (Beijing)
+# region, input RMB 10 / output RMB 30 per 1M tokens, help.aliyun.com/zh/model-studio/model-pricing as
+# given in the Study 2 brief (retrieved 2026-11-19). Output includes thinking tokens. No cached-input price
+# was confirmed, so cached input is billed at the full input price (conservative); the 1M-token free quota
+# for new models is ignored (assumed used up).
 PRICES: dict[str, tuple[float, float, float]] = {
     "qwen3.8-flash": (0.80, 2.70, 0.10),
     "qwen3.7-flash": (0.80, 2.70, 0.10),
+    "qwen4-max": (10.0, 30.0, 10.0),
 }
 DEFAULT_CAP_RMB = 9.50
 DEFAULT_MAX_TOKENS = 16_384  # assumed output cap when a request does not set max_tokens
