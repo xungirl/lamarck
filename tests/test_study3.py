@@ -18,6 +18,23 @@ from lamarck.experiments.stats import one_sample_greater, one_sample_summary, tw
 REPO = Path(__file__).resolve().parents[1]
 
 
+def _assert_close(a: Any, b: Any, path: str = "") -> None:
+    """Deep equality with floats compared at rel 1e-9 (cross-platform libm/scipy last-bit differences)."""
+    if isinstance(a, float) or isinstance(b, float):
+        assert isinstance(a, (int, float)) and isinstance(b, (int, float)), path
+        assert a == pytest.approx(b, rel=1e-9, abs=1e-12), path
+    elif isinstance(a, dict):
+        assert isinstance(b, dict) and a.keys() == b.keys(), path
+        for k in a:
+            _assert_close(a[k], b[k], f"{path}.{k}")
+    elif isinstance(a, list):
+        assert isinstance(b, list) and len(a) == len(b), path
+        for i, (x, y) in enumerate(zip(a, b)):
+            _assert_close(x, y, f"{path}[{i}]")
+    else:
+        assert a == b, path
+
+
 # ------------------------------------------------------------------ plan
 def test_plan_equals_study2_except_run_ids_and_seeds() -> None:
     p3, p2 = study3.build_plan(), study2.build_plan()
@@ -148,7 +165,10 @@ def test_study2_report_unchanged_by_generalization() -> None:
     summ = json.loads((d / "summary.json").read_text())
     assert render_markdown(summ) == (d / "RESULTS.md").read_text()
     both = json.loads(json.dumps(analyses(summ["runs"], summ["controls"])))
-    assert both["primary"] == summ["analysis"] and both["extended"] == summ["analysis_extended"]
+    # Floats are compared to 1e-9 relative: scipy's t/CI values differ in the last bits between macOS arm64
+    # (where the committed summary was produced) and Linux x86 CI. Structure, keys and strings must match exactly.
+    _assert_close(both["primary"], summ["analysis"])
+    _assert_close(both["extended"], summ["analysis_extended"])
     # plan unchanged
     p2 = study2.build_plan()
     assert list(p2) == [f"s2-src-{i}" for i in range(1, 11)]
