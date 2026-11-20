@@ -1,6 +1,11 @@
 """Study 2 report: primary outcome (Spider held-out after - before per run) against 0 and against the seven
 flash-proposer controls, secondary outcomes (evolve gain, accepted edits, money), from run files only.
 
+Two analyses (PREREG.md, Study 2 deviation 1): the **primary** analysis uses exactly the pre-registered runs
+s2-src-1..5 (study2.PRIMARY_RUNS) and is never replaced; the **extended** analysis (secondary, added after the
+n = 5 result was seen: optional stopping) uses every finished run of s2-src-1..10, against the same controls.
+summary.json: `analysis` is the primary analysis, `analysis_extended` the extended one.
+
     uv run python -m lamarck.experiments.study2_report            # runs/study2 -> results/study2
     uv run python -m lamarck.experiments.study2_report --root R --out O --spend-file F
 
@@ -27,9 +32,16 @@ LIMITATIONS = (
     "The controls (sql-src-1..7) ran earlier (2026-11-19) under the same protocol, splits and cached "
     "seed-harness evaluations; Study 2's runs were neither randomized against nor interleaved with them, so the "
     "two-sample comparison is not a randomized comparison (time, provider state and model versions may differ). "
-    "n is small (at most 5 vs 7), scores move in steps of 2.5 points on 40 held-out tasks, and the "
-    "repeat-evaluation noise of one harness at temperature 0 is of the same order (results/summary.json "
-    "`eval_variance`)."
+    "n is small (5, or at most 10 in the extended analysis, vs 7), scores move in steps of 2.5 points on 40 "
+    "held-out tasks, and the repeat-evaluation noise of one harness at temperature 0 is of the same order "
+    "(results/summary.json `eval_variance`). The extended analysis adds runs chosen after the primary result was "
+    "seen (optional stopping): its p-values are not confirmatory. Runs 1-5 ran on an EC2 Linux arm64 host and "
+    "runs 6-10 on macOS arm64 (colima), hours apart: host and batch are confounded (PREREG Study 2 deviation 1)."
+)
+PRIMARY_LABEL = "primary (pre-registered): runs s2-src-1..5"
+EXTENDED_LABEL = (
+    "extended (secondary, PREREG Study 2 deviation 1): runs s2-src-1..10 that finished; runs 6-10 were added "
+    "after the primary result was seen (optional stopping)"
 )
 
 
@@ -39,8 +51,12 @@ def _pts(x: float | None) -> float | None:
 
 def _row(r: dict[str, Any], rmb: float | None) -> dict[str, Any]:
     hs, he, es, ee = r.get("heldout_start"), r.get("heldout_end"), r.get("evolve_start"), r.get("evolve_end")
+    name = r.get("run_id") or r.get("run")
     return {
-        "run": r.get("run_id") or r.get("run"),
+        "run": name,
+        "batch": "primary"
+        if name in study2.PRIMARY_RUNS
+        else ("extension" if name in study2.EXTENSION_RUNS else None),
         "seed": r.get("seed"),
         "search_model": r.get("search_model"),
         "heldout_start": _pts(hs),
@@ -84,6 +100,36 @@ def analyse(study: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict
     return out
 
 
+def analyses(rows: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """The primary analysis (exactly study2.PRIMARY_RUNS, whatever else is in `rows`) and the extended one
+    (every row of the plan), each with the runs it is computed from and a label."""
+    by_run = {r["run"]: r for r in rows}  # rows in plan order, whatever the input order
+    prim = [by_run[n] for n in study2.PRIMARY_RUNS if n in by_run]
+    ext = [by_run[n] for n in study2.PRIMARY_RUNS + study2.EXTENSION_RUNS if n in by_run]
+    extension_only = [
+        by_run[n]["heldout_change"]
+        for n in study2.EXTENSION_RUNS
+        if n in by_run and by_run[n]["heldout_change"] is not None
+    ]
+    return {
+        "primary": {
+            "label": PRIMARY_LABEL,
+            "runs_analysed": [r["run"] for r in prim if r["heldout_change"] is not None],
+            **analyse(prim, controls),
+        },
+        "extended": {
+            "label": EXTENDED_LABEL,
+            "runs_analysed": [r["run"] for r in ext if r["heldout_change"] is not None],
+            **analyse(ext, controls),
+            # descriptive only: the extension batch on its own (no test)
+            "extension_runs_only": {
+                "values": extension_only,
+                "mean": statistics.fmean(extension_only) if extension_only else None,
+            },
+        },
+    }
+
+
 def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROLS_FILE) -> dict[str, Any]:
     spend = json.loads(spend_file.read_text()) if spend_file.exists() else {}
     by = spend.get("by", {})
@@ -112,6 +158,7 @@ def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROL
         for r in ctrl_src
         if r["run"] in study2.CONTROLS
     ]
+    both = analyses(rows, controls)
     agg = {
         "study": "Study 2: strong search model (PREREG.md)",
         "root": str(root),
@@ -119,7 +166,8 @@ def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROL
         "runs": rows,
         "controls": controls,
         "controls_source": f"{controls_file.name} key `source`",
-        "analysis": analyse(rows, controls),
+        "analysis": both["primary"],
+        "analysis_extended": both["extended"],
         "limitations": LIMITATIONS,
         "money": {
             "cap_rmb": spend.get("cap_rmb"),
@@ -130,6 +178,10 @@ def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROL
             "by_role": {k[5:]: v for k, v in sorted(by.items()) if k.startswith("role:")},
             "outside_runs": {
                 k[4:]: v["rmb"] for k, v in sorted(by.items()) if k.startswith("run:") and k[4:] not in plan
+            },
+            "by_batch_rmb": {
+                b: sum(by.get(f"run:{n}", {}).get("rmb", 0.0) for n in runs)
+                for b, runs in (("primary", study2.PRIMARY_RUNS), ("extension", study2.EXTENSION_RUNS))
             },
             "run_bound_rmb": study2.RUN_BOUND_RMB,
             "prices_rmb_per_million": spend.get("prices_rmb_per_million"),
@@ -145,30 +197,11 @@ def _f(x: Any, nd: int = 2) -> str:
     return "n/a" if x is None else f"{x:.{nd}f}"
 
 
-def render_markdown(agg: dict[str, Any]) -> str:
-    a = agg["analysis"]
+def _render_analysis(title: str, a: dict[str, Any]) -> list[str]:
     p = a["primary"]
     L = [
-        "# Study 2 results: strong search model (qwen4-max proposer and selector)",
-        "",
-        "Generated by `lamarck.experiments.study2_report` from run files; see PREREG.md, section Study 2.",
-        "",
-        "| run | seed | held-out before → after | change | evolve before → after | accepted | RMB | status |",
-        "|---|---|---|---|---|---|---|---|",
+        f"**{title}** (n = {a['n']}: {', '.join(a['runs_analysed']) or 'none'}): mean held-out change {_f(p['mean'])} points."
     ]
-    for r in agg["runs"]:
-        L.append(
-            f"| {r['run']} | {r['seed']} | {_f(r['heldout_start'], 1)} → {_f(r['heldout_end'], 1)} | "
-            f"{_f(r['heldout_change'], 1)} | {_f(r['evolve_start'], 1)} → {_f(r['evolve_end'], 1)} | "
-            f"{r['accepted'] if r['accepted'] is not None else 'n/a'} | {_f(r['rmb'], 3)} | "
-            f"{r.get('status', 'done')} |"
-        )
-    L += [
-        "",
-        f"Controls ({agg['controls_source']}): held-out changes {p['control_values']}, mean {_f(p['control_mean'])}.",
-        "",
-    ]
-    L.append(f"**Primary** (n = {a['n']}): mean held-out change {_f(p['mean'])} points.")
     o, t = p["one_sample_vs_0"], p["two_sample_vs_controls"]
     if o:
         L.append(
@@ -186,14 +219,55 @@ def render_markdown(agg: dict[str, Any]) -> str:
     if not o:
         L.append("- fewer than 2 finished runs: no test")
     s = a["secondary"]
-    m = agg["money"]
+    L.append(
+        f"- secondary: evolve change mean {_f(s['evolve_change_mean'])} (controls {_f(s['control_evolve_change_mean'])}); "
+        f"accepted edits {s['accepted']} (controls {s['control_accepted']})"
+    )
+    return L
+
+
+def render_markdown(agg: dict[str, Any]) -> str:
+    a = agg["analysis"]
+    p = a["primary"]
+    L = [
+        "# Study 2 results: strong search model (qwen4-max proposer and selector)",
+        "",
+        "Generated by `lamarck.experiments.study2_report` from run files; see PREREG.md, section Study 2.",
+        "",
+        "| run | batch | seed | held-out before → after | change | evolve before → after | accepted | RMB | status |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
+    for r in agg["runs"]:
+        L.append(
+            f"| {r['run']} | {r['batch']} | {r['seed']} | {_f(r['heldout_start'], 1)} → {_f(r['heldout_end'], 1)} | "
+            f"{_f(r['heldout_change'], 1)} | {_f(r['evolve_start'], 1)} → {_f(r['evolve_end'], 1)} | "
+            f"{r['accepted'] if r['accepted'] is not None else 'n/a'} | {_f(r['rmb'], 3)} | "
+            f"{r.get('status', 'done')} |"
+        )
     L += [
         "",
-        f"Secondary: evolve change mean {_f(s['evolve_change_mean'])} (controls {_f(s['control_evolve_change_mean'])}); "
-        f"accepted edits {s['accepted']} (controls {s['control_accepted']}).",
+        f"Controls ({agg['controls_source']}): held-out changes {p['control_values']}, mean {_f(p['control_mean'])}.",
         "",
+    ]
+    L += _render_analysis("Primary analysis (pre-registered; never replaced)", a)
+    L.append("")
+    if "analysis_extended" in agg:
+        x = agg["analysis_extended"]
+        L += _render_analysis(
+            "Extended analysis (secondary; PREREG Study 2 deviation 1: runs 6-10 added after the primary "
+            "result was seen, optional stopping, not confirmatory; runs 1-5 on EC2 Linux, 6-10 on macOS/colima)",
+            x,
+        )
+        e = x["extension_runs_only"]
+        L.append(
+            f"- descriptive, runs 6-10 alone: held-out changes {e['values']}, mean {_f(e['mean'])} (no test)"
+        )
+        L.append("")
+    m = agg["money"]
+    L += [
         f"Money: RMB {_f(m['spent_rmb'], 3)} of the RMB {_f(m['cap_rmb'])} Study 2 cap, {m['calls']} calls "
-        f"({m['failed']} failed); outside runs (API checks): {m['outside_runs'] or 'none'}.",
+        f"({m['failed']} failed); runs 1-5 RMB {_f(m['by_batch_rmb']['primary'], 3)}, runs 6-10 RMB "
+        f"{_f(m['by_batch_rmb']['extension'], 3)}; outside runs (API checks): {m['outside_runs'] or 'none'}.",
         "",
         f"Limitations: {agg['limitations']}",
         "",

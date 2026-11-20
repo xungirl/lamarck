@@ -220,3 +220,34 @@ def test_analysis_primary_and_secondary() -> None:
     assert p["two_sample_vs_controls"] == two_sample_summary([5.0, 2.5, 7.5], p["control_values"])
     assert a["secondary"]["accepted"] == [2, 1, 2, 0]
     assert analyse(study[:1], controls)["primary"]["one_sample_vs_0"] is None  # n < 2: no test
+
+
+def test_primary_analysis_uses_exactly_runs_1_to_5_and_extended_uses_all() -> None:
+    """PREREG Study 2 deviation 1: the n = 5 analysis stays the primary result whatever runs 6-10 show."""
+    from lamarck.experiments.study2_report import _row, analyse, analyses
+
+    assert tuple(f"s2-src-{i}" for i in range(1, 6)) == study2.PRIMARY_RUNS
+    plan = study2.build_plan()
+    assert [plan[n].cfg.seed for n in study2.PRIMARY_RUNS] == [11, 12, 13, 14, 15]
+    # held-out changes of the real runs 1-5, then extension runs that would move the mean a lot
+    vals = [0.0, 0.0, 5.0, 5.0, 2.5, -10.0, -10.0, None, 12.5, -7.5]
+    rows = []
+    for name, v in zip(plan, vals, strict=True):
+        r = {"run": name, "heldout_start": 0.8, "evolve_start": 0.8, "evolve_end": 0.9, "accepted": 1}
+        if v is not None:
+            r["heldout_end"] = 0.8 + v / 100
+        rows.append(_row(r, 1.1))
+    controls = [
+        {"heldout_change": x, "evolve_change": 5.0, "accepted": 1} for x in (-2.5, -2.5, -2.5, 2.5, 0, 0, 5)
+    ]
+    both = analyses(list(reversed(rows)), controls)  # order of the rows does not matter
+    prim, ext = both["primary"], both["extended"]
+    assert sorted(prim["runs_analysed"]) == sorted(study2.PRIMARY_RUNS)
+    assert sorted(prim["primary"]["values"]) == [0.0, 0.0, 2.5, 5.0, 5.0]
+    assert prim["n"] == 5 and prim["primary"]["mean"] == pytest.approx(2.5)
+    assert {k: v for k, v in prim.items() if k not in ("label", "runs_analysed")} == analyse(
+        [r for r in rows if r["run"] in study2.PRIMARY_RUNS], controls
+    )
+    assert ext["n"] == 9 and "s2-src-8" not in ext["runs_analysed"]  # unfinished: not analysed, not imputed
+    assert sorted(ext["extension_runs_only"]["values"]) == [-10.0, -10.0, -7.5, 12.5]
+    assert [r["batch"] for r in rows] == ["primary"] * 5 + ["extension"] * 5
