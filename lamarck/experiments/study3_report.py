@@ -68,6 +68,16 @@ def analysis(rows: list[dict[str, Any]], controls: list[dict[str, Any]]) -> dict
     }
 
 
+def stop_reasons(root: Path, status: dict[str, str]) -> dict[str, str]:
+    """state.json `stop_reason` (truncated) of every planned run that started but did not finish."""
+    out: dict[str, str] = {}
+    for name, st in status.items():
+        f = root / "runs" / name / "state.json"
+        if st not in ("done", "not run") and f.exists():
+            out[name] = str(json.loads(f.read_text()).get("stop_reason", ""))[:240]
+    return out
+
+
 def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROLS_FILE) -> dict[str, Any]:
     c = collect(study3, root, out, spend_file, controls_file, _batch)
     spend, by, plan = c["spend"], c["by"], c["plan"]
@@ -75,6 +85,7 @@ def build(root: Path, out: Path, spend_file: Path, controls_file: Path = CONTROL
         "study": "Study 3: confirmatory fixed-n replication of Study 2 (PREREG.md)",
         "root": str(root),
         "status": c["status"],
+        "stop_reasons": stop_reasons(root, c["status"]),
         "runs": c["rows"],
         "controls": c["controls"],
         "controls_source": f"{controls_file.name} key `source`",
@@ -144,6 +155,19 @@ def render_markdown(agg: dict[str, Any]) -> str:
         "",
         "Secondary (descriptive):",
     ]
+    stops = agg.get("stop_reasons") or {}
+    if stops:
+        L[L.index("Secondary (descriptive):") : L.index("Secondary (descriptive):")] = [
+            "Runs that started and did not finish (no endpoint, nothing imputed; state.json `stop_reason`):",
+            *[f"- {n} ({agg['status'][n]}): {why}" for n, why in stops.items()],
+            "",
+        ]
+    not_run = [n for n, st in agg["status"].items() if st == "not run"]
+    if not_run:
+        L[L.index("Secondary (descriptive):") : L.index("Secondary (descriptive):")] = [
+            f"Not launched: {', '.join(not_run)}.",
+            "",
+        ]
     if t:
         ci = t["ci95_welch"]
         L.append(

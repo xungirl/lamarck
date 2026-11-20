@@ -155,3 +155,19 @@ def test_study2_report_unchanged_by_generalization() -> None:
     assert [s.cfg.seed for s in p2.values()] == list(range(11, 21))
     assert {s.group for s in p2.values()} == {"s2-source"}
     assert [r["batch"] for r in summ["runs"]] == ["primary"] * 5 + ["extension"] * 5
+
+
+def test_stop_reasons_of_unfinished_runs(tmp_path: Path) -> None:
+    from lamarck.experiments.study3_report import stop_reasons
+
+    for name, st in (("s3-src-1", "done"), ("s3-src-5", "infra_error")):
+        d = tmp_path / "runs" / name
+        d.mkdir(parents=True)
+        (d / "state.json").write_text(json.dumps({"status": st, "stop_reason": "gateway 403: " + "x" * 500}))
+    status = {"s3-src-1": "done", "s3-src-5": "infra_error", "s3-src-8": "not run"}
+    got = stop_reasons(tmp_path, status)
+    assert (
+        list(got) == ["s3-src-5"]
+        and got["s3-src-5"].startswith("gateway 403")
+        and len(got["s3-src-5"]) == 240
+    )
