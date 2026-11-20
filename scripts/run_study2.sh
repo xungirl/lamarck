@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Study 2 (PREREG.md, "Study 2: strong search model"): 5 Spider source runs with qwen4-max as proposer and
-# selector, policy qwen3.8-flash, everything else as sql-src-1..7. One command:
+# Study 2 (PREREG.md, "Study 2: strong search model"): 10 Spider source runs (s2-src-1..5 pre-registered, 6..10
+# the extension of Study 2 deviation 1) with qwen4-max as proposer and selector, policy qwen3.8-flash, everything
+# else as sql-src-1..7. One command:
 #
-#   scripts/run_study2.sh              real run: API checks, seed-cache reuse, gateway, 5 runs behind the
-#                                      money gate (cap RMB 9.00, own ledger results/study2/budget/), report
+#   scripts/run_study2.sh              real run: API checks, seed-cache reuse, gateway, 10 runs behind the
+#                                      money gate (cap RMB 15.00, own ledger results/study2/budget/), report
 #   scripts/run_study2.sh --dry-run [DIR]
 #                                      the same steps offline in a temp root (or DIR): simulated upstream
 #                                      answering qwen3.8-flash / qwen4-max at real prices, subprocess sandbox,
