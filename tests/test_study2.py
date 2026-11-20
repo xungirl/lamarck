@@ -54,7 +54,7 @@ def test_separate_ledger_and_cap() -> None:
     f1, c1 = plan_money("rev3")
     f2, c2 = plan_money("study2")
     assert f1 != f2 and f2.parent.parent.name == "study2"
-    assert (c1, c2) == (9.50, 9.00)
+    assert (c1, c2) == (9.50, 15.00)  # Study 2: 9.00, raised to 15.00 by its deviation 1
 
 
 def test_run_bound_covers_high_estimate_and_gate_uses_it() -> None:
@@ -71,6 +71,10 @@ def test_run_bound_covers_high_estimate_and_gate_uses_it() -> None:
     assert money_gate(names, names[4:], [], e, done) == {names[4]}
     done["spent_rmb"] = 7.0
     assert money_gate(names, names[4:], [], e, done) == set()
+    # extension: runs 1-5 are done (RMB 5.624 spent, the real ledger before the extension); under the RMB
+    # 15.00 cap four of the five new runs fit at the bound at once, and finished runs are never pending
+    ext = {"cap_rmb": study2.SPEND_CAP_RMB, "spent_rmb": 5.624, "in_flight_rmb": 0.0, "by": {}}
+    assert money_gate(names, list(study2.EXTENSION_RUNS), [], e, ext) == set(study2.EXTENSION_RUNS[:4])
 
 
 # --------------------------------------------------------------- routing

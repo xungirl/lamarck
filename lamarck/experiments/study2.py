@@ -6,7 +6,8 @@ source runs of the revised plan (sql-src-1..7, `qwen3.8-flash` in every role), d
 Runs: s2-src-1..5, seeds 11-15 (the first study used 1-7; PREREG reserved 1-10), configuration identical to
 sql-src-i except run id, seed and search model (a test checks this). Extension (PREREG, Study 2 deviation 1):
 s2-src-6..10, seeds 16-20, added after the n = 5 result; runs 1-5 (PRIMARY_RUNS) stay the primary analysis. They live in their own experiment root
-(runs/study2) and spend from their own ledger (results/study2/budget/spend_ledger.json, cap RMB 9.00); the
+(runs/study2) and spend from their own ledger (results/study2/budget/spend_ledger.json, cap RMB 15.00 since
+the extension, RMB 9.00 before); the
 first study's ledger (RMB 9.50 cap) is never opened. The seed harness's evaluations on the two Spider sub-splits
 are taken from the first study's cache (same harness, policy model, split and rollout: `lamarck seed-cache`).
 
@@ -43,7 +44,7 @@ EXTENSION_RUNS = tuple(f"s2-src-{i}" for i in range(6, 11))
 CONTROLS = tuple(f"sql-src-{i}" for i in range(1, rev3.N_SQL_SOURCES + 1))
 GROUP = "s2-source"
 SPEND_FILE = REPO / "results" / "study2" / "budget" / "spend_ledger.json"
-SPEND_CAP_RMB = 9.00
+SPEND_CAP_RMB = 15.00  # PREREG Study 2 deviation 1 (was 9.00 for runs 1-5); same ledger file
 RUN_BOUND_RMB = 2.10  # conservative per-run cost bound used by the money gate (see estimate())
 EST_RMB: dict[str, float] = {GROUP: RUN_BOUND_RMB}
 UNFUNDED_GROUPS: set[str] = set()
