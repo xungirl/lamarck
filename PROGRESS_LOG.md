@@ -133,3 +133,14 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
   (pre-registered n = 10), or keep n = 5 as final. Either choice is now made after seeing the n = 5 result.
 - Key-leak scan clean (repo files, runs/study3, launcher log, git history, diff). colima stopped by the
   launcher's trap, `colima stop` confirmed; no leftover lamarck processes. Nothing pushed.
+
+## 2026-11-20 UTC (Study 3: completion to n = 10 after the provider top-up; disclosure before resuming)
+
+- The stop at n = 5 was a provider credit outage, not a choice. The user topped up DashScope and asked to
+  complete Study 3 to the pre-registered n = 10; that decision was made after the interim n = 5 result
+  (one-sided p = 0.026, "replicated" on n = 5) was visible. No rule changed (PREREG "Notes (Study 3)" item 1).
+- Before resuming: fixed a resume defect (665a281; `s3-src-5` was paused in its final held-out evaluation,
+  which a resume would have skipped, reporting 80.0 → 80.0); 41 cached evaluations in runs/study3 checked,
+  none provider-tainted; the interrupted held-out evaluation of `s3-src-5` was never cached; `s3-src-7`'s
+  sealed round-1 proposal s2 is reused, only the failed s1 call is repeated (same seed). Ledger entries,
+  state.json and heldout.jsonl of `s3-src-1,2,3,4,6` snapshotted to compare after the round.

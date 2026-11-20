@@ -431,3 +431,20 @@ than 0.
   guarantee is the RMB 15.00 cap. Consequence: the tenth run starts only if the runs before it leave room
   for its bound (at most RMB 12.90 spent and bound by running runs); at Study 2's mean cost n = 10 is
   expected.
+
+## Notes (Study 3)
+
+1. **2026-11-20 (UTC), after the interim n = 5 result had been seen, before any further Study 3 call:
+   completion to the pre-registered n = 10.** The run was stopped at 5 finished runs by a provider credit
+   outage (DashScope HTTP 403 `AccessDenied.Unpurchased` from 11:34:50 UTC, both models), not by choice:
+   `s3-src-5` and `s3-src-7` were paused (`infra_error`) and `s3-src-8..10` were never launched. The interim
+   result (n = 5, mean +3.5, one-sided p = 0.026; commit `dc5fd3c`) was visible when the user topped up the
+   account and decided to complete the study to the pre-registered n = 10. **No rule changes:** `s3-src-5`
+   and `s3-src-7` resume under the existing outage rule (same ids and seeds, evaluations that saw a provider
+   failure discarded, resume from the last completed round), `s3-src-8..10` launch behind the same money gate
+   (same ledger, cap RMB 15.00, bound RMB 2.10), finished runs `s3-src-1,2,3,4,6` are neither re-run nor
+   re-billed. The primary analysis is the pre-registered one over the runs of `s3-src-1..10` that finish,
+   with the pre-fixed verdict rule; the n = 5 numbers are reported only as an interim result. Before
+   resuming, a resume defect was fixed (commit `665a281`): a run paused in the held-out evaluation after its
+   last round (as `s3-src-5` was) would have reported its start score as its end; it now measures that point
+   on resume.
