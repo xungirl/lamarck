@@ -189,3 +189,103 @@ Budget caps (enforced in the gateway): ≤ 80,000 policy calls, ≤ 3,000 search
    100 + i) and code are those of pairs 1-3; the only code changes are the gate's headroom/bundling and
    the report's second table. The retrieval ablation keeps its pool of sources 1-3. No extra source
    seed beyond the pairs (estimated money after the pairs, RMB 0.71, is under headroom + RMB 1).
+
+---
+
+# Study 2: strong search model (separate follow-up study)
+
+Written and committed **2026-11-19, before any Study 2 run**: no Study 2 call has been made and no Study 2
+data exist (the code was exercised only offline, with a simulated upstream). Everything above, deviations 1-5
+included, belongs to the first study and is unchanged; so are its results. Study 2 has its own experiment
+root (`runs/study2`), its own spend ledger and cap, and its own result files (`results/study2/`). Deviations
+from this section will be appended below it, dated, as for the first study.
+
+## What had been seen when this was written
+
+- Revised plan (deviation 3), 7 Spider source runs `sql-src-1..7` with `qwen3.8-flash` as policy, proposer
+  and selector: held-out (`spider_heldout_s40`) 80.0 → 77.5, 77.5, 77.5, 82.5, 80.0, 80.0, 85.0, i.e. changes
+  −2.5, −2.5, −2.5, +2.5, 0, 0, +5.0 (mean 0.0, sd 2.89); evolve changes +3.3 to +10.0.
+- The one pre-revision source run with `qwen4-max` as proposer and selector (`sql-src-4` of `runs/main`:
+  full splits 60 / 120 tasks, N = 4, k = 3) went 81.7 → 86.7 on held-out. One run, other splits and horizon.
+- Hypothesis: the weak search model was the bottleneck.
+
+## Question
+
+With `qwen4-max` as proposer and selector and everything else identical to `sql-src-1..7`, does the Spider
+held-out score of a source run improve?
+
+## Design (fixed)
+
+- **Runs:** `s2-src-1` … `s2-src-5`, seeds **11, 12, 13, 14, 15** (the first study used 1-7 and reserved
+  1-10). Source RSI from the seed harness with an empty SIM that the run builds (memory `full`), as the controls.
+- **Identical to `sql-src-i`:** domain text2sql; splits `spider_evolve_s30` / `spider_heldout_s40`
+  (`data/splits/subsplits.json`, sha256 `c90fdbb1ebc563a999b1fa5834c75efd95e6d8ad14574952c4c9d8ebc9b1ae75`);
+  N = 3 rounds, k = 2 candidates; the deviation-2 rules (δ = max(1 · sd_null, 1/n), β1 = 40, w_c = 5); at
+  most 2 policy calls per task; per-run call caps (policy 9,000, proposer 40, selector 30, critic 10); one
+  rollout, rollout index 0; same engine, evaluator and sandbox code. `tests/test_study2.py` checks that each
+  configuration differs from `sql-src-1`'s only in run id, seed and search model.
+- **Policy:** `qwen3.8-flash` (DashScope), `enable_thinking=false`, temperature 0, seed 1234 (+ rollout),
+  max 2,048 output tokens: the controls' settings.
+- **Proposer and selector:** `qwen4-max` (DashScope, same key mechanism). Thinking **off**
+  (`enable_thinking=false`), as in the pre-revision `qwen4-max` run after deviation 1 and as the controls'
+  search roles. Proposer temperature 0.8, selector 0, **max_tokens 8,192** (the engine default used by both the
+  pre-revision run and the controls; 6 of 141 pre-revision `qwen4-max` proposer calls reached it).
+- **Seed-harness evaluations reused:** the cached evaluations of the seed harness (tree `685dca477777`) on
+  `spider_evolve_s30` (rollouts 0-2, the calibration) and `spider_heldout_s40` (rollout 0, the held-out start),
+  and their parent-split files, are copied from `runs/rev3` by `lamarck seed-cache` (exact cache key: domain,
+  split, policy model, harness tree, rollout; never overwriting). So every Study 2 run shares the controls'
+  starting measurements (evolve 83.3, held-out 80.0) and noise band. Evolved candidates are evaluated anew.
+- **Launch:** `scripts/run_study2.sh` (API check of both models, seed cache, gateway, scheduler with the money
+  gate, report). At most 3 runs at a time, launched in the order `s2-src-1..5`.
+
+## Endpoints and analysis (fixed)
+
+- **Primary outcome:** per run, held-out execution accuracy on `spider_heldout_s40` (40 tasks) of the harness
+  retained after round 3 minus that of the seed harness, in points.
+  1. vs 0: two-sided one-sample t-test with a 95% t interval, and the exact two-sided Wilcoxon signed-rank test
+     (zeros dropped, average ranks). With n = 5 the smallest attainable signed-rank p is 0.0625.
+  2. vs the 7 flash-proposer controls (their changes listed above, read from `results/summary.json`, key
+     `source`): two-sided Welch t-test with a 95% interval for the difference of means, and the exact two-sided
+     Mann-Whitney test (every split of the pooled values enumerated, average ranks for ties).
+  α = 0.05, no multiplicity correction. Reading rule: "held-out improved" only if the mean change is positive
+  and test 1's t-test gives p < 0.05; "better than the flash proposer" only if the mean difference is positive
+  and the Welch test gives p < 0.05. The rank tests are reported next to them as robustness checks.
+- **Secondary (descriptive):** evolve change (`spider_evolve_s30`), accepted edits per run, proposals and
+  proposal failures, RMB per run and in total, calls and tokens per role.
+- **Limitations, stated before any data:** the controls ran earlier (2026-11-19) and were not randomized
+  against or interleaved with Study 2's runs, so the comparison with them is not a randomized comparison (time,
+  provider state or model versions may differ); n is small (at most 5 vs 7); scores move in steps of 2.5
+  points on 40 tasks, and repeat evaluations of one harness at temperature 0 differ by about as much
+  (`results/summary.json`, `eval_variance`), so only a large effect (a mean change of roughly 4-5 points or
+  more, at the controls' sd) can reach significance; one model family, one benchmark, pilot-scale horizon.
+- **Rules:** no run is excluded after the fact. A run that stops (budget cap, failure) is reported with its
+  status; it has no endpoint and nothing is imputed. Provider failures pause a run (evaluations that saw one are
+  discarded) and it resumes, as in the first study. **n is the number of runs that finish**; the analysis uses
+  those runs, whatever their number (no test with fewer than 2).
+
+## Money (fixed)
+
+- **Cap:** RMB **9.00** for everything Study 2 calls (API checks included), in a separate ledger
+  `results/study2/budget/spend_ledger.json`, enforced by the gateway with worst-case reservations before each
+  call. The first study's ledger (`results/budget/`, RMB 9.50 cap, RMB 8.181 spent) is not opened.
+- **Prices (RMB per 1M tokens):** `qwen3.8-flash` 0.80 in / 2.70 out / 0.10 cached input (as before);
+  `qwen4-max` 10 in / 30 out, Alibaba Cloud Model Studio, China (Beijing),
+  help.aliyun.com/zh/model-studio/model-pricing, retrieved 2026-11-19; output includes thinking tokens; no
+  cached-input price was confirmed, so cached input is billed at the full input price; the free quota for new
+  models is ignored. Unknown models are refused (fail closed).
+- **Estimate** (`python -m lamarck.experiments.study2`, from `results/pre_revision/summary.json` and
+  `results/budget/spend_ledger.json`): `qwen4-max` per successful pre-revision call: proposer 4,932 prompt /
+  3,698 output tokens, selector 9,972 / 444; per control run 6-8 proposer and 3-5 selector calls (mean 6.9 and
+  4.0), policy RMB 0.069-0.103, doubled here because the pre-revision `qwen4-max` harness roughly doubled policy
+  tokens per task (477 → 936). Per run: **low RMB 1.29** (prompt sizes the flash search roles saw on these
+  sub-splits), **central RMB 1.72**, **high RMB 2.05** (maximum calls and policy cost); five runs RMB 6.5 /
+  8.6 / 10.3.
+- **Money gate (priority if money runs short):** runs launch in the order `s2-src-1..5`. A run is launched only
+  if cap − spent − in-flight reservations − Σ over running runs (RMB 2.10 − their spend so far) ≥ **RMB 2.10**,
+  the per-run bound (the high estimate rounded up). A run the gate never admits is reported as not run. After
+  any run ends in `budget_stop` no further run is launched. The bound is an estimate-based bound, not a hard
+  per-run cap; the hard guarantee is the RMB 9.00 cap. (A hard per-run cap was rejected: the gateway's worst-case
+  reservation, about RMB 0.4-0.6 per in-flight `qwen4-max` call because every character counts as a token and
+  8,192 output tokens are assumed, would stop runs well below their real cost.) Consequence: the fifth run
+  starts only if the first four spent at most RMB 6.90 (RMB 1.725 per run on average), so n = 5 is expected
+  under the low and central estimates and n = 4 under the high one.
