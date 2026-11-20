@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any
 
 from .ledger import BudgetExceeded, Ledger, Usage, pool_of
-from .providers import DashScopeProvider, FakeProvider, Router, UpstreamError, read_dotenv_key
+from .providers import DashScopeProvider, FakeProvider, Provider, Router, UpstreamError, read_dotenv_key
 from .ratelimit import TokenBucket
 from .spend import SpendLedger
 
@@ -294,12 +294,23 @@ def build_gateway(
     caps: dict[str, int] | None = None,
     spend_file: Path | None = None,
     spend_cap: float = 9.50,
+    simulate: str | None = None,
 ) -> Gateway:
+    """simulate: answer the real model names with lamarck.gateway.simulated (offline dry runs of a real plan,
+    priced and capped like real calls). Never together with a key file."""
     from .fakes import RESPONDERS
 
-    if keyfile is not None and spend_file is None:
+    if keyfile is not None and simulate is not None:
+        raise SystemExit("--simulate and --keyfile are mutually exclusive")
+    if (keyfile is not None or simulate is not None) and spend_file is None:
         raise SystemExit("refusing to start an upstream gateway without a spend ledger (--spend-file)")
-    upstream = DashScopeProvider(read_dotenv_key(keyfile, "DASHSCOPE_API_KEY")) if keyfile else None
+    upstream: Provider | None = None
+    if keyfile is not None:
+        upstream = DashScopeProvider(read_dotenv_key(keyfile, "DASHSCOPE_API_KEY"))
+    elif simulate is not None:
+        from .simulated import SimulatedDashScope
+
+        upstream = SimulatedDashScope(simulate)
     router = Router(upstream=upstream, fake=FakeProvider(RESPONDERS) if fake else None)
     cfg = GatewayConfig(
         model_rates={"qwen3.8-flash": 25.0, "deepseek-v4.1-flash": 10.0, "qwen4-max": 3.0}, default_rate=5.0
@@ -317,6 +328,12 @@ def main() -> None:
         "--keyfile", type=Path, default=None, help="dotenv file with DASHSCOPE_API_KEY (omit = offline)"
     )
     p.add_argument("--fake", action="store_true", help="enable deterministic fake-* models")
+    p.add_argument(
+        "--simulate",
+        choices=("text2sql", "toy"),
+        default=None,
+        help="offline dry run: simulated upstream answering the real model names (needs --spend-file)",
+    )
     p.add_argument("--host", default="0.0.0.0")
     p.add_argument("--port", type=int, default=8080)
     p.add_argument("--policy-cap", type=int, default=80_000)
@@ -331,9 +348,11 @@ def main() -> None:
         {"policy": a.policy_cap, "search": a.search_cap},
         spend_file=a.spend_file,
         spend_cap=a.spend_cap,
+        simulate=a.simulate,
     )
+    up = "on" if a.keyfile else (f"simulated:{a.simulate}" if a.simulate else "off")
     print(
-        f"lamarck gateway on {a.host}:{a.port} (upstream={'on' if a.keyfile else 'off'}, fake={a.fake})",
+        f"lamarck gateway on {a.host}:{a.port} (upstream={up}, fake={a.fake})",
         flush=True,
     )
     serve(gw, a.host, a.port).serve_forever()
