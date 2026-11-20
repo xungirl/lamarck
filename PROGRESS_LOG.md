@@ -105,3 +105,31 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
 - Report regenerated, README Study 2 paragraph extended. Key-leak scan: key value in no repo file, no git
   history, no diff, not in the launcher log. Gateway container removed and colima stopped by the launcher's
   trap; `colima stop` confirmed; no leftover gateway/eval processes. Nothing pushed.
+
+## 2026-11-20 UTC (Study 3: confirmatory replication, local macOS run, stopped by the provider at 5 of 10)
+
+- PREREG.md "Study 3" committed (3eb9e66) before `runs/study3` existed: `s3-src-1..10`, seeds 21-30, config =
+  Study 2's except run ids and seeds; fixed n (no runs added after results; no re-runs except under the outage
+  rule); primary one-sided one-sample t vs 0, α = 0.05; verdict "replicated" / "not replicated"; own ledger
+  `results/study3/budget/spend_ledger.json`, cap RMB 15.00, gate bound RMB 2.10/run.
+- Code (separate commits): `study2.source_plan` shared plan builder; one-sided t and exact signed-rank in
+  `stats`; `study2_report.collect` (Study 2 output byte-identical: regenerated `results/study2` diffs clean,
+  and a test re-renders the committed RESULTS.md / analyses exactly); `study3.py`, `study3_report.py`,
+  `--plan study3` in CLI and api_check; launcher `scripts/run_study.sh PLAN` with `run_study2.sh` /
+  `run_study3.sh` wrappers; `tests/test_study3.py`. `make ci` green (115 tests); `make dryrun-study2` and
+  `make dryrun-study3` green (10/10 simulated runs each).
+- 11:24 UTC `LAMARCK_KEYFILE=<file outside the repo> scripts/run_study3.sh`: colima started, gVisor `runsc`
+  registered by the script, API check HTTP 200 for qwen3.8-flash and qwen4-max (RMB 0.0004), seed-cache from
+  runs/rev3. Runs 1-3 started, 4-7 as runs finished (gate held 8-10 at first: 7 bounds fit).
+- 11:34:50 UTC first upstream HTTP 403 `AccessDenied.Unpurchased` (account credit, both models): `s3-src-5`
+  (in its final held-out evaluation, discarded) and `s3-src-7` (round 1 proposer) ended `infra_error`; the
+  scheduler stopped launching; `s3-src-8..10` never started. Per the instruction (stop on 403/billing, no
+  retry), nothing was resumed. 18 failed calls, all 403, all in those two runs; the five finished runs had 0.
+- Finished n = 5 (`s3-src-1,2,3,4,6`): held-out changes 0, +2.5, +5.0, +2.5, +7.5, mean +3.5; one-sided
+  t(4) = 2.75, p = 0.026; two-sided p = 0.052, 95% CI [−0.04, 7.04]; signed-rank p 0.125 two-sided / 0.0625
+  one-sided. Rule verdict on n = 5: **replicated**. Secondary: vs controls Welch p = 0.067, Mann-Whitney
+  p = 0.068; evolve mean +7.3 (controls +7.1). RMB 7.862 of 15.00, 1,325 calls.
+- Open decision for the user: top up and resume `s3-src-5`/`s3-src-7` (outage rule) and launch `s3-src-8..10`
+  (pre-registered n = 10), or keep n = 5 as final. Either choice is now made after seeing the n = 5 result.
+- Key-leak scan clean (repo files, runs/study3, launcher log, git history, diff). colima stopped by the
+  launcher's trap, `colima stop` confirmed; no leftover lamarck processes. Nothing pushed.
