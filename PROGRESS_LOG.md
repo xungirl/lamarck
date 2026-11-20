@@ -56,3 +56,25 @@ repository comes from a run on this machine (Apple M2, 8 cores, 24 GB, macOS; co
 - 04:36 colima start, gVisor re-registered, API check HTTP 200; 04:37-04:51 pairs 4-7 all `done`.
   Spend: RMB 8.181 total (RMB 2.797 this round), 7,563 calls, 0 failed. Extra source seed skipped
   (RMB 1.32 left, below headroom + RMB 1). Gateway removed, colima stopped.
+
+## 2026-11-19 (Study 2 prepared, not run)
+
+- Follow-up requested: does a strong search model help? First drafted with DeepSeek `deepseek-v4-pro` as the
+  search model; the plan changed to Qwen only before any code was committed, so no DeepSeek upstream,
+  off-peak guard or DeepSeek API check exists in the repository.
+- PREREG.md, new section "Study 2: strong search model", committed before any Study 2 run: `qwen4-max`
+  proposer and selector (thinking off, max_tokens 8,192, as in the pre-revision run), `qwen3.8-flash` policy,
+  `s2-src-1..5` (seeds 11-15) with the protocol of `sql-src-1..7`; primary outcome held-out change per run vs
+  0 and vs the 7 controls; cap RMB 9.00 in `results/study2/budget/spend_ledger.json`; gate bound RMB 2.10/run.
+- Cost estimate from the ledgers (`python -m lamarck.experiments.study2`): RMB 1.29 / 1.72 / 2.05 per run
+  (low / central / high), RMB 6.5 / 8.6 / 10.3 for five runs; n = 4 is possible under the high estimate.
+- Code: qwen4-max price (RMB 10 / 30 per 1M, no cache discount); `--plan study2` in the CLI; `seed-cache`
+  (copies the seed harness's 8 cache files from runs/rev3: evolve_s30 r0-2 = 83.3 / 86.7 / 80.0, held-out_s40
+  r0 = 80.0, plus parent-split files); simulated DashScope upstream (`gateway.server --simulate`);
+  `scripts/api_check.py --plan study2`; `lamarck.experiments.study2_report`; `scripts/run_study2.sh`.
+- Offline only, zero real LLM calls: `make ci` green (105 tests); `scripts/run_study2.sh --dry-run`
+  (`make dryrun-study2`) ran the launcher end to end in a temp root in ~70 s: 5/5 runs done, seed evaluations
+  reused byte for byte, simulated spend under the cap, report written. `make test-docker` not run (no
+  sandbox or container code changed); Docker/colima not started.
+- To run it: put `DASHSCOPE_API_KEY=...` in ./.env (or point `$LAMARCK_KEYFILE` at a file), then
+  `scripts/run_study2.sh`. Resume = the same command. Results: `results/study2/`. Nothing pushed.
